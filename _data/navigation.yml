@@ -1,10 +1,10 @@
 # main links links
 main:
   - title: "Publications"
-    url: /_pages/pubs.html
+    url: /_pages/pubs.md
     
   - title: "CV"
     url: /files/tom_mccoy_cv_060118.pdf
     
   - title: "Contact"
-    url: /_pages/contact.html
+    url: /_pages/contact.md
