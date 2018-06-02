@@ -1,7 +1,7 @@
 # main links links
 main:
   - title: "Publications"
-    url: /publications/
+    url: /_pages/pubs.md
     
   - title: "CV"
     url: /files/tom_mccoy_cv_060118.pdf
