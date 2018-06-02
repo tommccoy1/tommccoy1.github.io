@@ -1,5 +1,4 @@
 ---
-title: "Research"
 permalink: /pubs/
 author_profile: true
 redirect_from:
