@@ -1,3 +1,12 @@
+---
+permalink: /_pages/pubs.md
+title: 
+excerpt: "About me"
+author_profile: true
+redirect_from: 
+  - /pubs.html
+---
+
 # 2018
 
 **R. Thomas McCoy**, Robert Frank, and Tal Linzen. 2018. Revisiting the poverty of
