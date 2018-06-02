@@ -1,13 +1,15 @@
 ---
-permalink: /_pages/pubs.md
-title: 
-excerpt: "About me"
+layout: archive
+title: "Research"
+permalink: /pubs/
 author_profile: true
-redirect_from: 
-  - /pubs.html
+redirect_from:
+  - /pubs
 ---
 
-# 2018888
+{% include base_path %}
+
+# 2018
 
 **R. Thomas McCoy**, Robert Frank, and Tal Linzen. 2018. Revisiting the poverty of
 the stimulus: hierarchical generalization without a hierarchical bias in recurrent
