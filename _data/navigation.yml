@@ -7,4 +7,4 @@ main:
     url: /files/tom_mccoy_cv_060118.pdf
     
   - title: "Contact"
-    url: /_pages/contact.md
+    url: /contact/
