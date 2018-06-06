@@ -30,7 +30,7 @@ Tag parsing with neural networks and vector representations of supertags. In
 *Proceedings of the 2017 Conference on Empirical Methods in Natural Language
 Processing*, pages 1712-1722.
 
-Dan Friedman*, Jungo Kasai*, **R. Thomas McCoy**\*, Robert Frank, Forrest Davis,
+Dan Friedman\*, Jungo Kasai\*, **R. Thomas McCoy**\*, Robert Frank, Forrest Davis,
 Owen Rambow. Linguistically Rich Vector Representations of Supertags for TAG
 Parsing. In *Proceedings of the 13th International Workshop on Tree Adjoining
 Grammars and Related Formalisms*, pages 122-131.  
