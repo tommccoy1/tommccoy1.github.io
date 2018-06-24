@@ -46,10 +46,25 @@
 
 </head>
 <body>
+	<p> Here is a friendly little paragraph</p>
+<div class="container">
+	<img src="neutral.jpg" alt="Image of the dress" max-width="100%" class="neutral" id="neutral_image">
+	<img src="black_and_blue.jpg" alt="Black and blue image of the dress" max-width="100%" class="black_blue" id="bb_image">
+	<img src="white_and_gold.jpg" alt="White and gold image of the dress" max-width="100%" class="white_gold" id="wg_image">
+</div>
+
+<br>
+
+<div class="slidecontainer">
+	<input type="range" min="0" max="100" value="50" class="slider" id="blue_yellow_range">
+</div>
+
+<p> Value: <span id="demo"></span></p>
 
 <button id="light_btn" onclick="light()">Toggle Light</button>
 <button id="blue_btn" onclick="myMove(0)">Show Blue</button>
 <button id="gold_btn" onclick="myMove(1)">Show Gold</button>
+<button id="sim_btn" onclick="start_simulation()">Start Simulation</button>
 
 
 <div id="animate_container">
@@ -96,28 +111,81 @@
 	</div>
 </div>
 
-<p>The other aspect of the man's experience that we will discuss is the types of dresses he has seen before. Click "Add Dress Dispenser" to insert an apparatus that will show him dresses of the appropriate colors.</p>
+<div id="bayes_box">
+<div id="lhs" onmouseover="changeColor(this);reveal(posterior_explain)" onmouseout="normalColor(this);hide(posterior_explain)">
+<p>p(A|B)</p>
+</div>
 
-<button onclick="dispenser()">Add Dress Dispenser</button>
+<div id="eq_sign">
+<p>=</p>
+</div>
 
-<p>Click "Show Blue" and "Show Gold" to try showing the man a dress of each color.</p>
+<div id="rhs">
+<div id="likelihood" onmouseover="changeColor(this);reveal(likelihood_explain)" onmouseout="normalColor(this);hide(likelihood_explain)">
+<p>p(B|A)</p>
+</div>
 
-<form action="dress_lighting.html">
-    <input type="submit" value="Previous" />
-</form>
+<div id="prior" onmouseover="changeColor(this);reveal(prior_explain)" onmouseout="normalColor(this);hide(prior_explain)">
+<p>p(A)</p>
+</div>
+<div id="z" onmouseover="changeColor(this);reveal(z_explain)" onmouseout="normalColor(this);hide(z_explain)">
+<p>p(B)</p>
+</div>
+
+<div id="fraction_line">
+	<img src="black_line.png" width="100%" height="100%">
+</div>
+
+</div>
+</div>
+
+<div id="explain_boxes">
+<div id="posterior_explain" class="explain_box">
+	<p>This is the posterior</p>
+</div>
 
 
+<div id="likelihood_explain" class="explain_box">
+	<p>This is the likelihood</p>
+</div>
 
-<form action="dress_full_sim.html">
-    <input type="submit" value="Next" />
-</form>
 
-<p>Image sources: The image of the man is from Microsoft PowerPoint's free image gallery. The curtain image and the frame image are from openclipart.com, whose images are all free for commercial use: https://openclipart.org/detail/267170/curtains-2 https://openclipart.org/detail/183498/cool-asian-frame</p>
+<div id="prior_explain" class="explain_box">
+	<p>This is the prior</p>
+</div>
+
+
+<div id="z_explain" class="explain_box">
+	<p>This is the z</p>
+</div>
+</div>
+
+<div class="wrapper">
+<h1>Stopwatch</h1>
+<h2>Vanilla JavaScript Stopwatch</h2>
+<button id="button-start_y">Start</button>
+<button id="button-stop_y">Stop</button>
+<button id="button-reset_y">Reset</button>
+</div> 
+
+
+<div class="wrapper">
+<h1>Stopwatch</h1>
+<h2>Vanilla JavaScript Stopwatch</h2>
+<button id="button-start_b">Start</button>
+<button id="button-stop_b">Stop</button>
+<button id="button-reset_b">Reset</button>
+</div> 
+
+
 
 <script>
 var sim_started = 0;
 var blue_counter = 1;
 var gold_counter = 1;
+var slider = document.getElementById("blue_yellow_range");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
 var total_blue = 0;
 var total_gold = 0;
 
@@ -128,14 +196,14 @@ document.getElementById("seconds_y").innerHTML = "";
 
 
 
-tl_1.style.opacity = 0.0;
+tl_1.style.opacity = 1.0;
 animate_blue_1.style.top = 0;
 animate_blue_2.style.top = 0;
 animate_blue_3.style.top = 0;
 animate_blue_4.style.top = 0;
 animate_blue_5.style.top = 0;
 
-tr_1.style.opacity = 0.0;
+tr_1.style.opacity = 1.0;
 animate_gold_1.style.top = 0;
 animate_gold_2.style.top = 0;
 animate_gold_3.style.top = 0;
@@ -143,23 +211,21 @@ animate_gold_4.style.top = 0;
 animate_gold_5.style.top = 0;
 
 
-yellow_pentagon.style.opacity = 0.3;
-blue_pentagon.style.opacity = 0.0;
-
-blue_catcher.style.opacity = 0.0;
-gold_catcher.style.opacity = 0.0;
-blue_box.style.opacity = 0.0;
-gold_box.style.opacity = 0.0;
-
-function dispenser() {
-	blue_catcher.style.opacity = 1;
-	gold_catcher.style.opacity = 1;
-	tl_1.style.opacity = 1;
-	tr_1.style.opacity = 1;
-	blue_box.style.opacity = 1;
-	gold_box.style.opacity = 1;
+slider.oninput = function() {
+	output.innerHTML = this.value;
+	if (this.value >= 50) {
+		document.getElementById("neutral_image").style.opacity = 1 - ((this.value - 50) / 50);
+		document.getElementById("bb_image").style.opacity = (this.value - 50) / 50;
+		document.getElementById("wg_image").style.opacity = 0.0;
+	} else {
+		document.getElementById("neutral_image").style.opacity = 1 - ((50 - this.value) / 50);
+		document.getElementById("bb_image").style.opacity = 0.0;
+		document.getElementById("wg_image").style.opacity = (50 - this.value) / 50;
+	}	
 }
 
+yellow_pentagon.style.opacity = 0.3;
+blue_pentagon.style.opacity = 0.0;
 
 function start_simulation() {
 

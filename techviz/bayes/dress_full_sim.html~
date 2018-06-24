@@ -523,12 +523,12 @@
 <button id="prev7" onclick="p6.style.opacity = 1;p7.style.opacity = 0;p6.style.zIndex = 100;p7.style.zIndex=90;">Previous</button>
 
 
-
-</div>
-</div>
-
-
 <p>Image sources: The image of the man is from Microsoft PowerPoint's free image gallery. The curtain image and the frame image are from openclipart.com, whose images are all free for commercial use: https://openclipart.org/detail/267170/curtains-2 https://openclipart.org/detail/183498/cool-asian-frame. The image of the dress is owned by Buzzfeed, from whom permission for use is pending.</p>
+
+</div>
+</div>
+
+
 
 <script>
 

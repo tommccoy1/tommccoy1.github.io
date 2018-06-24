@@ -112,7 +112,6 @@
     <input type="submit" value="Next" />
 </form>
 
-<p>Image sources: The image of the man is from Microsoft PowerPoint's free image gallery. The curtain image and the frame image are from openclipart.com, whose images are all free for commercial use: https://openclipart.org/detail/267170/curtains-2 https://openclipart.org/detail/183498/cool-asian-frame</p>
 
 <script>
 var sim_started = 0;
