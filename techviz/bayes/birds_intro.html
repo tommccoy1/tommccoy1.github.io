@@ -595,9 +595,16 @@
 </div>
 
 <div style="text-indent:6em"><span id="raven_p" onmouseover="blank();highlight('raven');" onmouseout="unhighlight();" style="text-indent:6em">Raven</span>
+
 <span style="text-indent:8em">
-	<span id="raven1_p" onmouseover="blank();light('raven_1');" onmouseout="unhighlight();">1</span><span id="raven2_p" onmouseover="blank();light('raven_2');" onmouseout="unhighlight();">2</span><span id="raven3_p" onmouseover="blank();light('raven_3');" onmouseout="unhighlight();">3</span><span id="raven4_p" onmouseover="blank();light('raven_4');" onmouseout="unhighlight();">4</span><span id="raven5_p" onmouseover="blank();light('raven_5');" onmouseout="unhighlight();">5</span></span>
+                <span id="raven1_p" onmouseover="blank();light('raven_1');" onmouseout="unhighlight();">1</span>
+		<span id="raven2_p" onmouseover="blank();light('raven_2');" onmouseout="unhighlight();">2</span>
+		<span id="raven3_p" onmouseover="blank();light('raven_3');" onmouseout="unhighlight();">3</span>
+		<span id="raven4_p" onmouseover="blank();light('raven_4');" onmouseout="unhighlight();">4</span>
+		<span id="raven5_p" onmouseover="blank();light('raven_5');" onmouseout="unhighlight();">5</span>
+</span>
 </div>
+
 
 
 <div id="fish_p" onmouseover="blank();highlight('clownfish');highlight('shark');highlight('tuna');" onmouseout="unhighlight();" style="text-indent:4em">Fish</div>
@@ -1150,10 +1157,10 @@
 		"goldfinch6": goldfinch6,
 		"raven": raven,
 		"raven1": raven1,
-		"raven1": raven2,
-		"raven1": raven3,
-		"raven1": raven4,
-		"raven1": raven5,
+		"raven2": raven2,
+		"raven3": raven3,
+		"raven4": raven4,
+		"raven5": raven5,
 		"clownfish":clownfish,
 		"clownfish1": clownfish1,
 		"clownfish2": clownfish2,
@@ -1817,12 +1824,12 @@ var global_demo_name = 0;
 
 
 
-			for (lm = 1; lm < current_extension.length + 1; lm++) {
-				this_name = current_extension[lm-1].slice();
-				document.getElementById(current_extension[lm-1].slice(0,-4)).onclick = function () {chosen_image = this.id + ".jpg"; show_image_learner(); }
-				document.getElementById(current_extension[lm-1].slice(0,-4)).onmouseover = function () {this.style.opacity = 0.7;}	
-				document.getElementById(current_extension[lm-1].slice(0,-4)).onmouseout = function () {this.style.opacity = 1.0;} 
-				document.getElementById(current_extension[lm-1].slice(0,-4)).style.opacity = 1.0;
+			for (lmno = 1; lmno < current_extension.length + 1; lmno++) {
+				this_name = current_extension[lmno-1].slice();
+				document.getElementById(current_extension[lmno-1].slice(0,-4)).onclick = function () {chosen_image = this.id + ".jpg"; show_image_learner(); }
+				document.getElementById(current_extension[lmno-1].slice(0,-4)).onmouseover = function () {this.style.opacity = 0.7;}	
+				document.getElementById(current_extension[lmno-1].slice(0,-4)).onmouseout = function () {this.style.opacity = 1.0;} 
+				document.getElementById(current_extension[lmno-1].slice(0,-4)).style.opacity = 1.0;
      
      			}
 		}
@@ -2144,12 +2151,6 @@ function light(some_elt) {
 function highlight(some_class) {
 
 
-//	for (var this_class = 0; this_class < classes.length; this_class++) {
-//		var class_set = document.getElementsByClassName(classes[this_class]);
-//		for (var i = 0; i < class_set.length; i++) {
-//			class_set[i].style.opacity = 0.1;	
-//		}		
-//	}
 	
 	var class_set = document.getElementsByClassName(some_class);
 	for (var i = 0; i < class_set.length; i++) {
