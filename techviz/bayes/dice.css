@@ -1,0 +1,56 @@
+
+
+#dice_grid {
+	position: relative;
+	width: 612px;
+	height: 612px;
+	border-style: solid;
+}
+
+.die {
+	position: relative;
+	float: left;
+	width: 100px;
+	height: 100px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.die_box {
+	margin: 0 auto;
+	height: 50%;
+	width: 100%;
+	top: 25px;
+}
+
+.die_box_2 {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.die_img {
+	height: 90%;
+	width: 90%;
+	margin: auto 0;
+}
+
+.left_die {
+	height: 40px;
+	width: 40px;
+	top: 30px;
+	left: 5px;
+	position: absolute;
+}
+
+.right_die {
+	height: 40px;
+	width: 40px;
+	top: 30px;
+	right: 5px;
+	position: absolute;
+}
+
+
+
+
