@@ -1,10 +1,15 @@
 
+#text_block {
+	width: 400px;
+	display: inline-block;
+}
 
 #dice_grid {
 	position: relative;
 	width: 612px;
 	height: 612px;
 	border-style: solid;
+	display: inline-block;
 }
 
 .die {

@@ -63,6 +63,8 @@
 
 </div>
 
+<div id="text_block">
+
 <p>Basic probability</p>
 
 <p>Event space: The set of all possible outcomes. In this case, there are 36 possible rolls of the two dice.</p>
@@ -75,7 +77,9 @@
 
 <p>Based on this definition, fill in values for the following probabilities (remember that hovering over the name highlights the relevant region of the event space):</p>
 
-<p>p(32), p(contains a 5), p(> 8)</p>
+<p>p(<span onmouseover="select('d32');">32</span>), p(<span onmouseover="select('dc5');">contains a 5</span>), p(<span onmouseover="select('dg8');">> 8</span>)</p>
+</div>
+
 
 <script>
 
@@ -132,7 +136,7 @@ var dc1 = d11.concat(d12, d13, d14, d15, d16, d21, d31, d41, d51, d61);
 var dc2 = d21.concat(d22, d23, d24, d25, d26, d12, d32, d42, d52, d62);
 var dc3 = d31.concat(d32, d33, d34, d35, d36, d13, d23, d43, d53, d63);
 var dc4 = d41.concat(d42, d43, d44, d45, d46, d14, d24, d34, d54, d64);
-var dc5 = d51.concat(d52, d52, d54, d55, d56, d15, d25, d35, d45, d65);
+var dc5 = d51.concat(d52, d53, d54, d55, d56, d15, d25, d35, d45, d65);
 var dc6 = d61.concat(d62, d63, d64, d65, d66, d16, d26, d36, d46, d56);
 var dl3 = d11;
 var dl4 = d3s.concat(dl3);
@@ -237,6 +241,7 @@ function select(div_id) {
 	var all_dice = document.getElementsByClassName("die");
 	for (i = 0; i<all_dice.length; i++) {
 		all_dice[i].style.opacity = 0.1;
+		all_dice[i].style.background = "white";
 	}
 	
 	for (i = 0; i<id_to_var[div_id].length; i++) {
@@ -246,7 +251,7 @@ function select(div_id) {
 
 }
 
-select("odd");
+//select("odd");
 
 
 
