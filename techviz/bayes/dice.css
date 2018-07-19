@@ -1,13 +1,21 @@
 
 #text_block {
-	width: 400px;
-	display: inline-block;
+	height: 500px;
+	position: absolute;
+	left: 620px;
+}
+
+#grid_container {
+	position: fixed;
+	top: 0;
+	height: 400px;
+	width: 600px;
+	z-index: 100;
 }
 
 #dice_grid {
-	position: relative;
-	width: 612px;
-	height: 612px;
+	width: 492px;
+	height: 492px;
 	border-style: solid;
 	display: inline-block;
 }
@@ -15,10 +23,11 @@
 .die {
 	position: relative;
 	float: left;
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 	border-style: solid;
 	border-width: 1px;
+	z-index: 10;
 }
 
 .die_box {
@@ -41,21 +50,104 @@
 }
 
 .left_die {
-	height: 40px;
-	width: 40px;
-	top: 30px;
-	left: 5px;
+	height: 32px;
+	width: 32px;
+	top: 24px;
+	left: 4px;
 	position: absolute;
+	z-index: 10;
 }
 
 .right_die {
-	height: 40px;
-	width: 40px;
-	top: 30px;
-	right: 5px;
+	height: 32px;
+	width: 32px;
+	top: 24px;
+	right: 4px;
 	position: absolute;
+	z-index: 10;
 }
 
 
+/* Dropdown Button */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+    position: relative;
+    display: inline-block;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    width: 360px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    z-index: 100;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd; z-index: 100;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+.button_group {
+	display: inline-block;
+	width: 400px;
+	height: 400px;
+}
+
+.blue_box {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0.0;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+}
+
+.yellow_box {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0.0;
+	top: 0px;
+	left: 0px;
+	z-index: 4;
+}
+
+#prob_choices {
+	position: absolute;
+	display: inline-block;
+	height: 500px;
+	width: 100px;
+}
 
 
