@@ -34,641 +34,1144 @@
 	<div id="a_1" class="speaker">
 	
 	<div class="praat">
-		<audio  id="a_plant_1"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		<audio  id="medicine"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
 		  <source src="medicine.wav" type="audio/wav">
 		    Your browser does not support the audio element.
 	</audio>	
 	<div>"Medicine"</div>
 	<div class="time_slider">
 	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_1')" onmousemove="mod_yellow(event, 'a_plant_1')" onmouseup="end_yellow(event, 'a_plant_1')" onmouseout="end_yellow(event, 'a_plant_1')" ></div>
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'medicine')" onmousemove="mod_yellow(event, 'medicine')" onmouseup="end_yellow(event, 'medicine')" onmouseout="end_yellow(event, 'madison')" ></div>
 	</div>
 	
-	<div id="a_plant_1_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_blue(event, 'a_plant_1')" onmousemove="mod_yellow(event, 'a_plant_1')" onmouseup="end_yellow(event, 'a_plant_1')" onmouseout="end_yellow(event, 'a_plant_1')" ></div>
+	<div id="medicine_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'medicine')" onmousemove="change_blue(event, 'medicine')" onmouseup="end_blue(event, 'medicine')" onmouseout="end_blue(event, 'medicine')" ></div>
 
-	<img draggable="false" class="bl" src="blue_rect.png" id="a_plant_1_bl">
-	<img draggable="false" id="a_plant_1_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_1_pic" src="medicine.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_1_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="medicine_bl">
+	<img draggable="false" id="medicine_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="medicine_pic" src="medicine.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="medicine_yb">
 	</div>
-	<button onclick="play_selection('a_plant_1')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_plant_1').currentTime = 0;document.getElementById('a_plant_1').play();">Play entire clip</button>
-	<div>Duration of highlighted portion: <span id="a_plant_1_dur">0</span> seconds </div>
+	<button onclick="play_selection('medicine')">Play highlighted portion</button>
+	<button onclick="document.getElementById('medicine').currentTime = 0;document.getElementById('medicine').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="medicine_dur">0</span> Hertz </div>
 	</div>
 	
 
 	<div class="praat">
-		<audio  id="a_planet_1"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		<audio  id="madison"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
 		  <source src="madison.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	
+	</audio>	
 	<div>"Madison"</div>
-	<div id="a_planet_1_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_1')" onmousemove="mod_yellow(event, 'a_planet_1')" onmouseup="end_yellow(event, 'a_planet_1')" onmouseout="end_yellow(event, 'a_planet_1')" ></div>
-	<img draggable="false" id="a_planet_1_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_1_pic" src="madison.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_1_yb">
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'madison')" onmousemove="mod_yellow(event, 'madison')" onmouseup="end_yellow(event, 'madison')" onmouseout="end_yellow(event, 'madison')" ></div>
 	</div>
-	<button onclick="play_selection('a_planet_1')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_1').currentTime = 0;document.getElementById('a_planet_1').play();">Play entire clip</button>
-	<div>Duration of highlighted portion: <span id="a_planet_1_dur">0</span> seconds </div>
+	
+	<div id="madison_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'madison')" onmousemove="change_blue(event, 'madison')" onmouseup="end_blue(event, 'madison')" onmouseout="end_blue(event, 'madison')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="madison_bl">
+	<img draggable="false" id="madison_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="madison_pic" src="madison.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="madison_yb">
 	</div>
+	<button onclick="play_selection('madison')">Play highlighted portion</button>
+	<button onclick="document.getElementById('madison').currentTime = 0;document.getElementById('madison').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="madison_dur">0</span> Hertz </div>
 	</div>
+
+
+	</div>
+
+
 	
 	<div id="a_2" class="speaker">
-	<div class="name">American speaker 2</div>
-	<div class="praat">
-		<audio  id="a_plant_2"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_2.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-
-	<div>"Plant a tree"</div>
-	<div id="a_plant_2_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_2')" onmousemove="mod_yellow(event, 'a_plant_2')" onmouseup="end_yellow(event, 'a_plant_2')" onmouseout="end_yellow(event, 'a_plant_2')" ></div>
-	<img draggable="false" id="a_plant_2_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_2_pic" src="a_plant_2.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_2_yb">
-	</div>
-	<button onclick="play_selection('a_plant_2')">Play highlighted portion</button>	
-	<button onclick="document.getElementById('a_plant_2').currentTime = 0;document.getElementById('a_plant_2').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_2_dur">0</span> seconds </div>
-	</div>
 
 
 	<div class="praat">
-		<audio  id="a_planet_2"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_2.wav" type="audio/wav">
+		<audio  id="celery"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="celery.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
+	</audio>	
+	<div>"Celery"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'celery')" onmousemove="mod_yellow(event, 'celery')" onmouseup="end_yellow(event, 'celery')" onmouseout="end_yellow(event, 'celery')" ></div>
+	</div>
 	
-	<div>"Planetary"</div>
-	<div id="a_planet_2_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_2')" onmousemove="mod_yellow(event, 'a_planet_2')" onmouseup="end_yellow(event, 'a_planet_2')" onmouseout="end_yellow(event, 'a_planet_2')" ></div>
-	<img draggable="false" id="a_planet_2_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_2_pic" src="a_planet_2.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_2_yb">
-	</div>
-	<button onclick="play_selection('a_planet_2')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_2').currentTime = 0;document.getElementById('a_planet_2').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_2_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="celery_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'celery')" onmousemove="change_blue(event, 'celery')" onmouseup="end_blue(event, 'celery')" onmouseout="end_blue(event, 'celery')" ></div>
 
-	<div id="a_3" class="speaker">
-	<div class="name">American speaker 3</div>
-	<div class="praat">
-		<audio  id="a_plant_3"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_3.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_3_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_3')" onmousemove="mod_yellow(event, 'a_plant_3')" onmouseup="end_yellow(event, 'a_plant_3')" onmouseout="end_yellow(event, 'a_plant_3')" ></div>
-	<img draggable="false" id="a_plant_3_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_3_pic" src="a_plant_3.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_3_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="celery_bl">
+	<img draggable="false" id="celery_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="celery_pic" src="celery.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="celery_yb">
 	</div>
-	<button onclick="play_selection('a_plant_3')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_plant_3').currentTime = 0;document.getElementById('a_plant_3').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_3_dur">0</span> seconds </div>
+	<button onclick="play_selection('celery')">Play highlighted portion</button>
+	<button onclick="document.getElementById('celery').currentTime = 0;document.getElementById('celery').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="celery_dur">0</span> Hertz </div>
 	</div>
 
 
 
 
 	<div class="praat">
-		<audio  id="a_planet_3"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_3.wav" type="audio/wav">
+		<audio  id="salary"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="salary.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
+	</audio>	
+	<div>"Salary"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'salary')" onmousemove="mod_yellow(event, 'salary')" onmouseup="end_yellow(event, 'salary')" onmouseout="end_yellow(event, 'salary')" ></div>
+	</div>
 	
-	<div>"Planetary"</div>
-	<div id="a_planet_3_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_3')" onmousemove="mod_yellow(event, 'a_planet_3')" onmouseup="end_yellow(event, 'a_planet_3')" onmouseout="end_yellow(event, 'a_planet_3')" ></div>
-	<img draggable="false" id="a_planet_3_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_3_pic" src="a_planet_3.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_3_yb">
-	</div>
-	<button onclick="play_selection('a_planet_3')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_3').currentTime = 0;document.getElementById('a_planet_3').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_3_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="salary_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'salary')" onmousemove="change_blue(event, 'salary')" onmouseup="end_blue(event, 'salary')" onmouseout="end_blue(event, 'salary')" ></div>
 
-	<div id="a_4" class="speaker">
-	<div class="name">American speaker 4</div>
-	<div class="praat">
-		<audio  id="a_plant_4"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_4.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_4_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_4')" onmousemove="mod_yellow(event, 'a_plant_4')" onmouseup="end_yellow(event, 'a_plant_4')" onmouseout="end_yellow(event, 'a_plant_4')" ></div>
-	<img draggable="false" id="a_plant_4_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_4_pic" src="a_plant_4.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_4_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="salary_bl">
+	<img draggable="false" id="salary_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="salary_pic" src="salary.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="salary_yb">
 	</div>
-	<button onclick="play_selection('a_plant_4')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_plant_4').currentTime = 0;document.getElementById('a_plant_4').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_4_dur">0</span> seconds </div>
+	<button onclick="play_selection('salary')">Play highlighted portion</button>
+	<button onclick="document.getElementById('salary').currentTime = 0;document.getElementById('salary').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="salary_dur">0</span> Hertz </div>
 	</div>
 
 
+
+
+
+	</div>
+
+
+
+	
+	<div id="a_2" class="speaker">
 
 
 	<div class="praat">
-		<audio  id="a_planet_4"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_4.wav" type="audio/wav">
+		<audio  id="peddling"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="peddling.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
+	</audio>	
+	<div>"Pedaling"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'peddling')" onmousemove="mod_yellow(event, 'peddling')" onmouseup="end_yellow(event, 'peddling')" onmouseout="end_yellow(event, 'peddling')" ></div>
+	</div>
 	
-	<div>"Planetary"</div>
-	<div id="a_planet_4_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_4')" onmousemove="mod_yellow(event, 'a_planet_4')" onmouseup="end_yellow(event, 'a_planet_4')" onmouseout="end_yellow(event, 'a_planet_4')" ></div>
-	<img draggable="false" id="a_planet_4_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_4_pic" src="a_planet_4.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_4_yb">
-	</div>
-	<button onclick="play_selection('a_planet_4')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_4').currentTime = 0;document.getElementById('a_planet_4').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_4_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="peddling_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'peddling')" onmousemove="change_blue(event, 'peddling')" onmouseup="end_blue(event, 'peddling')" onmouseout="end_blue(event, 'peddling')" ></div>
 
-	<div id="a_5" class="speaker">
-	<div class="name">American speaker 5</div>
-	<div class="praat">
-		<audio  id="a_plant_5"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_5.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_5_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_5')" onmousemove="mod_yellow(event, 'a_plant_5')" onmouseup="end_yellow(event, 'a_plant_5')" onmouseout="end_yellow(event, 'a_plant_5')" ></div>
-	<img draggable="false" id="a_plant_5_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_5_pic" src="a_plant_5.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_5_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="peddling_bl">
+	<img draggable="false" id="peddling_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="peddling_pic" src="peddling.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="peddling_yb">
 	</div>
-	<button onclick="play_selection('a_plant_5')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_plant_5').currentTime = 0;document.getElementById('a_plant_5').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_5_dur">0</span> seconds </div>
-	</div>
-	
-
-
-
-	<div class="praat">
-		<audio  id="a_planet_5"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_5.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	
-	<div>"Planetary"</div>
-	<div id="a_planet_5_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_5')" onmousemove="mod_yellow(event, 'a_planet_5')" onmouseup="end_yellow(event, 'a_planet_5')" onmouseout="end_yellow(event, 'a_planet_5')" ></div>
-	<img draggable="false" id="a_planet_5_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_5_pic" src="a_planet_5.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_5_yb">
-	</div>
-	<button onclick="play_selection('a_planet_5')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_5').currentTime = 0;document.getElementById('a_planet_5').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_5_dur">0</span> seconds </div>
-	</div>
-	</div>
-
-	<div id="a_6" class="speaker">
-	<div class="name">American speaker 6</div>
-	<div class="praat">
-		<audio  id="a_plant_6"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_6.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_6_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_6')" onmousemove="mod_yellow(event, 'a_plant_6')" onmouseup="end_yellow(event, 'a_plant_6')" onmouseout="end_yellow(event, 'a_plant_6')" ></div>
-	<img draggable="false" id="a_plant_6_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_6_pic" src="a_plant_6.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_6_yb">
-	</div>
-	<button onclick="play_selection('a_plant_6')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_plant_6').currentTime = 0;document.getElementById('a_plant_6').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_6_dur">0</span> seconds </div>
+	<button onclick="play_selection('peddling')">Play highlighted portion</button>
+	<button onclick="document.getElementById('peddling').currentTime = 0;document.getElementById('peddling').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="peddling_dur">0</span> Hertz </div>
 	</div>
 
 
 
 
 	<div class="praat">
-		<audio  id="a_planet_6"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_6.wav" type="audio/wav">
+		<audio  id="paddling"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="paddling.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	
-	<div>"Planetary"</div>
-	<div id="a_planet_6_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_6')" onmousemove="mod_yellow(event, 'a_planet_6')" onmouseup="end_yellow(event, 'a_planet_6')" onmouseout="end_yellow(event, 'a_planet_6')" ></div>
-	<img draggable="false" id="a_planet_6_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_6_pic" src="a_planet_6.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_6_yb">
+	</audio>	
+	<div>"Paddling"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'paddling')" onmousemove="mod_yellow(event, 'paddling')" onmouseup="end_yellow(event, 'paddling')" onmouseout="end_yellow(event, 'paddling')" ></div>
 	</div>
-	<button onclick="play_selection('a_planet_6')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_6').currentTime = 0;document.getElementById('a_planet_6').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="a_planet_6_dur">0</span> seconds </div>
+	<div id="paddling_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'paddling')" onmousemove="change_blue(event, 'paddling')" onmouseup="end_blue(event, 'paddling')" onmouseout="end_blue(event, 'paddling')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="paddling_bl">
+	<img draggable="false" id="paddling_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="paddling_pic" src="paddling.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="paddling_yb">
 	</div>
+	<button onclick="play_selection('paddling')">Play highlighted portion</button>
+	<button onclick="document.getElementById('paddling').currentTime = 0;document.getElementById('paddling').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="paddling_dur">0</span> Hertz </div>
 	</div>
 
-
-	<div id="a_7" class="speaker">
-	<div class="name">American speaker 7</div>
-	<div class="praat">
-		<audio  id="a_plant_7"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_7.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_7_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_7')" onmousemove="mod_yellow(event, 'a_plant_7')" onmouseup="end_yellow(event, 'a_plant_7')" onmouseout="end_yellow(event, 'a_plant_7')" ></div>
-	<img draggable="false" id="a_plant_7_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_7_pic" src="a_plant_7.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_7_yb">
-	</div>
-	<button onclick="play_selection('a_plant_7')">Play highlighted portion</button>	<button onclick="document.getElementById('a_plant_7').currentTime = 0;document.getElementById('a_plant_7').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_7_dur">0</span> seconds </div>
 	</div>
 
+	<div id="a_2" class="speaker">
 
 
 	<div class="praat">
-		<audio  id="a_planet_7"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_7.wav" type="audio/wav">
+		<audio  id="lettuce"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="lettuce.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
+	</audio>	
+	<div>"Lettuce"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'lettuce')" onmousemove="mod_yellow(event, 'lettuce')" onmouseup="end_yellow(event, 'lettuce')" onmouseout="end_yellow(event, 'lettuce')" ></div>
+	</div>
 	
-	<div>"Planetary"</div>
-	<div id="a_planet_7_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_7')" onmousemove="mod_yellow(event, 'a_planet_7')" onmouseup="end_yellow(event, 'a_planet_7')" onmouseout="end_yellow(event, 'a_planet_7')" ></div>
-	<img draggable="false" id="a_planet_7_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_7_pic" src="a_planet_7.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_7_yb">
-	</div>
-	<button onclick="play_selection('a_planet_7')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_7').currentTime = 0;document.getElementById('a_planet_7').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_7_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="lettuce_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'lettuce')" onmousemove="change_blue(event, 'lettuce')" onmouseup="end_blue(event, 'lettuce')" onmouseout="end_blue(event, 'lettuce')" ></div>
 
-	<div id="a_8" class="speaker">
-	<div class="name">American speaker 8</div>
-	
-	<div class="praat">
-		<audio  id="a_plant_8"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_8.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="a_plant_8_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_8')" onmousemove="mod_yellow(event, 'a_plant_8')" onmouseup="end_yellow(event, 'a_plant_8')" onmouseout="end_yellow(event, 'a_plant_8')" ></div>
-	<img draggable="false" id="a_plant_8_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_8_pic" src="a_plant_8.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_8_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="lettuce_bl">
+	<img draggable="false" id="lettuce_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="lettuce_pic" src="lettuce.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="lettuce_yb">
 	</div>
-	<button onclick="play_selection('a_plant_8')">Play highlighted portion</button>	
-	<button onclick="document.getElementById('a_plant_8').currentTime = 0;document.getElementById('a_plant_8').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_plant_8_dur">0</span> seconds </div>
-	</div>
-
-
-
-	<div class="praat">
-		<audio  id="a_planet_8"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_planet_8.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="a_planet_8_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_planet_8')" onmousemove="mod_yellow(event, 'a_planet_8')" onmouseup="end_yellow(event, 'a_planet_8')" onmouseout="end_yellow(event, 'a_planet_8')" ></div>
-	<img draggable="false" id="a_planet_8_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_planet_8_pic" src="a_planet_8.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="a_planet_8_yb">
-	</div>
-	<button onclick="play_selection('a_planet_8')">Play highlighted portion</button>
-	<button onclick="document.getElementById('a_planet_8').currentTime = 0;document.getElementById('a_planet_8').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="a_planet_8_dur">0</span> seconds </div>
-	</div>
-	</div>
-	</div>
-
-	<div>Speakers of British English</div>
-
-	<div id="b_1" class="speaker">
-	<div class="name">British speaker 1</div>
-	<div class="praat">
-		<audio  id="b_plant_1"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_1.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_1_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_1')" onmousemove="mod_yellow(event, 'b_plant_1')" onmouseup="end_yellow(event, 'b_plant_1')" onmouseout="end_yellow(event, 'b_plant_1')" ></div>
-	<img draggable="false" id="b_plant_1_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_1_pic" src="b_plant_1.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_1_yb">
-	</div>
-	<button onclick="play_selection('b_plant_1')">Play highlighted portion</button>	
-	<button onclick="document.getElementById('b_plant_1').currentTime = 0;document.getElementById('b_plant_1').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_1_dur">0</span> seconds </div>
-	</div>
-
-
-
-	<div class="praat">
-		<audio  id="b_planet_1"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_1.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_1_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_1')" onmousemove="mod_yellow(event, 'b_planet_1')" onmouseup="end_yellow(event, 'b_planet_1')" onmouseout="end_yellow(event, 'b_planet_1')" ></div>
-	<img draggable="false" id="b_planet_1_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_1_pic" src="b_planet_1.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_1_yb">
-	</div>
-	<button onclick="play_selection('b_planet_1')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_1').currentTime = 0;document.getElementById('b_planet_1').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_planet_1_dur">0</span> seconds </div>
-	</div>
-	</div>
-
-	<div id="b_2" class="speaker">
-	<div class="name">British speaker 2</div>
-	<div class="praat">
-		<audio  id="b_plant_2"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_2.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_2_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_2')" onmousemove="mod_yellow(event, 'b_plant_2')" onmouseup="end_yellow(event, 'b_plant_2')" onmouseout="end_yellow(event, 'b_plant_2')" ></div>
-	<img draggable="false" id="b_plant_2_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_2_pic" src="b_plant_2.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_2_yb">
-	</div>
-	<button onclick="play_selection('b_plant_2')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_2').currentTime = 0;document.getElementById('b_plant_2').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_2_dur">0</span> seconds </div>
+	<button onclick="play_selection('lettuce')">Play highlighted portion</button>
+	<button onclick="document.getElementById('lettuce').currentTime = 0;document.getElementById('lettuce').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="lettuce_dur">0</span> Hertz </div>
 	</div>
 
 
 
 
 	<div class="praat">
-		<audio  id="b_planet_2"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_2.wav" type="audio/wav">
+		<audio  id="lattice"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="lattice.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_2_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_2')" onmousemove="mod_yellow(event, 'b_planet_2')" onmouseup="end_yellow(event, 'b_planet_2')" onmouseout="end_yellow(event, 'b_planet_2')" ></div>
-	<img draggable="false" id="b_planet_2_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_2_pic" src="b_planet_2.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_2_yb">
+	</audio>	
+	<div>"Lattice"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'lattice')" onmousemove="mod_yellow(event, 'lattice')" onmouseup="end_yellow(event, 'lattice')" onmouseout="end_yellow(event, 'lattice')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_2')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_2').currentTime = 0;document.getElementById('b_planet_2').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_2_dur">0</span> seconds </div>
+	<div id="lattice_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'lattice')" onmousemove="change_blue(event, 'lattice')" onmouseup="end_blue(event, 'lattice')" onmouseout="end_blue(event, 'lattice')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="lattice_bl">
+	<img draggable="false" id="lattice_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="lattice_pic" src="lattice.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="lattice_yb">
 	</div>
+	<button onclick="play_selection('lattice')">Play highlighted portion</button>
+	<button onclick="document.getElementById('lattice').currentTime = 0;document.getElementById('lattice').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="lattice_dur">0</span> Hertz </div>
 	</div>
 
-	<div id="b_3" class="speaker">
-	<div class="name">British speaker 3</div>
-	<div class="praat">
-		<audio  id="b_plant_3"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_3.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_3_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_3')" onmousemove="mod_yellow(event, 'b_plant_3')" onmouseup="end_yellow(event, 'b_plant_3')" onmouseout="end_yellow(event, 'b_plant_3')" ></div>
-	<img draggable="false" id="b_plant_3_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_3_pic" src="b_plant_3.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_3_yb">
-	</div>
-	<button onclick="play_selection('b_plant_3')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_3').currentTime = 0;document.getElementById('b_plant_3').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_3_dur">0</span> seconds </div>
 	</div>
 
-
+	<div id="a_2" class="speaker">
 
 
 	<div class="praat">
-		<audio  id="b_planet_3"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_3.wav" type="audio/wav">
+		<audio  id="adept"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="adept.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_3_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_3')" onmousemove="mod_yellow(event, 'b_planet_3')" onmouseup="end_yellow(event, 'b_planet_3')" onmouseout="end_yellow(event, 'b_planet_3')" ></div>
-	<img draggable="false" id="b_planet_3_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_3_pic" src="b_planet_3.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_3_yb">
+	</audio>	
+	<div>"Adept"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'adept')" onmousemove="mod_yellow(event, 'adept')" onmouseup="end_yellow(event, 'adept')" onmouseout="end_yellow(event, 'adept')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_3')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_3').currentTime = 0;document.getElementById('b_planet_3').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_3_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="adept_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'adept')" onmousemove="change_blue(event, 'adept')" onmouseup="end_blue(event, 'adept')" onmouseout="end_blue(event, 'adept')" ></div>
 
-	<div id="b_4" class="speaker">
-	<div class="name">British speaker 4</div>
-	<div class="praat">
-		<audio  id="b_plant_4"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_4.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_4_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_4')" onmousemove="mod_yellow(event, 'b_plant_4')" onmouseup="end_yellow(event, 'b_plant_4')" onmouseout="end_yellow(event, 'b_plant_4')" ></div>
-	<img draggable="false" id="b_plant_4_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_4_pic" src="b_plant_4.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_4_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="adept_bl">
+	<img draggable="false" id="adept_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="adept_pic" src="adept.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="adept_yb">
 	</div>
-	<button onclick="play_selection('b_plant_4')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_4').currentTime = 0;document.getElementById('b_plant_4').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_4_dur">0</span> seconds </div>
+	<button onclick="play_selection('adept')">Play highlighted portion</button>
+	<button onclick="document.getElementById('adept').currentTime = 0;document.getElementById('adept').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="adept_dur">0</span> Hertz </div>
 	</div>
 
 
 
 
 	<div class="praat">
-		<audio  id="b_planet_4"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_4.wav" type="audio/wav">
+		<audio  id="adapt"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="adapt.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_4_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_4')" onmousemove="mod_yellow(event, 'b_planet_4')" onmouseup="end_yellow(event, 'b_planet_4')" onmouseout="end_yellow(event, 'b_planet_4')" ></div>
-	<img draggable="false" id="b_planet_4_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_4_pic" src="b_planet_4.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_4_yb">
+	</audio>	
+	<div>"Adapt"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'adapt')" onmousemove="mod_yellow(event, 'adapt')" onmouseup="end_yellow(event, 'adapt')" onmouseout="end_yellow(event, 'adapt')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_4')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_4').currentTime = 0;document.getElementById('b_planet_4').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_4_dur">0</span> seconds </div>
+	<div id="adapt_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'adapt')" onmousemove="change_blue(event, 'adapt')" onmouseup="end_blue(event, 'adapt')" onmouseout="end_blue(event, 'adapt')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="adapt_bl">
+	<img draggable="false" id="adapt_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="adapt_pic" src="adapt.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="adapt_yb">
 	</div>
+	<button onclick="play_selection('adapt')">Play highlighted portion</button>
+	<button onclick="document.getElementById('adapt').currentTime = 0;document.getElementById('adapt').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="adapt_dur">0</span> Hertz </div>
 	</div>
 
-	<div id="b_5" class="speaker">
-	<div class="name">British speaker 5</div>
-	<div class="praat">
-		<audio  id="b_plant_5"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_5.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_5_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_5')" onmousemove="mod_yellow(event, 'b_plant_5')" onmouseup="end_yellow(event, 'b_plant_5')" onmouseout="end_yellow(event, 'b_plant_5')" ></div>
-	<img draggable="false" id="b_plant_5_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_5_pic" src="b_plant_5.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_5_yb">
-	</div>
-	<button onclick="play_selection('b_plant_5')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_5').currentTime = 0;document.getElementById('b_plant_5').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_5_dur">0</span> seconds </div>
 	</div>
 
+	<div id="a_2" class="speaker">
 
 
 	<div class="praat">
-		<audio  id="b_planet_5"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_5.wav" type="audio/wav">
+		<audio  id="reddish"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="reddish.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_5_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_5')" onmousemove="mod_yellow(event, 'b_planet_5')" onmouseup="end_yellow(event, 'b_planet_5')" onmouseout="end_yellow(event, 'b_planet_5')" ></div>
-	<img draggable="false" id="b_planet_5_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_5_pic" src="b_planet_5.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_5_yb">
+	</audio>	
+	<div>"Reddish"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'reddish')" onmousemove="mod_yellow(event, 'reddish')" onmouseup="end_yellow(event, 'reddish')" onmouseout="end_yellow(event, 'reddish')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_5')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_5').currentTime = 0;document.getElementById('b_planet_5').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_5_dur">0</span> seconds </div>
-	</div>
-	</div>
+	<div id="reddish_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'reddish')" onmousemove="change_blue(event, 'reddish')" onmouseup="end_blue(event, 'reddish')" onmouseout="end_blue(event, 'reddish')" ></div>
 
-
-	<div id="b_6" class="speaker">
-	<div class="name">British speaker 6</div>
-	<div class="praat">
-		<audio  id="b_plant_6"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_6.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_6_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_6')" onmousemove="mod_yellow(event, 'b_plant_6')" onmouseup="end_yellow(event, 'b_plant_6')" onmouseout="end_yellow(event, 'b_plant_6')" ></div>
-	<img draggable="false" id="b_plant_6_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_6_pic" src="b_plant_6.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_6_yb">
+	<img draggable="false" class="bl" src="blue_rect.png" id="reddish_bl">
+	<img draggable="false" id="reddish_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="reddish_pic" src="reddish.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="reddish_yb">
 	</div>
-	<button onclick="play_selection('b_plant_6')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_6').currentTime = 0;document.getElementById('b_plant_6').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_6_dur">0</span> seconds </div>
+	<button onclick="play_selection('reddish')">Play highlighted portion</button>
+	<button onclick="document.getElementById('reddish').currentTime = 0;document.getElementById('reddish').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="reddish_dur">0</span> Hertz </div>
 	</div>
 
 
 
 
 	<div class="praat">
-		<audio  id="b_planet_6"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_6.wav" type="audio/wav">
+		<audio  id="radish"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="radish.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_6_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_6')" onmousemove="mod_yellow(event, 'b_planet_6')" onmouseup="end_yellow(event, 'b_planet_6')" onmouseout="end_yellow(event, 'b_planet_6')" ></div>
-	<img draggable="false" id="b_planet_6_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_6_pic" src="b_planet_6.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_6_yb">
+	</audio>	
+	<div>"Radish"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'radish')" onmousemove="mod_yellow(event, 'radish')" onmouseup="end_yellow(event, 'radish')" onmouseout="end_yellow(event, 'radish')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_6')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_6').currentTime = 0;document.getElementById('b_planet_6').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_6_dur">0</span> seconds </div>
+	<div id="radish_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'radish')" onmousemove="change_blue(event, 'radish')" onmouseup="end_blue(event, 'radish')" onmouseout="end_blue(event, 'radish')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="radish_bl">
+	<img draggable="false" id="radish_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="radish_pic" src="radish.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="radish_yb">
 	</div>
+	<button onclick="play_selection('radish')">Play highlighted portion</button>
+	<button onclick="document.getElementById('radish').currentTime = 0;document.getElementById('radish').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="radish_dur">0</span> Hertz </div>
 	</div>
 
-	<div id="b_7" class="speaker">
-	<div class="name">British speaker 7</div>
-	<div class="praat">
-		<audio  id="b_plant_7"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_plant_7.wav" type="audio/wav">
-		    Your browser does not support the audio element.
-	</audio>
-	<div>"Plant a tree"</div>
-	<div id="b_plant_7_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_plant_7')" onmousemove="mod_yellow(event, 'b_plant_7')" onmouseup="end_yellow(event, 'b_plant_7')" onmouseout="end_yellow(event, 'b_plant_7')" ></div>
-	<img draggable="false" id="b_plant_7_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_plant_7_pic" src="b_plant_7.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_plant_7_yb">
-	</div>
-	<button onclick="play_selection('b_plant_7')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_plant_7').currentTime = 0;document.getElementById('b_plant_7').play();">Play entire clip</button>
-	
-	<div>Duration of highlighted portion: <span id="b_plant_7_dur">0</span> seconds </div>
 	</div>
 
+	<div id="a_2" class="speaker">
 
 
 	<div class="praat">
-		<audio  id="b_planet_7"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="b_planet_7.wav" type="audio/wav">
+		<audio  id="pellet"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="pellet.wav" type="audio/wav">
 		    Your browser does not support the audio element.
-	</audio>
-	<div>"Planetary"</div>
-	<div id="b_planet_7_img" class="img_box">
-	<div class="transparent_cover" onmousedown="change_yellow(event, 'b_planet_7')" onmousemove="mod_yellow(event, 'b_planet_7')" onmouseup="end_yellow(event, 'b_planet_7')" onmouseout="end_yellow(event, 'b_planet_7')" ></div>
-	<img draggable="false" id="b_planet_7_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="b_planet_7_pic" src="b_planet_7.png">
-	<img draggable="false" class="yb" src="yellow_box.png" id="b_planet_7_yb">
+	</audio>	
+	<div>"Pellet"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'pellet')" onmousemove="mod_yellow(event, 'pellet')" onmouseup="end_yellow(event, 'pellet')" onmouseout="end_yellow(event, 'pellet')" ></div>
 	</div>
-	<button onclick="play_selection('b_planet_7')">Play highlighted portion</button>
-	<button onclick="document.getElementById('b_planet_7').currentTime = 0;document.getElementById('b_planet_7').play();">Play entire clip</button>
 	
-	<div>Duration of highlighted portion: <span id="b_planet_7_dur">0</span> seconds </div>
+	<div id="pellet_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'pellet')" onmousemove="change_blue(event, 'pellet')" onmouseup="end_blue(event, 'pellet')" onmouseout="end_blue(event, 'pellet')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="pellet_bl">
+	<img draggable="false" id="pellet_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="pellet_pic" src="pellet.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="pellet_yb">
 	</div>
+	<button onclick="play_selection('pellet')">Play highlighted portion</button>
+	<button onclick="document.getElementById('pellet').currentTime = 0;document.getElementById('pellet').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="pellet_dur">0</span> Hertz </div>
 	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="palate"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="palate.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Palate"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'palate')" onmousemove="mod_yellow(event, 'palate')" onmouseup="end_yellow(event, 'palate')" onmouseout="end_yellow(event, 'palate')" ></div>
+	</div>
+	
+	<div id="palate_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'palate')" onmousemove="change_blue(event, 'palate')" onmouseup="end_blue(event, 'palate')" onmouseout="end_blue(event, 'palate')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="palate_bl">
+	<img draggable="false" id="palate_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="palate_pic" src="palate.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="palate_yb">
+	</div>
+	<button onclick="play_selection('palate')">Play highlighted portion</button>
+	<button onclick="document.getElementById('palate').currentTime = 0;document.getElementById('palate').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="palate_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="trekking"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="trekking.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Trekking"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'trekking')" onmousemove="mod_yellow(event, 'trekking')" onmouseup="end_yellow(event, 'trekking')" onmouseout="end_yellow(event, 'trekking')" ></div>
+	</div>
+	
+	<div id="trekking_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'trekking')" onmousemove="change_blue(event, 'trekking')" onmouseup="end_blue(event, 'trekking')" onmouseout="end_blue(event, 'trekking')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="trekking_bl">
+	<img draggable="false" id="trekking_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="trekking_pic" src="trekking.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="trekking_yb">
+	</div>
+	<button onclick="play_selection('trekking')">Play highlighted portion</button>
+	<button onclick="document.getElementById('trekking').currentTime = 0;document.getElementById('trekking').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="trekking_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="tracking"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="tracking.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Tracking"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'tracking')" onmousemove="mod_yellow(event, 'tracking')" onmouseup="end_yellow(event, 'tracking')" onmouseout="end_yellow(event, 'tracking')" ></div>
+	</div>
+	
+	<div id="tracking_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'tracking')" onmousemove="change_blue(event, 'tracking')" onmouseup="end_blue(event, 'tracking')" onmouseout="end_blue(event, 'tracking')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="tracking_bl">
+	<img draggable="false" id="tracking_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="tracking_pic" src="tracking.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="tracking_yb">
+	</div>
+	<button onclick="play_selection('tracking')">Play highlighted portion</button>
+	<button onclick="document.getElementById('tracking').currentTime = 0;document.getElementById('tracking').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="tracking_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="left"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="left.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Left"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'left')" onmousemove="mod_yellow(event, 'left')" onmouseup="end_yellow(event, 'left')" onmouseout="end_yellow(event, 'left')" ></div>
+	</div>
+	
+	<div id="left_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'left')" onmousemove="change_blue(event, 'left')" onmouseup="end_blue(event, 'left')" onmouseout="end_blue(event, 'left')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="left_bl">
+	<img draggable="false" id="left_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="left_pic" src="left.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="left_yb">
+	</div>
+	<button onclick="play_selection('left')">Play highlighted portion</button>
+	<button onclick="document.getElementById('left').currentTime = 0;document.getElementById('left').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="left_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="laughed"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="laughed.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Laughed"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'laughed')" onmousemove="mod_yellow(event, 'laughed')" onmouseup="end_yellow(event, 'laughed')" onmouseout="end_yellow(event, 'laughed')" ></div>
+	</div>
+	
+	<div id="laughed_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'laughed')" onmousemove="change_blue(event, 'laughed')" onmouseup="end_blue(event, 'laughed')" onmouseout="end_blue(event, 'laughed')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="laughed_bl">
+	<img draggable="false" id="laughed_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="laughed_pic" src="laughed.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="laughed_yb">
+	</div>
+	<button onclick="play_selection('laughed')">Play highlighted portion</button>
+	<button onclick="document.getElementById('laughed').currentTime = 0;document.getElementById('laughed').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="laughed_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="heckles"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="heckles.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Heckles"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'heckles')" onmousemove="mod_yellow(event, 'heckles')" onmouseup="end_yellow(event, 'heckles')" onmouseout="end_yellow(event, 'heckles')" ></div>
+	</div>
+	
+	<div id="heckles_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'heckles')" onmousemove="change_blue(event, 'heckles')" onmouseup="end_blue(event, 'heckles')" onmouseout="end_blue(event, 'heckles')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="heckles_bl">
+	<img draggable="false" id="heckles_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="heckles_pic" src="heckles.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="heckles_yb">
+	</div>
+	<button onclick="play_selection('heckles')">Play highlighted portion</button>
+	<button onclick="document.getElementById('heckles').currentTime = 0;document.getElementById('heckles').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="heckles_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="hackles"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="hackles.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Hackles"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'hackles')" onmousemove="mod_yellow(event, 'hackles')" onmouseup="end_yellow(event, 'hackles')" onmouseout="end_yellow(event, 'hackles')" ></div>
+	</div>
+	
+	<div id="hackles_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'hackles')" onmousemove="change_blue(event, 'hackles')" onmouseup="end_blue(event, 'hackles')" onmouseout="end_blue(event, 'hackles')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="hackles_bl">
+	<img draggable="false" id="hackles_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="hackles_pic" src="hackles.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="hackles_yb">
+	</div>
+	<button onclick="play_selection('hackles')">Play highlighted portion</button>
+	<button onclick="document.getElementById('hackles').currentTime = 0;document.getElementById('hackles').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="hackles_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="rebel"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="rebel.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Rebel"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'rebel')" onmousemove="mod_yellow(event, 'rebel')" onmouseup="end_yellow(event, 'rebel')" onmouseout="end_yellow(event, 'rebel')" ></div>
+	</div>
+	
+	<div id="rebel_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'rebel')" onmousemove="change_blue(event, 'rebel')" onmouseup="end_blue(event, 'rebel')" onmouseout="end_blue(event, 'rebel')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="rebel_bl">
+	<img draggable="false" id="rebel_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="rebel_pic" src="rebel.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="rebel_yb">
+	</div>
+	<button onclick="play_selection('rebel')">Play highlighted portion</button>
+	<button onclick="document.getElementById('rebel').currentTime = 0;document.getElementById('rebel').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="rebel_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="rabble"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="rabble.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Rabble"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'rabble')" onmousemove="mod_yellow(event, 'rabble')" onmouseup="end_yellow(event, 'rabble')" onmouseout="end_yellow(event, 'rabble')" ></div>
+	</div>
+	
+	<div id="rabble_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'rabble')" onmousemove="change_blue(event, 'rabble')" onmouseup="end_blue(event, 'rabble')" onmouseout="end_blue(event, 'rabble')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="rabble_bl">
+	<img draggable="false" id="rabble_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="rabble_pic" src="rabble.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="rabble_yb">
+	</div>
+	<button onclick="play_selection('rabble')">Play highlighted portion</button>
+	<button onclick="document.getElementById('rabble').currentTime = 0;document.getElementById('rabble').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="rabble_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="kettle"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="kettle.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Kettle"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'kettle')" onmousemove="mod_yellow(event, 'kettle')" onmouseup="end_yellow(event, 'kettle')" onmouseout="end_yellow(event, 'kettle')" ></div>
+	</div>
+	
+	<div id="kettle_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'kettle')" onmousemove="change_blue(event, 'kettle')" onmouseup="end_blue(event, 'kettle')" onmouseout="end_blue(event, 'kettle')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="kettle_bl">
+	<img draggable="false" id="kettle_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="kettle_pic" src="kettle.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="kettle_yb">
+	</div>
+	<button onclick="play_selection('kettle')">Play highlighted portion</button>
+	<button onclick="document.getElementById('kettle').currentTime = 0;document.getElementById('kettle').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="kettle_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="cattle"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="cattle.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Cattle"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'cattle')" onmousemove="mod_yellow(event, 'cattle')" onmouseup="end_yellow(event, 'cattle')" onmouseout="end_yellow(event, 'cattle')" ></div>
+	</div>
+	
+	<div id="cattle_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'cattle')" onmousemove="change_blue(event, 'cattle')" onmouseup="end_blue(event, 'cattle')" onmouseout="end_blue(event, 'cattle')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="cattle_bl">
+	<img draggable="false" id="cattle_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="cattle_pic" src="cattle.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="cattle_yb">
+	</div>
+	<button onclick="play_selection('cattle')">Play highlighted portion</button>
+	<button onclick="document.getElementById('cattle').currentTime = 0;document.getElementById('cattle').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="cattle_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="flex"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="flex.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Flex"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'flex')" onmousemove="mod_yellow(event, 'flex')" onmouseup="end_yellow(event, 'flex')" onmouseout="end_yellow(event, 'flex')" ></div>
+	</div>
+	
+	<div id="flex_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'flex')" onmousemove="change_blue(event, 'flex')" onmouseup="end_blue(event, 'flex')" onmouseout="end_blue(event, 'flex')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="flex_bl">
+	<img draggable="false" id="flex_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="flex_pic" src="flex.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="flex_yb">
+	</div>
+	<button onclick="play_selection('flex')">Play highlighted portion</button>
+	<button onclick="document.getElementById('flex').currentTime = 0;document.getElementById('flex').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="flex_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="flax"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="flax.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Flax"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'flax')" onmousemove="mod_yellow(event, 'flax')" onmouseup="end_yellow(event, 'flax')" onmouseout="end_yellow(event, 'flax')" ></div>
+	</div>
+	
+	<div id="flax_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'flax')" onmousemove="change_blue(event, 'flax')" onmouseup="end_blue(event, 'flax')" onmouseout="end_blue(event, 'flax')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="flax_bl">
+	<img draggable="false" id="flax_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="flax_pic" src="flax.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="flax_yb">
+	</div>
+	<button onclick="play_selection('flax')">Play highlighted portion</button>
+	<button onclick="document.getElementById('flax').currentTime = 0;document.getElementById('flax').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="flax_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="kelvin"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="kelvin.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Kelvin"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'kelvin')" onmousemove="mod_yellow(event, 'kelvin')" onmouseup="end_yellow(event, 'kelvin')" onmouseout="end_yellow(event, 'kelvin')" ></div>
+	</div>
+	
+	<div id="kelvin_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'kelvin')" onmousemove="change_blue(event, 'kelvin')" onmouseup="end_blue(event, 'kelvin')" onmouseout="end_blue(event, 'kelvin')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="kelvin_bl">
+	<img draggable="false" id="kelvin_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="kelvin_pic" src="kelvin.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="kelvin_yb">
+	</div>
+	<button onclick="play_selection('kelvin')">Play highlighted portion</button>
+	<button onclick="document.getElementById('kelvin').currentTime = 0;document.getElementById('kelvin').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="kelvin_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="calvin"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="calvin.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Calvin"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'calvin')" onmousemove="mod_yellow(event, 'calvin')" onmouseup="end_yellow(event, 'calvin')" onmouseout="end_yellow(event, 'calvin')" ></div>
+	</div>
+	
+	<div id="calvin_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'calvin')" onmousemove="change_blue(event, 'calvin')" onmouseup="end_blue(event, 'calvin')" onmouseout="end_blue(event, 'calvin')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="calvin_bl">
+	<img draggable="false" id="calvin_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="calvin_pic" src="calvin.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="calvin_yb">
+	</div>
+	<button onclick="play_selection('calvin')">Play highlighted portion</button>
+	<button onclick="document.getElementById('calvin').currentTime = 0;document.getElementById('calvin').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="calvin_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="blessed"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="blessed.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Blessed"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'blessed')" onmousemove="mod_yellow(event, 'blessed')" onmouseup="end_yellow(event, 'blessed')" onmouseout="end_yellow(event, 'blessed')" ></div>
+	</div>
+	
+	<div id="blessed_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'blessed')" onmousemove="change_blue(event, 'blessed')" onmouseup="end_blue(event, 'blessed')" onmouseout="end_blue(event, 'blessed')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="blessed_bl">
+	<img draggable="false" id="blessed_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="blessed_pic" src="blessed.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="blessed_yb">
+	</div>
+	<button onclick="play_selection('blessed')">Play highlighted portion</button>
+	<button onclick="document.getElementById('blessed').currentTime = 0;document.getElementById('blessed').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="blessed_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="blast"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="blast.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Blast"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'blast')" onmousemove="mod_yellow(event, 'blast')" onmouseup="end_yellow(event, 'blast')" onmouseout="end_yellow(event, 'blast')" ></div>
+	</div>
+	
+	<div id="blast_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'blast')" onmousemove="change_blue(event, 'blast')" onmouseup="end_blue(event, 'blast')" onmouseout="end_blue(event, 'blast')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="blast_bl">
+	<img draggable="false" id="blast_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="blast_pic" src="blast.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="blast_yb">
+	</div>
+	<button onclick="play_selection('blast')">Play highlighted portion</button>
+	<button onclick="document.getElementById('blast').currentTime = 0;document.getElementById('blast').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="blast_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="techie"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="techie.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Techie"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'techie')" onmousemove="mod_yellow(event, 'techie')" onmouseup="end_yellow(event, 'techie')" onmouseout="end_yellow(event, 'techie')" ></div>
+	</div>
+	
+	<div id="techie_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'techie')" onmousemove="change_blue(event, 'techie')" onmouseup="end_blue(event, 'techie')" onmouseout="end_blue(event, 'techie')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="techie_bl">
+	<img draggable="false" id="techie_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="techie_pic" src="techie.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="techie_yb">
+	</div>
+	<button onclick="play_selection('techie')">Play highlighted portion</button>
+	<button onclick="document.getElementById('techie').currentTime = 0;document.getElementById('techie').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="techie_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="tacky"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="tacky.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Tacky"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'tacky')" onmousemove="mod_yellow(event, 'tacky')" onmouseup="end_yellow(event, 'tacky')" onmouseout="end_yellow(event, 'tacky')" ></div>
+	</div>
+	
+	<div id="tacky_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'tacky')" onmousemove="change_blue(event, 'tacky')" onmouseup="end_blue(event, 'tacky')" onmouseout="end_blue(event, 'tacky')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="tacky_bl">
+	<img draggable="false" id="tacky_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="tacky_pic" src="tacky.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="tacky_yb">
+	</div>
+	<button onclick="play_selection('tacky')">Play highlighted portion</button>
+	<button onclick="document.getElementById('tacky').currentTime = 0;document.getElementById('tacky').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="tacky_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="neck"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="neck.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Neck"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'neck')" onmousemove="mod_yellow(event, 'neck')" onmouseup="end_yellow(event, 'neck')" onmouseout="end_yellow(event, 'neck')" ></div>
+	</div>
+	
+	<div id="neck_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'neck')" onmousemove="change_blue(event, 'neck')" onmouseup="end_blue(event, 'neck')" onmouseout="end_blue(event, 'neck')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="neck_bl">
+	<img draggable="false" id="neck_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="neck_pic" src="neck.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="neck_yb">
+	</div>
+	<button onclick="play_selection('neck')">Play highlighted portion</button>
+	<button onclick="document.getElementById('neck').currentTime = 0;document.getElementById('neck').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="neck_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="knack"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="knack.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Knack"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'knack')" onmousemove="mod_yellow(event, 'knack')" onmouseup="end_yellow(event, 'knack')" onmouseout="end_yellow(event, 'knack')" ></div>
+	</div>
+	
+	<div id="knack_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'knack')" onmousemove="change_blue(event, 'knack')" onmouseup="end_blue(event, 'knack')" onmouseout="end_blue(event, 'knack')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="knack_bl">
+	<img draggable="false" id="knack_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="knack_pic" src="knack.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="knack_yb">
+	</div>
+	<button onclick="play_selection('knack')">Play highlighted portion</button>
+	<button onclick="document.getElementById('knack').currentTime = 0;document.getElementById('knack').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="knack_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="letter"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="letter.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Letter"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'letter')" onmousemove="mod_yellow(event, 'letter')" onmouseup="end_yellow(event, 'letter')" onmouseout="end_yellow(event, 'letter')" ></div>
+	</div>
+	
+	<div id="letter_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'letter')" onmousemove="change_blue(event, 'letter')" onmouseup="end_blue(event, 'letter')" onmouseout="end_blue(event, 'letter')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="letter_bl">
+	<img draggable="false" id="letter_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="letter_pic" src="letter.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="letter_yb">
+	</div>
+	<button onclick="play_selection('letter')">Play highlighted portion</button>
+	<button onclick="document.getElementById('letter').currentTime = 0;document.getElementById('letter').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="letter_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="latter"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="latter.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Ladder"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'latter')" onmousemove="mod_yellow(event, 'latter')" onmouseup="end_yellow(event, 'latter')" onmouseout="end_yellow(event, 'latter')" ></div>
+	</div>
+	
+	<div id="latter_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'latter')" onmousemove="change_blue(event, 'latter')" onmouseup="end_blue(event, 'latter')" onmouseout="end_blue(event, 'latter')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="latter_bl">
+	<img draggable="false" id="latter_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="latter_pic" src="latter.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="latter_yb">
+	</div>
+	<button onclick="play_selection('latter')">Play highlighted portion</button>
+	<button onclick="document.getElementById('latter').currentTime = 0;document.getElementById('latter').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="latter_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="meshed"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="meshed.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Meshed"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'meshed')" onmousemove="mod_yellow(event, 'meshed')" onmouseup="end_yellow(event, 'meshed')" onmouseout="end_yellow(event, 'meshed')" ></div>
+	</div>
+	
+	<div id="meshed_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'meshed')" onmousemove="change_blue(event, 'meshed')" onmouseup="end_blue(event, 'meshed')" onmouseout="end_blue(event, 'meshed')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="meshed_bl">
+	<img draggable="false" id="meshed_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="meshed_pic" src="meshed.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="meshed_yb">
+	</div>
+	<button onclick="play_selection('meshed')">Play highlighted portion</button>
+	<button onclick="document.getElementById('meshed').currentTime = 0;document.getElementById('meshed').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="meshed_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="mashed"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="mashed.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Mashed"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'mashed')" onmousemove="mod_yellow(event, 'mashed')" onmouseup="end_yellow(event, 'mashed')" onmouseout="end_yellow(event, 'mashed')" ></div>
+	</div>
+	
+	<div id="mashed_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'mashed')" onmousemove="change_blue(event, 'mashed')" onmouseup="end_blue(event, 'mashed')" onmouseout="end_blue(event, 'mashed')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="mashed_bl">
+	<img draggable="false" id="mashed_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="mashed_pic" src="mashed.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="mashed_yb">
+	</div>
+	<button onclick="play_selection('mashed')">Play highlighted portion</button>
+	<button onclick="document.getElementById('mashed').currentTime = 0;document.getElementById('mashed').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="mashed_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+	<div id="a_2" class="speaker">
+
+
+	<div class="praat">
+		<audio  id="better"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="better.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Better"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'better')" onmousemove="mod_yellow(event, 'better')" onmouseup="end_yellow(event, 'better')" onmouseout="end_yellow(event, 'better')" ></div>
+	</div>
+	
+	<div id="better_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'better')" onmousemove="change_blue(event, 'better')" onmouseup="end_blue(event, 'better')" onmouseout="end_blue(event, 'better')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="better_bl">
+	<img draggable="false" id="better_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="better_pic" src="better.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="better_yb">
+	</div>
+	<button onclick="play_selection('better')">Play highlighted portion</button>
+	<button onclick="document.getElementById('better').currentTime = 0;document.getElementById('better').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="better_dur">0</span> Hertz </div>
+	</div>
+
+
+
+
+	<div class="praat">
+		<audio  id="batter"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
+		  <source src="batter.wav" type="audio/wav">
+		    Your browser does not support the audio element.
+	</audio>	
+	<div>"Batter"</div>
+	<div class="time_slider">
+	<img draggable="false" src="blue_rect.png" width="100%" height="100%">
+	<div class="transparent_cover" onmousedown="change_yellow(event, 'batter')" onmousemove="mod_yellow(event, 'batter')" onmouseup="end_yellow(event, 'batter')" onmouseout="end_yellow(event, 'batter')" ></div>
+	</div>
+	
+	<div id="batter_img" class="img_box">
+	<div class="transparent_cover" onmousedown="start_blue(event, 'batter')" onmousemove="change_blue(event, 'batter')" onmouseup="end_blue(event, 'batter')" onmouseout="end_blue(event, 'batter')" ></div>
+
+	<img draggable="false" class="bl" src="blue_rect.png" id="batter_bl">
+	<img draggable="false" id="batter_rl" class="rl" src="red_line.png">
+	<img draggable="false" class="spect_img" id="batter_pic" src="batter.png">
+	<img draggable="false" class="yb" src="yellow_box.png" id="batter_yb">
+	</div>
+	<button onclick="play_selection('batter')">Play highlighted portion</button>
+	<button onclick="document.getElementById('batter').currentTime = 0;document.getElementById('batter').play();">Play entire clip</button>
+	<div>Frequency at blue line: <span id="batter_dur">0</span> Hertz </div>
+	</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<div id="here1">Here ends the first chunk of audio</div>
 
@@ -715,7 +1218,7 @@
 	</div>
 	<button onclick="play_selection('a_plant_1_m')">Play highlighted portion</button>
 	<button onclick="document.getElementById('a_plant_1_m').currentTime = 0;document.getElementById('a_plant_1_m').play();">Play entire clip</button>
-	<div>Duration of highlighted portion: <span id="a_plant_1_m_dur">0</span> seconds </div>
+	<div>Frequency at blue line: <span id="a_plant_1_m_dur">0</span> Hertz </div>
 	</div>
 	</div>
 	
@@ -909,36 +1412,44 @@
 
 
 	var durations = {
-		"a_plant_1": 0,
-		"a_plant_2": 0,
-		"a_plant_3": 0,
-		"a_plant_4": 0,
-		"a_plant_5": 0,
-		"a_plant_6": 0,
-		"a_plant_7": 0,
-		"a_plant_8": 0,
-		"a_planet_1": 0,
-		"a_planet_2": 0,
-		"a_planet_3": 0,
-		"a_planet_4": 0,
-		"a_planet_5": 0,
-		"a_planet_6": 0,
-		"a_planet_7": 0,
-		"a_planet_8": 0,
-		"b_plant_1": 0,
-		"b_plant_2": 0,
-		"b_plant_3": 0,
-		"b_plant_4": 0,
-		"b_plant_5": 0,
-		"b_plant_6": 0,
-		"b_plant_7": 0,
-		"b_planet_1": 0,
-		"b_planet_2": 0,
-		"b_planet_3": 0,
-		"b_planet_4": 0,
-		"b_planet_5": 0,
-		"b_planet_6": 0,
-		"b_planet_7": 0,
+		"medicine": 0,
+		"madison": 0,
+		"celery": 0,
+		"salary": 0,
+		"peddling": 0,
+		"paddling": 0,
+		"lettuce": 0,
+		"lattice": 0,
+		"adept": 0,
+		"adapt": 0,
+		"reddish": 0,
+		"radish": 0,
+		"pellet": 0,
+		"palate": 0,
+		"trekking": 0,
+		"tracking": 0,
+		"left": 0,
+		"laughed": 0,
+		"heckles": 0,
+		"hackles": 0,
+		"rebel": 0,
+		"rabble": 0,
+		"kettle": 0,
+		"cattle": 0,
+		"flex": 0,
+		"flax": 0,
+		"kelvin": 0,
+		"calvin": 0,
+		"techie": 0,
+		"tacky": 0,
+		"neck": 0,
+		"knack": 0,
+		"letter": 0,
+		"latter": 0,
+		"meshed": 0,
+		"mashed": 0,
+		"better": 0,
+		"batter": 0,
 
 	};	
 
@@ -985,19 +1496,27 @@
 			document.getElementById(obj_name + "_yb").style.width = Math.min(event.clientX - document.getElementById(obj_name + "_img").offsetLeft - parseInt(document.getElementById(obj_name + "_yb").style.left),  200 - parseInt(document.getElementById(obj_name + "_yb").style.left) ) + 'px';
 		
 			mousedown = false;
-			document.getElementById(obj_name + "_dur").innerHTML = (parseFloat(document.getElementById(obj_name + "_yb").width) / parseFloat(document.getElementById(obj_name + "_pic").width) * document.getElementById(obj_name).duration).toFixed(3);
-			durations[obj_name] = (parseFloat(document.getElementById(obj_name + "_yb").width) / parseFloat(document.getElementById(obj_name + "_pic").width) * document.getElementById(obj_name).duration);	
 		}	
 	}
 
 	blue_mousedown = false;
 
-	function change_blue(event, obj_name) {
+	function start_blue(event, obj_name) {
 		document.getElementById(obj_name + "_bl").style.top = event.pageY - document.getElementById(obj_name + "_img").offsetTop + 'px';
 		blue_mousedown = true;
 
 		document.getElementById(obj_name + "_dur").innerHTML = 8000 * (100 - (event.pageY - document.getElementById(obj_name + "_img").offsetTop))/100;
+		blue_mousedown = true;
+	}
 
+
+	function change_blue(event, obj_name) {
+		if (blue_mousedown) {
+		document.getElementById(obj_name + "_bl").style.top = event.pageY - document.getElementById(obj_name + "_img").offsetTop + 'px';
+		blue_mousedown = true;
+
+		document.getElementById(obj_name + "_dur").innerHTML = 8000 * (100 - (event.pageY - document.getElementById(obj_name + "_img").offsetTop))/100;
+		}
 	}
 
 
@@ -1006,8 +1525,7 @@
 		if (blue_mousedown) {
 		
 			blue_mousedown = false;
-			document.getElementById(obj_name + "_dur").innerHTML = (parseFloat(document.getElementById(obj_name + "_yb").width) / parseFloat(document.getElementById(obj_name + "_pic").width) * document.getElementById(obj_name).duration).toFixed(3);
-			durations[obj_name] = (parseFloat(document.getElementById(obj_name + "_yb").width) / parseFloat(document.getElementById(obj_name + "_pic").width) * document.getElementById(obj_name).duration);	
+			durations[obj_name] = 8000.0 * (100 - (event.pageY - document.getElementById(obj_name + "_img").offsetTop))/100 ;	
 		}	
 	}
 
@@ -1070,12 +1588,17 @@ function average(data){
 
 	function make_normal() {
 
+		
 
+		var a_durations = [durations["madison"], durations["salary"], durations["paddling"], durations["lattice"], durations["adapt"], durations["radish"], durations["palate"], durations["tracking"], durations["laughed"], durations["hackles"], durations["rabble"], durations["cattle"], durations["flax"], durations["calvin"], durations["blast"], durations["tacky"], durations["knack"], durations["latter"], durations["mashed"], durations["batter"]];
+		var e_durations = [durations["medicine"], durations["celery"], durations["peddling"], durations["lettuce"], durations["adept"], durations["reddish"], durations["pellet"], durations["trekking"], durations["left"], durations["heckles"], durations["rebel"], durations["kettle"], durations["flex"], durations["kelvin"], durations["blessed"], durations["techie"], durations["neck"], durations["letter"], durations["meshed"], durations["better"]];
 
-		var a_plant = [durations["a_plant_1"], durations["a_plant_2"], durations["a_plant_3"], durations["a_plant_4"], durations["a_plant_5"], durations["a_plant_6"], durations["a_plant_7"], durations["a_plant_8"]];
-		var b_plant = [durations["b_plant_1"], durations["b_plant_2"], durations["b_plant_3"], durations["b_plant_4"], durations["b_plant_5"], durations["b_plant_6"], durations["b_plant_7"]];
-		var a_planet = [durations["a_planet_1"], durations["a_planet_2"], durations["a_planet_3"], durations["a_planet_4"], durations["a_planet_5"], durations["a_planet_6"], durations["a_planet_7"], durations["a_planet_8"]];
-		var b_planet = [durations["b_planet_1"], durations["b_planet_2"], durations["b_planet_3"], durations["b_planet_4"], durations["b_planet_5"], durations["b_planet_6"], durations["b_planet_7"]];
+		a_durations = [1000.5, 2000.5, 4000.5];
+		e_durations = [7000.5, 6000.5, 3000.5];
+
+		//var a_durations = [durations["madison"], durations["salary"], durations["paddling"], durations["lattice"], durations["adapt"], durations["radish"], durations["palate"], durations["tracking"], durations["laughed"], durations["hackles"], durations["rabble"], durations["cattle"], durations["flax"], durations["calvin"], durations["blast"], durations["tacky"], durations["knack"], durations["latter"], durations["mashed"], durations["batter"]];
+		//var e_durations = [durations["medicine"], durations["celery"], durations["peddling"], durations["lettuce"], durations["adept"], durations["reddish"], durations["pellet"], durations["trekking"], durations["left"], durations["heckles"], durations["rebel"], durations["kettle"], durations["flex"], durations["kelvin"], durations["blessed"], durations["techie"], durations["neck"], durations["letter"], durations["meshed"], durations["better"]];
+
 
 		if (made_normal) {
 			
@@ -1095,120 +1618,6 @@ function average(data){
 
 		} 
 			made_normal = true;
-
-var data = [];
-var datab = [];
-
-getData(); // popuate data 
-
-// line chart based on http://bl.ocks.org/mbostock/3883245
-var margin = {
-        top: 20,
-        right: 20,
-        bottom: 30,
-        left: 50
-    },
-    width = 400 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-
-var x = d3.scale.linear()
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
-
-var line = d3.svg.line()
-    .x(function(d) {
-        return x(d.q);
-    })
-    .y(function(d) {
-        return y(d.p);
-    });
-
-var svg = d3.select("#am_normal").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-x.domain([0,1]);
-y.domain(d3.extent(datab, function(d) {
-    return d.p;
-}));
-
-ext_a = d3.extent(datab, function(d) {
-	    return d.p;
-})
-ext_b = d3.extent(data, function(d) {
-	    return d.p;
-})
-y.domain([Math.min(ext_a[0], ext_b[0]), Math.max(ext_a[1], ext_b[1])]);
-
-
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-
-svg.append("path")
-    .datum(data)
-    .attr("class", "line")
-    .attr("d", line);
-
-svg.append("path")
-    .datum(datab)
-    .attr("class", "line")
-    .attr("d", line);
-
-
-function getData() {
-
-// loop to populate data array with 
-// probabily - quantile pairs
-for (var i = 0; i < 100000; i++) {
-    q = normal() // calc random draw from normal dist
-    p = gaussian(q, a_plant) // calc prob of rand draw
-    el = {
-        "q": q,
-        "p": p
-    }
-    data.push(el)
-};
-
-for (var i = 0; i < 100000; i++) {
-    q = normal() // calc random draw from normal dist
-    p = gaussian(q, a_planet) // calc prob of rand draw
-    el = {
-        "q": q,
-        "p": p
-    }
-    datab.push(el)
-};
-
-// need to sort for plotting
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-data.sort(function(x, y) {
-    return x.q - y.q;
-});	
-// need to sort for plotting
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-datab.sort(function(x, y) {
-    return x.q - y.q;
-});	
-}
-
 
 var data = [];
 var datab = [];
@@ -1253,10 +1662,11 @@ var svg = d3.select("#br_normal").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-x.domain([0,1]);
-y.domain(d3.extent(datab, function(d) {
-    return d.p;
-}));
+x.domain([0,10]);
+y.domain([0,.0001]);
+//y.domain(d3.extent(datab, function(d) {
+//    return d.p;
+//}));
 
 ext_a = d3.extent(datab, function(d) {
 	    return d.p;
@@ -1264,7 +1674,7 @@ ext_a = d3.extent(datab, function(d) {
 ext_b = d3.extent(data, function(d) {
 	    return d.p;
 })
-y.domain([Math.min(ext_a[0], ext_b[0]), Math.max(ext_a[1], ext_b[1])]);
+//y.domain([Math.min(ext_a[0], ext_b[0]), Math.max(ext_a[1], ext_b[1])]);
 
 
 svg.append("g")
@@ -1293,7 +1703,7 @@ function getDataBr() {
 // probabily - quantile pairs
 for (var i = 0; i < 100000; i++) {
     q = normal() // calc random draw from normal dist
-    p = gaussian(q, b_plant) // calc prob of rand draw
+    p = gaussian(q, e_durations) // calc prob of rand draw
     el = {
         "q": q,
         "p": p
@@ -1303,7 +1713,7 @@ for (var i = 0; i < 100000; i++) {
 
 for (var i = 0; i < 100000; i++) {
     q = normal() // calc random draw from normal dist
-    p = gaussian(q, b_planet) // calc prob of rand draw
+    p = gaussian(q, a_durations) // calc prob of rand draw
     el = {
         "q": q,
         "p": p
@@ -1332,11 +1742,10 @@ datab.sort(function(x, y) {
 	function make_histogram() {
 
 
+		var a_durations = [durations["madison"], durations["salary"], durations["paddling"], durations["lattice"], durations["adapt"], durations["radish"], durations["palate"], durations["tracking"], durations["laughed"], durations["hackles"], durations["rabble"], durations["cattle"], durations["flax"], durations["calvin"], durations["blast"], durations["tacky"], durations["knack"], durations["latter"], durations["mashed"], durations["batter"]];
+		var e_durations = [durations["medicine"], durations["celery"], durations["peddling"], durations["lettuce"], durations["adept"], durations["reddish"], durations["pellet"], durations["trekking"], durations["left"], durations["heckles"], durations["rebel"], durations["kettle"], durations["flex"], durations["kelvin"], durations["blessed"], durations["techie"], durations["neck"], durations["letter"], durations["meshed"], durations["better"]];
 
-		var a_plant = [durations["a_plant_1"], durations["a_plant_2"], durations["a_plant_3"], durations["a_plant_4"], durations["a_plant_5"], durations["a_plant_6"], durations["a_plant_7"], durations["a_plant_8"]];
-		var b_plant = [durations["b_plant_1"], durations["b_plant_2"], durations["b_plant_3"], durations["b_plant_4"], durations["b_plant_5"], durations["b_plant_6"], durations["b_plant_7"]];
-		var a_planet = [durations["a_planet_1"], durations["a_planet_2"], durations["a_planet_3"], durations["a_planet_4"], durations["a_planet_5"], durations["a_planet_6"], durations["a_planet_7"], durations["a_planet_8"]];
-		var b_planet = [durations["b_planet_1"], durations["b_planet_2"], durations["b_planet_3"], durations["b_planet_4"], durations["b_planet_5"], durations["b_planet_6"], durations["b_planet_7"]];
+
 
 		if (made_histograms) {
 			
@@ -1373,7 +1782,7 @@ datab.sort(function(x, y) {
 		width = 400 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom;
 
-		var max = 1; //d3.max(a_plant);
+		var max = 8000; //d3.max(a_plant);
 		var min = 0; //d3.min(a_plant);
 		var x = d3.scale.linear()
 			.domain([min, max])
@@ -1381,7 +1790,7 @@ datab.sort(function(x, y) {
 
 		var data = d3.layout.histogram()
 			 .bins(x.ticks(10))
-			 (a_plant);
+			 (a_durations);
 
 		var yMax = d3.max(data, function(d){return d.length});
 		var yMin = d3.min(data, function(d){return d.length});
@@ -1433,7 +1842,7 @@ datab.sort(function(x, y) {
 
 		var data = d3.layout.histogram()
 			 .bins(x.ticks(10))
-			 (a_planet);
+			 (a_durations);
 
 		var yMax = d3.max(data, function(d){return d.length});
 		var yMin = d3.min(data, function(d){return d.length});
@@ -1490,7 +1899,7 @@ datab.sort(function(x, y) {
 		width = 400 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom;
 
-		var max = 1; 
+		var max = 8000; 
 		var min = 0; 
 		var x = d3.scale.linear()
 			.domain([min, max])
@@ -1498,7 +1907,7 @@ datab.sort(function(x, y) {
 
 		var data = d3.layout.histogram()
 			 .bins(x.ticks(10))
-			 (b_plant);
+			 (e_durations);
 
 		var yMax = d3.max(data, function(d){return d.length});
 		var yMin = d3.min(data, function(d){return d.length});
@@ -1550,7 +1959,7 @@ datab.sort(function(x, y) {
 
 		var data = d3.layout.histogram()
 			 .bins(x.ticks(10))
-			 (b_planet);
+			 (e_durations);
 
 		var yMax = d3.max(data, function(d){return d.length});
 		var yMin = d3.min(data, function(d){return d.length});
@@ -1626,6 +2035,7 @@ function gaussian(x, vals) {
 	var gaussianConstant = 1 / Math.sqrt(2 * Math.PI),
 		mean = average(vals),
     	sigma = standardDeviation(vals);
+	here1.innerHTML = String(vals) + " " + String(mean) + " " + String(sigma);
 
     x = (x - mean) / sigma;
     return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
