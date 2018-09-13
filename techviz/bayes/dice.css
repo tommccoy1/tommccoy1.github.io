@@ -148,6 +148,126 @@
 	display: inline-block;
 	height: 500px;
 	width: 100px;
+	margin-left: 10px;
+}
+
+#prob_num {
+	position: absolute;
+	top: 0px;
+	left: 90px;
+
 }
 
 
+
+#prob_denom {
+	position: absolute;
+	top: 20px;
+	left: 125px;
+
+}
+
+
+#prob_left {
+	position: absolute;
+	top: 10px;
+	left: 0px;
+
+}
+
+#prob_eq {
+	position: relative;
+	height: 50px;
+}
+
+#fraction_line {
+	position: absolute;
+	width: 270px;
+	height: 2px;
+	left: 85px;
+	top: 7px;
+}
+
+
+#cond_num {
+	position: absolute;
+	top: 0px;
+	left: 65px;
+
+}
+
+
+
+#cond_denom {
+	position: absolute;
+	top: 20px;
+	left: 75px;
+
+}
+
+
+#cond_left {
+	position: absolute;
+	top: 10px;
+	left: 0px;
+
+}
+
+#cond_eq {
+	position: relative;
+	height: 50px;
+}
+
+#cond_line {
+	position: absolute;
+	width: 50px;
+	height: 2px;
+	left: 65px;
+	top: 7px;
+}
+
+
+#bayes_num {
+	position: absolute;
+	top: 0px;
+	left: 65px;
+
+}
+
+
+
+#bayes_denom {
+	position: absolute;
+	top: 20px;
+	left: 90px;
+
+}
+
+
+#bayes_left {
+	position: absolute;
+	top: 10px;
+	left: 0px;
+
+}
+
+#bayes_eq {
+	position: relative;
+	height: 50px;
+}
+
+#bayes_line {
+	position: absolute;
+	width: 80px;
+	height: 2px;
+	left: 65px;
+	top: 7px;
+}
+
+#title {
+	position: relative;
+}
+
+#tutorial_body{
+	position: relative;
+}
