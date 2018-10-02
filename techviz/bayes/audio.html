@@ -18,9 +18,31 @@
 		    Your browser does not support the audio element.
 	</audio>	
 	
-	<p>How would you interpret that utterance? We will use Bayes' Theorem to figure it out. There are two possibilities we will consider here: "planetary" and "plant a tree."</p>
+	<p>How would you interpret that utterance? We will use Bayes' Theorem to figure it out. There are two possibilities we will consider here: "planetary" and "plant a tree." The way that a listener interprets the utterance will be determined by whichever possibility the listener deems to have a higher posterior probability. That is:</p>
 
-	<p>First we will compute the likelihoods of these two possibilities. That is, how likely is it that "planetary" would be pronounced as heard in the clip, and how likely is it that "plant a tree" would be pronounced as heard in the clip?</p>
+	<ul>
+		<li>If p("planetary" | audio) > p("plant a tree" | audio), then the listener will hear "planetary." </li>
+		<li>If p("plant a tree" | audio) > p("planetary" | audio), then the listener will hear "plant a tree."</li>
+	</ul>
+
+	<p>Therefore, in order to determine which interpretation arises, we clearly need to figure out which of these posterior probabilities will be greater. We will use Bayes' Theorem to do this; using this theorem, we rewrite the posterior probabilities as follows:</p>
+
+	<ul>
+		<li>p("planetary" | audio) = (p(audio | "planetary") p("planetary"))/p(audio)</li>
+		<li>p("plant a tree" | audio) = (p(audio | "plant a tree") p("plant a tree"))/p(audio)</li>
+	</ul>
+
+	<p>Recall from <a href="https://tommccoy1.github.io/techviz/bayes/dress_continue.html">the tutorial about the dress</a> that we can ignore the denominators of the right hand sides (since these denominators are the same for both equations, and all we care about is which of the posterior probabilities is larger, not what their actual values are). Therefore, we can rewrite the posterior probabilities as follows (using the &prop; symbol to mean "is proportional to"):
+
+	<ul>
+		<li>p("planetary" | audio) &prop; p(audio | "planetary") p("planetary")</li>
+		<li>p("plant a tree" | audio) &prop; p(audio | "plant a tree") p("plant a tree")</li>
+	</ul>
+
+	<p>This simplification is useful because it means there's one fewer thing we have to calculate. This leaves two terms on each right hand side: The likelihoods and the priors.</p>
+
+	<p>First we will determine the likelihoods of these two possibilities, that is p(audio | "planetary") and p(audio | "plant a tree"). How should you interpret these expressions? p(audio | "planetary") means "supposing that the speaker is saying "planetary", how likely is it that their utterance would sound the way it does in the audio clip?" Similarly, p(audio | "plant a tree") means "supposing that the speaker is saying "plant a tree", how likely is it that their utterance would sound the way it does in the audio clip?"</p>
+	
 	
 	<p>A major factor in determining these likelihoods is your past experience. For example, British people and American people pronounce "planetary" differently. Brits generally reduce the final "a" so that it is very short or even unpronounced:</p>
 	<audio controls id="mystery2" >
@@ -42,6 +64,8 @@
 	<p>One way we could compute the likelihood would be to treat the presence or absence of the "a" as a binary variable - that is, this vowel either will (with some probability p) appear, or will (with some probability 1-p) not appear. However, a more realistic framing of the problem is that the vowel will have some duration and that, the longer the vowel is, the more likely the word is to be interpreted as "planetary". Therefore, we will instead base the likelihoods on the duration of this vowel. The vowel itself is difficult to measure properly, so as a proxy for its length we will instead use the duration of the portion of the utterance from the "t" onward.</p>
 
 	<p>Below we have collected utterances from American speakers and British speakers saying "planetary" and "plant a tree." For each one, measure the duration of the part of the word from "t" to the end of the word. We will then use these measurements to get a sense of the distribution of durations.</p>
+
+	<p>How to do this: If you click a point in an image (each of these images is a spectrogram, which is a representation of the acoustic properties of some sound) and then drag your mouse to the right, it will highlight the portion of the spectrogram that you have dragged over. For each image, highlight the portion of the image that represents the "t" sound to the end of the word. To help, you can use the "Play entire clip" button to hear the whole clip; and once you've highlighted a section, you can click "Play highlighted portion" to make sure that what you've highlighted sounds like either "tree" or "tary." Note: Don't feel like you have to spend too much time measuring the spectrograms carefully-the important thing is that you understand how Bayes' Theorem is being used here, so it's fine if the measurements are not perfect.</p>
 
 
 
@@ -387,6 +411,10 @@
 	</div>
 	</div>
 
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
 	<div>Speakers of British English</div>
 
 	<div id="b_1" class="speaker">
@@ -681,10 +709,13 @@
 	</div>
 	</div>
 
-	<div id="here1">Here ends the first chunk of audio</div>
+	<div id="here1"></div>
 
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
 
-	<div>Now we need to figure out how to determine p(duration) based on these examples. To start out, just to get a feeling for the distribution of examples, let's try plotting histograms of the observed durations. Click "make histograms" to generate histograms for each of the four cases. </div>
+	<div>Now that we've gathered this data, let's figure out how to translate the data into estimates of the likelihoods, p(audio | "planetary") and p(audio | "plant a tree"). We will do this based on histograms that show how many of your measurements fell into various intervals. Click the button "Make histograms" to generate histograms based on the data you collected:</div>
 
 
 
@@ -692,23 +723,18 @@
 	<button onclick="make_histogram()">Make histograms</button>
 
 	<div></div>
-	<div class="graph" id="am_plant_holder"><div id="am_plant"></div></div>
-	<div class="graph" id="am_planet_holder"><div id="am_planet"></div></div>
+	<div class="graph" id="am_plant_holder"><div>Durations of "tree" for Americans saying "plant a tree"</div><div id="am_plant"></div></div>
+	<div class="graph" id="am_planet_holder"><div>Durations of "tary" for Americans saying "planetary"</div><div id="am_planet"></div></div>
 
 	<div></div>
-	<div class="graph" id="br_plant_holder"><div id="br_plant"></div></div>
-	<div class="graph" id="br_planet_holder"><div id="br_planet"></div></div>
+	<div class="graph" id="br_plant_holder"><div>Durations of "tree" for Brits saying "plant a tree"</div><div id="br_plant"></div></div>
+	<div class="graph" id="br_planet_holder"><div>Durations of "tary" for Brits saying "planetary"</div><div id="br_planet"></div></div>
 
-
-	<div>These histograms are almost enough. In fact we could use them. But better to use a probability density function:</div>
-
-	<div><button onclick="make_normal()">Make PDF</button></div>
-
-	<div class="graph" id="am_normal_holder"><div id="am_normal"></div></div>
-	<div class="graph" id="br_normal_holder"><div id="br_normal"></div></div>
-
-
-	<p>Now that we have these distributions, we can figure out the probability of the duration observed in our mystery clip arising from "planetary" or "plant a tree". Below is the spectrogram of our mystery clip. Use it to determine the duration of the relevant portion of the word.</p>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>How should you interpret these histograms? Each bar illustrates the number of measurements that fell within a certain range. For example, if you have a bar labeled "4" above the interval going from 0.4 to 0.5 in the graph of "Durations of "tary" for Americans saying "planetary"", it means that 4 Americans had a duration between 0.4 and 0.5 seconds for "tary" within their utterances of "planetary."</div>
+	
+	<p>We can use these histograms to determine the likelihoods. First, determine the duration of the relevant portion of our mystery clip (below), just as you did with all of the examples above.</p>
 
 	<div id="a_1" class="speaker">
 	
@@ -730,113 +756,53 @@
 	</div>
 	</div>
 	
-	<p>Enter the duration that you measured:</p>
-	<div>Duration of relevant portion:<form id="mystery_dur" action="javascript:void(0);"><input type="text"></form></div>
+	<div>Now, enter the duration that you measured for the relevant portion:<form id="mystery_dur" action="javascript:void(0);"><input type="text"></form></div>
 
-	<p>Now click this button to compute the relevant probabilities from the PDFs you generated above:</p>
-	<button onclick='document.getElementById("dur_planet_am").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["a_planet_1"], durations["a_planet_2"], durations["a_planet_3"], durations["a_planet_4"], durations["a_planet_5"], durations["a_planet_6"], durations["a_planet_7"], durations["a_planet_8"]]);  document.getElementById("dur_plant_am").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["a_plant_1"], durations["a_plant_2"], durations["a_plant_3"], durations["a_plant_4"], durations["a_plant_5"], durations["a_plant_6"], durations["a_plant_7"], durations["a_plant_8"]]);  document.getElementById("dur_planet_br").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["b_planet_1"], durations["b_planet_2"], durations["b_planet_3"], durations["b_planet_4"], durations["b_planet_5"], durations["b_planet_6"], durations["b_planet_7"]]); document.getElementById("dur_plant_br").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["b_plant_1"], durations["b_plant_2"], durations["b_plant_3"], durations["b_plant_4"], durations["b_plant_5"], durations["b_plant_6"], durations["b_plant_7"]]); '>Compute probabilities from PDF</button>
+	<!-- <p>Now click this button to compute the relevant probabilities from the PDFs you generated above:</p> -–>
+	<!-- <button onclick='document.getElementById("dur_planet_am").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["a_planet_1"], durations["a_planet_2"], durations["a_planet_3"], durations["a_planet_4"], durations["a_planet_5"], durations["a_planet_6"], durations["a_planet_7"], durations["a_planet_8"]]);  document.getElementById("dur_plant_am").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["a_plant_1"], durations["a_plant_2"], durations["a_plant_3"], durations["a_plant_4"], durations["a_plant_5"], durations["a_plant_6"], durations["a_plant_7"], durations["a_plant_8"]]);  document.getElementById("dur_planet_br").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["b_planet_1"], durations["b_planet_2"], durations["b_planet_3"], durations["b_planet_4"], durations["b_planet_5"], durations["b_planet_6"], durations["b_planet_7"]]); document.getElementById("dur_plant_br").innerHTML = gaussian(parseFloat(mystery_dur.elements[0].value), [durations["b_plant_1"], durations["b_plant_2"], durations["b_plant_3"], durations["b_plant_4"], durations["b_plant_5"], durations["b_plant_6"], durations["b_plant_7"]]); '>Compute probabilities from PDF</button> -->
 
+	<div>Using the histograms above, determine the estimate for this duration for each of our four scenarios (namely based on whether the utterance is "planetary" or "plant a tree", and based on whether the listener is American or British). To do this, find the bar of the histogram containing the duration you measured, then divide the number of elements in that bar by the total number of elements across all bars</div>
 
-	<div>Unnormalized p(duration | "planetary") for an American speaker: <span id="dur_planet_am"></span></div>
+	<div>Estimate of p(duration | "planetary") for an American listener: <form><input type="text"></form><span id="dur_planet_am"></span></div>
 
-	<div>Unnormalized p(duration | "plant a tree") for an American speaker: <span id="dur_plant_am"></span></div>
+	<div>Estimate of p(duration | "plant a tree") for an American listener: <form><input type="text"></form><span id="dur_plant_am"></span></div>
 
-	<div>Unnormalized p(duration | "planetary") for a British speaker: <span id="dur_planet_br"></span></div>
+	<div>Estimate of p(duration | "planetary") for a British listener: <form><input type="text"></form><span id="dur_planet_br"></span></div>
 
-	<div>Unnormalized p(duration | "plant a tree") for a British speaker: <span id="dur_plant_br"></span></div>
-
-
-
+	<div>Estimate p(duration | "plant a tree") for a British listener: <form><input type="text"></form><span id="dur_plant_br"></span></div>
 
 
 
 	<p>There is one other aspect we will consider for computing the likelihood. Notice how, in the clip we are trying to figure out, there is no "t" sound at the end of the first syllable. If the utterance is "planetary", that is completely expected, since the word is "planetary", not "plantetary". However, if it is "plant a tree", then this utterance could only arise if the speaker had omitted the "t" sound from "plant", making the utterance sound more like "plan a tree." Therefore, if we wish to figure out the likelihood of the utterance being "plant a tree", we have to factor in the odds of the "t" being dropped from "plant".</p>
 
-	<p>As it turns out, speakers of English often do drop the "t" sound (or the "d" sound) from the ends of English words. It is a well-studied phenomenon known as t/d-deletion. Because there already exists literature on this subject, we will draw our estimates of p(t is omitted) from past research. </p>
+	<p>As it turns out, speakers of English (both American English and British English) often do drop the "t" sound (or the "d" sound) from the ends of English words. It is a well-studied phenomenon known as t/d-deletion. Because there already exists literature on this subject, we will draw our estimates of p(t is omitted) from past research. </p>
 
-	<p><a href="http://gregoryrguy.com/wp-content/uploads/Guy1991_explanation_in_variable_phonology_exponential_model.pdf">Guy (1991)</a> studied t/d-deletion in American English; the table below summarizes his findings about the frequency of this deletion for various types of words:</p>
-	<table>
-		<tr>
-			<th>Class</th>
-			<th>N total</th>
-			<th>N deleted</th>
-			<th>% deleted</th>
-			<th>% retained</th>
-		</tr>
-		<tr>
-			<td>Monomorphemic words (e.g. mist, pact)</td>
-			<td>658</td>
-			<td>251</td>
-			<td>38.1</td>
-			<td>61.9</td>
-		</tr>
-		<tr>
-			<td>Past tense of semiweak verbs (e.g. left, told)</td>
-			<td>56</td>
-			<td>19</td>
-			<td>33.9</td>
-			<td>66.1</td>
-		</tr>
-		<tr>
-			<td>Past tense of regular verbs (e.g. missed, packed)</td>
-			<td>181</td>
-			<td>29</td>
-			<td>16.0</td>
-			<td>84.0</td>
-		</tr>
+	<p>First, based on the work of <a href="http://gregoryrguy.com/wp-content/uploads/Guy1991_explanation_in_variable_phonology_exponential_model.pdf">Guy (1991)</a>, we will say that p("t" is deleted | "plant a tree") = 0.38 for American speakers.</p>
+	<p>Next, based on the work of <a href="https://search.proquest.com/docview/218156304/fulltextPDF/88FD7D6DDFA04EDAPQ/1?accountid=11752">Tagliamonte and Temple (2005)</a>, we will say that p("t" is deleted | "plant a tree") = 26% for British speakers.</p>
 
-	</table>
-
-	<p><a href="https://search.proquest.com/docview/218156304/fulltextPDF/88FD7D6DDFA04EDAPQ/1?accountid=11752">Tagliamonte and Temple (2005)</a> studied t/d-deletion in British English; their findings are reproduced below:</p>
-	<table>
-		<tr>
-			<th>Class</th>
-			<th>N total</th>
-			<th>% deleted</th>
-		</tr>
-		<tr>
-			<td>Monomorpheme (e.g. mist)</td>
-			<td>716</td>
-			<td>26</td>
-		</tr>
-		<tr>
-			<td>Irregular past (e.g. kept)</td>
-			<td>128</td>
-			<td>21</td>
-		</tr>
-		<tr>
-			<td>Regular past (e.g. missed)</td>
-			<td>388</td>
-			<td>19</td>
-		</tr>
-
-	</table>
-
-	<p>Using these tables, enter p(t is deleted | "plant") for British speakers and American speakers in the slots below. Make sure to choose the right numbers from these tables - you might want to look up "monomorpheme."</p>
-
-	<div>p(t is deleted | "plant") for an American speaker:<form id="p_del_am" action="javascript:void(0);"><input type="text"></form></div>
-	<div>p(t is deleted | "plant") for a British speaker:<form id="p_del_br" action="javascript:void(0);"><input type="text"></form></div>
-
-
-	<p>Now we can compute the full likelihoods. Enter them into the cells below. Your likelihoods should factor in both the length of the relevant portion of audio and the probability of deleting the 't'; assume that these two probabilities are independent.</p>
-	<div>p(observed audio clip | "planetary") for an American speaker:<form id="p_del_am" action="javascript:void(0);"><input type="text"></form></div>
-	<div>p(observed audio clip | "plant a tree") for an American speaker:<form id="p_del_am" action="javascript:void(0);"><input type="text"></form></div>
-	<div>p(observed audio clip | "planetary") for a British speaker:<form id="p_del_br" action="javascript:void(0);"><input type="text"></form></div>
-	<div>p(observed audio clip | "plant a tree") for a British speaker:<form id="p_del_br" action="javascript:void(0);"><input type="text"></form></div>
+	<p>Now we can compute the full likelihoods. Enter them into the cells below. Hints: (i) For the "plant a tree" cases, you should factor in both the duration of the relevant portion of the clip (you computed the probability associated with this duration based on the histograms) and the deletion of the "t" sound. For the "planetary" cases, you only need to factor in the duration (since there is no deleted "t"). (ii) You can assume that the duration of the "tary"/"tree" portion of the audio is independent of the deletion or non-deletion of the "t".</p>
+	<div>p(audio | "planetary") for an American speaker:<form id="p_del_am" action="javascript:void(0);"><input type="text"></form></div>
+	<div>p(audio | "plant a tree") for an American speaker:<form id="p_del_am" action="javascript:void(0);"><input type="text"></form></div>
+	<div>p(audio | "planetary") for a British speaker:<form id="p_del_br" action="javascript:void(0);"><input type="text"></form></div>
+	<div>p(audio | "plant a tree") for a British speaker:<form id="p_del_br" action="javascript:void(0);"><input type="text"></form></div>
 
 
 
-
-	<p>Now that we have computed the likelihoods, the final ingredient we need for Bayes' Theorem is the prior probabilities. (Recall that we can ignore the normalizing factor). To estimate the prior probabilities, we will use corpora. We will state that p(planetary) is the proportion of sentences in the corpus in which the word "planetary" appears, while p(plant a tree) is the proportion of sentences in the corpus in which the phrase "plant a tree" appears. Much as whether the speaker is British or American affects how his or her likelihood estimate, the speaker's experience can also affect his or her prior probabilities; for example, an astronomer might have a high prior probability for "planetary" since astronomers often talk about planets, while an ecologist might have a high prior probability for "plant a tree" since ecologists often talk about planting trees.</p>
+	<p>Now that we have computed the likelihoods, the final ingredient we need for Bayes' Theorem is the prior probabilities. (Recall that we are ignoring the normalizing factor). To estimate the prior probabilities, we will use corpora, which are samples of text. We will state that p("planetary") is the proportion of sentences in the corpus in which the word "planetary" appears, while p("plant a tree") is the proportion of sentences in the corpus in which the phrase "plant a tree" appears. Much as whether the speaker is British or American affects his or her likelihood estimate, the speaker's experience can also affect his or her prior probabilities; for example, an astronomer might have a high prior probability for "planetary" since astronomers often talk about planets, while an ecologist might have a high prior probability for "plant a tree" since ecologists often talk about planting trees.</p>
 
 	<p>To allow for such differences in experience, we have included two sets of sentences below. One is the type of sentences that an astronomer might be exposed to regularly, while the other is the type of sentences that an ecologist might be exposed to regularly. Use these corpora to estmate what the prior probabilities would be for the two different types of experience:</p>
 
-	<div class="corpus">Science fiction has long dreamt of sending humans to other planets. The prospect of colonies on Mars elicits feelings of hope and wonder, and indeed such colonies may be essential to the survival of our species. Though Mars is the most frequently discussed <span style="color:blue">planetary</span> system as a potential future home for humanity, it is far from ideal. The harsh soil, extreme temperatures, and dim sunlight mean that one cannot simply <span style="color:red">plant a tree</span> in its soil and live there in peace like the Little Prince. But Mars at least looks somewhat like Earth. Other <span style="color:blue">planetary</span> entities are too inhospitable to even be considered. There is little hope of creating a colony on a gas giant, Venus's atmosphere would kill a human in multiple ways in a matter of seconds, and Mercury has little atmosphere to speak of. Planetary motion must also be considered. Mercury and Venus are so hostile in large part because of their proximity to the Sun. Pluto's eccentric orbit takes it far beyond the regions we could hope to reach in a reasonable amount of time without major improvements in rocket technology. Of course Pluto is also not technically among the ranks of full-fledged <span style="color:blue">planetary</span> bodies being discussed here, but the category used to classify a heavenly body would not stop us from settling there. In fact, though the gas giants themselves are not welcoming hosts, their larger <span style="color:blue">planetary</span> systems do offer some potential for human habitation. Some of the moons of Jupiter and Saturn are among the most plausible candidates for preexisting extraterrestrial life. While this doesn't mean that we could immediately build a farm or <span style="color:red">plant a tree</span> on them, it would be encouraging to know that other life had already made a home in the place we sought to inhabit. Humanity's next home might not be the rust-red soil of Mars but rather the icy surface of Europa or the dense atmosphere of Titan. The prospect of navigating a shuttle though the <span style="color:blue">planetary</span> debris around Saturn to land in a spaceport on Titan is indeed an exciting one. Even closer to home, our own moon has the distinct advantage of proximity. It remains the only world other than Earth on which humanity has set foot. Perhaps it will become the gateway to a massive <span style="color:blue">planetary</span> network hosting a diverse array of human societies. The sky's the limit - but not for long.</div>
+	<div class="corpus"><div><b>Astronomer's Corpus</b></div>Science fiction has long dreamt of sending humans to other planets. The prospect of colonies on Mars elicits feelings of hope and wonder, and indeed such colonies may be essential to the survival of our species. Though Mars is the most frequently discussed <span style="color:blue">planetary</span> system as a potential future home for humanity, it is far from ideal. The harsh soil, extreme temperatures, and dim sunlight mean that one cannot simply <span style="color:red">plant a tree</span> in its soil and live there in peace like the Little Prince. But Mars at least looks somewhat like Earth. Other <span style="color:blue">planetary</span> entities are too inhospitable to even be considered. There is little hope of creating a colony on a gas giant, Venus's atmosphere would kill a human in multiple ways in a matter of seconds, and Mercury has little atmosphere to speak of. Planetary motion must also be considered. Mercury and Venus are so hostile in large part because of their proximity to the Sun. Pluto's eccentric orbit takes it far beyond the regions we could hope to reach in a reasonable amount of time without major improvements in rocket technology. Of course Pluto is also not technically among the ranks of full-fledged <span style="color:blue">planetary</span> bodies being discussed here, but the category used to classify a heavenly body would not stop us from settling there. In fact, though the gas giants themselves are not welcoming hosts, their larger <span style="color:blue">planetary</span> systems do offer some potential for human habitation. Some of the moons of Jupiter and Saturn are among the most plausible candidates for preexisting extraterrestrial life. While this doesn't mean that we could immediately build a farm or <span style="color:red">plant a tree</span> on them, it would be encouraging to know that other life had already made a home in the place we sought to inhabit. Humanity's next home might not be the rust-red soil of Mars but rather the icy surface of Europa or the dense atmosphere of Titan. The prospect of navigating a shuttle though the <span style="color:blue">planetary</span> debris around Saturn to land in a spaceport on Titan is indeed an exciting one. Even closer to home, our own moon has the distinct advantage of proximity. It remains the only world other than Earth on which humanity has set foot. Perhaps it will become the gateway to a massive <span style="color:blue">planetary</span> network hosting a diverse array of human societies. The sky's the limit - but not for long.</div>
 
-	<div class="corpus">The most widely celebrated way to help our environment is to <span style="color:red">plant a tree</span>. There is an entire holiday, Arbor Day, devoted to the practice. Earth Day festivities often involve having people <span style="color:red">plant a tree</span> as well. Recycling may be important to our <span style="color:blue">planetary</span> well-being, but it doesn't have two holidays dedicated to it. To understand the importance of plants, one can look back into earlier moments during Earth's <span style="color:blue">planetary</span> history. Before the advent of photosynthetic life, there was essentially no oxygen in the atmosphere. When photosynthetic cyanobacteria arose, however, they began a long cycle of increasing the oxygen levels in the air such that now Earth's atmosphere is 21% oxygen. Rarely do living things have such a massive impact on the chemical composition of the planet. The one other case of such an impact is human-caused pollution, which is far less beneficial. If you don't want to <span style="color:red">plant a tree</span>, then consider raising some cyanobacteria. Beyond the atmospheric health of our <span style="color:blue">planetary</span> system, there are many other reasons to <span style="color:red">plant a tree</span>. Trees add welcome touches of nature to gray urban landscapes. Their calm, stately presence is a soothing respite from our often harsh artificial environment. Other animals will thank you as well. Trees provide the main habitat for many other organisms. The first that comes to mind is probably the squirrel, perhaps the animal most likely to <span style="color:red">plant a tree</span>, but there are many others as well. So go out and <span style="color:red">plant a tree</span>! As the saying goes: The best time to <span style="color:red">plant a tree</span> is twenty years ago. The second best time is now.
+	<div class="corpus"><div><b>Ecologist's Corpus</b></div>The most widely celebrated way to help our environment is to <span style="color:red">plant a tree</span>. There is an entire holiday, Arbor Day, devoted to the practice. Earth Day festivities often involve having people <span style="color:red">plant a tree</span> as well. Recycling may be important to our <span style="color:blue">planetary</span> well-being, but it doesn't have two holidays dedicated to it. To understand the importance of plants, one can look back into earlier moments during Earth's <span style="color:blue">planetary</span> history. Before the advent of photosynthetic life, there was essentially no oxygen in the atmosphere. When photosynthetic cyanobacteria arose, however, they began a long cycle of increasing the oxygen levels in the air such that now Earth's atmosphere is 21% oxygen. Rarely do living things have such a massive impact on the chemical composition of the planet. The one other case of such an impact is human-caused pollution, which is far less beneficial. If you don't want to <span style="color:red">plant a tree</span>, then consider raising some cyanobacteria. Beyond the atmospheric health of our <span style="color:blue">planetary</span> system, there are many other reasons to <span style="color:red">plant a tree</span>. Trees add welcome touches of nature to gray urban landscapes. Their calm, stately presence is a soothing respite from our often harsh artificial environment. Other animals will thank you as well. Trees provide the main habitat for many other organisms. The first that comes to mind is probably the squirrel, perhaps the animal most likely to <span style="color:red">plant a tree</span>, but there are many others as well. So go out and <span style="color:red">plant a tree</span>! As the saying goes: The best time to <span style="color:red">plant a tree</span> is twenty years ago. The second best time is now.
 	
 	</div>
 
+
+	<div>Based on these corpora, determine the prior probabilities that astronomers and ecologists would have associated with "planetary" and "plant a tree."</div>
+
+	<div>&nbsp;</div>
+	<div><b>Data from the astronomer corpus</b></div>
 	<div>Total number of sentences: 20</div>
 	<div>Number of sentences containing "<span style="color:blue">planetary</span>": 6</div>
 	<div>Number of sentences containing "<span style="color:red">plant a tree</span>": 2</div>
@@ -844,7 +810,10 @@
 
 	<div>p("planetary") for an astronomer:<form id="p_planet_astro" action="javascript:void(0);"><input type="text"></form></div>
 	<div>p("plant a tree") for an astronomer:<form id="p_planet_astro" action="javascript:void(0);"><input type="text"></form></div>
-
+	
+	
+	<div>&nbsp;</div>
+	<div><b>Data from the ecologist corpus</b></div>
 	<div>Total number of sentences: 20</div>
 	<div>Number of sentences containing "<span style="color:blue">planetary</span>": 3</div>
 	<div>Number of sentences containing "<span style="color:red">plant a tree</span>": 7</div>
@@ -855,7 +824,7 @@
 	<div>p("plant a tree") for an ecologist:<form id="p_planet_astro" action="javascript:void(0);"><input type="text"></form></div>
 
 
-	<p>Now we can use the prior probabilities and the likelihoods from above to compute the posterior probabilities.</p>
+	<p>Finally, now that we have estimates for the priors and likelihoods, we can determine what the posterior probabilities are for various listeners, based on the nationalities and occupations of these listeners. Do this in the boxes below.</p>
 
 	<div class="posterior_box">
 	<div>For an American astronomer:</div>
@@ -910,8 +879,7 @@
 	</div>
 
 
-
-
+	<div>Do the outcomes match your intuitions? If not, think about how the simplifications we made in our modeling might have distorted the results.</div>
 
 
 
