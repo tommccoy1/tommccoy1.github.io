@@ -393,6 +393,14 @@
 	<p>These analogies provide independent evidence for the conclusions of the TPDN analysis, namely that...</p>
 
 
+<div>Type a sequence <form id="analogy_form_1" action="javascript:void(0);"><input type="text"></form></div>
+<div>Type a sequence <form id="analogy_form_2" action="javascript:void(0);"><input type="text"></form></div>
+<div>Type a sequence <form id="analogy_form_3" action="javascript:void(0);"><input type="text"></form></div>
+<div><button onclick="show_analogy();">Show sequence encodings</button></div>
+<div id="analogya"></div>
+<div id="analogyb"></div>
+
+
 	<h3>Effect of training task</h3>
 
 	<p>We can use the TPDN to delve deeper into different aspects of RNN training to see how those aspects affect the representations that are learned. First, we can see how the training task affects the representations. So far we've focused on one task (copying, aka autoencoding), but now we introduce 3 more symbolic tasks:</p>
@@ -422,11 +430,31 @@
 <div id="sort_input"></div> <div id="sort_output"></div>
 
 
-	<p>INSERT SNAZZY TASK GRAPHIC</p>
 
 	<p>The following chart displays how the training task affects the learned representation (this chart also allows you to vary the architecture being considered. See the next section for descriptions of the architectures):</p>
 
-	<p>INSERT TASK GRAPHIC</p>
+
+<div class="dropdown">
+  <button onclick="myFunctionA()" class="dropbtn">Encoder</button>
+  <div id="drop_encoder" class="dropdown-content">
+    <a onclick="encC('uni');">Unidirectional</a>
+    <a onclick="encC('bi');">Bidirectional</a>
+    <a onclick="encC('tree');">Tree</a>
+  </div>
+</div>
+
+
+<div class="dropdown">
+  <button onclick="myFunctionB()" class="dropbtn">Decoder</button>
+  <div id="drop_decoder" class="dropdown-content">
+    <a onclick="decC('uni');">Unidirectional</a>
+    <a onclick="decC('bi');">Bidirectional</a>
+    <a onclick="decC('tree');">Tree</a>
+  </div>
+</div>
+
+
+	<div id="task_chart"></div>
 
 	<p>There are several points to note about this graphic (all focusing on the unidirectional/unidirectional architecture):</p>
 
@@ -475,26 +503,6 @@
 
   <div id="chart_div"></div>
 
-  
-<div class="dropdown">
-  <button onclick="myFunctionA()" class="dropbtn">Encoder</button>
-  <div id="drop_encoder" class="dropdown-content">
-    <a onclick="enc('uni');">Unidirectional</a>
-    <a onclick="enc('bi');">Bidirectional</a>
-    <a onclick="enc('tree');">Tree</a>
-  </div>
-</div>
-
-
-<div class="dropdown">
-  <button onclick="myFunctionB()" class="dropbtn">Decoder</button>
-  <div id="drop_decoder" class="dropdown-content">
-    <a onclick="dec('uni');">Unidirectional</a>
-    <a onclick="dec('bi');">Bidirectional</a>
-    <a onclick="dec('tree');">Tree</a>
-  </div>
-</div>
-
 <div class="dropdown">
   <button onclick="myFunctionC()" class="dropbtn">Task</button>
   <div id="drop_task" class="dropdown-content">
@@ -519,14 +527,6 @@
   Testing testing one two three.
 
 <div id="displaydiv"></div>
-
-<div>Type a sequence <form id="analogy_form_1" action="javascript:void(0);"><input type="text"></form></div>
-<div>Type a sequence <form id="analogy_form_2" action="javascript:void(0);"><input type="text"></form></div>
-<div>Type a sequence <form id="analogy_form_3" action="javascript:void(0);"><input type="text"></form></div>
-<div><button onclick="show_analogy();">Show sequence encodings</button></div>
-<div id="analogya"></div>
-<div id="analogyb"></div>
-
 
 <div id="decoder_vectors"></div>
 
@@ -2155,6 +2155,24 @@ var options = {
 
 
 
+roles = bi_roles;
+final_sub = no_sub;
+
+rnn_show_encodings();
+
+show_ltr();
+show_rtl();
+show_bi();
+show_wickel();
+show_tree();
+show_bow();
+bi();
+show_encodings();
+
+auto_from_form();
+rev_from_form();
+interleave_from_form();
+sort_from_form();
 
 
 
@@ -2164,6 +2182,163 @@ var options = {
 
 
 
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMultSeriesC);
+
+var current_encoder = "uni";
+var current_decoder = "uni";
+var current_task = "auto";
+var current_vary = "task_vary";
+
+     function encC(enc_type) {
+	current_encoder = enc_type;
+     	drawMultSeriesC();
+     }
+
+     function decC(dec_type) {
+	current_decoder = dec_type;
+     	drawMultSeriesC();
+     }
+
+function drawMultSeriesC() {
+	var uni_uni = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.87, 0.11, 0.99, 0.28, 0.25, 0.00, ''],
+     	['Reverse', 0.06, 0.99, 1.00, 0.18, 0.20, 0.00, ''],
+     	['Sort', 0.90, 0.90, 0.92, 0.88, 0.89, 0.89, ''],
+     	['Interleave', 0.27, 0.18, 0.99, 0.63, 0.36, 0.00, ''],
+      ]);
+
+     var uni_bi = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.28, 0.27, 0.40, 0.40, 0.24, 0.01, ''],
+     	['Reverse', 0.26, 0.27, 0.39, 0.41, 0.23, 0.01, ''],
+     	['Sort', 0.90, 0.89, 0.92, 0.92, 0.92, 0.90, ''],
+     	['Interleave', 0.18, 0.10, 0.73, 0.46, 0.26, 0.01, ''],
+      ]);
+
+	var uni_tree = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.05, 0.09, 0.09, 0.11, 0.88, 0.01, ''],
+     	['Reverse', 0.10, 0.11, 0.18, 0.17, 0.41, 0.00, ''],
+     	['Sort', 0.21, 0.21, 0.21, 0.19, 0.84, 0.28, ''],
+     	['Interleave', 0.04, 0.03, 0.12, 0.09, 0.37, 0.00, ''],
+      ]);
+
+	var bi_uni = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.75, 0.14, 0.92, 0.21, 0.21, 0.00, ''],
+     	['Reverse', 0.04, 0.95, 0.97, 0.08, 0.15, 0.00, ''],
+     	['Sort', 0.89, 0.88, 0.92, 0.81, 0.87, 0.85, ''],
+     	['Interleave', 0.19, 0.13, 0.97, 0.44, 0.23, 0.00, ''],
+      ]);
+
+	var bi_bi = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.10, 0.12, 0.18, 0.17, 0.13, 0.01, ''],
+     	['Reverse', 0.12, 0.14, 0.23, 0.17, 0.14, 0.01, ''],
+     	['Sort', 0.92, 0.93, 0.95, 0.84, 0.93, 0.93, ''],
+     	['Interleave', 0.01, 0.07, 0.60, 0.13, 0.16, 0.00, ''],
+      ]);
+
+     var bi_tree = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.05, 0.08, 0.09, 0.10, 0.84, 0.01, ''],
+     	['Reverse', 0.09, 0.11, 0.17, 0.15, 0.39, 0.00, ''],
+     	['Sort', 0.22, 0.22, 0.21, 0.19, 0.82, 0.27, ''],
+     	['Interleave', 0.03, 0.03, 0.07, 0.06, 0.40, 0.00, ''],
+      ]);
+
+	var tree_uni = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.71, 0.33, 0.87, 0.60, 0.53, 0.01, ''],
+     	['Reverse', 0.18, 0.76, 0.80, 0.42, 0.56, 0.01, ''],
+     	['Sort', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, ''],
+     	['Interleave', 0.33, 0.21, 0.91, 0.66, 0.52, 0.01, ''],
+      ]);
+
+	var tree_bi = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.36, 0.38, 0.49, 0.57, 0.38, 0.01, ''],
+     	['Reverse', 0.30, 0.33, 0.44, 0.55, 0.37, 0.01, ''],
+     	['Sort', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, ''],
+     	['Interleave', 0.19, 0.15, 0.64, 0.52, 0.39, 0.01, ''],
+      ]);
+
+	var tree_tree = google.visualization.arrayToDataTable([
+         ['Task', 'Left-to-right', 'Right-to-left', 'Bidirectional', 'Wickel', 'Tree', 'Bag-of-words',{ role: 'style' }],
+         ['Autoencode', 0.04, 0.07, 0.08, 0.10, 0.96, 0.01, ''],
+     	['Reverse', 0.08, 0.10, 0.15, 0.15, 0.61, 0.00, ''],
+     	['Sort', 0.20, 0.20, 0.18, 0.18, 0.98, 0.25, ''],
+     	['Interleave', 0.03, 0.03, 0.06, 0.07, 0.61, 0.00, ''],
+      ]);
+
+
+
+
+	var data = uni_uni;
+	if (current_encoder == "uni") {
+		if (current_decoder == "uni") {
+			var data = uni_uni;
+     		}
+     		if (current_decoder == "bi") {
+			var data = uni_bi;
+     		}
+     		if (current_decoder == "tree") {
+			var data = uni_tree;
+     		}
+     	}
+	if (current_encoder == "bi") {
+		if (current_decoder == "uni") {
+			var data = bi_uni;
+     		}
+     		if (current_decoder == "bi") {
+			var data = bi_bi;
+     		}
+     		if (current_decoder == "tree") {
+			var data = bi_tree;
+     		}
+     	}
+	if (current_encoder == "tree") {
+		if (current_decoder == "uni") {
+			var data = tree_uni;
+     		}
+     		if (current_decoder == "bi") {
+			var data = tree_bi;
+     		}
+     		if (current_decoder == "tree") {
+			var data = tree_tree;
+     		}
+     	}
+
+
+
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('task_chart'));
+
+var options = {
+                     'hAxis': {
+      			'title': 'Task'
+    			},
+			'chartArea': {
+			'right':300,
+			'left':100
+			},
+			'vAxis': {
+			'viewWindow': {
+			'min': 0,
+			'max': 1.0
+			}
+			},
+		     'width':800,
+                     'height':300};
+
+      chart.draw(data, options);
+    }
+
+
+drawMultSeriesC();
 
 
 
@@ -2177,7 +2352,6 @@ var current_vary = "task_vary";
 
      function enc(enc_type) {
 	current_encoder = enc_type;
-	document.getElementById("displaydiv").innerHTML = current_encoder;
      	drawMultSeries();
      }
 
@@ -2622,20 +2796,6 @@ var options = {
       chart.draw(data, options);
     }
 
-
-roles = bi_roles;
-final_sub = no_sub;
-
-rnn_show_encodings();
-
-show_ltr();
-show_rtl();
-show_bi();
-show_wickel();
-show_tree();
-show_bow();
-bi();
-show_encodings();
 
 </script>
 
