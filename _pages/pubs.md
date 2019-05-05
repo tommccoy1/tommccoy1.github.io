@@ -12,7 +12,9 @@ redirect_from:
 
 **R. Thomas McCoy**, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference.
 
+<div style="margin-left: 40px; text-indent: -40px;">
 Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, **R. Thomas McCoy**, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berline Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling.
+</div>
 
 # 2019
 

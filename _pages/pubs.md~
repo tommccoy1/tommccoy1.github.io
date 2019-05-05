@@ -7,10 +7,25 @@ redirect_from:
 
 {% include base_path %}
 
+
+# In progress
+
+**R. Thomas McCoy**, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference.
+
+<div style="margin-left: 40px; text-indent: -40px;">
+Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, **R. Thomas McCoy**, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berline Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling.
+</div>
+
 # 2019
 
 Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, **R. Thomas McCoy**,Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in *Proceedings of the Eight Joint Conference on Lexical and Computational Semantics (\&ast;SEM 2019)*.
 
+
+**R. Thomas McCoy**, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement tensor-product representations. In *International Conference on Learning Representations 2019*. 
+
+Ian Tenney, Patrick Xia, Berline Chen, Alex Wang, Adam Poliak, **R. Thomas McCoy**, Najoung Kim, Benjamin Van Durme, Samuel R. Bowman, Dipanjan Das, and Ellie Pavlick. What do you learn from context? Probing for sentence structure in contextualized word representations. In *International Conference on Learning Representations 2019*.
+
+**R. Thomas McCoy** and Tal Linzen. Non-entailed subsequences as a challenge for natural language inference. In *Proceedings of the Society for Computation in Linguistics (SCiL) 2019*.
 
 # 2018
 
