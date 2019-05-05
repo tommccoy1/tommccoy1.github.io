@@ -1,0 +1,10 @@
+# main links links
+main:
+  - title: "Publications"
+    url: /pubs/
+    
+  - title: "CV"
+    url: /files/tom_mccoy_cv_060518.pdf
+    
+  - title: "Contact"
+    url: /contact/
