@@ -11,29 +11,30 @@ redirect_from:
 # In progress
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference.
+<b>R. Thomas McCoy</b>, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. [<a href="https://arxiv.org/abs/1902.01007">arxiv</a>] [<a href="https://arxiv.org/pdf/1902.01007.pdf">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, <b>R. Thomas McCoy</b>, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berline Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling.
+Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, <b>R. Thomas McCoy</b>, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berline Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling. [<a href="https://arxiv.org/abs/1812.10860">arxiv</a>] [<a href="https://arxiv.org/pdf/1812.10860.pdf">pdf</a>]
 </p>
 
 # 2019
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in <em>Proceedings of the Eight Joint Conference on Lexical and Computational Semantics (&ast;SEM 2019)</em>.
+Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in <em>Proceedings of the Eight Joint Conference on Lexical and Computational Semantics (&ast;SEM 2019)</em>. [<a href="https://arxiv.org/abs/1904.11544">arxiv</a>] [<a href="https://arxiv.org/pdf/1904.11544.pdf">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement tensor-product representations. In <em>International Conference on Learning Representations 2019</em>. 
+<b>R. Thomas McCoy</b>, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement tensor-product representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://arxiv.org/abs/1812.08718">arxiv</a>] [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Ian Tenney, Patrick Xia, Berline Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCoy</b>, Najoung Kim, Benjamin Van Durme, Samuel R. Bowman, Dipanjan Das, and Ellie Pavlick. What do you learn from context? Probing for sentence structure in contextualized word representations. In <em>International Conference on Learning Representations 2019</em>.
+Ian Tenney, Patrick Xia, Berline Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCoy</b>, Najoung Kim, Benjamin Van Durme, Samuel R. Bowman, Dipanjan Das, and Ellie Pavlick. What do you learn from context? Probing for sentence structure in contextualized word representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://openreview.net/pdf?id=SJzSgnRcKX">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b> and Tal Linzen. Non-entailed subsequences as a challenge for natural language inference. In <em>Proceedings of the Society for Computation in Linguistics (SCiL) 2019</em>.
+<b>R. Thomas McCoy</b> and Tal Linzen. Non-entailed subsequences as a challenge for natural language inference. In <em>Proceedings of the Society for Computation in Linguistics (SCiL) 2019</em>. [<a href="https://arxiv.org/abs/1811.12112">arxiv</a>] [<a href="https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1073&context=scil">pdf</a>]
+
 </p>
 
 # 2018

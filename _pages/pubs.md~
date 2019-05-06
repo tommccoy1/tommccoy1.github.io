@@ -21,7 +21,7 @@ Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, J
 # 2019
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in <em>Proceedings of the Eight Joint Conference on Lexical and Computational Semantics (\&ast;SEM 2019)</em>.
+Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in <em>Proceedings of the Eight Joint Conference on Lexical and Computational Semantics (&ast;SEM 2019)</em>.
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
