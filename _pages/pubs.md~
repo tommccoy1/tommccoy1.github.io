@@ -43,20 +43,21 @@ Ian Tenney, Patrick Xia, Berline Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCo
 <b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. 2018. Revisiting the poverty of
 the stimulus: hierarchical generalization without a hierarchical bias in recurrent
 neural networks. To appear in <em>Proceedings of the 40th Annual Conference of the
-Cognitive Science Society</em>.
+Cognitive Science Society</em>. [<a href="https://arxiv.org/abs/1802.09091">arxiv</a>] [<a href="https://arxiv.org/pdf/1802.09091.pdf">pdf</a>] 
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Patrick Littell, <b>R. Thomas McCoy</b>, Na-Rae Han, Shruti Rijhwani, Zaid Sheikh,
 David Mortensen, Teruko Mitamura, and Lori Levin. 2018. Parser combinators for
 Tigrinya and Oromo morphology. To appear in <em>Language Resources and Evaluation
-Conference (LREC) 2018</em>.
+Conference (LREC) 2018</em>. [<a href="https://www.aclweb.org/anthology/L18-1611">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b> and Robert Frank. 2018. Phonologically Informed Edit Distance
 Algorithms for Word Alignment with Low-Resource Languages. In <em>Proceedings
-of the Society for Computation in Linguistics (SCiL) 2018</em>, pages 102-112.
+of the Society for Computation in Linguistics (SCiL) 2018</em>, pages 102-112. [<a href="https://www.aclweb.org/anthology/W18-0311">pdf</a>]
+
 </p>
 
 # 2017
@@ -65,18 +66,18 @@ of the Society for Computation in Linguistics (SCiL) 2018</em>, pages 102-112.
 Jungo Kasai, Bob Frank, <b>R. Thomas McCoy</b>, Owen Rambow, and Alexis Nasr. 2017.
 Tag parsing with neural networks and vector representations of supertags. In
 <em>Proceedings of the 2017 Conference on Empirical Methods in Natural Language
-Processing</em>, pages 1712-1722.
+Processing</em>, pages 1712-1722. [<a href="https://www.aclweb.org/anthology/D17-1180">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Dan Friedman&ast;, Jungo Kasai&ast;, <b>R. Thomas McCoy</b>&ast;, Robert Frank, Forrest Davis,
 Owen Rambow. Linguistically Rich Vector Representations of Supertags for TAG
 Parsing. In <em>Proceedings of the 13th International Workshop on Tree Adjoining
-Grammars and Related Formalisms</em>, pages 122-131.  
+Grammars and Related Formalisms</em>, pages 122-131. [<a href="https://www.aclweb.org/anthology/W17-6213">pdf</a>]
 &ast;Equal contribution.
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>. 2017. English comparatives as degree-phrase relative clauses. In
-<em>Proceedings of the Linguistic Society of America 2</em>, 26:1-7.
+<em>Proceedings of the Linguistic Society of America 2</em>, 26:1-7. [<a href="https://journals.linguisticsociety.org/proceedings/index.php/PLSA/article/view/4078">link</a>]
 </p>
