@@ -14,7 +14,7 @@
 	<p>Suppose you hear someone make the following utterance:</p>
 
 	<audio controls id="mystery" >
-		  <source src="a_plant_1.wav" type="audio/wav">
+		  <source src="mystery_plant_1.wav" type="audio/wav">
 		    Your browser does not support the audio element.
 	</audio>	
 	
@@ -741,13 +741,13 @@
 	<div class="name">Mystery recording</div>
 	<div class="praat">
 		<audio  id="a_plant_1_m"  preload="metadata" onloadedmetadata="console.log(document.getElementById(this.id).duration)"  ontimeupdate="var ap1 = document.getElementById(this.id); document.getElementById(this.id + '_rl').style.left = (parseFloat(ap1.currentTime) / parseFloat(ap1.duration)) * parseFloat(document.getElementById(this.id + '_pic').width) + 'px'"   >
-		  <source src="a_plant_1.wav" type="audio/wav">
+		  <source src="mystery_plant_1.wav" type="audio/wav">
 		    Your browser does not support the audio element.
 	</audio>	
 	<div id="a_plant_1_m_img" class="img_box">
 	<div class="transparent_cover" onmousedown="change_yellow(event, 'a_plant_1_m')" onmousemove="mod_yellow(event, 'a_plant_1_m')" onmouseup="end_yellow(event, 'a_plant_1_m')" onmouseout="end_yellow(event, 'a_plant_1_m')" ></div>
 	<img draggable="false" id="a_plant_1_m_rl" class="rl" src="red_line.png">
-	<img draggable="false" class="spect_img" id="a_plant_1_m_pic" src="a_plant_1.png">
+	<img draggable="false" class="spect_img" id="a_plant_1_m_pic" src="mystery_plant_1.png">
 	<img draggable="false" class="yb" src="yellow_box.png" id="a_plant_1_m_yb">
 	</div>
 	<button onclick="play_selection('a_plant_1_m')">Play highlighted portion</button>
