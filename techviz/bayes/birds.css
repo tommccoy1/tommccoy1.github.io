@@ -1,3 +1,30 @@
+h1, h2, h4, h5, h6 { margin-top: 2rem; margin-bottom: 1rem; font-weight: normal; color: #159957; }
+
+h3 {  margin-bottom: 1rem; font-weight: normal; color: #159957; }
+
+body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; color: #606c71; }
+
+
+.btn {
+    background-color: #3498DB;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:disabled {
+        background-color: gray;
+        opacity: 0.3;
+}
+
+/* Dropdown button on hover & focus */
+.btn:hover, .btn:focus {
+    background-color: #2980B9;
+    position: relative;
+    display: inline-block;
+}
 
 
 #bird_grid, #demo_container {
@@ -14,13 +41,18 @@
 	float: left;
 }
 
+#comment_1 {
+	padding: 10px;
+}
 
 #word_learning_demo, #taxonomy, #be_the_learner, #home_screen, #tutorial_1, #tutorial_2, #tutorial_3, #tutorial_4 {
 	height: 600px;
-	width: 600px;
+	width: 590px;
 	top: 0;
 	left: 0;
 	position: absolute;
+	padding: 10px;
+	font-size: 15px;
 }
 
 #tutorial_1, #tutorial_2, #tutorial_3, #tutorial_4 {
@@ -84,27 +116,27 @@
 }
 
 .learner_word {
-	width: 120px;
+	width: 110px;
 	height: 30px;
        	float: left;	
 }
 
 
 .learner_image_choice, .learner_possibility {
-	width: 120px;
+	width: 110px;
 	height: 100px;
 	float: left;
 	opacity: 1.0;
 }
 
 .learner_possibility {
-	width: 110px;
+	width: 100px;
 	padding-right: 10px;
-	font-size: 10pt;
+	font-size: 8pt;
 }
 
 #poss, #prior, #lik, #post {
-	width: 120px;
+	width: 110px;
 	float: left;
 	opacity: 0.0;
 }
@@ -118,12 +150,13 @@
 }
 
 #teacher_preface, #learner_preface {
-	width: 100%;
+	width: 95%;
 	height: 200px;
 	opacity: 1.0;
 	position: absolute;
 	top: 0;
 	left: 0;
+	padding: 10px;
 
 }
 

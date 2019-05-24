@@ -11,9 +11,15 @@
 <body>
 
 
+<h1>Bayesian Word Learning Demo</h1>
+
+<p>By Tom McCoy</p>
+
+<p><em>It is recommended that you view this demo on a full-screen desktop browser window.</em></p>
+
 <div id="bird_grid">
 
-<div id="comment_1" style="background:white;position:absolute;height:273px;width:307px;top:200px;left:200px;border-style:solid;border-color:blue"></div>
+<div id="comment_1" style="background:white;position:absolute;height:310px;width:307px;top:200px;left:200px;border-style:solid;border-color:blue"></div>
 <div id="horse_1" class="horse"><img height="100%" width="100%" src="horse_1.jpg"></div>
 <div id="horse_2" class="horse"><img height="100%" width="100%" src="horse_2.jpg"></div>
 <div id="horse_3" class="horse"><img height="100%" width="100%" src="horse_3.jpg"></div>
@@ -159,14 +165,6 @@
 
 <div id="demo_container">
 
-	<div id="home_screen">
-		<p>How to use the actual simulation: From the home screen, you can either choose "be the learner" or "be the teacher." If you choose "be the learner", you will be presented with five different instances of a new word, and you can then observe how the inferred meaning for that word shifts over time. If you choose "be the teacher", you will enter a word of your designing and then present a learner with 5 images of your choice to observe how the learner infers the word's meaning. At the bottom of the screen, there are buttons that you can choose to either show the computations underlying the inference or not. It is recommended that you show the computations at least at first, until you properly understand how it works.</p>
-	<form action="birds_intro.html" style="display:inline;">
-		        <input type="submit" value="Home" />
-	</form>
-
-	</div>
-
         <div id="taxonomy">
 
 <div>Mouse over any word or number to see which animal or group of animals it represents.</div>
@@ -293,7 +291,7 @@
 </div>
 
 
-<div id="next1"><button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;taxonomy.style.opacity = 0.0;taxonomy.style.zIndex=-10;">Home</button></div>
+<div id="next1"><button onclick="home_screenb.style.opacity = 1.0;home_screenb.style.zIndex = 1000;taxonomy.style.opacity = 0.0;taxonomy.style.zIndex=-10;">Home</button></div>
 
         </div>
 
@@ -302,14 +300,27 @@
 
 
 
+	<div id="home_screenb" style="padding:10px">
+		<p>How to use the actual simulation: From the home screen, you can either choose "be the learner" or "be the teacher." If you choose "be the learner", you will be presented with five different instances of a new word, and you can then observe how the inferred meaning for that word shifts over time. If you choose "be the teacher", you will enter a word of your designing and then present a learner with 5 images of your choice to observe how the learner infers the word's meaning. At the bottom of the screen, there are buttons that you can choose to either show the computations underlying the inference or not. It is recommended that you show the computations at least at first, until you properly understand how it works.</p>
 
-	<div id="be_the_learner">
+	<div style="width:210px;margin:auto">	
+	<button class="btn" style="width:100px;" onclick="devance();">Previous</button>
+	<form action="birds_intro.html" style="display:inline;">
+		        <input class="btn" style="width:100px;" type="submit" value="Home" />
+	</form>
+	</div>
+
+	</div>
+
+
+	<div id="be_the_learner" style="font-size: 14px;">
 
 	<div id="preface_container">
 	<div id="learner_preface">
 
-	<div>Use this button to advance through this demo:</div>
-	<button onclick="advance();">Next</button>
+	<div>Use these buttons to advance through this demo:</div>
+	<button id="prevbtn" class="btn" style="width:100px;" onclick="devance();">Previous</button>
+	<button id="nextbtn" class="btn" style="width:100px;" onclick="advance();">Next</button>
 	
 	
 
@@ -318,6 +329,8 @@
 
 	</div>
 	</div>
+
+
 
 	<div id="learner_images">
 		<div class="learner_image_choice"><img id="learner_image_1" src="blank_space.png" width="90%" height="90%"></div>
@@ -441,6 +454,14 @@
 
 
 	</table>
+
+	<div style="width:50px;margin:auto;font-size:12px;">
+	<form action="birds_intro.html" style="display:inline;">
+                        <input class="btn" type="submit" value="Home" />
+        </form>
+	</div>
+
+
 	</div>
 
 
@@ -458,8 +479,19 @@
 
 <script>
 
-	home_screen.style.opacity = 0.0;
-	home_screen.zIndex = -100;
+	home_screenb.style.opacity = 0.0;
+	home_screenb.zIndex = -100;
+
+	prevbtn.disabled = true;
+
+			function hide_column(col_no) {
+
+     					document.getElementById("head_" + col_no).style.opacity = 0.0;
+					for (xy = 1; xy < 6; xy++) {
+						document.getElementById("math_" + col_no + "_" + xy).style.opacity = 0.0;
+     				}
+	
+     			}
 
 
 			function reveal_column(col_no) {
@@ -472,6 +504,573 @@
      			}
 	comment_1.style.opacity = 0.0;
 	var position_in_demo = 0;
+
+	function devance() {
+		if (position_in_demo == 1) {
+			prevbtn.disabled = true;
+
+			comment_1.style.opacity = 0.0;
+			for (i=1; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+
+
+		}
+
+		if (position_in_demo == 2) {
+			hide_column(1)
+			document.getElementById("comment_1").innerHTML = 'You encounter the word "Ghoti" for the first time corresponding to this image.';
+		}
+		if (position_in_demo == 3) {
+			hide_column(2);
+			document.getElementById("comment_1").innerHTML = 'These are the five possible word meanings that include the entity in this image.';	
+		}
+
+		if (position_in_demo == 4) {
+			hide_column(3);
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy.';	
+		}
+
+		if (position_in_demo == 5) {
+			hide_column(4);
+			document.getElementById("comment_1").innerHTML = 'Each count is the number of entities in our context that fall under the relevant term. For example, there are 76 vertebrates. These numbers will be used to calculate the likelihoods.';	
+		}
+
+		if (position_in_demo == 6) {
+			hide_column(5);
+			document.getElementById("comment_1").innerHTML = 'The likelihood for a meaning is 0 if any of the images we\'ve seen are inconsistent with that meaning. Otherwise, it is 1/(count(meaning)^n), where n is the number of times we have encountered the word. So far we have only seen it once, so the likelihoods are just the inverses of the counts.';	
+		}
+
+
+		if (position_in_demo == 7) {
+			hide_column(6);
+			document.getElementById("comment_1").innerHTML = 'Now we compute the prior times the likelihood. Recall that these quantities are sufficient to order the possibilities. However, because these quantities are often very small in our simulation, we do normalize them by dividing each one by the sum of all of them.';	
+		}
+
+		if (position_in_demo == 8) {
+
+			for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+                
+                        }
+
+
+
+
+                }   
+
+			for (i=1; i<6; i++) {
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+			document.getElementById("comment_1").innerHTML = 'The posterior probabilities are the elements of the previous column divided by the sum of the previous column.';	
+			current_learner_image--;
+		
+		}
+
+
+		if (position_in_demo == 9) {
+
+
+			reveal_column(1);
+			reveal_column(2);
+			reveal_column(3);
+			reveal_column(4);
+			reveal_column(5);
+			reveal_column(6);
+			for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+
+                        }
+
+
+
+
+                }
+
+
+			for (i=1; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+			current_learner_image--;
+			show_image_learner();
+			document.getElementById("comment_1").innerHTML = 'Now we sort the possible meanings by their posterior probabilities. The one with the highest posterior, namely "clownfish", is the hypothesis that the learner is most likely to adopt.';	
+		}
+
+		if (position_in_demo == 10) {
+			hide_column(1);;
+			document.getElementById("comment_1").innerHTML = 'Now see another image. It is the same clownfish for a second time.';	
+		}
+
+
+		if (position_in_demo == 11) {
+			hide_column(2);
+			document.getElementById("comment_1").innerHTML = 'These are the five possible word meanings that include the entity in this image.';	
+		}
+
+		if (position_in_demo == 12) {
+			hide_column(3);
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy. Thus, these have not changed from the previous run.';	
+		}
+
+		if (position_in_demo == 13) {
+			hide_column(4);
+			document.getElementById("comment_1").innerHTML = 'Each count is the number of entities in our context that fall under the relevant term. For example, there are 76 vertebrates. These numbers will be used to calculate the likelihoods.';	
+		}
+
+		if (position_in_demo == 14) {
+			hide_column(5);
+			document.getElementById("comment_1").innerHTML = 'The likelihood for a meaning is 0 if any of the images we\'ve seen are inconsistent with that meaning. Otherwise, it is 1/(count(meaning)^n), where n is the number of times we have encountered the word. Since we have seen this image twice now, these likelihoods are the inverses of the counts squared.';	
+		}
+
+
+		if (position_in_demo == 15) {
+			hide_column(6);
+			document.getElementById("comment_1").innerHTML = 'Now we compute the prior times the likelihood. Recall that these quantities are sufficient to order the possibilities. However, because these quantities are often very small in our simulation, we do normalize them by dividing each one by the sum of all of them.';	
+		}
+
+		if (position_in_demo == 16) {
+
+			for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+                
+                        }
+
+
+
+
+                }   
+
+                        for (i=2; i<6; i++) {
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        document.getElementById("comment_1").innerHTML = 'The posterior probabilities are the elements of the previous column divided by the sum of the previous column.';      
+                        current_learner_image--;
+
+
+		}
+
+
+	
+
+		if (position_in_demo == 17) {
+
+			reveal_column(1);
+                        reveal_column(2);
+                        reveal_column(3);
+                        reveal_column(4);
+                        reveal_column(5);
+                        reveal_column(6);
+                        for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+
+                        }
+
+
+
+
+                }
+
+
+                        for (i=2; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        current_learner_image--;
+
+			show_image_learner();
+			document.getElementById("comment_1").innerHTML = 'Now we sort the possible meanings by their posterior probabilities. Notice how "clownfish 2" has overtaken "clownfish". In this way, the Bayesian framework has captured some reasoning about the suspicious coincidence that both images we have seen were of Clownfish 2.';	
+		}
+
+	
+
+		if (position_in_demo == 18) {
+			hide_column(1);
+			document.getElementById("comment_1").innerHTML = 'Now see a third image...but this time it is not clownfish 2, nor even a clownfish at all, but rather a tuna!';	
+		}
+
+
+		if (position_in_demo == 19) {
+			hide_column(2);
+			document.getElementById("comment_1").innerHTML = 'These are the five possible word meanings that include the entity we saw in the first image (but the likelihood term will eliminate some of these from consideration since they do not cover the current image).';	
+		}
+
+		if (position_in_demo == 20) {
+			hide_column(3);
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy. Thus, these have not changed from the previous runs.';	
+		}
+
+		if (position_in_demo == 21) {
+			hide_column(4);
+			document.getElementById("comment_1").innerHTML = 'Each count is the number of entities in our context that fall under the relevant term. For example, there are 76 vertebrates. These numbers will be used to calculate the likelihoods.';	
+		}
+
+		if (position_in_demo == 22) {
+			hide_column(5);
+			document.getElementById("comment_1").innerHTML = 'The likelihoods for both clownfish terms are now 0 because it is impossible for all of our images to have been the referents of a word meaning "clownfish". For the remaining likelihoods, since we have seen this image three times now, these likelihoods are the inverses of the counts cubed.';	
+		}
+
+
+		if (position_in_demo == 23) {
+			hide_column(6);
+			document.getElementById("comment_1").innerHTML = 'Now we compute the prior times the likelihood. Recall that these quantities are sufficient to order the possibilities. However, because these quantities are often very small in our simulation, we do normalize them by dividing each one by the sum of all of them.';	
+		}
+
+		if (position_in_demo == 24) {
+
+			for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+                
+                        }
+
+
+
+
+                }   
+
+                        for (i=3; i<6; i++) {
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        document.getElementById("comment_1").innerHTML = 'The posterior probabilities are the elements of the previous column divided by the sum of the previous column.';      
+                        current_learner_image--;
+
+
+		}
+
+
+	
+
+		if (position_in_demo == 25) {
+
+			reveal_column(1);
+                        reveal_column(2);
+                        reveal_column(3);
+                        reveal_column(4);
+                        reveal_column(5);
+                        reveal_column(6);
+                        for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+
+                        }
+
+
+
+
+                }
+
+
+                        for (i=3; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        current_learner_image--;
+
+
+
+			show_image_learner();
+			document.getElementById("comment_1").innerHTML = 'Now we sort the possible meanings by their posterior probabilities. Clownfish 2 and Clownfish have both been knocked out of the ranking, leaving Fish at the top.';	
+		}
+
+	
+
+		if (position_in_demo == 26) {
+			hide_column(1);
+			document.getElementById("comment_1").innerHTML = 'Now see another image. It is another fish, and so it solidifies the belief that "ghoti" means "fish".';	
+		}
+
+
+		if (position_in_demo == 27) {
+			hide_column(2);
+			document.getElementById("comment_1").innerHTML = 'These are the five possible word meanings that include the entity in the first image.';	
+		}
+
+		if (position_in_demo == 28) {
+			hide_column(3);
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy. Thus, these have not changed from the previous run.';	
+		}
+
+		if (position_in_demo == 29) {
+			hide_column(4);
+			document.getElementById("comment_1").innerHTML = 'Each count is the number of entities in our context that fall under the relevant term. For example, there are 76 vertebrates. These numbers will be used to calculate the likelihoods.';	
+		}
+
+		if (position_in_demo == 30) {
+			hide_column(5);
+			document.getElementById("comment_1").innerHTML = 'The likelihood for a meaning is 0 if any of the images we\'ve seen are inconsistent with that meaning. Otherwise, it is 1/(count(meaning)^n), where n is the number of times we have encountered the word. Since we have seen this image four times now, these likelihoods are the inverses of the counts to the fourth.';	
+		}
+
+
+		if (position_in_demo == 31) {
+			hide_column(6);
+			document.getElementById("comment_1").innerHTML = 'Now we compute the prior times the likelihood. Recall that these quantities are sufficient to order the possibilities. However, because these quantities are often very small in our simulation, we do normalize them by dividing each one by the sum of all of them.';	
+		}
+
+		if (position_in_demo == 32) {
+
+			for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+                
+                        }
+
+
+
+
+                }   
+
+                        for (i=4; i<6; i++) {
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        document.getElementById("comment_1").innerHTML = 'The posterior probabilities are the elements of the previous column divided by the sum of the previous column.';      
+                        current_learner_image--;
+
+
+		}
+
+
+	
+
+		if (position_in_demo == 33) {
+
+			reveal_column(1);
+                        reveal_column(2);
+                        reveal_column(3);
+                        reveal_column(4);
+                        reveal_column(5);
+                        reveal_column(6);
+                        for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+
+                        }
+
+
+
+
+                }
+
+
+                        for (i=4; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        current_learner_image--;
+
+
+
+			show_image_learner();
+			document.getElementById("comment_1").innerHTML = 'Now we sort the possible meanings by their posterior probabilities. The ranking is the same as the previous step. Be aware that the probabilities for Animal and Vertebrate are not actually 0 but just appear that way because of rounding. You can see more accurate values in the table below the image.';	
+		}
+
+	
+		if (position_in_demo == 34) {
+			hide_column(1);
+			document.getElementById("comment_1").innerHTML = 'Now see another image. It is a clownfish, but a different one than the one before.';	
+		}
+
+
+		if (position_in_demo == 35) {
+			hide_column(2);
+			document.getElementById("comment_1").innerHTML = 'These are the five possible word meanings that include the entity in the first image.';	
+		}
+
+		if (position_in_demo == 36) {
+			hide_column(3);
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy. Thus, these have not changed from the previous run.';	
+		}
+
+		if (position_in_demo == 37) {
+			hide_column(4);
+			document.getElementById("comment_1").innerHTML = 'Each count is the number of entities in our context that fall under the relevant term. For example, there are 76 vertebrates. These numbers will be used to calculate the likelihoods.';	
+		}
+
+		if (position_in_demo == 38) {
+			hide_column(5);
+			document.getElementById("comment_1").innerHTML = 'The likelihood for a meaning is 0 if any of the images we\'ve seen are inconsistent with that meaning. Otherwise, it is 1/(count(meaning)^n), where n is the number of times we have encountered the word. Since we have seen this image five times now, these likelihoods are the inverses of the counts to the fifth. Notice that the likelihood of "clownfish" has not gone up even though we just saw another clownfish. This is because, in our model, once you eliminate a possibility it is gone forever (since after that you\'ll just be multiplying by 0). However, you could build a model that leaves room for error and does allow you to recover from 0 probability.';	
+		}
+
+
+		if (position_in_demo == 39) {
+			hide_column(6);
+			document.getElementById("comment_1").innerHTML = 'Now we compute the prior times the likelihood. Recall that these quantities are sufficient to order the possibilities. However, because these quantities are often very small in our simulation, we do normalize them by dividing each one by the sum of all of them.';	
+		}
+
+		if (position_in_demo == 40) {
+
+
+			  for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+                
+                        }
+
+
+
+
+                }   
+
+                        for (i=5; i<6; i++) {
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        document.getElementById("comment_1").innerHTML = 'The posterior probabilities are the elements of the previous column divided by the sum of the previous column.';      
+                        current_learner_image--;
+
+
+		}
+
+
+	
+
+		if (position_in_demo == 41) {
+
+			 reveal_column(1);
+                        reveal_column(2);
+                        reveal_column(3);
+                        reveal_column(4);
+                        reveal_column(5);
+                        reveal_column(6);
+                        for (v = 1; v < 6; v++) {
+                        for (vwx = 1; vwx < 7; vwx++) {
+                                document.getElementById("math_" + vwx + "_" + v).style.color = "black";
+
+                        }
+
+
+
+
+                }
+
+
+                        for (i=5; i<6; i++) {
+                        document.getElementById("learner_image_" + i).src = "blank_space.png";
+                        document.getElementById("learner_word_" + i).innerHTML = "";
+                        for (j=1; j<6; j++) {
+                                document.getElementById("learner_pos_" + i + "_" + j).innerHTML = "";
+                                document.getElementById("learner_pos_" + i + "_" + j+ "n").innerHTML = "";      
+
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseover = "";
+                                document.getElementById("learner_pos_" + i + "_" + j).onmouseout = "";
+                        }
+                }
+
+                        current_learner_image--;
+
+
+			show_image_learner();
+			document.getElementById("comment_1").innerHTML = 'Now we sort the possible meanings by their posterior probabilities. "Fish" continues to reign supreme. However, note that Animal and Vertebrate are still consistent with everything we\'ve seen, so it is still completely possible that "ghoti" means one of those things. If we were to continue the simulation and observe an owl as the next image, for example, then Fish\'s likelihood would plummet to 0 and Vertebrate would then be the most probable meaning.';	
+		
+		home_screenb.style.opacity = 0.0;
+                        home_screenb.style.zIndex = -100;
+                        be_the_learner.style.opacity = 1.0;
+                        be_the_learner.style.zIndex = 100;
+                        learner_preface.style.zIndex = 100;
+                        learner_preface.style.opacity = 1.0;
+                        document.getElementById("comment_1").style.opacity = 1.0;
+                        document.getElementById("comment_1").style.zIndex = 100;
+
+		}
+
+
+	
+		if (position_in_demo == 42) {
+			home_screenb.style.opacity = 0.0;
+			home_screenb.style.zIndex = -100;
+			be_the_learner.style.opacity = 1.0;
+			be_the_learner.style.zIndex = 100;
+			learner_preface.style.zIndex = -100;
+			learner_preface.style.opacity = 0.0;
+			document.getElementById("comment_1").style.opacity = 0.0;
+			document.getElementById("comment_1").style.zIndex = -100;
+		}
+
+
+
+		position_in_demo--;
+
+	}
+
 
 	function advance() {
 		if (position_in_demo == 0) {
@@ -486,7 +1085,7 @@
 
 		if (position_in_demo == 2) {
 			reveal_column(2);
-			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy';	
+			document.getElementById("comment_1").innerHTML = 'The prior probabilities are determined by each meaning\'s position in the taxonomic hierarchy.';	
 		}
 
 		if (position_in_demo == 3) {
@@ -703,8 +1302,8 @@
 
 	
 		if (position_in_demo == 40) {
-			home_screen.style.opacity = 1.0;
-			home_screen.style.zIndex = 100;
+			home_screenb.style.opacity = 1.0;
+			home_screenb.style.zIndex = 100;
 			be_the_learner.style.opacity = 0.0;
 			be_the_learner.style.zIndex = -100;
 			learner_preface.style.zIndex = -100;
@@ -716,6 +1315,7 @@
 
 
 		position_in_demo++;
+		prevbtn.disabled = false;
 
 	}
 
@@ -1722,8 +2322,8 @@ var teacher = false;
 	function show_image_learner() {
      		
 			
-	
-
+		nextbtn.disabled = true;	
+		prevbtn.disabled = true;
 		
 		norm = 0
 		
@@ -1821,13 +2421,21 @@ var teacher = false;
 
      			function process_index(ind, image_ind) {
      				return function() {
-     					var math_index = new_poss_pairs[ind-1][0];
+		 
+							 
+					var math_index = new_poss_pairs[ind-1][0];
 
      					document.getElementById("math_1_" + math_index).style.color = "red";
 					document.getElementById("math_6_" + math_index).style.color = "red";
 					function vanish_table() {
 						return function() {
-     							
+     	
+					if (ind == 5) {
+						nextbtn.disabled = false;
+						prevbtn.disabled = false;
+					}
+
+						
 							document.getElementById("math_1_" + math_index).style.color = "silver";
      							document.getElementById("math_2_" + math_index).style.color = "silver";
      							document.getElementById("math_3_" + math_index).style.color = "silver";
@@ -1895,7 +2503,6 @@ var teacher = false;
 		
 
 	}	
-
 
 
 function show_image_learner_2() {
@@ -2090,6 +2697,8 @@ function show_image_learner_2() {
      				}
 	
      			}
+
+
 
 			setTimeout(reveal_column(1), 1000);
      			setTimeout(reveal_column(2), 2000);

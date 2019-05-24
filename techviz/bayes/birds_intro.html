@@ -11,6 +11,12 @@
 <body>
 
 
+<h1>Bayesian Word Learning Demo</h1>
+
+<p>By Tom McCoy</p>
+
+<p><em>It is recommended that you view this demo on a full-screen desktop browser window.</em></p>
+
 <div id="bird_grid">
 
 <div id="horse_1" class="horse"><img height="100%" width="100%" src="horse_1.jpg"></div>
@@ -195,7 +201,7 @@
 	
 	
 	<div>Click to view examples of that word:</div>
-	<div><button onclick="show_image_learner();">View example</button></div>
+	<div><button id="viewbtn" onclick="show_image_learner();">View example</button></div>
 	</div>
 
 
@@ -481,47 +487,68 @@
 
 
 	<div id="home_screen">
-	
-		<div>This simulation is based on Xu and Tenenbaum (2007). For an explanation of the theory and a step-by-step demo with notes, click Introduction. Otherwise, you can click "Be the learner" or "Be the teacher" to jump right in to the actual simulation. "Show taxonomy" allows you to see the hierarchical relationship between all the animals in our context to the left.</div>
 
-	<button onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; tutorial_1.style.opacity = 1.0; tutorial_1.style.zIndex = 100;">Introduction</button>	
-		<button onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; taxonomy.style.opacity = 1.0; taxonomy.style.zIndex = 100;">View taxonomy</button>
-		<button onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; be_the_learner.style.opacity = 1.0; be_the_learner.style.zIndex = 100;teacher_preface.style.opacity = 0.0; teacher_preface.style.zIndex = -100; learner_preface.style.opacity = 1.0; learner_preface.style.zIndex = 100;">Be the learner</button>
-		<button onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; be_the_learner.style.opacity = 1.0; be_the_learner.style.zIndex = 100; teacher_preface.style.opacity = 1.0; teacher_preface.style.zIndex = 100; learner_preface.style.opacity = 0.0; learner_preface.style.zIndex = -100;">Be the teacher</button>
+		<h3>Home</h3>
+
+		<div>This simulation is based on <a href="https://www.researchgate.net/profile/Fei_Xu18/publication/6330774_Word_Learning_as_Bayesian_Inference/links/0046352ef984db7317000000.pdf">Xu and Tenenbaum (2007)</a>. For an explanation of the theory and a step-by-step demo with notes, click "Introduction." Otherwise, you can click "Be the learner" or "Be the teacher" to jump right in to the actual simulation. "View taxonomy" allows you to see the hierarchical relationship between all the animals in our context to the left.</div>
+
+	<div>&nbsp;</div>
+
+	<div style="width:480px;margin:auto">
+	<button class="btn" onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; tutorial_1.style.opacity = 1.0; tutorial_1.style.zIndex = 100;">Introduction</button>	
+		<button class="btn" onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; taxonomy.style.opacity = 1.0; taxonomy.style.zIndex = 100;">View taxonomy</button>
+		<button class="btn" onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; be_the_learner.style.opacity = 1.0; be_the_learner.style.zIndex = 100;teacher_preface.style.opacity = 0.0; teacher_preface.style.zIndex = -100; learner_preface.style.opacity = 1.0; learner_preface.style.zIndex = 100;">Be the learner</button>
+		<button class="btn" onclick="home_screen.style.opacity = 0.0; home_screen.style.zIndex = -100; be_the_learner.style.opacity = 1.0; be_the_learner.style.zIndex = 100; teacher_preface.style.opacity = 1.0; teacher_preface.style.zIndex = 100; learner_preface.style.opacity = 0.0; learner_preface.style.zIndex = -100;">Be the teacher</button>
 	
 	</div>
 
+	</div>
 
-	<div id="tutorial_1">
+
+	<div id="tutorial_1" style="font-size:14">
+
+		<h3>Introduction (1/4)</h3>
+
 		</p>This simulation is based on <a href="https://www.researchgate.net/profile/Fei_Xu18/publication/6330774_Word_Learning_as_Bayesian_Inference/links/0046352ef984db7317000000.pdf">Word Learning as Bayesian Inference</a>, a 2007 paper by Fei Xu and Joshua Tenenbaum. This paper argues that Bayesian inference provides a successful framework for modeling how the meanings of words are learned (by children acquiring language or by adults who happen to be hearing a new word for the first time).</p>
 
 		<p>Let's take an example. Suppose you heard someone utter the word "ghoti" to refer to the following entity:</p>
 
-		<div><img src="clownfish_2.jpg" width="40%"></div>
+		<div style="width:100px;margin:auto"><img src="clownfish_2.jpg" width="100%"></div>
 
 		<p>Given just this information, there are several options for what this word could mean, including "animal", "vertebrate", "fish", "clownfish", and "this specific clownfish." Although people do learn some words from direct instruction (e.g. by being taught them in vocabulary classes or looking them up in dictionaries), most word meanings are acquired unconsciously. So how does this unconscious acquisition process happen when there are so many alternatives to consider?</p> 
-		<button onclick="tutorial_1.style.opacity=0.0;tutorial_1.style.zIndex=-100;tutorial_2.style.opacity=1.0;tutorial_2.style.zIndex=100;">Next</button>
+		<div style="width:170px; margin:auto">
+		<button class="btn" style="width:80px;" onclick="tutorial_1.style.opacity=0.0;tutorial_1.style.zIndex=-100;tutorial_2.style.opacity=1.0;tutorial_2.style.zIndex=100;">Next</button>
+		<button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;tutorial_1.style.opacity = 0.0;tutorial_1.style.zIndex=-10;" class="btn" style="width:80px;">Home</button>
+		</div>
 		</div>
 
 		<div id="tutorial_2">
 
-		<p>Xu and Tenenbaum's answer is that this process combines prior knowledge and beliefs about likely word meanings with the evidence the learner observes. For example, one type of prior belief that people seem to have is called a "basic-level bias." That is, all else being equal, people will assume that a new word refers to some "basic" level concept (such as "clownfish") rather than an overly specific "subordinate" level concept (such as "this specific clownfish") or an exceedingly abstract "superordinate" level concept (such as "vertebrate").</p>
+		<h3>Introduction (2/4)</h3>
+
+		<p>Xu and Tenenbaum's answer is that this process combines prior knowledge about likely word meanings with the evidence the learner observes. For example, one type of prior belief that people seem to have is called a "basic-level bias." That is, all else being equal, people will assume that a new word refers to some "basic" level concept (such as "clownfish") rather than an overly specific "subordinate" level concept (such as "this specific clownfish") or an exceedingly abstract "superordinate" level concept (such as "vertebrate").</p>
 
 		<p>The available evidence is also important. Suppose that you now hear the word "ghoti" a second time, still referring to the exact same entity:</p>
 		
-		<div><img src="clownfish_2.jpg" width="40%"></div>
+		<div style="width:100px;margin:auto"><img src="clownfish_2.jpg" width="100%"></div>
 
 		<p>The word still <i>could</i> mean any of the five concepts from before ("animal", "vertebrate", "fish", "clownfish", or "this specific clownfish.") However, it's a bit suspicious that both times that you've heard this word have been referring to the same specific clownfish, while you've never heard it refer to anything else. Therefore, you're now probably more likely to think "ghoti" might be the name of this specific fish, given this suspicious coincidence.</p>
-		<button onclick="tutorial_2.style.opacity=0.0;tutorial_2.style.zIndex=-100;tutorial_3.style.opacity=1.0;tutorial_3.style.zIndex=100;">Next</button>
+		<div style="width:260px; margin:auto">
+		<button class="btn" style="width:80px;" onclick="tutorial_2.style.opacity=0.0;tutorial_2.style.zIndex=-100;tutorial_1.style.opacity=1.0;tutorial_1.style.zIndex=100;">Previous</button>
+		<button class="btn" style="width:80px;" onclick="tutorial_2.style.opacity=0.0;tutorial_2.style.zIndex=-100;tutorial_3.style.opacity=1.0;tutorial_3.style.zIndex=100;">Next</button>
+		<button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;tutorial_2.style.opacity = 0.0;tutorial_2.style.zIndex=-10;" class="btn" style="width:80px;">Home</button>
+		</div>
 
 		</div>
 
 
 		<div id="tutorial_3">	
+
+		<h3>Introduction (3/4)</h3>
 		
 		<p>However, suppose you now hear the word a third time and that now it refers to this tuna:</p>
 
-		<div><img src="tuna_1.jpg" width="40%"></div>
+		<div style="width:100px;margin:auto"><img src="tuna_1.jpg" width="100%"></div>
 
 
 		<p>Now you know for sure that "ghoti" cannot mean "clownfish" or "this specific clownfish" because those meanings would contradict the available evidence. The remaining options are "fish", "vertebrate", and "animal". Even though all these are possible, it is a suspicious coincidence that you've only heard the word refer to fish and not to other vertebrates or other animals. Therefore, at this point, you'll tentatively conclude that "ghoti" means "fish."</p>
@@ -531,13 +558,21 @@
 		<p>p(ghoti = "fish" | evidence) &prop; p(ghoti = "fish") * p(evidence | ghoti = "fish") </p>
 
 
-		<p>The prior term, p(ghoti = "fish"), captures any prior beliefs the learner might have about word meanings. The likelihood term, p(evidence | ghoti = "fish"), captures our intuitions about how plausible our observations would be under a given meaning for "ghoti." Together they are used to compute the posterior probability p(ghoti = "fish" | evidence), which represents how probable it is that "ghoti" means "fish" in the face of our evidence. (Recall that the symbol &alpha; means "is proportional to." It is not a ghoti, even though it looks like one.)</p>
-		<button onclick="tutorial_3.style.opacity=0.0;tutorial_3.style.zIndex=-100;tutorial_4.style.opacity=1.0;tutorial_4.style.zIndex=100;">Next</button>
+		<p>The prior term, p(ghoti = "fish"), captures any prior beliefs the learner might have about word meanings. The likelihood term, p(evidence | ghoti = "fish"), captures our intuitions about how plausible our observations would be under a given meaning for "ghoti." Together they are used to compute the posterior probability p(ghoti = "fish" | evidence), which represents how probable it is that "ghoti" means "fish" in the face of our evidence. (Recall that the symbol &prop; means "is proportional to." It is not a ghoti, even though it looks like one.)</p>
+
+		<div style="width:260px; margin:auto">
+		<button class="btn" style="width:80px;" onclick="tutorial_3.style.opacity=0.0;tutorial_3.style.zIndex=-100;tutorial_2.style.opacity=1.0;tutorial_2.style.zIndex=100;">Previous</button>
+		<button class="btn" style="width:80px;" onclick="tutorial_3.style.opacity=0.0;tutorial_3.style.zIndex=-100;tutorial_4.style.opacity=1.0;tutorial_4.style.zIndex=100;">Next</button>
+		<button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;tutorial_3.style.opacity = 0.0;tutorial_3.style.zIndex=-10;" class="btn" style="width:80px;">Home</button>
+		</div>
 
 		</div>
 
 		<div id="tutorial_4">
-		<p>For the simulations here, we will build from the basic level bias to assume that the prior probability of a word meaning is determined entirely by that meanings position in the taxonomic tree, with basic level concepts ("clownfish", "horse", "spider", "tortoise") having the highest prior probability, immediately subordinate ("clownfish 1", "wolf 7", "raven 4") and immediately superordinate ("fish", "mammal", "mollusc") categories having lower prio probabilities, and more distantly superordinate categories ("vertebrate", "animal") having even lower prior probabilities. To see the taxonomic structure of all animal terms considered, click here, and to see the specific prior probabilities we use, click here.</p>
+
+			<h3>Introduction (4/4)</h3>
+
+		<p>For the simulations here, we will build from the basic level bias to assume that the prior probability of a word meaning is determined entirely by that meaning's position in the taxonomic tree, with basic level concepts ("clownfish", "horse", "spider", "tortoise") having the highest prior probability, immediately subordinate ("clownfish 1", "wolf 7", "raven 4") and immediately superordinate ("fish", "mammal", "mollusc") categories having lower prior probabilities, and more distantly superordinate categories ("vertebrate", "animal") having even lower prior probabilities.</p>
 
 		<p>To compute the likelihood, we can use the basic probability theorem that p(A and B | C) = p(A | C) * p(B | C) (assuming A and B are independent). In our case, the likelihood of a sequence of observations would be something like p(["ghoti" is used to refer to clownfish 5] and ["ghoti is used to refer to clownfish 5"] and ["ghoti is used to refer to tuna 1"] | "ghoti" means "fish"), and using this theorem we can rewrite it as p("ghoti" is used to refer to clownfish 5 | "ghoti" means "fish")*p("ghoti" is used to refer to clownfish 5 | ghoti means fish)*p("ghoti" is used to refer to tuna 1 | ghoti means fish).</p>
 
@@ -545,14 +580,22 @@
 
 		<p>To figure out which meaning the learner settles on, we simply iterate over all five meanings, find the posterior probability of each one, and choose the one with the highest posterior probability.</p>
 
+		<div style="width:320px; margin:auto">
+                <button class="btn" style="width:100px;" onclick="tutorial_4.style.opacity=0.0;tutorial_4.style.zIndex=-100;tutorial_3.style.opacity=1.0;tutorial_3.style.zIndex=100;">Previous</button>
 	<form action="nevermore_tutorial.html" style="display:inline;">
-                        <input type="submit" value="Try a demo" />
+                        <input class="btn" style="width:100px;" type="submit" value="Try a demo" />
         </form>
+	<button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;tutorial_4.style.opacity = 0.0;tutorial_4.style.zIndex=-10;" class="btn" style="width:100px;">Home</button> 
 
 	</div>
 
 
-	<div id="taxonomy">
+	</div>
+
+	<div id="taxonomy" style="font-size:14px;">
+
+
+	<h3>Taxonomy</h3>
 
 <div>Mouse over any word or number to see which animal or group of animals it represents.</div>
 <br>
@@ -597,11 +640,7 @@
 <div style="text-indent:6em"><span id="raven_p" onmouseover="blank();highlight('raven');" onmouseout="unhighlight();" style="text-indent:6em">Raven</span>
 
 <span style="text-indent:8em">
-                <span id="raven1_p" onmouseover="blank();light('raven_1');" onmouseout="unhighlight();">1</span>
-		<span id="raven2_p" onmouseover="blank();light('raven_2');" onmouseout="unhighlight();">2</span>
-		<span id="raven3_p" onmouseover="blank();light('raven_3');" onmouseout="unhighlight();">3</span>
-		<span id="raven4_p" onmouseover="blank();light('raven_4');" onmouseout="unhighlight();">4</span>
-		<span id="raven5_p" onmouseover="blank();light('raven_5');" onmouseout="unhighlight();">5</span>
+                <span id="raven1_p" onmouseover="blank();light('raven_1');" onmouseout="unhighlight();">1</span><span id="raven2_p" onmouseover="blank();light('raven_2');" onmouseout="unhighlight();">2</span><span id="raven3_p" onmouseover="blank();light('raven_3');" onmouseout="unhighlight();">3</span><span id="raven4_p" onmouseover="blank();light('raven_4');" onmouseout="unhighlight();">4</span><span id="raven5_p" onmouseover="blank();light('raven_5');" onmouseout="unhighlight();">5</span>
 </span>
 </div>
 
@@ -685,7 +724,7 @@
 </div>
 
 
-<div id="next1"><button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;taxonomy.style.opacity = 0.0;taxonomy.style.zIndex=-10;">Home</button></div>
+<div id="next1" style="width:50px;margin:auto"><button onclick="home_screen.style.opacity = 1.0;home_screen.style.zIndex = 1000;taxonomy.style.opacity = 0.0;taxonomy.style.zIndex=-10;" class="btn">Home</button></div>
 
 	</div>
 
@@ -1876,6 +1915,8 @@ var norm = 1;
 var show_math = false;
 var teacher = false;
 	function show_image_learner() {
+
+
 		for (x = 1; x < 7; x++) {
      			document.getElementById("head_" + x).style.opacity = 0.0;
      		}
@@ -1912,6 +1953,9 @@ var teacher = false;
 
 
 		if (show_math) {
+
+		viewbtn.disabled = true;
+
 		if (current_learner_image == 1) {
 			possibilities = options[this_image];
 			
@@ -2014,6 +2058,10 @@ var teacher = false;
 					document.getElementById("math_6_" + math_index).style.color = "red";
 					function vanish_table() {
 						return function() {
+
+     							if (ind == 5) {
+								viewbtn.disabled = false;
+     							}
      							
 							document.getElementById("math_1_" + math_index).style.color = "silver";
      							document.getElementById("math_2_" + math_index).style.color = "silver";
@@ -2083,7 +2131,7 @@ var teacher = false;
 
 
 		} else { //don't show math
-
+		viewbtn.disabled = false;
 		if (current_learner_image == 1) {
 			possibilities = options[this_image];
 			poss_pairs = [];		
