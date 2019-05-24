@@ -1,4 +1,26 @@
 
+h1, h2, h4, h5, h6 { margin-top: 2rem; margin-bottom: 1rem; font-weight: normal; color: #159957; }
+
+h3 {  margin-bottom: 1rem; font-weight: normal; color: #159957; }
+
+body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; color: #606c71; }
+
+
+.btn {
+    background-color: #3498DB;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:disabled {
+        background-color: gray;
+        opacity: 0.3;
+}
+
+
 
 #spectrogram, #spectrogram_2 {
 	height: 200px;
@@ -62,20 +84,20 @@
 .praat {
 	border-style: solid;
 	display: inline-block;
-	width: 250px;
+	width: 245px;
 	height: 200px;
 }
 
 
 .speaker {
 	display: inline-block;
-	width: 600px;
+	width: 590px;
 	border-style: solid;
 }
 
 .name {
 	display: inline-block;
-	width: 80px;
+	width: 75px;
 }
 
 
@@ -112,7 +134,7 @@
 }
 
 .posterior_box {
-	width: 300px;
+	width: 290px;
 	height: 200px;
 	display: inline-block;
 	border-style: solid;
