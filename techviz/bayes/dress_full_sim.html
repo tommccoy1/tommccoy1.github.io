@@ -47,9 +47,16 @@
 </head>
 <body>
 
-<button id="light_btn" onclick="light()">Toggle Light</button>
-<button id="blue_btn" onclick="myMove(0)">Show Blue</button>
-<button id="gold_btn" onclick="myMove(1)">Show Gold</button>
+<h1>Bayesian Modeling of Vision: The Dress</h1>
+
+<div style="margin:5px">
+<div style="width:370px;margin:auto;">
+<button id="light_btn" onclick="light()" class="btn">Toggle Light</button>
+<button id="blue_btn" onclick="myMove(0)" class="btn">Show Blue</button>
+<button id="gold_btn" onclick="myMove(1)" class="btn">Show Gold</button>
+</div>
+</div>
+
 
 
 <div id="animate_container">
@@ -59,8 +66,10 @@
 
 	<div id="yellow_pentagon"><img src="yellow_pentagon.png" width=100%" height="100%"></div>
 
-	<div id="blue_timer"><p><span id="seconds_b" style="font-family: 'Courier'">000</span></p></div>	
+	<div id="blue_timer"><p><span id="seconds_b" style="font-family: 'Courier'">000</span></p></div>
+	<div id="blue_light_key">Time with blue light:</div>
 	<div id="yellow_timer"><p><span id="seconds_y" style="font-family: 'Courier'">000</span></p></div>
+	<div id="yellow_light_key">Time with yellow light:</div>
 
 	<div id="light_fixture_y"><img src="light_fixture.png" width=100%"></div>
 
@@ -75,7 +84,7 @@
 	<div id="animate_blue_4" class="animate_blue"><img src="blue_dress_drawing.png" alt="Blue and black dress" width="100%"></div>
 	<div id="animate_blue_5" class="animate_blue"><img src="blue_dress_drawing.png" alt="Blue and black dress" width="100%"></div>
 	<div id="blue_catcher">0</div>
-
+	<div id="blue_words">blue dresses</div>
 
 	<div id="gold_box"></div>
 	<div id="trapdoors_right"><img src="trapdoor_1.png" width="100%" class="trapdoor_right" id="tr_1"><img src="trapdoor_2.png" width="100%" class="trapdoor_right" id="tr_2"><img src="trapdoor_3.png" width="100%" class="trapdoor_right" id="tr_3"><img src="trapdoor_4.png" width="100%" class="trapdoor_right" id="tr_4"><img src="trapdoor_5.png" width="100%" class="trapdoor_right" id="tr_5"></div>
@@ -85,6 +94,7 @@
 	<div id="animate_gold_4" class="animate_gold"><img src="gold_dress_drawing.png" alt="Gold and white dress" width="100%"></div>
 	<div id="animate_gold_5" class="animate_gold"><img src="gold_dress_drawing.png" alt="Gold and white dress" width="100%"></div>
 	<div id="gold_catcher">0</div>
+	<div id="gold_words">gold dresses</div>
 	
 	<div id="man"><img src="man.png" width="100%"></div>
 
@@ -100,25 +110,25 @@
 
 	
 <div id="all_hints">
-	<div id="hint1b"  style="opacity:0.0;zIndex:-10;">p(black and blue) means the probability that a random dress will be black and blue. The man will estimate this probability based on his past experience with dresses. That is, he will estimate p(black and blue) as the proportion of all dresses he's seen that have been black and blue, which is calculated as the number of black and blue dresses he's seen divided by the total number of dresses he's seen.<button onclick="hint1b.style.opacity = 0.0;hint1b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-	<div id="hint2b"  style="opacity:0.0;zIndex:-10;">p(white and gold) means the probability that a random dress will be white and gold. The man will estimate this probability based on his past experience with dresses. That is, he will estimate p(white and gold) as the proportion of all dresses he's seen that have been white and gold, which is calculated as the number of white and gold dresses he's seen divided by the total number of dresses he's seen.<button onclick="hint2b.style.opacity = 0.0;hint2b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-	<div id="hint3b" style="opacity:0.0;zIndex:-10;">p(image | black and blue) means the probability of obtaining this specific image given that the dress in the image is black and blue. In other words, if we assume that the dress is black and blue, how likely is it that an image of it will look like this? To figure this out, we need to determine what conditions would lead to this image arising from a black and blue dress. In our scenario, the condition that leads to this is having yellow lighting when the picture was taken, because yellow lighting is what would make a black and blue dress look the way it does in the image. Therefore, in this specific scenario, we can interpret p(image | black and blue) as being the probability that the lighting when the image was taken was yellow. The man will estimate this probability based on his past experience with lighting; he'll assume that the probability of yellow lighting is the percent of his time that he has spent in yellow light, which you can calculate by taking the time he's spent in yellow light divided by the total time the simulation ran.<button onclick="hint3b.style.opacity = 0.0;hint3b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-	<div id="hint4b"  style="opacity:0.0;zIndex:-10;">p(image | white and gold) means the probability of obtaining this specific image given that the dress in the image is white and gold. In other words, if we assume that the dress is white and gold, how likely is it that an image of it will look like this? To figure this out, we need to determine what conditions would lead to this image arising from a white and gold dress. In our scenario, the condition that leads to this is having blue lighting when the picture is taken, because blue lighting is what would make a white and gold dress look the way it does in the image. Therefore, in this specific scenario, we can interpret p(image | white and gold) as being the probability that the lighting when the image was taken was blue. The man will estimate this probability based on his past experience with lighting; he'll assume that the probability of blue lighting is the percent of his time that he has spent in blue light, which you can calculate by taking the time he's spent in blue light divided by the total time the simulation ran.<button onclick="hint4b.style.opacity = 0.0;hint4b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-	<div id="hint5b" style="opacity:0.0;zIndex:-10;">p(image) is the trickiest entity to calculate here. To compute it, we have to sum over all possible relevant scenarios. In this case, there are two relevant scenarios: Either the dress is black and blue, or the dress is white and gold. Since we're focused on the image here, we can further specify that the two scenarios are "we got this image, and the dress is black and blue" and "we got this image, and the dress is white and gold." Based on this, we can write p(image) = p(image, black and blue) + p(image, white and gold) (since that equation sums over our two possible scenarios). Now we can use the equations for conditional probability to rewrite this equation as p(image) = p(image | black and blue) * p(black and blue) + p(image | white and gold) * p(white and gold). Now all 4 expressions in the right hand side are things you've calculated above, so you can plug in those values you've calculated to get p(image). <button onclick="hint5b.style.opacity = 0.0;hint5b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-	<div id="all_checked" style="opacity:0.0;zIndex:-10;"><span id="check_results"></span><button onclick="all_checked.style.opacity = 0.0;all_checked.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="hint1b"  style="opacity:0.0;zIndex:-10;padding:5px;">p(black and blue) means the probability that a random dress will be black and blue. The man will estimate this probability based on his past experience with dresses. That is, he will estimate p(black and blue) as the proportion of all dresses he's seen that have been black and blue, which is calculated as the number of black and blue dresses he's seen divided by the total number of dresses he's seen.<button onclick="hint1b.style.opacity = 0.0;hint1b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="hint2b"  style="opacity:0.0;zIndex:-10;padding:5px;">p(white and gold) means the probability that a random dress will be white and gold. The man will estimate this probability based on his past experience with dresses. That is, he will estimate p(white and gold) as the proportion of all dresses he's seen that have been white and gold, which is calculated as the number of white and gold dresses he's seen divided by the total number of dresses he's seen.<button onclick="hint2b.style.opacity = 0.0;hint2b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="hint3b" style="opacity:0.0;zIndex:-10;padding:5px;">p(image | black and blue) means the probability of obtaining this specific image given that the dress in the image is black and blue. In other words, if we assume that the dress is black and blue, how likely is it that an image of it will look like this? To figure this out, we need to determine what conditions would lead to this image arising from a black and blue dress. In our scenario, the condition that leads to this is having yellow lighting when the picture was taken, because yellow lighting is what would make a black and blue dress look the way it does in the image. Therefore, in this specific scenario, we can interpret p(image | black and blue) as being the probability that the lighting when the image was taken was yellow. The man will estimate this probability based on his past experience with lighting; he'll assume that the probability of yellow lighting is the percent of his time that he has spent in yellow light, which you can calculate by taking the time he's spent in yellow light divided by the total time the simulation ran.<button onclick="hint3b.style.opacity = 0.0;hint3b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="hint4b"  style="opacity:0.0;zIndex:-10;padding:5px;">p(image | white and gold) means the probability of obtaining this specific image given that the dress in the image is white and gold. In other words, if we assume that the dress is white and gold, how likely is it that an image of it will look like this? To figure this out, we need to determine what conditions would lead to this image arising from a white and gold dress. In our scenario, the condition that leads to this is having blue lighting when the picture is taken, because blue lighting is what would make a white and gold dress look the way it does in the image. Therefore, in this specific scenario, we can interpret p(image | white and gold) as being the probability that the lighting when the image was taken was blue. The man will estimate this probability based on his past experience with lighting; he'll assume that the probability of blue lighting is the percent of his time that he has spent in blue light, which you can calculate by taking the time he's spent in blue light divided by the total time the simulation ran.<button onclick="hint4b.style.opacity = 0.0;hint4b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="hint5b" style="opacity:0.0;zIndex:-10;padding:5px;">p(image) is the trickiest entity to calculate here. To compute it, we have to sum over all possible relevant scenarios. In this case, there are two relevant scenarios: Either the dress is black and blue, or the dress is white and gold. Since we're focused on the image here, we can further specify that the two scenarios are "we got this image, and the dress is black and blue" and "we got this image, and the dress is white and gold." Based on this, we can write p(image) = p(image, black and blue) + p(image, white and gold) (since that equation sums over our two possible scenarios). Now we can use the equations for conditional probability to rewrite this equation as p(image) = p(image | black and blue) * p(black and blue) + p(image | white and gold) * p(white and gold). Now all 4 expressions in the right hand side are things you've calculated above, so you can plug in those values you've calculated to get p(image). <button onclick="hint5b.style.opacity = 0.0;hint5b.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="all_checked" style="opacity:0.0;zIndex:-10;padding:5px;"><span id="check_results"></span><button onclick="all_checked.style.opacity = 0.0;all_checked.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
 
-	<div id="a1_check" style="opacity:0.0;zIndex:-10;"><span id="check_1_box"></span><button onclick="a1_check.style.opacity = 0.0;a1_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="a1_check" style="opacity:0.0;zIndex:-10;padding:5px;"><span id="check_1_box"></span><button onclick="a1_check.style.opacity = 0.0;a1_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
 
-	<div id="a2_check" style="opacity:0.0;zIndex:-10;"><span id="check_2_box"></span><button onclick="a2_check.style.opacity = 0.0;a2_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
-
-
-	<div id="a3_check" style="opacity:0.0;zIndex:-10;"><span id="check_3_box"></span><button onclick="a3_check.style.opacity = 0.0;a3_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="a2_check" style="opacity:0.0;zIndex:-10;padding:5px;"><span id="check_2_box"></span><button onclick="a2_check.style.opacity = 0.0;a2_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
 
 
-	<div id="a4_check" style="opacity:0.0;zIndex:-10;"><span id="check_4_box"></span><button onclick="a4_check.style.opacity = 0.0;a4_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="a3_check" style="opacity:0.0;zIndex:-10;padding:5px;"><span id="check_3_box"></span><button onclick="a3_check.style.opacity = 0.0;a3_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
 
 
-	<div id="a5_check" style="opacity:0.0;zIndex:-10;"><span id="check_5_box"></span><button onclick="a5_check.style.opacity = 0.0;a5_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+	<div id="a4_check" style="opacity:0.0;zIndex:-10;padding:5px;"><span id="check_4_box"></span><button onclick="a4_check.style.opacity = 0.0;a4_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
+
+
+	<div id="a5_check" style="opacity:0.0;zIndex:-10; padding:5px;"><span id="check_5_box"></span><button onclick="a5_check.style.opacity = 0.0;a5_check.style.zIndex=-10;hint1.disabled=false;hint2.disabled=false;hint3.disabled=false;hint4.disabled=false;hint5.disabled=false;check1.disabled=false;check2.disabled=false;check3.disabled=false;check4.disabled=false;check5.disabled=false;checkall.disabled=false;">Close</button></div>
 
 
 
@@ -128,18 +138,22 @@
 	
 	
 <div id="p1">
-<p>Now that you’ve tried out the controls, we’re going to actually give the man the required experience. To do this, you will run a simulation for 100 seconds, during which time you can freely alter the man’s lighting and show him as many dresses of each color as you wish. Click “Start Simulation” to get started.</p>
+<p>Now that you’ve tried out the controls, we’re going to actually give the man the required experience. To do this, you will run a simulation for 20 seconds, during which time you can freely alter the man’s lighting and show him as many dresses of each color as you wish. Click “Start Simulation” to get started.</p>
+
+<div style="width:150px;margin:auto;">
+<button id="sim_btn" onclick="start_simulation()" class="btn">Start Simulation</button>
+</div>
+<br>
 
 
-<button id="sim_btn" onclick="start_simulation()">Start Simulation</button>
+<div style="width:210px;margin:auto;">
 
-
-
-<button id="next1" onclick="p2.style.opacity = 1;p1.style.opacity = 0;p2.style.zIndex = 100;p1.style.zIndex=90;">Next</button>
-<form action="dress_show.html">
-    <input type="submit" value="Previous" />
+<form action="dress_show.html" style="display:inline">
+    <input type="submit" class="btn" style="width:100px;display:inline" value="Previous" />
 </form>
 
+<button id="next1" onclick="p2.style.opacity = 1;p1.style.opacity = 0;p2.style.zIndex = 100;p1.style.zIndex=90;" class="btn" style="width:100px;display:inline" >Next</button>
+</div>
 
 
 
@@ -148,14 +162,20 @@
 <div id="p2">
 <p>Now, at last, we can show the man the picture! Click "Show Picture" to do this.</p>
 
-<button onclick="curtains()">Show Picture</button>
+<div style="width:130px;margin:auto;">
+<button onclick="curtains()" class="btn">Show Picture</button>
+</div>
+
+<br>
 
 
-<button id="next2" onclick="p3.style.opacity = 1;p2.style.opacity = 0;p3.style.zIndex = 100;p2.style.zIndex=90;">Next</button>
+<div style="width:210px;margin:auto;">
 
-<button id="prev2" onclick="p1.style.opacity = 1;p2.style.opacity = 0;p1.style.zIndex = 100;p2.style.zIndex=90;">Previous</button>
+<button id="prev2" onclick="p1.style.opacity = 1;p2.style.opacity = 0;p1.style.zIndex = 100;p2.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
+<button id="next2" onclick="p3.style.opacity = 1;p2.style.opacity = 0;p3.style.zIndex = 100;p2.style.zIndex=90;" class="btn" style="width:100px;display:inline">Next</button>
 
 
+</div>
 
 
 
@@ -164,6 +184,7 @@
 <div id="p3">
 <p>But is the man seeing the picture as black and blue or as white and gold? Let's figure it out! The man will see the dress as whichever color he internally deems to be more probable, based on the way the dress looks in the image. Therefore, we will need to calculate the relevant probabilities. Which of the following entities represent the probability that the dress in the image is black and blue or white and gold, based on the way it looks in the image?</p>
 
+<div style="width:700px;margin:auto">
 <button id="q1_choice_a" onclick="choice1()">p(black and blue) = ? <br>p(white and gold) = ?</button>
 
 
@@ -178,39 +199,50 @@
 
 
 <button id="q1_choice_d" onclick="choice4()">p(black and blue, image) = ? <br>p(white and gold, image) = ?</button>
+</div>
 
 <div id="all_choice_boxes">
 <div id="choice1_box">Not quite! p(black and blue) simply means the probability that a dress will be black and blue; that is, given some random dress in the world, what is the probability that the dress is black and blue? (And p(white and gold) is analogous). However, we don't want the probability that <em>any</em> dress will be black and blue  but rather the probability that the dress  <em>in the image</em> is black and blue.Thus, the expression we choose had better refer to the image in some way.
 	<br>
-	<button id="choice1_closer" onclick="choice1_close()">Close</button>
+	<div style="margin:auto;width:100px;">
+	<button id="choice1_closer" onclick="choice1_close()" class="btn">Close</button>
+	</div>
 </div>
 
 
 <div id="choice2_box">Not quite! p(image | black and blue) means the probability of getting an image that looks like this, given that the dress in the image is black and blue. However, we don't know what color the dress actually is, so we can't take the dress's color as a given (which is what these expressions do).
 	<br>
-	<button id="choice2_closer" onclick="choice2_close()">Close</button>
+	<div style="margin:auto;width:100px;">
+	<button id="choice2_closer" onclick="choice2_close()" class="btn">Close</button>
+	</div>
 
 </div>
 
 <div id="choice3_box">Correct! p(black and blue | image) means the probability that the dress in the image is black and blue, given that the image looks the way it does. This is exactly the probability we are trying to determine, since we know the way the image looks and want to determine how likely it is that the dress is black and blue based on that image.
 	<br>
-	<button id="choice3_closer" onclick="choice3_close()">Close</button>
+	<div style="margin:auto;width:100px;">
+	<button id="choice3_closer" onclick="choice3_close()" class="btn">Close</button>
+	</div>
 </div>
 
 <div id="choice4_box">Not quite! p(black and blue, image) means the probability that two things are true: The dress in the image is black and blue, and the image that you are seeing looks the way this image does. This expression basically treats both of these events as uncertainties whose probabilities have to be considered. However, this is not the case; we know that the image you are seeing looks the way this image does, so we shouldn't be treating the image's appearance as part of our uncertainty about this scenario. Instead, we want an expression that treats the fact that the image looks this way as a given.
 	<br>
-	<button id="choice4_closer" onclick="choice4_close()">Close</button>
+	<div style="margin:auto;width:100px;">
+	<button id="choice4_closer" onclick="choice4_close()" class="btn">Close</button>
+	</div>
 
 </div>
 </div>
 
 <br>
 
+<div style="width:210px;margin:auto;">
 
-<button id="next3" onclick="p4.style.opacity = 1;p3.style.opacity = 0;p4.style.zIndex = 100;p3.style.zIndex=90;">Next</button>
+	
+<button id="prev3" onclick="p2.style.opacity = 1;p3.style.opacity = 0;p2.style.zIndex = 100;p3.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
+	<button id="next3" onclick="p4.style.opacity = 1;p3.style.opacity = 0;p4.style.zIndex = 100;p3.style.zIndex=90;" class="btn" style="width:100px;display:inline">Next</button>
 
-<button id="prev3" onclick="p2.style.opacity = 1;p3.style.opacity = 0;p2.style.zIndex = 100;p3.style.zIndex=90;">Previous</button>
-
+</div>
 
 
 
@@ -218,10 +250,7 @@
 
 <div id="p4">
 
-<p>p(black and blue | image) = ?</p>
-<p>p(white and gold | image) = ?</p>
-
-<p>Now we know what we need to calculate. But how do we calculate it? It seems difficult to calculate these probabilities given the man's experience, since these probabilities are conditioned on the image, yet the man has never seen this image before.</p>
+<p>Now we know what we need to calculate: p(black and blue | image) and p(white and gold | image). But how do we calculate it? It seems difficult to calculate these probabilities given the man's experience, since these probabilities are conditioned on the image, yet the man has never seen this image before.</p>
 
 <p>The solution is to use a very useful and versatile formula called Bayes' Theorem, written below. Hover over each term in the equation for a description of what that term means:</p>
 
@@ -281,43 +310,46 @@
 <p>Based on the general statement of Bayes' Theorem above, drag and drop the terms to rewrite the formulas above:</p>
 
 <div id="drag_options">
-<p>Drag the expressions from this box into the correct places in the equations below. Once you've moved all of them, click "Check" to see if you got it right.</p>
-<div id="prior_drag_bb" draggable="true" style="display:inline-block;" ondragstart="drag(event)">
+<p>Drag the expressions from this box into the correct places in the equations below.</p> 
+
+<!--Once you've moved all of them, click "Check" to see if you got it right.</p>!-->
+<div id="prior_drag_bb" draggable="true" style="display:inline-block;font-size:15px;" ondragstart="drag(event)">
 	<p>p(black and blue)</p>
 </div>
 
-<div id="prior_drag_wg" draggable="true" style="display:inline-block;" ondragstart="drag(event)">
+<div id="prior_drag_wg" draggable="true" style="display:inline-block;font-size:15px;" ondragstart="drag(event)">
 	<p>p(white and gold)</p>
 </div>
 
 
-<div id="likelihood_drag_bb" draggable="true" style="display:inline-block;" ondragstart="drag(event)">
+<div id="likelihood_drag_bb" draggable="true" style="display:inline-block;font-size:15px;" ondragstart="drag(event)">
 	<p>p(image | black and blue)</p>
 </div>
 
 
-<div id="likelihood_drag_wg" style="display:inline-block;" draggable="true" ondragstart="drag(event)">
+<div id="likelihood_drag_wg" style="display:inline-block;font-size:15px;" draggable="true"  ondragstart="drag(event)">
 	<p>p(image | white and gold)</p>
 </div>
 
 
 
-<div id="z_drag_bb" draggable="true" style="display:inline-block;" ondragstart="drag(event)">
+<div id="z_drag_bb" draggable="true" style="display:inline-block;font-size:15px;"  ondragstart="drag(event)">
 	<p>p(image)</p>
 </div>
 
-<div id="z_drag_wg" draggable="true" style="display:inline-block;" ondragstart="drag(event)">
+<div id="z_drag_wg" draggable="true" style="display:inline-block;font-size:15px;"  ondragstart="drag(event)">
 	<p>p(image)</p>
 </div>
 </div>
 
+<br>
 
 <div id="bayes_bb">
-<div id="lhs_bb">
+<div id="lhs_bb" style="font-size:15px;">
 <p>p(black and blue | image)</p>
 </div>
 
-<div id="eq_sign_bb">
+<div id="eq_sign_bb" style="font-size:15px;">
 <p>=</p>
 </div>
 
@@ -341,15 +373,16 @@
 
 </div>
 
-<button id="check_black_blue" onclick="check_blackblue()">Check</button>
+<!--<button id="check_black_blue" onclick="check_blackblue()">Check</button>
 <br>
+!-->
 
 <div id="bayes_wg">
-<div id="lhs_wg">
+<div id="lhs_wg" style="font-size:15px;">
 <p>p(white and gold | image)</p>
 </div>
 
-<div id="eq_sign_wg">
+<div id="eq_sign_wg" style="font-size:15px;">
 <p>=</p>
 </div>
 
@@ -378,24 +411,29 @@
 <!--<button id="next4" onclick="p5.style.opacity = 1;p4.style.opacity = 0;p5.style.zIndex = 100;p4.style.zIndex=90;">Next</button>
 -->
 
-
-<button id="next4" onclick="p6.style.opacity = 1;p4.style.opacity = 0;p6.style.zIndex = 100;p4.style.zIndex=90;">Next</button>
-
-
-<button id="prev4" onclick="p3.style.opacity = 1;p4.style.opacity = 0;p3.style.zIndex = 100;p4.style.zIndex=90;">Previous</button>
+<br>
+<div style="width:210px;margin:auto;">
 
 
+<button id="prev4" onclick="p3.style.opacity = 1;p4.style.opacity = 0;p3.style.zIndex = 100;p4.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
 
+<button id="next4" onclick="p6.style.opacity = 1;p4.style.opacity = 0;p6.style.zIndex = 100;p4.style.zIndex=90;" class="btn" style="width:100px;display:inline">Next</button>
+
+<div>&nbsp;</div>
 </div>
 
-
+</div>
 
 <div id="p5">
 <p>Notice something: Both of these equations have the same denominator, namely p(image). This is a useful observation because we don't actually are about computing these two probabilities exactly; instead we only care about determining which is larger. Therefore, we can take out the denominators from both of these equations. We will also then replace the equals sign with a proportional symbol.</p>
 
-<button id="next5" onclick="p6.style.opacity = 1;p5.style.opacity = 0;p6.style.zIndex = 100;p5.style.zIndex=90;">Next</button>
+<div style="width:210px;margin:auto;">
 
-<button id="prev5" onclick="p4.style.opacity = 1;p5.style.opacity = 0;p4.style.zIndex = 100;p5.style.zIndex=90;">Next</button>
+<button id="prev5" onclick="p4.style.opacity = 1;p5.style.opacity = 0;p4.style.zIndex = 100;p5.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
+
+
+<button id="next5" onclick="p6.style.opacity = 1;p5.style.opacity = 0;p6.style.zIndex = 100;p5.style.zIndex=90;" class="btn" style="width:100px;display:inline">Next</button>
+</div>
 
 
 
@@ -405,35 +443,37 @@
 <p>Now we can fill in the values in these formulas. Let's start with the prior probabilities:</p>
 
 
-<p>Based on the man's experience, what is p(black and blue)? <form id="p_bb_form" action="javascript:void(0);"><input type="text"></form> <button id="check1" onclick="check_p_bb();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button> <button id="hint1" onclick="hint1b.style.opacity=1.0; hint1b.style.zIndex = 100;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
-
-<p id="dummy_check_value">Here is where value will go</p>
+<p>Based on the man's experience, what is p(black and blue)? <form id="p_bb_form" action="javascript:void(0);"><input type="text"></form> <button id="check1" onclick="check_p_bb();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button> <button id="hint1" onclick="hint1b.style.opacity=1.0; hint1b.style.zIndex = 1000000;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
 
 
-<p>Based on the man's experience, what is p(white and gold)? <form id="p_wg_form" action="javascript:void(0);"><input type="text"></form><button id="check2" onclick="check_p_wg();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button> <button id="hint2" onclick="hint2b.style.opacity=1.0; hint2b.style.zIndex = 100;hint1.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
+<p>Based on the man's experience, what is p(white and gold)? <form id="p_wg_form" action="javascript:void(0);"><input type="text"></form><button id="check2" onclick="check_p_wg();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button> <button id="hint2" onclick="hint2b.style.opacity=1.0; hint2b.style.zIndex = 1000000;hint1.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
 
 <p>Now the likelihoods:</p>
 
-<p>Based on the man's experience, what is p(image | black and blue)? <form id="lik_bb_form" action="javascript:void(0);"><input type="text"></form><button id="check3" onclick="check_lik_bb();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check1.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint3" onclick="hint3b.style.opacity=1.0; hint3b.style.zIndex = 100;hint2.disabled = true;hint1.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
+<p>Based on the man's experience, what is p(image | black and blue)? <form id="lik_bb_form" action="javascript:void(0);"><input type="text"></form><button id="check3" onclick="check_lik_bb();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check1.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint3" onclick="hint3b.style.opacity=1.0; hint3b.style.zIndex = 1000000;hint2.disabled = true;hint1.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
 
-<p>Based on the man's experience, what is p(image | white and gold)? <form id="lik_wg_form" action="javascript:void(0);"><input type="text"></form><button id="check4" onclick="check_lik_wg();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check1.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint4" onclick="hint4b.style.opacity=1.0; hint4b.style.zIndex = 100;hint2.disabled = true;hint3.disabled = true;hint1.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
+<p>Based on the man's experience, what is p(image | white and gold)? <form id="lik_wg_form" action="javascript:void(0);"><input type="text"></form><button id="check4" onclick="check_lik_wg();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check1.disabled=true;check5.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint4" onclick="hint4b.style.opacity=1.0; hint4b.style.zIndex = 1000000;hint2.disabled = true;hint3.disabled = true;hint1.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
 
-<p>Based on the man's experience, what is p(image)? <form id="z_form" action="javascript:void(0);"><input type="text"></form><button id="check5" onclick="check_z();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check1.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint5" onclick="hint5b.style.opacity=1.0; hint5b.style.zIndex = 100;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint1.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
+<p>Based on the man's experience, what is p(image)? <form id="z_form" action="javascript:void(0);"><input type="text"></form><button id="check5" onclick="check_z();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check1.disabled=true;checkall.disabled=true;">Check answer</button><button id="hint5" onclick="hint5b.style.opacity=1.0; hint5b.style.zIndex = 1000000;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint1.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;checkall.disabled=true;">Hint</button></p>
 
 
 <button id="checkall" onclick="check_all();hint1.disabled = true;hint2.disabled = true;hint3.disabled = true;hint4.disabled=true;hint5.disabled=true;check1.disabled=true;check2.disabled=true;check3.disabled=true;check4.disabled=true;check5.disabled=true;">Check all</button>
 
-<button id="next6" onclick="bbef_button.style.zIndex = 1000;wgef_button.style.zIndex = 1000;plug_in();p7.style.opacity = 1;p6.style.opacity = 0;p7.style.zIndex = 100;p6.style.zIndex=90;">Next</button>
+<div style="width:210px;margin:auto;">
 
 
-<button id="prev6" onclick="bbef_button.style.zIndex = 1000;wgef_button.style.zIndex = 1000;plug_in();p4.style.opacity = 1;p6.style.opacity = 0;p4.style.zIndex = 100;p6.style.zIndex=90;">Previous</button>
+<button id="prev6" onclick="bbef_button.style.zIndex = 1000;wgef_button.style.zIndex = 1000;plug_in();p4.style.opacity = 1;p6.style.opacity = 0;p4.style.zIndex = 100;p6.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
+
+<button id="next6" onclick="bbef_button.style.zIndex = 1000;wgef_button.style.zIndex = 1000;plug_in();p7.style.opacity = 1;p6.style.opacity = 0;p7.style.zIndex = 100;p6.style.zIndex=90;" class="btn" style="width:100px;display:inline">Next</button>
+
+</div>
 
 </div>
 
 <div id="p7">
 <p>Excellent! We can now plug these numbers into the equations.</p>
 
-<div id="bayes_bb_eq_final">
+<div id="bayes_bb_eq_final" style="font-size:15px">
 
 	<div id="bbef_lhs">p(black and blue | image)</div>
 	<div id="bbef_eq">=</div>
@@ -457,7 +497,7 @@
 
 
 
-<div id="bayes_wg_eq_final">
+<div id="bayes_wg_eq_final" style="font-size:15px">
 
 	<div id="wgef_lhs">p(white and gold | image)</div>
 	<div id="wgef_eq">=</div>
@@ -487,16 +527,18 @@
 
 <p>Based on these results, will the man view the dress as black and blue or white and gold?</p>
 
-<button onclick="choose_bb()">Black and blue</button> <button onclick="choose_wg()">White and gold</button>
+<div style="width:300px;margin:auto;">
+<button onclick="choose_bb()" class="btn">Black and blue</button> <button onclick="choose_wg()" class="btn">White and gold</button>
+</div>
 
 <div id="choice_container">
-<div id="wrong_choice" style="opacity:0.0;">
+<div id="wrong_choice" style="opacity:0.0;padding:5px;">
 	Not quite. The man will view the dress as whichever color he deems to have the higher posterior probability. As the equations above show, he has assigned a higher posterior probability to <span id="right_color_wrong_choice"></span> than for <span id="wrong_color_wrong_choice"></span>.
 	<button onclick="wrong_choice.style.opacity = 0.0;wrong_choice.style.zIndex = -1;">Close</button>	
 </div>
 
 
-<div id="right_choice" style="opacity:0.0;">
+<div id="right_choice" style="opacity:0.0;padding:5px;">
 	Correct! Because the posterior probability is higer for <span id="right_color_right_choice"></span> than for <span id="wrong_color_right_choice"></span>, the man will see the dress as <span id="right_color_2_right_choice"></span>.
 	<button onclick="right_choice.style.opacity = 0.0;right_choice.style.zIndex = -1;next7.disabled = false;">Close</button>	
 </div>
@@ -514,13 +556,16 @@
 <br>
 <br>
 
+<div style="width:210px;margin:auto;">
 
-<form action="dress_continue.html">
-    <input id="next7" type="submit" value="Next" />
+	
+<button id="prev7" onclick="p6.style.opacity = 1;p7.style.opacity = 0;p6.style.zIndex = 100;p7.style.zIndex=90;" class="btn" style="width:100px;display:inline">Previous</button>
+	<form action="dress_continue.html" style="width:100px;display:inline">
+    <input id="next7" type="submit" class="btn" style="width:100px;display:inline" value="Next" />
 </form>
 
 
-<button id="prev7" onclick="p6.style.opacity = 1;p7.style.opacity = 0;p6.style.zIndex = 100;p7.style.zIndex=90;">Previous</button>
+</div>
 
 
 
@@ -553,10 +598,10 @@ var gold_counter = 1;
 var total_blue = 0;
 var total_gold = 0;
 
-document.getElementById("blue_catcher").innerHTML = "";
-document.getElementById("gold_catcher").innerHTML = "";
-document.getElementById("seconds_b").innerHTML = "";
-document.getElementById("seconds_y").innerHTML = "";
+//document.getElementById("blue_catcher").innerHTML = "";
+//document.getElementById("gold_catcher").innerHTML = "";
+//document.getElementById("seconds_b").innerHTML = "";
+//document.getElementById("seconds_y").innerHTML = "";
 
 var posterior_white_gold = 0;
 var posterior_black_blue = 0;
@@ -713,7 +758,7 @@ function check_blackblue() {
 
 function check_p_wg() {
 	a2_check.style.opacity = 1.0;
-	a2_check.style.zIndex = 100;
+	a2_check.style.zIndex = 100000;
 
 	if (Math.round((parseFloat(p_wg_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((total_gold * 1.0 / (total_blue + total_gold)) + 0.00001) * 100) / 100) {
 		document.getElementById("check_2_box").innerHTML = "Correct!";
@@ -725,7 +770,8 @@ function check_p_wg() {
 
 function check_p_bb() {
 	a1_check.style.opacity = 1.0;
-	a1_check.style.zIndex = 100;
+	a1_check.style.zIndex = 10000;
+	
 	
 
 	if (Math.round((parseFloat(p_bb_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((total_blue * 1.0 / (total_blue + total_gold)) + 0.00001) * 100) / 100) {
@@ -737,7 +783,7 @@ function check_p_bb() {
 
 function check_lik_wg() {
 	a4_check.style.opacity = 1.0;
-	a4_check.style.zIndex = 100;
+	a4_check.style.zIndex = 100000;
 	
 	if (Math.round((parseFloat(lik_wg_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((seconds_b * 1.0 / (seconds_y + seconds_b)) + 0.00001) * 100) / 100) {
 		document.getElementById("check_4_box").innerHTML = "Correct!";
@@ -749,7 +795,7 @@ function check_lik_wg() {
 
 function check_lik_bb() {
 	a3_check.style.opacity = 1.0;
-	a3_check.style.zIndex = 100;
+	a3_check.style.zIndex = 100000;
 	
 	if (Math.round((parseFloat(lik_bb_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((seconds_y * 1.0 / (seconds_y + seconds_b)) + 0.00001) * 100) / 100) {
 		document.getElementById("check_3_box").innerHTML = "Correct!";
@@ -762,7 +808,7 @@ function check_lik_bb() {
 
 function check_z() {
 	a5_check.style.opacity = 1.0;
-	a5_check.style.zIndex = 100;
+	a5_check.style.zIndex = 10000;
 	
 	if (Math.round((parseFloat(z_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((total_blue * seconds_y * 1.0 / ((seconds_y + seconds_b) * (total_blue + total_gold))  + total_gold * seconds_b * 1.0 / ((seconds_y + seconds_b) * (total_blue + total_gold))     ) + 0.00001) * 100) / 100) {
 		document.getElementById("check_5_box").innerHTML = "Correct!";
@@ -775,7 +821,7 @@ function check_all() {
 	var wrong_list = [];
 
 	all_checked.style.opacity = 1.0;
-	all_checked.style.zIndex = 100;
+	all_checked.style.zIndex = 10000;
 
 
 	if (Math.round((parseFloat(p_bb_form.elements[0].value) + 0.00001) * 100) / 100 == Math.round(((total_blue * 1.0 / (total_blue + total_gold)) + 0.00001) * 100) / 100) {
@@ -810,7 +856,7 @@ function check_all() {
 		document.getElementById("check_results").innerHTML = "All values are correct! Click next to proceed.";
 		next6.disabled = false;
 	} else {
-		document.getElementById("check_results").innerHTML = "The following entities have incorrect values (correct them to proceed):" + wrong_list.join();
+		document.getElementById("check_results").innerHTML = "The following entities have incorrect values:" + wrong_list.join();
 	}
 }
 

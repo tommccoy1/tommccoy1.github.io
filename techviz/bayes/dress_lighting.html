@@ -47,7 +47,11 @@
 </head>
 <body>
 
-<button id="light_btn" onclick="light()">Toggle Light</button>
+<h1>Bayesian Modeling of Vision: The Dress</h1>
+
+<div style="width:150px;margin:auto;">
+<button id="light_btn" onclick="light()" class="btn" style="margin:5px">Toggle Light</button>
+</div>
 
 
 <div id="animate_container">
@@ -77,17 +81,26 @@
 
 <p>There are two aspects of the man's experience that we will focus on. First is the lighting that he has been exposed to. Recall from earlier that an important factor in interpreting the dress image is whether the viewer assumes the lighting when the picture was taken was yellowish or bluish. Therefore, we have added two light fixtures to the room, a yellow one and a blue one. Click "Add Lights" to insert the light fixtures into the room.</p>
 
-<button onclick="show_lights()">Add Lights</button>
+<div style="width:150px;margin:auto;">
+<button onclick="show_lights()" class="btn">Add Lights</button>
+</div>
 
-</p>Click "Toggle Light" to try changing the man's lighting color.</p>
-<form action="dress_just_man.html">
-    <input type="submit" value="Previous" />
+</p>Click "Toggle Light" (above the man's room) to try changing the man's lighting color.</p>
+
+
+<div style="width:250px;margin:auto;">
+<form action="dress_just_man.html" style="display:inline">
+    <input type="submit" class="btn" style="width:100px;display:inline" value="Previous" />
 </form>
 
 
-<form action="dress_show.html">
-    <input type="submit" value="Next" />
+
+<form action="dress_show.html" style="display:inline">
+    <input type="submit" class="btn" style="width:100px;display:inline"  value="Next" />
 </form>
+</div>
+
+
 
 
 <script>

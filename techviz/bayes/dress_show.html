@@ -47,9 +47,15 @@
 </head>
 <body>
 
-<button id="light_btn" onclick="light()">Toggle Light</button>
-<button id="blue_btn" onclick="myMove(0)">Show Blue</button>
-<button id="gold_btn" onclick="myMove(1)">Show Gold</button>
+<h1>Bayesian Modeling of Vision: The Dress</h1>
+
+<div style="margin:5px">
+<div style="width:370px;margin:auto;">
+<button id="light_btn" onclick="light()" class="btn">Toggle Light</button>
+<button id="blue_btn" onclick="myMove(0)" class="btn">Show Blue</button>
+<button id="gold_btn" onclick="myMove(1)" class="btn">Show Gold</button>
+</div>
+</div>
 
 
 <div id="animate_container">
@@ -98,22 +104,33 @@
 
 <p>The other aspect of the man's experience that we will discuss is the types of dresses he has seen before. Click "Add Dress Dispenser" to insert an apparatus that will show him dresses of the appropriate colors.</p>
 
-<button onclick="dispenser()">Add Dress Dispenser</button>
+<div style="width:200px;margin:auto;">
+<button onclick="dispenser()" class="btn">Add Dress Dispenser</button>
+</div>
 
 <p>Click "Show Blue" and "Show Gold" to try showing the man a dress of each color.</p>
 
-<form action="dress_lighting.html">
-    <input type="submit" value="Previous" />
+
+
+<div style="width:210px;margin:auto;">
+<form action="dress_lighting.html" style="display:inline">
+    <input type="submit" class="btn" style="width:100px;display:inline" value="Previous" />
 </form>
 
 
 
-<form action="dress_full_sim.html">
-    <input type="submit" value="Next" />
+<form action="dress_full_sim.html" style="display:inline">
+    <input type="submit" class="btn" style="width:100px;display:inline"  value="Next" />
 </form>
+</div>
+
 
 
 <script>
+
+blue_btn.disabled = true;
+gold_btn.disabled = true;
+
 var sim_started = 0;
 var blue_counter = 1;
 var gold_counter = 1;
@@ -157,6 +174,9 @@ function dispenser() {
 	tr_1.style.opacity = 1;
 	blue_box.style.opacity = 1;
 	gold_box.style.opacity = 1;
+
+	blue_btn.disabled = false;
+	gold_btn.disabled = false;
 }
 
 

@@ -11,6 +11,8 @@ canvas { width: 100%; height: 100% }
 </head>
 <body>
 
+<h1>Bayesian Modeling of Vision: The Dress</h1>
+
 	<p>Let's take another look at Bayes' Theorem to recap its importance. Here it is again&mdash;as before, hover over any term in the equation for a summary of what that term means:</p>
 
 <div id="bayes_box">
@@ -64,7 +66,7 @@ canvas { width: 100%; height: 100% }
 
 <p>And here is Bayes' Theorem for our specific case:</p>
 
-<div id="bayes_box_dress">
+<div id="bayes_box_dress" style="font-size:15px">
 <div id="lhs_dress">
 <p>p(black and blue | image)</p>
 </div>
@@ -92,7 +94,7 @@ canvas { width: 100%; height: 100% }
 </div>
 </div>
 
-<div id="bayes_box_dress_2">
+<div id="bayes_box_dress_2" style="font-size:15px">
 <div id="lhs_dress_2">
 <p>p(white and gold | image)</p>
 </div>
@@ -146,7 +148,7 @@ canvas { width: 100%; height: 100% }
 
 <div id="blue_bubble"><img src="blue_dress_straight.png" width="100%"></div>
 <div id="white_bubble"><img src="white_dress_straight.png" width="100%"></div>
-<div id="thought"></div>
+<div id="thought" style="font-size:13px"></div>
 
 </div>
 
@@ -157,7 +159,7 @@ canvas { width: 100%; height: 100% }
 
 <div id="all_sliders">
 <div id="prior_sliders">
-	<p style="bottom:0;left:0;border-style:solid;width:100px;position:absolute;"><b>Priors</b></p>
+	<p style="bottom:0;left:0;width:100px;position:absolute;padding:5px;"><b>Priors</b></p>
 	<div class="left_slider">
 	<p>p(black and blue)</p>
         <input type="range" min="0" max="100" value="50" class="slider" id="prior_blue">
@@ -169,9 +171,8 @@ canvas { width: 100%; height: 100% }
 	</div>
 
 </div>
-<br>
 <div id="lik_sliders">
-	<p style="bottom:0;left:0;border-style:solid;width:100px;position:absolute;"><b>Likelihoods</b></p>
+	<p style="bottom:0;left:0;width:100px;position:absolute;padding:5px;"><b>Likelihoods</b></p>
 	<div class="left_slider">
 	<p>p(image | black and blue)</p>
         <input type="range" min="0" max="100" value="50" class="slider" id="lik_blue">
@@ -184,9 +185,8 @@ canvas { width: 100%; height: 100% }
 
 </div>
 
-<br>
 <div id="norm_slider">
-	<p style="bottom:0;left:0;border-style:solid;width:100px;position:absolute;"><b>Normalizing constant</b></p>
+	<p style="bottom:0;left:0;width:100px;position:absolute;padding:5px;"><b>Normalizing constant</b></p>
 	<div class="center_slider">
 	<p>p(image)</p>
         <input type="range" min="1" max="100" value="50" class="slider" id="norm">
@@ -211,7 +211,7 @@ canvas { width: 100%; height: 100% }
 </div>
 
 <div id="eq_sign_2" onmouseover="changeColor(this);reveal(alpha_explain)" onmouseout="normalColor(this);hide(alpha_explain)">
-<p>&prop;</p>
+<p style="font-size:16px">&prop;</p>
 </div>
 
 <div id="rhs_2">
@@ -250,17 +250,20 @@ canvas { width: 100%; height: 100% }
 <p>You can paraphrase this version of the formula as "the posterior is proportional to the likelihood times the prior." If you remember from the first simulation, the normalizing constant was the most difficult thing to calculate because it involved summing over both possible scenarios (black/blue and white/gold). In more realistic problems, there are far more than just two possibilities to consider, so the calculation of the normalizing constant can go from being merely annoying to being completely untractable. For example, <a href="https://www.sciencedirect.com/science/article/pii/S0960982215004947">Gegenfurtner et al. 2015</a> found that there are not only two possible ways of interpreting the dress (black/blue vs. white/gold) but rather that, within these two broad categories, there are many distinct possibilities corresponding to different wavelengths of blue and gold, so to calculate the normalizing constant with this information we would have to sum across all these possible wavelengths. Therefore, this modified version of Bayes' Theorem is very useful as it eliminates the need to compute the potentially expensive normalizing constant. In the later simulations we will make use of this version of the formula.</p>
 
 
-<p>References</p>
+<h4>References</h4>
 <p>Gegenfurtner, K. R., Bloj, M., &amp; Toscani, M. (2015). The many colours of ‘the dress’. <i>Current Biology, 25</i>(13), R543-R544.</p>
 
+<div style="width:250px;margin:auto;">
 
-<form action="cube_final.html">
-	<input id="next" type="submit" value="Next" />
+<form action="dress_full_sim.html" style="display:inline">
+	<input id="prev" type="submit" class="btn" style="width:100px;display:inline" value="Previous" />
 </form>
 
-<form action="dress_full_sim.html">
-	<input id="prev" type="submit" value="Previous" />
+	
+	<form action="cube_final.html" style="display:inline">
+	<input id="next" type="submit" class="btn" style="width:100px;display:inline" value="Next" />
 </form>
+</div>
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

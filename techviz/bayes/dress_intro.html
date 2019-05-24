@@ -42,11 +42,26 @@
 	margin: auto;
 	opacity: 0.0;
 }
+
+.xkcd 
+{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	top: 0;
+	left: 0;
+}
 </style>
 
 </head>
 <body>
-	<p>In 2015 the image below went viral. The reason it caught so many people's attention was that some people saw the dress as black and blue, while others saw it as white and gold. To help you see the two possible interpretations of the image, use the slider below it to manipulate the lighting in the image to skew it toward one interpretation or the other.</p>
+	<h1>Bayesian Modeling of Vision: The Dress</h1>
+	<p>By Tom McCoy</p>
+	<p><em>This demo is best viewed on a desktop.</em></p>
+
+
+	<p>In 2015 the image below went viral. The reason it caught the attention of so many people was that some people saw the dress as black and blue, while others saw it as white and gold. To help you see the two possible interpretations of the image, use the slider below it to manipulate the lighting in the image to skew it toward one interpretation or the other.</p>
 <div class="container">
 	<img src="neutral.jpg" alt="Image of the dress" max-width="100%" class="neutral" id="neutral_image">
 	<img src="black_and_blue.jpg" alt="Black and blue image of the dress" max-width="100%" class="black_blue" id="bb_image">
@@ -57,10 +72,10 @@
 
 <div class="slidecontainer">
 	<input type="range" min="0" max="100" value="50" class="slider" id="blue_yellow_range">
+
+	<span id="slider_reset"><button onclick="resetSlider()" width="100%" class="btn">Reset</button></span>
+
 </div>
-
-
-<div id="slider_reset"><button onclick="resetSlider()" width="100%">Reset</button></div>
 
 <p>It's easy to see different colors for the dress when you manipulate the image using this slider, but why do different people see different colors even when looking at the exact same unaltered image (the image you see when you click "Reset")?</p>
 
@@ -72,11 +87,14 @@
 
 <p>The influence of background lighting on assumptions about the dress color can be clearly seen in the XKCD comic below (from <a href="https://xkcd.com/1492/">https://xkcd.com/1492/</a>). Even though the dress is the same color in both halves of the image, the two instances probably look different to you due to their different backgrounds:</p>
 
-<img src="https://imgs.xkcd.com/comics/dress_color.png"></img>
+<div class="container">
+<img src="https://imgs.xkcd.com/comics/dress_color.png" max-width="100%;" class="xkcd"></img>
+</div>
+<br>
 
 <p>In the simulation that follows, we will explore how to model the effect of experience on leading different people to interpret the image differently.</p>
 
-<p>References</p>
+<h4>References</h4>
 
 <p>Toscani, M., Gegenfurtner, K. R., &amp; Doerschner, K. (2017). Differences in illumination estimation in# thedress. <i>Journal of Vision, 17</i>(1), 22-22.</p>
 
@@ -84,11 +102,14 @@
 
 <p>Wallisch, P. (2017). Illumination assumptions account for individual differences in the perceptual interpretation of a profoundly ambiguous stimulus in the color domain:“The dress”. <i>Journal of Vision, 17</i>(4), 5-5.</p>
 
-<form action="dress_just_man.html">
-	<input type="submit" value="Next" />
-</form>
 
 <p>Slider implementation influenced by Matt Mastracci: https://github.com/mmastrac/dress-simulator</p>
+
+<div style="width:40px;margin:auto;">
+<form action="dress_just_man.html">
+	<input type="submit" value="Next" class="btn" />
+</form>
+</div>
 
 
 <script>
