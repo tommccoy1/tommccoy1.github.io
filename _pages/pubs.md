@@ -8,17 +8,16 @@ redirect_from:
 {% include base_path %}
 
 
-# In progress
-
-<p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. [<a href="https://arxiv.org/abs/1902.01007">arxiv</a>] [<a href="https://arxiv.org/pdf/1902.01007.pdf">pdf</a>]
-</p>
-
-<p style="margin-left: 40px; text-indent: -40px;">
-Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, <b>R. Thomas McCoy</b>, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berline Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling. [<a href="https://arxiv.org/abs/1812.10860">arxiv</a>] [<a href="https://arxiv.org/pdf/1812.10860.pdf">pdf</a>]
-</p>
-
 # 2019
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. To appear in <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/abs/1902.01007">arxiv</a>] [<a href="https://arxiv.org/pdf/1902.01007.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, <b>R. Thomas McCoy</b>, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berlin Chen. Looking for ELMo's Friends: Sentence-Level Pretraining Beyond Language Modeling. To appear in <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/abs/1812.10860">arxiv</a>] [<a href="https://arxiv.org/pdf/1812.10860.pdf">pdf</a>]
+</p>
+
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. To appear in <em>Proceedings of the Eighth Joint Conference on Lexical and Computational Semantics (&ast;SEM 2019)</em>. [<a href="https://arxiv.org/abs/1904.11544">arxiv</a>] [<a href="https://arxiv.org/pdf/1904.11544.pdf">pdf</a>]
@@ -29,7 +28,7 @@ Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Ian Tenney, Patrick Xia, Berline Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCoy</b>, Najoung Kim, Benjamin Van Durme, Samuel R. Bowman, Dipanjan Das, and Ellie Pavlick. What do you learn from context? Probing for sentence structure in contextualized word representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://openreview.net/pdf?id=SJzSgnRcKX">pdf</a>]
+Ian Tenney, Patrick Xia, Berlin Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCoy</b>, Najoung Kim, Benjamin Van Durme, Samuel R. Bowman, Dipanjan Das, and Ellie Pavlick. What do you learn from context? Probing for sentence structure in contextualized word representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://openreview.net/pdf?id=SJzSgnRcKX">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
