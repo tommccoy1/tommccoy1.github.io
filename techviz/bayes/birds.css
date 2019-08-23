@@ -28,8 +28,8 @@ body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Hel
 
 
 #bird_grid, #demo_container {
-	width: 600px;
-	height: 600px;
+	width: 500px;
+	height: 500px;
 	border-style: solid;
 	float: left;
 	position: relative;
@@ -46,7 +46,7 @@ body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Hel
 }
 
 #word_learning_demo, #taxonomy, #be_the_learner, #home_screen, #tutorial_1, #tutorial_2, #tutorial_3, #tutorial_4 {
-	height: 600px;
+	height: 500px;
 	width: 590px;
 	top: 0;
 	left: 0;
