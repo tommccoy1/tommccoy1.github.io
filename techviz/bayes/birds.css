@@ -47,7 +47,7 @@ body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Hel
 
 #word_learning_demo, #taxonomy, #be_the_learner, #home_screen, #tutorial_1, #tutorial_2, #tutorial_3, #tutorial_4 {
 	height: 500px;
-	width: 590px;
+	width: 550px;
 	top: 0;
 	left: 0;
 	position: absolute;
