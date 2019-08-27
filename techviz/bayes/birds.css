@@ -27,9 +27,18 @@ body { padding: 0; margin: 2rem; font-family: "Open Sans", "Helvetica Neue", Hel
 }
 
 
-#bird_grid, #demo_container {
+#bird_grid {
+	width: 500px;
+	height: 600px;
+	border-style: solid;
+	float: left;
+	position: relative;
+}
+
+
+#demo_container {
 	width: 600px;
-	height: 400px;
+	height: 600px;
 	border-style: solid;
 	float: left;
 	position: relative;
