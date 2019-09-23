@@ -1,0 +1,732 @@
+
+<!--
+task, encoder, decoder, attention, lr, hs, model_id, 
+example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_first_word_accuracy, gen_first_word_first_aux, gen_first_word_other_aux, gen_first_word_other_word, gen_full_sentence_correct, gen_full_sentence_pos_correct, d1p1, d1p2, d1po, d2p1, d2p2, d2po, dnp1, dnp2, dnpo, other, ORC, SRC_t, SRC_i
+-->
+
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" type="text/css" href="google_chart.css">
+	</head>
+	<body>
+
+		<div style="height:400px;width:1000px">
+			<div id="table_div" height="700px" width="1000px"></div>
+		</div>
+
+        <div id="testdiv" height="200px">Test div</div>
+
+        <h2>Clickable Dropdown</h2>
+        <p>Click on the buttons to select which models will be included in the table; you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
+
+        <div class="dropdown">
+          <button onclick="dropFunction('datasetdropdown')" class="dropbtn" id="dataset_btn">Any</button>
+          <div id="datasetdropdown" class="dropdown-content">
+            <a onclick="dataset_any()">Any task</a>
+            <a onclick="dataset_agr()">Question formation</a>
+            <a onclick="dataset_tense()">Tense reinflection</a>
+          </div>
+        </div>
+
+
+ 
+        <div class="dropdown">
+          <button onclick="dropFunction('encDropdown')" class="dropbtn" id="enc_btn">Any</button>
+          <div id="encDropdown" class="dropdown-content">
+            <a onclick="enc_any()">Any encoder</a>
+            <a onclick="enc_srn()">SRN</a>
+            <a onclick="enc_gru()">GRU</a>
+            <a onclick="enc_lstm()">LSTM</a>
+            <a onclick="enc_tree()">Tree GRU</a>
+            <a onclick="enc_onlstm()">ON-LSTM</a>
+          </div>
+        </div>
+
+       <div class="dropdown">
+          <button onclick="dropFunction('decDropdown')" class="dropbtn" id="dec_btn">Any</button>
+          <div id="decDropdown" class="dropdown-content">
+            <a onclick="dec_any()">Any decoder</a>
+            <a onclick="dec_srn()">SRN</a>
+            <a onclick="dec_gru()">GRU</a>
+            <a onclick="dec_lstm()">LSTM</a>
+            <a onclick="dec_tree()">Tree GRU</a>
+            <a onclick="dec_onlstm()">ON-LSTM</a>
+          </div>
+        </div>
+
+
+        <div class="dropdown">
+          <button onclick="dropFunction('attnDropdown')" class="dropbtn" id="attn_btn">Any</button>
+          <div id="attnDropdown" class="dropdown-content">
+            <a onclick="attn_any()">Any attention</a>
+            <a onclick="attn_none()">None</a>
+            <a onclick="attn_location()">Location-based</a>
+            <a onclick="attn_content()">Content-based</a>
+          </div>
+        </div>
+
+
+        <div class="dropdown">
+          <button onclick="dropFunction('lrDropdown')" class="dropbtn" id="lr_btn">0.001</button>
+          <div id="lrDropdown" class="dropdown-content">
+            <a onclick="lr_any()">Any</a>
+            <a onclick="lr_5e5()">0.00005</a>
+            <a onclick="lr_1e4()">0.0001</a>
+            <a onclick="lr_5e4()">0.0005</a>
+            <a onclick="lr_1e3()">0.001</a>
+            <a onclick="lr_5e3()">0.005</a>
+            <a onclick="lr_1e2()">0.01</a>
+            <a onclick="lr_5e2()">0.05</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+            <button onclick="dropFunction('hsDropdown')" class="dropbtn" id="hs_btn">256</button>
+          <div id="hsDropdown" class="dropdown-content">
+            <a onclick="hs_any()">Any</a>
+            <a onclick="hs_32()">32</a>
+            <a onclick="hs_64()">64</a>
+            <a onclick="hs_128()">128</a>
+            <a onclick="hs_256()">256</a>
+            <a onclick="hs_512()">512</a>
+            <a onclick="hs_1024()">1024</a>
+            <a onclick="hs_2048()">2048</a>
+          </div>
+        </div>
+
+
+        <p>Select which columns to include in the table</p>
+
+        <p>First, aspects of the experiment:</p>
+
+        <div id="variablesdiv">
+            <input type="checkbox" id="show_name" onclick="drawTable()">Name
+            <input type="checkbox" id="show_dataset" onclick="drawTable()">Dataset
+            <input type="checkbox" id="show_enc" onclick="drawTable()">Encoder
+            <input type="checkbox" id="show_dec" onclick="drawTable()">Decoder
+            <input type="checkbox" id="show_attn" onclick="drawTable()">Attention
+            <input type="checkbox" id="show_lr" onclick="drawTable()">Learning rate
+            <input type="checkbox" id="show_hs" onclick="drawTable()">Hidden size
+        </div>
+
+        <p>Second, full-sentence metrics of accuracy: Test full and Gen full are full-sentence accuracy on the test and generalization set, while POS indicates accuracy on getting the correct sequence of parts-of-speech</p>
+        <div id="fullseqmetricsdiv">
+            <input type="checkbox" id="show_testfull" onclick="drawTable()">Test full
+            <input type="checkbox" id="show_testpos" onclick="drawTable()">Test POS
+            <input type="checkbox" id="show_genfull" onclick="drawTable()">Gen full
+            <input type="checkbox" id="show_genpos" onclick="drawTable()">Gen POS
+        </div>
+
+        <p>Second, first-word metrics of accuracy: Gen main is the percent of generalization set outputs that started with the main auxiliary; Gen first is the percent that started with the first auxiliary; Gen other aux is the percent that started with some other auxiliary; and Gen other is the percent that started with something that wasn't an auxiliary.</p>
+        <div id="firstwordmetricsdiv">
+            <input type="checkbox" id="show_genmain" onclick="drawTable()">Gen main
+            <input type="checkbox" id="show_genfirst" onclick="drawTable()">Gen first
+            <input type="checkbox" id="show_genaux" onclick="drawTable()">Gen other aux 
+            <input type="checkbox" id="show_genother" onclick="drawTable()">Gen other
+        </div>
+
+        <p>Generalization set first-word accuracy where the relative clause on the subject was of a particular type</p>
+        <div id="rcmetricsdiv">
+            <input type="checkbox" id="show_orc" onclick="drawTable()">Object relative clause
+            <input type="checkbox" id="show_srct" onclick="drawTable()">Transitive subject relative clause
+            <input type="checkbox" id="show_srci" onclick="drawTable()">Intransitive subject relative clause
+        </div>
+
+
+        <p>Percent of outputs that belonged to a particular form along the lines of Crain and Nakayama</p>
+        <div id="crainmetricsdiv">
+            <input type="checkbox" id="show_d1p1" onclick="drawTable()">Delete first, prepose first
+            <input type="checkbox" id="show_d1p2" onclick="drawTable()">Delete first, prepose second
+            <input type="checkbox" id="show_d1po" onclick="drawTable()">Delete first, prepose other
+            <input type="checkbox" id="show_d2p1" onclick="drawTable()">Delete second, prepose first
+            <input type="checkbox" id="show_d2p2" onclick="drawTable()">Delete second, prepose second
+            <input type="checkbox" id="show_d2po" onclick="drawTable()">Delete second, prepose other
+            <input type="checkbox" id="show_dnp1" onclick="drawTable()">Delete none, prepose first
+            <input type="checkbox" id="show_dnp2" onclick="drawTable()">Delete none, prepose second
+            <input type="checkbox" id="show_dnpo" onclick="drawTable()">Delete none, prepose other
+            <input type="checkbox" id="show_other" onclick="drawTable()">Other
+        </div>
+
+        <p>Example outputs given by the trained model, whether on the test set or generalization set; and the command that can be used to re-run this experiment.</p>
+        <div id="textmetricsdiv">
+            <input type="checkbox" id="show_extest" onclick="drawTable()">Test examples
+            <input type="checkbox" id="show_exgen" onclick="drawTable()">Gen examples
+            <input type="checkbox" id="show_command" onclick="drawTable()">Command
+        </div>
+
+
+
+	</body>
+<script type="text/javascript" src="results_table_js.txt"></script>
+		<script type="text/javascript">
+
+
+
+        var dataset_type = "any";
+        var enc_type = "any";
+        var dec_type = "any";
+        var attn_type = "any";
+        var lr_type = 0.001;
+        var hs_type = 256;
+
+        function dataset_any() {
+            dataset_type = "any";
+            document.getElementById("dataset_btn").innerHTML = "Any";
+            drawTable();
+
+        }
+
+        function dataset_agr() {
+            dataset_type = "agr";
+            document.getElementById("dataset_btn").innerHTML = "Question formation";
+            drawTable();
+
+        }
+
+        function dataset_tense() {
+            dataset_type = "tense";
+            document.getElementById("dataset_btn").innerHTML = "Tense reinflection";
+            drawTable();
+
+        }
+
+
+
+        function enc_any() {
+            enc_type = "any";
+            document.getElementById("enc_btn").innerHTML = "Any";
+            drawTable();
+
+        }
+
+
+        function enc_srn() {
+            enc_type = "SRN";
+            document.getElementById("enc_btn").innerHTML = "SRN";
+            drawTable();
+
+        }
+
+
+        function enc_gru() {
+            enc_type = "GRU";
+            document.getElementById("enc_btn").innerHTML = "GRU";
+            drawTable();
+
+        }
+
+
+        function enc_lstm() {
+            enc_type = "LSTM";
+            document.getElementById("enc_btn").innerHTML = "LSTM";
+            drawTable();
+
+        }
+
+
+        function enc_tree() {
+            enc_type = "Tree";
+            document.getElementById("enc_btn").innerHTML = "Tree-GRU";
+            drawTable();
+
+        }
+
+
+        function enc_onlstm() {
+            enc_type = "ONLSTM";
+            document.getElementById("enc_btn").innerHTML = "ON-LSTM";
+            drawTable();
+
+        }
+
+
+        function dec_any() {
+            dec_type = "any";
+            document.getElementById("dec_btn").innerHTML = "Any";
+            drawTable();
+
+        }
+
+
+        function dec_srn() {
+            dec_type = "SRN";
+            document.getElementById("dec_btn").innerHTML = "SRN";
+            drawTable();
+
+        }
+
+
+        function dec_gru() {
+            dec_type = "GRU";
+            document.getElementById("dec_btn").innerHTML = "GRU";
+            drawTable();
+
+        }
+
+
+        function dec_lstm() {
+            dec_type = "LSTM";
+            document.getElementById("dec_btn").innerHTML = "LSTM";
+            drawTable();
+
+        }
+
+
+        function dec_tree() {
+            dec_type = "Tree";
+            document.getElementById("dec_btn").innerHTML = "Tree-GRU";
+            drawTable();
+
+        }
+
+
+        function dec_onlstm() {
+            dec_type = "ONLSTM";
+            document.getElementById("dec_btn").innerHTML = "ON-LSTM";
+            drawTable();
+
+        }
+
+
+        function attn_any() {
+            attn_type = "any";
+            document.getElementById("attn_btn").innerHTML = "Any";
+            drawTable();
+
+        }
+
+        function attn_none() {
+            attn_type = "0";
+            document.getElementById("attn_btn").innerHTML = "None";
+            drawTable();
+
+        }
+
+        function attn_location() {
+            attn_type = "1";
+            document.getElementById("attn_btn").innerHTML = "Location-based";
+            drawTable();
+
+        }
+
+        function attn_content() {
+            attn_type = "2";
+            document.getElementById("attn_btn").innerHTML = "Content-based";
+            drawTable();
+
+        }
+
+        function lr_any() {
+            lr_type = "any";
+            document.getElementById("lr_btn").innerHTML = "Any";
+            drawTable();
+        }
+
+
+
+        function lr_5e5() {
+            lr_type = 0.00005;
+            document.getElementById("lr_btn").innerHTML = "0.00005";
+            drawTable();
+        }
+
+        function lr_1e4() {
+            lr_type = 0.0001;
+            document.getElementById("lr_btn").innerHTML = "0.0001";
+            drawTable();
+        }
+
+        function lr_5e4() {
+            lr_type = 0.0005;
+            document.getElementById("lr_btn").innerHTML = "0.0005";
+            drawTable();
+        }
+
+        function lr_1e3() {
+            lr_type = 0.001;
+            document.getElementById("lr_btn").innerHTML = "0.001";
+            drawTable();
+        }
+
+        function lr_5e3() {
+            lr_type = 0.005;
+            document.getElementById("lr_btn").innerHTML = "0.005";
+            drawTable();
+        }
+
+        function lr_1e2() {
+            lr_type = 0.01;
+            document.getElementById("lr_btn").innerHTML = "0.01";
+            drawTable();
+        }
+
+        function lr_5e2() {
+            lr_type = 0.05;
+            document.getElementById("lr_btn").innerHTML = "0.05";
+            drawTable();
+        }
+
+
+
+
+        function hs_any() {
+            hs_type = "any";
+            document.getElementById("hs_btn").innerHTML = "Any";
+            drawTable();
+        }
+
+
+        function hs_32() {
+            hs_type = 32;
+            document.getElementById("hs_btn").innerHTML = "32";
+            drawTable();
+        }
+
+
+        function hs_64() {
+            hs_type = 64;
+            document.getElementById("hs_btn").innerHTML = "64";
+            drawTable();
+        }
+
+        function hs_128() {
+            hs_type = 128;
+            document.getElementById("hs_btn").innerHTML = "128";
+            drawTable();
+        }
+
+
+        function hs_256() {
+            hs_type = 256;
+            document.getElementById("hs_btn").innerHTML = "256";
+            drawTable();
+        }
+
+
+        function hs_512() {
+            hs_type = 512;
+            document.getElementById("hs_btn").innerHTML = "512";
+            drawTable();
+        }
+
+        function hs_1024() {
+            hs_type = 1024;
+            document.getElementById("hs_btn").innerHTML = "1024";
+            drawTable();
+        }
+
+
+
+
+
+
+
+
+
+
+			google.charts.load('current', {'packages':['table']});
+			google.charts.setOnLoadCallback(drawTable);
+
+
+			function drawTable() {
+                mytable = [];
+                
+                var i;
+                for (i = 0; i < experiments.length; i++) {
+                    var use_row = true;
+
+                    if (dataset_type != "any") {
+                        if (experiments[i].dataset != dataset_type) {
+                            use_row = false;
+                        }
+                    };
+
+
+                    if (enc_type != "any") {
+                        if (experiments[i].enc != enc_type) {
+                            use_row = false;
+                        }
+                    };
+
+                    if (dec_type != "any") {
+                        if (experiments[i].dec != dec_type) {
+                            use_row = false;
+                        }
+                    };
+
+                    if (attn_type != "any") {
+                        if (experiments[i].attn != attn_type) {
+                            use_row = false;
+                        }
+                    };
+
+                    if (lr_type != "any") {
+                        if (experiments[i].lr != lr_type) {
+                            use_row = false;
+                        }
+                    };
+
+
+                    if (hs_type != "any") {
+                        if (experiments[i].hs != hs_type) {
+                            use_row = false;
+                        }
+                    };
+
+
+                    var display_list = [];
+                    if (document.getElementById("show_name").checked) {
+                        display_list.push("name");
+                    }
+                    if (document.getElementById("show_dataset").checked) {
+                        display_list.push("dataset");
+                    }
+                    if (document.getElementById("show_enc").checked) {
+                        display_list.push("enc");
+                    }
+                    if (document.getElementById("show_dec").checked) {
+                        display_list.push("dec");
+                    }
+                    if (document.getElementById("show_attn").checked) {
+                        display_list.push("attn");
+                    }
+                    if (document.getElementById("show_lr").checked) {
+                        display_list.push("lr");
+                    }
+                    if (document.getElementById("show_hs").checked) {
+                        display_list.push("hs");
+                    }
+                    if (document.getElementById("show_testfull").checked) {
+                        display_list.push("testfull");
+                    }
+                    if (document.getElementById("show_testpos").checked) {
+                        display_list.push("testpos");
+                    }
+                    if (document.getElementById("show_genfull").checked) {
+                        display_list.push("genfull");
+                    }
+                    if (document.getElementById("show_genpos").checked) {
+                        display_list.push("genpos");
+                    }
+                    if (document.getElementById("show_genmain").checked) {
+                        display_list.push("genmain");
+                    }
+                    if (document.getElementById("show_genfirst").checked) {
+                        display_list.push("genfirst");
+                    }
+                    if (document.getElementById("show_genaux").checked) {
+                        display_list.push("genaux");
+                    }
+                    if (document.getElementById("show_genother").checked) {
+                        display_list.push("genother");
+                    }
+                    if (document.getElementById("show_orc").checked) {
+                        display_list.push("orc");
+                    }
+                    if (document.getElementById("show_srct").checked) {
+                        display_list.push("srct");
+                    }
+                    if (document.getElementById("show_srci").checked) {
+                        display_list.push("srci");
+                    }
+                    if (document.getElementById("show_d1p1").checked) {
+                        display_list.push("d1p1");
+                    }
+                    if (document.getElementById("show_d1p2").checked) {
+                        display_list.push("d1p2");
+                    }
+                    if (document.getElementById("show_d1po").checked) {
+                        display_list.push("d1po");
+                    }
+                    if (document.getElementById("show_d2p1").checked) {
+                        display_list.push("d2p1");
+                    }
+                    if (document.getElementById("show_d2p2").checked) {
+                        display_list.push("d2p2");
+                    }
+                    if (document.getElementById("show_d2po").checked) {
+                        display_list.push("d2po");
+                    }
+                    if (document.getElementById("show_dnp1").checked) {
+                        display_list.push("dnp1");
+                    }
+                    if (document.getElementById("show_dnp2").checked) {
+                        display_list.push("dnp2");
+                    }
+                    if (document.getElementById("show_dnpo").checked) {
+                        display_list.push("dnpo");
+                    }
+                    if (document.getElementById("show_other").checked) {
+                        display_list.push("other");
+                    }
+                    if (document.getElementById("show_extest").checked) {
+                        display_list.push("extest");
+                    }
+                    if (document.getElementById("show_exgen").checked) {
+                        display_list.push("exgen");
+                    }
+                    if (document.getElementById("show_command").checked) {
+                        display_list.push("command");
+                    }
+
+                    if (use_row) {
+                        var exp_as_list = []
+                        for (k = 0; k < display_list.length; k++) {
+                            exp_as_list.push(experiments[i][display_list[k]]);
+                        }
+                        mytable.push(exp_as_list);
+                    };
+                };
+
+                document.getElementById("testdiv").innerHTML = mytable;
+				var data = new google.visualization.DataTable();
+
+                for (j = 0; j < display_list.length; j++) {
+                    this_variable = display_list[j];
+                    if (this_variable == "name") {
+                        data.addColumn('string', 'Name');
+                    }
+                    if (this_variable == "dataset") {
+                        data.addColumn('string', 'Dataset');
+                    }
+                    if (this_variable == "enc") {
+                        data.addColumn('string', 'Encoder');
+                    }
+                    if (this_variable == "dec") {
+                        data.addColumn('string', 'Decoder');
+                    }
+                    if (this_variable == "attn") {
+                        data.addColumn('string', 'Attention');
+                    }
+                    if (this_variable == "lr") {
+                        data.addColumn('number', 'Learning rate');
+                    }
+                    if (this_variable == "hs") {
+                        data.addColumn('number', 'Hidden size');
+                    }
+
+                    if (this_variable == "testfull") {
+                        data.addColumn('number', 'Test full');
+                    }
+                    if (this_variable == "testpos") {
+                        data.addColumn('number', 'Test POS');
+                    }
+                    if (this_variable == "genfull") {
+                        data.addColumn('number', 'Gen full');
+                    }
+                    if (this_variable == "genpos") {
+                        data.addColumn('number', 'Gen POS');
+                    }
+                    if (this_variable == "genmain") {
+                        data.addColumn('number', 'Gen main');
+                    }
+                    if (this_variable == "genfirst") {
+                        data.addColumn('number', 'Gen first');
+                    }
+                    if (this_variable == "genaux") {
+                        data.addColumn('number', 'Gen aux');
+                    }
+                    if (this_variable == "genother") {
+                        data.addColumn('number', 'Gen other');
+                    }
+                    if (this_variable == "orc") {
+                        data.addColumn('number', 'ORC');
+                    }
+                    if (this_variable == "srct") {
+                        data.addColumn('number', 'SRC_t');
+                    }
+                    if (this_variable == "srci") {
+                        data.addColumn('number', 'SRC_i');
+                    }
+                    if (this_variable == "d1p1") {
+                        data.addColumn('number', 'd1p1');
+                    }
+                    if (this_variable == "d1p2") {
+                        data.addColumn('number', 'd1p2');
+                    }
+                    if (this_variable == "d1po") {
+                        data.addColumn('number', 'd1po');
+                    }
+                    if (this_variable == "d2p1") {
+                        data.addColumn('number', 'd2p1');
+                    }
+                    if (this_variable == "d2p2") {
+                        data.addColumn('number', 'd2p2');
+                    }
+                    if (this_variable == "d2po") {
+                        data.addColumn('number', 'd2po');
+                    }
+                    if (this_variable == "dnp1") {
+                        data.addColumn('number', 'dnp1');
+                    }
+                    if (this_variable == "dnp2") {
+                        data.addColumn('number', 'dnp2');
+                    }
+                    if (this_variable == "dnpo") {
+                        data.addColumn('number', 'dnpo');
+                    }
+                    if (this_variable == "other") {
+                        data.addColumn('number', 'other');
+                    }
+                    if (this_variable == "extest") {
+                        data.addColumn('string', 'Test examples');
+                    }
+                    if (this_variable == "exgen") {
+                        data.addColumn('string', 'Gen examples');
+                    }
+                    if (this_variable == "command") {
+                        data.addColumn('string', 'Command');
+                    }
+
+
+                }
+
+				data.addRows(mytable);
+
+                document.getElementById("testdiv").innerHTML = "New text testing";
+				var table = new google.visualization.Table(document.getElementById('table_div'));
+
+
+				table.draw(data, {showRowNumber: true, allowHtml:true, width: '100%', height: '100%'});
+			}
+
+
+
+        function dropFunction(dropname) {
+          document.getElementById(dropname).classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+
+        document.getElementById("show_enc").checked = true;
+        document.getElementById("show_dec").checked = true;
+        document.getElementById("show_attn").checked = true;
+        document.getElementById("show_testfull").checked = true;
+        document.getElementById("show_genmain").checked = true;
+        
+
+
+
+        </script>
+
+</html>
+
+
+
+
+
+
+
