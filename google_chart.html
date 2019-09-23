@@ -18,10 +18,10 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
         <div id="testdiv" height="200px">Test div</div>
 
         <h2>Clickable Dropdown</h2>
-        <p>Click on the buttons to select which models will be included in the table; you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
+        <p>Click on the buttons to select which experiments will be included in the table (each experiment is one row); you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
 
         <div class="dropdown">
-          <button onclick="dropFunction('datasetdropdown')" class="dropbtn" id="dataset_btn">Any</button>
+          <button onclick="dropFunction('datasetdropdown')" class="dropbtn" id="dataset_btn">Any task</button>
           <div id="datasetdropdown" class="dropdown-content">
             <a onclick="dataset_any()">Any task</a>
             <a onclick="dataset_agr()">Question formation</a>
@@ -32,7 +32,7 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
 
  
         <div class="dropdown">
-          <button onclick="dropFunction('encDropdown')" class="dropbtn" id="enc_btn">Any</button>
+          <button onclick="dropFunction('encDropdown')" class="dropbtn" id="enc_btn">Any encoder</button>
           <div id="encDropdown" class="dropdown-content">
             <a onclick="enc_any()">Any encoder</a>
             <a onclick="enc_srn()">SRN</a>
@@ -44,7 +44,7 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
         </div>
 
        <div class="dropdown">
-          <button onclick="dropFunction('decDropdown')" class="dropbtn" id="dec_btn">Any</button>
+          <button onclick="dropFunction('decDropdown')" class="dropbtn" id="dec_btn">Any decoder</button>
           <div id="decDropdown" class="dropdown-content">
             <a onclick="dec_any()">Any decoder</a>
             <a onclick="dec_srn()">SRN</a>
@@ -57,7 +57,7 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
 
 
         <div class="dropdown">
-          <button onclick="dropFunction('attnDropdown')" class="dropbtn" id="attn_btn">Any</button>
+          <button onclick="dropFunction('attnDropdown')" class="dropbtn" id="attn_btn">Any attention</button>
           <div id="attnDropdown" class="dropdown-content">
             <a onclick="attn_any()">Any attention</a>
             <a onclick="attn_none()">None</a>
@@ -68,7 +68,7 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
 
 
         <div class="dropdown">
-          <button onclick="dropFunction('lrDropdown')" class="dropbtn" id="lr_btn">0.001</button>
+          <button onclick="dropFunction('lrDropdown')" class="dropbtn" id="lr_btn">lr = 0.001</button>
           <div id="lrDropdown" class="dropdown-content">
             <a onclick="lr_any()">Any</a>
             <a onclick="lr_5e5()">0.00005</a>
@@ -82,7 +82,7 @@ example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_f
         </div>
 
         <div class="dropdown">
-            <button onclick="dropFunction('hsDropdown')" class="dropbtn" id="hs_btn">256</button>
+            <button onclick="dropFunction('hsDropdown')" class="dropbtn" id="hs_btn">hs = 256</button>
           <div id="hsDropdown" class="dropdown-content">
             <a onclick="hs_any()">Any</a>
             <a onclick="hs_32()">32</a>
