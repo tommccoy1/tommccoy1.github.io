@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="jspsych-6.1.0/jspsych.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body></body>
+    <script>
+
+        function range(num) {
+            var to_return = [];
+
+            for (k = 0; k < num; k++) {
+                to_return.push(k);
+            }
+
+            return to_return;
+        }
+
+
+        
+        var vbe = "<p style='color:green'>be</p>";
+        var vbi = "<p style='color:green'>bi</p>";
+
+        var vde = "<p style='color:green'>de</p>";
+        var vdi = "<p style='color:green'>di</p>";
+
+        var vge = "<p style='color:green'>ge</p>";
+        var vgi = "<p style='color:green'>gi</p>";
+
+        var vpo = "<p style='color:blue'>po</p>";
+        var vpu = "<p style='color:blue'>pu</p>";
+
+        var vto = "<p style='color:blue'>to</p>";
+        var vtu = "<p style='color:blue'>tu</p>";
+
+        var vko = "<p style='color:blue'>ko</p>";
+        var vku = "<p style='color:blue'>ku</p>";
+
+        var block1 = [[vbe, vpu], [vbe, vpo], [vdi, vtu], [vdi, vto], [vgi, vku], [vgi, vko], [vbi, vpo], [vde, vtu], [vbi, vpu], [vge, vko], [vde, vto], [vge, vku]];
+        var block2 = [[vbe, vpu], [vbe, vpo], [vdi, vtu], [vdi, vto], [vgi, vku], [vgi, vko], [vbi, vpo], [vde, vtu], [vbi, vpu], [vge, vko], [vde, vto], [vge, vku]];
+        var block3 = [[vbe, vpu], [vbe, vpo], [vdi, vtu], [vdi, vto], [vgi, vku], [vgi, vko], [vbi, vpo], [vde, vtu], [vbi, vpu], [vge, vko], [vde, vto], [vge, vku]];
+        var block4 = [[vbe, vpu], [vbe, vpo], [vdi, vtu], [vdi, vto], [vgi, vku], [vgi, vko], [vbi, vpo], [vde, vtu], [vbi, vpu], [vge, vko], [vde, vto], [vge, vku]];
+
+        var block5 = [[vde, vdi, vtu, vto], [vde, vgi, vko, vto], [vdi, vbi, vpu, vtu], [vdi, vgi, vku, vto], [vbe, vdi, vtu, vpo], [vbe, vge, vku, vpo], [vbi, vde, vto, vpo], [vbi, vge, vku, vpu], [vge, vde, vtu, vku], [vge, vgi, vku, vko], [vgi, vdi, vto, vku], [vgi, vge, vku, vko]];
+        var block6 = [[vde, vbe, vpu, vtu], [vde, vge, vku, vtu], [vdi, vde, vtu, vto], [vdi, vgi, vko, vtu], [vbe, vdi, vto, vpo], [vbe, vge, vko, vpu], [vbi, vdi, vto, vpu], [vbi, vge, vko, vpu], [vge, vde, vto, vko], [vge, vbe, vpo, vku], [vgi, vde, vto, vku], [vgi, vbe, vpu, vko]];
+        var block7 = [[vde, vbe, vpo, vto], [vde, vge, vko, vtu], [vdi, vde, vto, vtu], [vdi, vbi, vpu, vto], [vbe, vde, vtu, vpo], [vbe, vgi, vko, vpu], [vbi, vbe, vpu, vpo], [vbi, vgi, vku, vpu], [vge, vdi, vtu, vku], [vge, vbi, vpu, vko], [vgi, vde, vto, vko], [vgi, vbi, vpu, vku]];
+        var block8 = [[vde, vbi, vpo, vtu], [vde, vgi, vku, vto], [vdi, vbe, vpo, vtu], [vdi, vge, vku, vto], [vbe, vde, vto, vpu], [vbe, vbi, vpo, vpu], [vbi, vde, vtu, vpo], [vbi, vgi, vko, vpo], [vge, vbe, vpu, vko], [vge, vge, vko, vku], [vgi, vdi, vtu, vku], [vgi, vbi, vpu, vko]];
+
+        var block9 = [[vde, vdi, vbe, vpo, vtu, vto], [vde, vgi, vge, vko, vku, vtu], [vdi, vbi, vbe, vpu, vpo, vto], [vdi, vge, vbi, vpu, vko, vtu], [vbe, vbe, vge, vku, vpo, vpu], [vbe, vge, vdi, vto, vku, vpo], [vbi, vdi, vbe, vpu, vtu, vpo], [vbi, vge, vdi, vto, vko, vpo], [vge, vde, vgi, vko, vto, vku], [vge, vbe, vbi, vpo, vpu, vku], [vgi, vbe, vde, vtu, vpo, vko], [vgi, vbe, vbi, vpu, vpo, vko]];
+        var block10 = [[vde, vdi, vgi, vku, vtu, vto], [vde, vbi, vdi, vtu, vpo, vto], [vdi, vde, vbe, vpo, vto, vtu], [vdi, vgi, vge, vko, vku, vtu], [vbe, vbi, vdi, vtu, vpo, vpu], [vbe, vgi, vde, vto, vko, vpo], [vbi, vbe, vde, vto, vpo, vpu], [vbi, vge, vde, vtu, vku, vpo], [vge, vdi, vbe, vpu, vtu, vku], [vge, vbe, vbi, vpu, vpo, vko], [vgi, vdi, vbi, vpo, vto, vko], [vgi, vbi, vde, vto, vpu, vku]];
+        var block11 = [[vde, vbe, vdi, vto, vpu, vtu], [vde, vge, vbi, vpu, vko, vtu], [vdi, vbe, vge, vko, vpu, vto], [vdi, vbi, vgi, vku, vpu, vto], [vbe, vde, vge, vko, vtu, vpu], [vbe, vbi, vgi, vku, vpu, vpo], [vbi, vde, vgi, vku, vto, vpu], [vbi, vgi, vge, vku, vko, vpo], [vge, vdi, vgi, vku, vto, vko], [vge, vge, vbe, vpo, vku, vko], [vgi, vde, vge, vko, vtu, vku], [vgi, vge, vdi, vto, vko, vku]];
+        var block12 = [[vde, vbe, vge, vko, vpu, vtu], [vde, vgi, vbe, vpu, vku, vto], [vdi, vbi, vde, vto, vpo, vtu], [vdi, vge, vde, vtu, vko, vto], [vbe, vdi, vde, vtu, vto, vpo], [vbe, vge, vbi, vpo, vko, vpu], [vbi, vdi, vbe, vpo, vto, vpu], [vbi, vbi, vdi, vtu, vpo, vpu], [vge, vde, vbi, vpo, vtu, vko], [vge, vgi, vbi, vpo, vko, vku], [vgi, vde, vbi, vpo, vto, vko], [vgi, vgi, vde, vtu, vko, vku]];
+
+
+        var test1 = [[vde, vto], [vge, vku], [vdi, vbe, vpu, vto], [vbi, vdi, vtu, vpo], [vde, vbi, vge, vko, vpo, vtu], [vgi, vdi, vbe, vpu, vtu, vko], [vbi, vko], [vge, vpu], [vde, vgi, vko, vku], [vge, vbe, vpo, vpu], [vdi, vbe, vgi, vku, vpu, vpo], [vbe, vdi, vbi, vpu, vko, vpo]];
+
+
+        var shuffled_block1 = jsPsych.randomization.repeat(range(block1.length), 1);
+        var shuffled_block2 = jsPsych.randomization.repeat(range(block2.length), 1);
+        var shuffled_block3 = jsPsych.randomization.repeat(range(block3.length), 1);
+        var shuffled_block4 = jsPsych.randomization.repeat(range(block4.length), 1);
+        var shuffled_block5 = jsPsych.randomization.repeat(range(block5.length), 1);
+        var shuffled_block6 = jsPsych.randomization.repeat(range(block6.length), 1);
+        var shuffled_block7 = jsPsych.randomization.repeat(range(block7.length), 1);
+        var shuffled_block8 = jsPsych.randomization.repeat(range(block8.length), 1);
+        var shuffled_block9 = jsPsych.randomization.repeat(range(block9.length), 1);
+        var shuffled_block10 = jsPsych.randomization.repeat(range(block10.length), 1);
+        var shuffled_block11 = jsPsych.randomization.repeat(range(block11.length), 1);
+        var shuffled_block12 = jsPsych.randomization.repeat(range(block12.length), 1);
+
+        var shuffled_blocks = [shuffled_block1, shuffled_block2, shuffled_block3, shuffled_block4, shuffled_block5, shuffled_block6, shuffled_block7, shuffled_block8, shuffled_block9, shuffled_block10, shuffled_block11, shuffled_block12];
+        var blocks = [block1, block2, block3, block4, block5, block6, block7, block8, block9, block10, block11, block12];
+
+        var timeline = [];
+
+        var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<div style="font-size:60px;">+</div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 500,
+        }
+
+        var pause = {
+            type: 'html-keyboard-response',
+            stimulus: '',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 0,
+        }
+
+        var response = {
+            type: 'html-keyboard-response',
+            stimulus: 'Was the previous sequence part of the language? Press y for yes, n for no',
+            choices: ['y', 'n'],
+
+        }
+
+
+        function syll(spelling) {
+            return {stimulus: spelling, trial_duration: 800}
+        }
+
+
+        function word(sylls) {
+            tl = []
+            for (i = 0; i < sylls.length; i++) {
+                tl.push(syll(sylls[i]));
+                tl.push(pause);
+            }
+
+            full_word = {
+                type: 'html-keyboard-response',
+                choices: jsPsych.NO_KEYS,
+                timeline: tl,
+            }
+
+            return full_word;
+        }
+
+        for (q = 0; q < blocks.length; q++) {
+            this_block = blocks[q];
+            this_shuffled_block = shuffled_blocks[q];
+
+            for (j = 0; j < this_block.length; j++) {
+                timeline.push(fixation);
+                timeline.push(word(this_block[this_shuffled_block[j]]));
+            }
+
+            for (t = 0; t < test1.length; t++) {
+                timeline.push(fixation);
+                timeline.push(word(test1[t]));
+                timeline.push(response);
+            }
+
+        }
+
+
+        jsPsych.init({
+            timeline: timeline
+        })
+
+
+    </script>
+</html>
+
+
+
+
+
+

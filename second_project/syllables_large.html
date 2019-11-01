@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="jspsych-6.1.0/jspsych.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
+        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body></body>
+    <script>
+
+        function range(num) {
+            var to_return = [];
+
+            for (k = 0; k < num; k++) {
+                to_return.push(k);
+            }
+
+            return to_return;
+        }
+
+
+        var train_set = [["<p style='color:green'>de</p>", "<p style='color:blue'>de</p>"], ["<p style='color:green'>po</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>po</p>"], ["<p style='color:green'>tu</p>", "<p style='color:blue'>tu</p>"], ["<p style='color:green'>to</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>bi</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>bi</p>"], ["<p style='color:green'>ku</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>ku</p>"], ["<p style='color:green'>po</p>", "<p style='color:green'>to</p>", "<p style='color:blue'>to</p>", "<p style='color:blue'>po</p>"], ["<p style='color:green'>po</p>", "<p style='color:blue'>po</p>"], ["<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>"], ["<p style='color:green'>ge</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>ge</p>"], ["<p style='color:green'>be</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>be</p>", "<p style='color:green'>ku</p>", "<p style='color:blue'>ku</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>to</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>to</p>", "<p style='color:green'>de</p>", "<p style='color:blue'>de</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>be</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>be</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>"], ["<p style='color:green'>po</p>", "<p style='color:green'>pu</p>", "<p style='color:blue'>pu</p>", "<p style='color:blue'>po</p>"], ["<p style='color:green'>to</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>tu</p>", "<p style='color:green'>di</p>", "<p style='color:blue'>di</p>", "<p style='color:blue'>tu</p>"]];
+
+        var test_set = [["<p style='color:green'>ge</p>", "<p style='color:green'>de</p>", "<p style='color:blue'>de</p>", "<p style='color:blue'>ge</p>"], ["<p style='color:green'>di</p>", "<p style='color:green'>ku</p>", "<p style='color:green'>gi</p>", "<p style='color:blue'>gi</p>", "<p style='color:blue'>ku</p>"], ["<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>gi</p>", "<p style='color:green'>bi</p>", "<p style='color:green'>ge</p>", "<p style='color:blue'>ge</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>to</p>", "<p style='color:blue'>to</p>"], ["<p style='color:green'>tu</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>di</p>", "<p style='color:green'>po</p>", "<p style='color:green'>ku</p>", "<p style='color:blue'>ku</p>", "<p style='color:blue'>po</p>", "<p style='color:blue'>di</p>"], ["<p style='color:green'>be</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>be</p>"], ["<p style='color:green'>tu</p>", "<p style='color:green'>gi</p>", "<p style='color:blue'>gi</p>", "<p style='color:blue'>ku</p>"], ["<p style='color:green'>tu</p>", "<p style='color:green'>pu</p>", "<p style='color:blue'>pu</p>"], ["<p style='color:green'>di</p>", "<p style='color:green'>ko</p>", "<p style='color:green'>pu</p>", "<p style='color:blue'>pu</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>de</p>"], ["<p style='color:green'>po</p>", "<p style='color:blue'>po</p>", "<p style='color:blue'>bi</p>"], ["<p style='color:green'>ge</p>", "<p style='color:green'>tu</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>gi</p>", "<p style='color:blue'>ge</p>"], ["<p style='color:green'>ge</p>", "<p style='color:green'>pu</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>pu</p>", "<p style='color:blue'>ge</p>"], ["<p style='color:green'>ku</p>", "<p style='color:green'>di</p>", "<p style='color:green'>ko</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>di</p>", "<p style='color:blue'>ku</p>"], ["<p style='color:green'>be</p>", "<p style='color:green'>di</p>", "<p style='color:blue'>di</p>", "<p style='color:blue'>ge</p>"], ["<p style='color:green'>gi</p>", "<p style='color:green'>ge</p>", "<p style='color:green'>po</p>", "<p style='color:blue'>po</p>", "<p style='color:blue'>ku</p>", "<p style='color:blue'>gi</p>"], ["<p style='color:green'>tu</p>", "<p style='color:blue'>tu</p>"], ["<p style='color:green'>bi</p>", "<p style='color:green'>po</p>", "<p style='color:blue'>po</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>ko</p>"], ["<p style='color:green'>ko</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>ko</p>"], ["<p style='color:green'>bi</p>", "<p style='color:green'>tu</p>", "<p style='color:blue'>tu</p>"], ["<p style='color:green'>ge</p>", "<p style='color:green'>tu</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>tu</p>"], ["<p style='color:green'>to</p>", "<p style='color:blue'>pu</p>"], ["<p style='color:green'>pu</p>", "<p style='color:blue'>pu</p>"], ["<p style='color:green'>po</p>", "<p style='color:green'>to</p>", "<p style='color:blue'>to</p>", "<p style='color:blue'>po</p>"], ["<p style='color:green'>gi</p>", "<p style='color:green'>bi</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>gi</p>", "<p style='color:blue'>de</p>"], ["<p style='color:green'>tu</p>", "<p style='color:blue'>tu</p>"], ["<p style='color:green'>bi</p>", "<p style='color:green'>pu</p>", "<p style='color:green'>ku</p>", "<p style='color:blue'>ku</p>", "<p style='color:blue'>pu</p>", "<p style='color:blue'>bi</p>"]];
+
+        var shuffled_train = jsPsych.randomization.repeat(range(train_set.length), 1);
+        var shuffled_test = jsPsych.randomization.repeat(range(test_set.length), 1);
+
+        var shuffled_trains = [shuffled_train];
+        var trains = [train_set];
+
+        var shuffled_tests = [shuffled_test];
+        var tests = [test_set];
+
+        var timeline = [];
+
+        var welcome = {
+            type: "html-keyboard-response",
+            stimulus: "Welcome to the experiment. Press any key to begin."
+        };
+        timeline.push(welcome);
+
+        var instructions_train = {
+            type: "html-keyboard-response",
+            stimulus: "In this experiment, a plus sign will appear in the center " +
+                "of the screen followed by a sequence of nonsense words, one word at " +
+                "a time. After the sequence has finished, you will be asked to repeat " +
+                "back the sequence from memory by clicking buttons that correspond to " +
+                "the words you saw. Press any key to begin."
+        };
+        timeline.push(instructions_train);
+
+        var instructions_test = {
+            type: "html-keyboard-response",
+            stimulus: "All of the sequences of words that you have just seen " +
+                "were sentences from an alien language. We are now going to show " +
+                "you some more sequences of words and will ask you whether each " +
+                "of these new sequences could also be a sentence in that alien language. " +
+                "Press any key to begin."
+        };
+
+
+        var memory_test = {
+            type: 'html-button-response',
+            stimulus: '<p>Please repeat back the sequence you have just seen by clicking buttons in order.</p>',
+            choices: ["<p style='color:green'>be</p>", "<p style='color:green'>bi</p>", "<p style='color:green'>de</p>", "<p style='color:green'>di</p>", "<p style='color:green'>ge</p>", "<p style='color:green'>gi</p>", "<p style='color:green'>po</p>", "<p style='color:green'>pu</p>", "<p style='color:green'>to</p>", "<p style='color:green'>tu</p>", "<p style='color:green'>ko</p>", "<p style='color:green'>ku</p>", "<p style='color:blue'>be</p>", "<p style='color:blue'>bi</p>", "<p style='color:blue'>de</p>", "<p style='color:blue'>di</p>", "<p style='color:blue'>ge</p>", "<p style='color:blue'>gi</p>", "<p style='color:blue'>po</p>", "<p style='color:blue'>pu</p>", "<p style='color:blue'>to</p>", "<p style='color:blue'>tu</p>", "<p style='color:blue'>ko</p>", "<p style='color:blue'>ku</p>"],
+        };
+
+
+        var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<div style="font-size:60px;">+</div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 500,
+        }
+
+        var pause = {
+            type: 'html-keyboard-response',
+            stimulus: '',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 0,
+        }
+
+        var response = {
+            type: 'html-keyboard-response',
+            stimulus: 'Was the previous sequence a possible sentence in the alien language? Press y for yes, n for no',
+            choices: ['y', 'n'],
+
+        }
+
+
+        function syll(spelling) {
+            return {stimulus: spelling, trial_duration: 800}
+        }
+
+
+        function word(sylls) {
+            tl = []
+            for (i = 0; i < sylls.length; i++) {
+                tl.push(syll(sylls[i]));
+                tl.push(pause);
+            }
+
+            full_word = {
+                type: 'html-keyboard-response',
+                choices: jsPsych.NO_KEYS,
+                timeline: tl,
+            }
+
+            return full_word;
+        }
+
+        for (q = 0; q < trains.length; q++) {
+            this_block = trains[q];
+            this_shuffled_block = shuffled_trains[q];
+
+            for (j = 0; j < this_block.length; j++) {
+                timeline.push(fixation);
+                timeline.push(word(this_block[this_shuffled_block[j]]));
+                timeline.push(memory_test);
+            }
+
+            timeline.push(instructions_test);
+
+            this_block = tests[q];
+            this_shuffled_block = shuffled_tests[q];
+
+            for (j = 0; j < this_block.length; j++) {
+                timeline.push(fixation);
+                timeline.push(word(this_block[this_shuffled_block[j]]));
+                timeline.push(response);
+            }
+
+
+        }
+
+
+        jsPsych.init({
+            timeline: timeline
+        })
+
+
+    </script>
+</html>
+
+
+
+
+
+
