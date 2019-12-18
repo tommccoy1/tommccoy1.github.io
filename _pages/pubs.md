@@ -40,7 +40,7 @@ Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement tensor-product representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://openreview.net/forum?id=BJx0sjC5FX">OpenReview</a>] [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>] [<a href="https://tommccoy1.github.io/files/iclr_handout.pdf">poster</a>]
+<b>R. Thomas McCoy</b>, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement tensor-product representations. In <em>International Conference on Learning Representations 2019</em>. [<a href="https://openreview.net/forum?id=BJx0sjC5FX">OpenReview</a>] [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>] [<a href="https://tommccoy1.github.io/files/iclr_handout.pdf">poster</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
