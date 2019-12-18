@@ -16,6 +16,10 @@ redirect_from:
 # 2019
 
 <p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Junghyun Min, and Tal Linzen. BERTs of a feather do not generalize together: Large variability in generalization across models with similar test set performance. arXiv preprint. [<a href="https://arxiv.org/abs/1911.02969">arXiv</a>] [<a href="https://arxiv.org/pdf/1911.02969.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
 Paul Soulos, <b>R. Thomas McCoy</b>, Tal Linzen, and Paul Smolensky. Discovering the compositional structure of vector representations with Role Learning Networks. In <em>NeurIPS 2019 Workshop on Context and Compositionality in biological and artificial neural systems</em>. [<a href="https://context-composition.github.io/camera_ready_papers/soulos_neurips_camera_ready.pdf">pdf</a>]
 </p>
 
@@ -27,6 +31,9 @@ Paul Soulos, <b>R. Thomas McCoy</b>, Tal Linzen, and Paul Smolensky. Discovering
 Samuel R. Bowman, Ellie Pavlick, Edouard Grave, Benjamin Van Durme, Alex Wang, Jan Hula, Patrick Xia, Raghavendra Pappagari, <b>R. Thomas McCoy</b>, Roma Patel, Najoung Kim, Ian Tenney, Yinghui Huang, Katherin Yu, Shuning Jin, and Berlin Chen. Can You Tell Me How to Get Past Sesame Street? Sentence-Level Pretraining Beyond Language Modeling. In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://www.aclweb.org/anthology/P19-1439/">ACL anthology</a>] [<a href="https://www.aclweb.org/anthology/P19-1439.pdf">pdf</a>]
 </p>
 
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>. Touch <em>down</em> in Pittsburghese. In <em>Yale Working Papers in Grammatical Diversity</em>. [<a href="https://elischolar.library.yale.edu/cgi/viewcontent.cgi?article=1002&context=ygdp">pdf</a>]
+</p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Najoung Kim, Roma Patel, Adam Poliak, Alex Wang, Patrick Xia, <b>R. Thomas McCoy</b>, Ian Tenney, Alexis Ross, Tal Linzen, Benjamin Van Durme, Samuel R. Bowman, and Ellie Pavlick. Probing What Different NLP Tasks Teach Machines about Function Word Comprehension. In <em>Proceedings of the Eighth Joint Conference on Lexical and Computational Semantics (&ast;SEM 2019)</em>. [<a href="https://www.aclweb.org/anthology/S19-1026/">ACL anthology</a>] [<a href="https://www.aclweb.org/anthology/S19-1026v2.pdf">pdf</a>]
