@@ -1,23 +1,28 @@
-
-<!--
-task, encoder, decoder, attention, lr, hs, model_id, 
-example_test_output, example_gen_output, test_accuracy, test_accuracy_pos, gen_first_word_accuracy, gen_first_word_first_aux, gen_first_word_other_aux, gen_first_word_other_word, gen_full_sentence_correct, gen_full_sentence_pos_correct, d1p1, d1p2, d1po, d2p1, d2p2, d2po, dnp1, dnp2, dnpo, other, ORC, SRC_t, SRC_i
--->
-
+---
+layout: tpr
+comments: false
+---
 <html>
 	<head>
+        <link rel="stylesheet" type="text/css" href="rnn_hierarchical_biases.css">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" type="text/css" href="google_chart.css">
 	</head>
 	<body>
 
+        <h1>Does Syntax Need to Grow on Trees? Sources of Hierarchical Inductive Bias in Sequence-to-Sequence Networks</h1>
+
+        <p><em>This page provides the full data for the paper found here. The code is available here.</em></p>
+
+        <h2>Model-by-model results</h2>
+
+        <p>The paper gives median results across 100 random restarts for several different types of model. The table below gives the results for the individual models that were averaged over in the paper. (The table might take a minute or two to load). Below the table are options for customizing the information displayed in it.</p>
+
+
 		<div style="height:400px;width:1000px">
 			<div id="table_div" height="700px" width="1000px"></div>
 		</div>
 
-        <div id="testdiv" height="200px">Test div</div>
-
-        <h2>Clickable Dropdown</h2>
         <p>Click on the buttons to select which experiments will be included in the table (each experiment is one row); you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
 
         <div class="dropdown">
