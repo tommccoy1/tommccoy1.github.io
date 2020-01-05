@@ -16,11 +16,11 @@ body {
 
 
 .wrapper {
-  width:850px;
+  width:1000px;
   margin:0 auto;
   background:white;
   border-radius: 8px;
-  box-shadow: rgba(#000, 0.2) 0 0 0 1px, rgba(#000, 0.45) 0 3px 10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);
 }
 
 header, section, footer {
@@ -298,12 +298,6 @@ footer {
 @media print, screen and (max-width: 740px) {
   body {
     padding:0;
-  }
-
-  .wrapper {
-    border-radius: 0;
-    box-shadow: none;
-    width:100%;
   }
 
   footer {

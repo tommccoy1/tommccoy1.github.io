@@ -3,24 +3,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+        <link rel="stylesheet" href="assets/css/style.css">
         <script src="assets/js/scale.fix.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" type="text/css" href="google_chart.css">
 
-        <link rel="stylesheet" href="assets/css/style.css">
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 	</head>
 	<body>
-
-
         <div class="wrapper">
-
         <section>
-
         <h1>Does Syntax Need to Grow on Trees? Sources of Hierarchical Inductive Bias in Sequence-to-Sequence Networks</h1>
 
         <p><em>This page provides the full data for the paper found here. The code is available here.</em></p>
@@ -30,8 +26,8 @@
         <p>The paper gives median results across 100 random restarts for several different types of model. The table below gives the results for the individual models that were averaged over in the paper. (The table might take a minute or two to load). Below the table are options for customizing the information displayed in it.</p>
 
 
-		<div style="height:400px;width:1000px">
-			<div id="table_div" height="700px" width="1000px"></div>
+		<div style="height:400px;width:950px">
+			<div id="table_div" height="700px" width="950px"></div>
 		</div>
 
         <p>Click on the buttons to select which experiments will be included in the table (each experiment is one row); you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
@@ -170,14 +166,10 @@
             <input type="checkbox" id="show_exgen" onclick="drawTable()">Gen examples
             <input type="checkbox" id="show_command" onclick="drawTable()">Command
         </div>
+        </div>
+    </section>
 
-     </section>
 
-    </div>
-    <footer>
-        <p>Project maintained by <a href="https://github.com/tommccoy1">tommccoy1</a></p>
-        <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
 	</body>
 <script type="text/javascript" src="results_table_js.txt"></script>
 		<script type="text/javascript">
