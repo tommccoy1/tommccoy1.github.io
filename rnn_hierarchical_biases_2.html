@@ -1,10 +1,5 @@
----
-layout: tpr
-comments: false
----
 <html>
 	<head>
-        <link rel="stylesheet" type="text/css" href="rnn_hierarchical_biases.css">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" type="text/css" href="google_chart.css">
 	</head>
@@ -584,7 +579,6 @@ comments: false
                     };
                 };
 
-                document.getElementById("testdiv").innerHTML = mytable;
 				var data = new google.visualization.DataTable();
 
                 for (j = 0; j < display_list.length; j++) {
@@ -689,7 +683,6 @@ comments: false
 
 				data.addRows(mytable);
 
-                document.getElementById("testdiv").innerHTML = "New text testing";
 				var table = new google.visualization.Table(document.getElementById('table_div'));
 
 
