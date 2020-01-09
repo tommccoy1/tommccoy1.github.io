@@ -19,93 +19,72 @@
         <section>
         <h1>Does Syntax Need to Grow on Trees? Sources of Hierarchical Inductive Bias in Sequence-to-Sequence Networks</h1>
 
+        <p style="text-align:center"><a href="https://tommccoy1.github.io/">Tom McCoy</a>, <a href="https://bobfrank1.github.io/">Robert Frank</a>, <a href="http://tallinzen.net/">Tal Linzen</a></p>
+
         <p><em>This page provides the full data for the paper found here. The code is available here.</em></p>
 
-        <h2>Model-by-model results</h2>
+        <h2>Introduction: Inductive biases</h2>
 
-        <p>The paper gives median results across 100 random restarts for several different types of model. The table below gives the results for the individual models that were averaged over in the paper. (The table might take a minute or two to load). Below the table are options for customizing the information displayed in it.</p>
+        <p>Consider the miniature experiment below: Two learners are shown a set of training examples which are consistent with multiple possible rules. When the learners are asked to generalize to a novel example, their responses reveal that they have learned different rules. These differences cannot be due to the training data, because both learners have seen the same training data. Instead, the differences must be due to some property of the learners. The properties that determine how a learner generalizes from ambiguous data are called <b>inductive biases</b>. In this case, the learner on the left has an inductive bias favoring generalizations based on shape, while the learner on the right has an inductive bias favoring generalizations based on color. </p>
+        
+
+        <div style="margin:auto; width:50%"><img src="shape_bias.png" width=100%></div>
+
+
+        <p>What properties of a learner cause it to have one inductive bias rather than another? We study this question using several types of sequence-to-sequence neural networks. We focus on one particular bias, namely a bias for generalizations based on hierarchical structure, as this bias has long been argued to be important for understanding how children acquire language.</p>
+        
+        <p>Inductive biases cannot be observed directly; the only way to tell whether a model has a particular inductive bias is to train it on ambiguous data and then see if it generalizes in a way consistent with the hypothesized bias, as with the shape experiment above. To investigate which types of models have a hierarchical bias, we use two tasks based on English syntax: question formation (that is, mapping a declarative sentence to a yes/no question) and tense reinflection (that is, mapping a past-tense sentence to a present-tense sentence). The following diagrams illustrate the experimental setups for these two tasks:</p>
+
+        <div style="margin:auto; width:100%"><img src="question_formation_setup.png" width=50% style="vertical-align: text-top"><img src="tense_reinflection_setup.png" width=50% style="vertical-align: text-top"></div>
+
+        <p>For both of these tasks, we constrain the training set to be consistent with a generalization based on hierarchical structure and a generalization based on linear order. We then evaluate our models on examples that disambiguate these two types of generalizations to see which one each model has learned. If a model behaves consistently with the hierarchical generalization for both tasks, we would then have converging evidence to conclude that the model has a hierarchical bias.</p>
+
+
+        <h2>Variants of sequential RNNs</h2>
+
+        <h3>Comparing recurrent units and attention variants</h3>
 
 
 		<div style="height:400px;width:950px">
 			<div id="table_div" height="700px" width="950px"></div>
 		</div>
-
-        <p>Click on the buttons to select which experiments will be included in the table (each experiment is one row); you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
-
+ 
         <div class="dropdown">
-          <button onclick="dropFunction('datasetdropdown')" class="dropbtn" id="dataset_btn">Any task</button>
-          <div id="datasetdropdown" class="dropdown-content">
-            <a onclick="dataset_any()">Any task</a>
-            <a onclick="dataset_agr()">Question formation</a>
-            <a onclick="dataset_tense()">Tense reinflection</a>
+          <button onclick="dropFunction('qfEncDropdown')" class="dropbtn" id="qf_enc_btn">Any recurrent unit</button>
+          <div id="qfEncDropdown" class="dropdown-content">
+            <a onclick="p1_arch_any()">Any recurrent unit</a>
+            <a onclick="p1_arch_srn()">SRN</a>
+            <a onclick="p1_arch_gru()">GRU</a>
+            <a onclick="p1_arch_lstm()">LSTM</a>
           </div>
         </div>
-
 
  
         <div class="dropdown">
-          <button onclick="dropFunction('encDropdown')" class="dropbtn" id="enc_btn">Any encoder</button>
-          <div id="encDropdown" class="dropdown-content">
-            <a onclick="enc_any()">Any encoder</a>
-            <a onclick="enc_srn()">SRN</a>
-            <a onclick="enc_gru()">GRU</a>
-            <a onclick="enc_lstm()">LSTM</a>
-            <a onclick="enc_tree()">Tree GRU</a>
-            <a onclick="enc_onlstm()">ON-LSTM</a>
+          <button onclick="dropFunction('qfAttnDropdown')" class="dropbtn" id="qf_attn_btn">Any attention</button>
+          <div id="qfAttnDropdown" class="dropdown-content">
+            <a onclick="p1_attn_any()">Any attention</a>
+            <a onclick="p1_attn_none()">No attention</a>
+            <a onclick="p1_attn_location()">Location-based</a>
+            <a onclick="p1_attn_content()">Content-based</a>
           </div>
         </div>
 
-       <div class="dropdown">
-          <button onclick="dropFunction('decDropdown')" class="dropbtn" id="dec_btn">Any decoder</button>
-          <div id="decDropdown" class="dropdown-content">
-            <a onclick="dec_any()">Any decoder</a>
-            <a onclick="dec_srn()">SRN</a>
-            <a onclick="dec_gru()">GRU</a>
-            <a onclick="dec_lstm()">LSTM</a>
-            <a onclick="dec_tree()">Tree GRU</a>
-            <a onclick="dec_onlstm()">ON-LSTM</a>
-          </div>
-        </div>
+        <h3>Effects of squashing</h3>
+
+        <h3>Learning rate and hidden size</h3>
 
 
-        <div class="dropdown">
-          <button onclick="dropFunction('attnDropdown')" class="dropbtn" id="attn_btn">Any attention</button>
-          <div id="attnDropdown" class="dropdown-content">
-            <a onclick="attn_any()">Any attention</a>
-            <a onclick="attn_none()">None</a>
-            <a onclick="attn_location()">Location-based</a>
-            <a onclick="attn_content()">Content-based</a>
-          </div>
-        </div>
+        <h2>Question formation results</h2>
+
+        <p>The paper gives median results across 100 random restarts for several different types of model. The table below gives the results for the individual models that were averaged over in the paper. (The table might take a minute or two to load). Below the table are options for customizing the information displayed in it.</p>
 
 
-        <div class="dropdown">
-          <button onclick="dropFunction('lrDropdown')" class="dropbtn" id="lr_btn">lr = 0.001</button>
-          <div id="lrDropdown" class="dropdown-content">
-            <a onclick="lr_any()">Any</a>
-            <a onclick="lr_5e5()">0.00005</a>
-            <a onclick="lr_1e4()">0.0001</a>
-            <a onclick="lr_5e4()">0.0005</a>
-            <a onclick="lr_1e3()">0.001</a>
-            <a onclick="lr_5e3()">0.005</a>
-            <a onclick="lr_1e2()">0.01</a>
-            <a onclick="lr_5e2()">0.05</a>
-          </div>
-        </div>
+        <p>Models from Section 3.3/Figure 4</p>
 
-        <div class="dropdown">
-            <button onclick="dropFunction('hsDropdown')" class="dropbtn" id="hs_btn">hs = 256</button>
-          <div id="hsDropdown" class="dropdown-content">
-            <a onclick="hs_any()">Any</a>
-            <a onclick="hs_32()">32</a>
-            <a onclick="hs_64()">64</a>
-            <a onclick="hs_128()">128</a>
-            <a onclick="hs_256()">256</a>
-            <a onclick="hs_512()">512</a>
-            <a onclick="hs_1024()">1024</a>
-            <a onclick="hs_2048()">2048</a>
-          </div>
-        </div>
+
+
+        <p>Click on the buttons to select which experiments will be included in the table (each experiment is one row); you can filter by task, encoder type, decoder type, attention type, learning rate, and hidden size.</p>
 
 
         <p>Select which columns to include in the table</p>
@@ -166,166 +145,283 @@
             <input type="checkbox" id="show_exgen" onclick="drawTable()">Gen examples
             <input type="checkbox" id="show_command" onclick="drawTable()">Command
         </div>
+
+
+
+
+        <h2>Model-by-model results</h2>
+
+        <p>Training task: Question, question (with brackets), question (unambiguous: hierarchical), question (unambiguous: linear), tense, tense (with brackets), tense (unambiguous: hierarchical), tense (unambiguous: linear)</p>
+
+        <p>Encoder: SRN, GRU, Unsquashed GRU, LSTM, Squashed LSTM, Tree GRU (correct trees), Tree GRU (right-branching trees), ON-LSTM</p>
+        <p>Decoder: SRN, GRU, Unsquashed GRU, LSTM, Squashed LSTM, Tree GRU (correct trees), Tree GRU (right-branching trees), ON-LSTM</p>
+        <p>Attention: None, location-based, content-based</p>
+        <p>Learning rate: (range)</p>
+        <p>Hidden size: (range)</p>
+
+
+        <h2>Caveat</h2>
+
+        <p>These results should not be taken to mean that, e.g., LSTMs and GRUs behave extremely differently; rather, they should be taken to mean that they <em>can</em> behave extremely differently.</p>
+
+
         </div>
-    </section>
+        </section>
 
 
-	</body>
-<script type="text/javascript" src="results_table_js.txt"></script>
-		<script type="text/javascript">
+    </body>
+    <script type="text/javascript" src="results_table_js.txt"></script>
+    <script type="text/javascript">
 
 
 
         var dataset_type = "any";
-        var enc_type = "any";
-        var dec_type = "any";
-        var attn_type = "any";
-        var lr_type = 0.001;
-        var hs_type = 256;
+var enc_type = "any";
+var dec_type = "any";
+var attn_type = "any";
+var lr_type = 0.001;
+var hs_type = 256;
 
-        function dataset_any() {
-            dataset_type = "any";
-            document.getElementById("dataset_btn").innerHTML = "Any";
+function dataset_any() {
+    dataset_type = "any";
+    document.getElementById("dataset_btn").innerHTML = "Any";
+    drawTable();
+
+}
+
+function dataset_agr() {
+    dataset_type = "agr";
+    document.getElementById("dataset_btn").innerHTML = "Question formation";
+    drawTable();
+
+}
+
+function dataset_tense() {
+    dataset_type = "tense";
+    document.getElementById("dataset_btn").innerHTML = "Tense reinflection";
+    drawTable();
+
+}
+
+
+
+function p1_arch_any() {
+    enc_type = "any";
+    dec_type = "any";
+    document.getElementById("qf_enc_btn").innerHTML = "Any recurrent unit";
+    drawTable();
+
+}
+
+
+function p1_arch_srn() {
+    enc_type = "SRN";
+    dec_type = "SRN";
+    document.getElementById("qf_enc_btn").innerHTML = "SRN";
+    drawTable();
+
+}
+
+
+function p1_arch_gru() {
+    enc_type = "GRU";
+    dec_type = "GRU";
+    document.getElementById("qf_enc_btn").innerHTML = "GRU";
+    drawTable();
+
+}
+
+
+function p1_arch_lstm() {
+    enc_type = "LSTM";
+    dec_type = "LSTM";
+    document.getElementById("qf_enc_btn").innerHTML = "LSTM";
+    drawTable();
+
+}
+
+
+function qf_enc_any() {
+    enc_type = "any";
+    document.getElementById("qf_enc_btn").innerHTML = "Any encoder";
+    drawTable();
+
+}
+
+
+function qf_enc_srn() {
+    enc_type = "SRN";
+    document.getElementById("qf_enc_btn").innerHTML = "SRN encoder";
+    drawTable();
+
+}
+
+
+function qf_enc_gru() {
+    enc_type = "GRU";
+    document.getElementById("qf_enc_btn").innerHTML = "GRU encoder";
+    drawTable();
+
+}
+
+
+function qf_enc_lstm() {
+    enc_type = "LSTM";
+    document.getElementById("qf_enc_btn").innerHTML = "LSTM encoder";
+    drawTable();
+
+}
+
+function qf_enc_grubob() {
+    enc_type = "GRUBob";
+    document.getElementById("qf_enc_btn").innerHTML = "Unsquashed GRU encoder";
+    drawTable();
+
+}
+
+
+function qf_enc_lstmbob() {
+    enc_type = "LSTMBob";
+    document.getElementById("qf_enc_btn").innerHTML = "Squashed LSTM encoder";
+    drawTable();
+
+}
+
+
+
+function qf_enc_tree() {
+    enc_type = "Tree";
+    document.getElementById("qf_enc_btn").innerHTML = "Tree-GRU encoder";
+    drawTable();
+
+}
+
+
+function qf_enc_onlstm() {
+    enc_type = "ONLSTM";
+    document.getElementById("qf_enc_btn").innerHTML = "ON-LSTM encoder";
+    drawTable();
+
+}
+
+
+function qf_dec_any() {
+    dec_type = "any";
+    document.getElementById("qf_dec_btn").innerHTML = "Any decoder";
+    drawTable();
+
+}
+
+
+function qf_dec_srn() {
+    dec_type = "SRN";
+    document.getElementById("qf_dec_btn").innerHTML = "SRN decoder";
+    drawTable();
+
+}
+
+
+function qf_dec_gru() {
+    dec_type = "GRU";
+    document.getElementById("qf_dec_btn").innerHTML = "GRU decoder";
+    drawTable();
+
+}
+
+
+function qf_dec_lstm() {
+    dec_type = "LSTM";
+    document.getElementById("qf_dec_btn").innerHTML = "LSTM decoder";
+    drawTable();
+
+}
+
+
+function qf_dec_grubob() {
+    dec_type = "GRUBob";
+    document.getElementById("qf_dec_btn").innerHTML = "Unsquashed GRU decoder";
+    drawTable();
+
+}
+
+
+function qf_dec_lstmbob() {
+    dec_type = "LSTMBob";
+    document.getElementById("qf_dec_btn").innerHTML = "Squashed LSTM decoder";
             drawTable();
 
         }
 
-        function dataset_agr() {
-            dataset_type = "agr";
-            document.getElementById("dataset_btn").innerHTML = "Question formation";
-            drawTable();
 
-        }
-
-        function dataset_tense() {
-            dataset_type = "tense";
-            document.getElementById("dataset_btn").innerHTML = "Tense reinflection";
-            drawTable();
-
-        }
-
-
-
-        function enc_any() {
-            enc_type = "any";
-            document.getElementById("enc_btn").innerHTML = "Any";
-            drawTable();
-
-        }
-
-
-        function enc_srn() {
-            enc_type = "SRN";
-            document.getElementById("enc_btn").innerHTML = "SRN";
-            drawTable();
-
-        }
-
-
-        function enc_gru() {
-            enc_type = "GRU";
-            document.getElementById("enc_btn").innerHTML = "GRU";
-            drawTable();
-
-        }
-
-
-        function enc_lstm() {
-            enc_type = "LSTM";
-            document.getElementById("enc_btn").innerHTML = "LSTM";
-            drawTable();
-
-        }
-
-
-        function enc_tree() {
-            enc_type = "Tree";
-            document.getElementById("enc_btn").innerHTML = "Tree-GRU";
-            drawTable();
-
-        }
-
-
-        function enc_onlstm() {
-            enc_type = "ONLSTM";
-            document.getElementById("enc_btn").innerHTML = "ON-LSTM";
-            drawTable();
-
-        }
-
-
-        function dec_any() {
-            dec_type = "any";
-            document.getElementById("dec_btn").innerHTML = "Any";
-            drawTable();
-
-        }
-
-
-        function dec_srn() {
-            dec_type = "SRN";
-            document.getElementById("dec_btn").innerHTML = "SRN";
-            drawTable();
-
-        }
-
-
-        function dec_gru() {
-            dec_type = "GRU";
-            document.getElementById("dec_btn").innerHTML = "GRU";
-            drawTable();
-
-        }
-
-
-        function dec_lstm() {
-            dec_type = "LSTM";
-            document.getElementById("dec_btn").innerHTML = "LSTM";
-            drawTable();
-
-        }
-
-
-        function dec_tree() {
+        function qf_dec_tree() {
             dec_type = "Tree";
-            document.getElementById("dec_btn").innerHTML = "Tree-GRU";
+            document.getElementById("qf_dec_btn").innerHTML = "Tree-GRU decoder";
             drawTable();
 
         }
 
 
-        function dec_onlstm() {
+        function qf_dec_onlstm() {
             dec_type = "ONLSTM";
-            document.getElementById("dec_btn").innerHTML = "ON-LSTM";
+            document.getElementById("qf_dec_btn").innerHTML = "ON-LSTM decoder";
             drawTable();
 
         }
 
-
-        function attn_any() {
+        function p1_attn_any() {
             attn_type = "any";
-            document.getElementById("attn_btn").innerHTML = "Any";
+            document.getElementById("qf_attn_btn").innerHTML = "Any attention";
             drawTable();
 
         }
 
-        function attn_none() {
+        function p1_attn_none() {
             attn_type = "0";
-            document.getElementById("attn_btn").innerHTML = "None";
+            document.getElementById("qf_attn_btn").innerHTML = "No attention";
             drawTable();
 
         }
 
-        function attn_location() {
+        function p1_attn_location() {
             attn_type = "1";
-            document.getElementById("attn_btn").innerHTML = "Location-based";
+            document.getElementById("qf_attn_btn").innerHTML = "Location-based attention";
             drawTable();
 
         }
 
-        function attn_content() {
+        function p1_attn_content() {
             attn_type = "2";
-            document.getElementById("attn_btn").innerHTML = "Content-based";
+            document.getElementById("qf_attn_btn").innerHTML = "Content-based attention";
+            drawTable();
+
+        }
+
+
+
+        function qf_attn_any() {
+            attn_type = "any";
+            document.getElementById("qf_attn_btn").innerHTML = "Any";
+            drawTable();
+
+        }
+
+        function qf_attn_none() {
+            attn_type = "0";
+            document.getElementById("qf_attn_btn").innerHTML = "No attention";
+            drawTable();
+
+        }
+
+        function qf_attn_location() {
+            attn_type = "1";
+            document.getElementById("qf_attn_btn").innerHTML = "Location-based attention";
+            drawTable();
+
+        }
+
+        function qf_attn_content() {
+            attn_type = "2";
+            document.getElementById("qf_attn_btn").innerHTML = "Content-based attention";
             drawTable();
 
         }
@@ -454,6 +550,19 @@
                             use_row = false;
                         }
                     };
+
+                    if (enc_type == "any") {
+                        if (experiments[i].enc != "SRN" && experiments[i].enc != "GRU" && experiments[i].enc != "LSTM") {
+                            use_row = false;
+                        }
+                    };
+
+                    if (dec_type == "any") {
+                        if (experiments[i].dec != "SRN" && experiments[i].dec != "GRU" && experiments[i].dec != "LSTM") {
+                            use_row = false;
+                        }
+                    };
+
 
 
                     if (enc_type != "any") {

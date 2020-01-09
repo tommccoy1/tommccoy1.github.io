@@ -6,6 +6,7 @@
   font-size: 16px;
   border: none;
   cursor: pointer;
+  min-width: 160px;
 }
 
 .dropbtn:hover, .dropbtn:focus {
