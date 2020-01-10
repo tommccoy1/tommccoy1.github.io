@@ -45,6 +45,8 @@
         <h3>Comparing recurrent units and attention variants</h3>
 
 
+        <p>First we trained several types of sequential RNNs on both tasks. These architectures varied in their recurrent unit (which could be an SRN, a GRU, or an LSTM) and the type of attention that was used (no attention, location-based attention, or content-based attention. The table and boxplot below show the effects of these factirs.</p>
+
 		<div style="height:400px;width:950px">
 			<div id="table_1_div" height="700px" width="950px"></div>
 		</div>
@@ -264,6 +266,9 @@
 
         <h3>Effects of squashing</h3>
 
+        <p>The above experiments surprisingly found that GRUs and LSTMs behave qualitatively differently. This might be attributed to their squashing, so to test this we created a modified GRU (without squashing) and a modified LSTM (with squashing). Results comparing these modified models to their standard variants are below.</p>
+
+
         <div style="height:400px;width:950px">
 			<div id="table_2_div" height="700px" width="950px"></div>
 		</div>
@@ -411,9 +416,104 @@
 
         <h3>Learning rate and hidden size</h3>
 
+        <p>We searched over 2 hyperparameters, learning rate and hidden size. The following plots show results of these:</p>
+
+        <p>This table shows how generalization set first-word accuracy varies with hidden size:</p>
+        <div style="margin:auto; width:50%"><img src="hs_table.png" width=100%></div>
+
+        <p>From this table, it appears that, for GRUs with location-based attention, greater hidden sizes are associated with higher scores. To test this more systematically, we ran many hidden sizes, and found that there was indeed a significant positive correlation:</p>
+        <div style="margin:auto; width:50%"><img src="hs_scatter.png" width=100%></div>
+
+        <p>We further ran 100 iterations each of two hidden sizes, namely 64 and 1024, and also found a significant difference between the two:</p>
+        <div style="margin:auto; width:50%"><img src="hs_box.png" width=100%></div>
+
+        <p>This table shows how generalization set first-word accuracy varies with learning rate:</p>
+        <div style="margin:auto; width:50%"><img src="lr_table.png" width=100%></div>
+
+        <p>From this table, it appears that, for GRUs with location-based attention, greater learning rates are associated with higher scores. To test this more systematically, we ran many hidden sizes, and found that there was indeed a significant positive correlation:</p>
+        <div style="margin:auto; width:50%"><img src="lr_scatter.png" width=100%></div>
+
+        <p>We further ran 100 iterations each of two learning rates, namely 0.005 and 0.0005, and also found a significant difference between the two:</p>
+        <div style="margin:auto; width:50%"><img src="lr_box.png" width=100%></div>
+
+
+        <p>This table gives the results for all model instances trained for this section.</p>
+		<div style="height:400px;width:950px">
+			<div id="table_7_div" height="700px" width="950px"></div>
+		</div>
+
+
+
+        <div><input type="checkbox" id="p7_toggle_button" onclick="toggle_p7_column()">Show options for table columns</div>
+
+        <div id="columns_p7_question" style="display:none; background-color:lightblue;">
+        <p>First, aspects of the experiment:</p>
+
+        
+        <p>Select which columns to include in the table</p>
+
+        <div id="variablesdiv">
+            <input type="checkbox" id="table_7_div_dataset_btn" onclick="drawTable(tab7)">Dataset
+            <input type="checkbox" id="table_7_div_recurrent_unit_btn" onclick="drawTable(tab7)">Recurrent unit
+            <input type="checkbox" id="table_7_div_attn_btn" onclick="drawTable(tab7)">Attention
+            <input type="checkbox" id="table_7_div_lr_btn" onclick="drawTable(tab7)">Learning rate
+            <input type="checkbox" id="table_7_div_hs_btn" onclick="drawTable(tab7)">Hidden size
+        </div>
+
+        <p>Second, full-sentence metrics of accuracy: Test full and Gen full are full-sentence accuracy on the test and generalization set, while POS indicates accuracy on getting the correct sequence of parts-of-speech</p>
+        <div id="fullseqmetricsdiv">
+            <input type="checkbox" id="table_7_div_test_full_btn" onclick="drawTable(tab7)">Test full
+            <input type="checkbox" id="table_7_div_test_pos_btn" onclick="drawTable(tab7)">Test POS
+            <input type="checkbox" id="table_7_div_gen_full_btn" onclick="drawTable(tab7)">Gen full
+            <input type="checkbox" id="table_7_div_gen_pos_btn" onclick="drawTable(tab7)">Gen POS
+        </div>
+
+        <p>Second, first-word metrics of accuracy: Gen main is the percent of generalization set outputs that started with the main auxiliary; Gen first is the percent that started with the first auxiliary; Gen other aux is the percent that started with some other auxiliary; and Gen other is the percent that started with something that wasn't an auxiliary.</p>
+        <div id="firstwordmetricsdiv">
+            <input type="checkbox" id="table_7_div_gen_main_btn" onclick="drawTable(tab7)">Gen main
+            <input type="checkbox" id="table_7_div_gen_first_btn" onclick="drawTable(tab7)">Gen first
+            <input type="checkbox" id="table_7_div_gen_other_aux_btn" onclick="drawTable(tab7)">Gen other aux 
+            <input type="checkbox" id="table_7_div_gen_other_btn" onclick="drawTable(tab7)">Gen other
+        </div>
+
+        <p>Generalization set first-word accuracy where the relative clause on the subject was of a particular type</p>
+        <div id="rcmetricsdiv">
+            <input type="checkbox" id="table_7_div_orc_btn" onclick="drawTable(tab7)">Object relative clause
+            <input type="checkbox" id="table_7_div_srct_btn" onclick="drawTable(tab7)">Transitive subject relative clause
+            <input type="checkbox" id="table_7_div_srci_btn" onclick="drawTable(tab7)">Intransitive subject relative clause
+        </div>
+
+
+        <p>Percent of outputs that belonged to a particular form along the lines of Crain and Nakayama</p>
+        <div id="crainmetricsdiv">
+            <input type="checkbox" id="table_7_div_d1p1_btn" onclick="drawTable(tab7)">Delete first, prepose first
+            <input type="checkbox" id="table_7_div_d1p2_btn" onclick="drawTable(tab7)">Delete first, prepose second
+            <input type="checkbox" id="table_7_div_d1po_btn" onclick="drawTable(tab7)">Delete first, prepose other
+            <input type="checkbox" id="table_7_div_d2p1_btn" onclick="drawTable(tab7)">Delete second, prepose first
+            <input type="checkbox" id="table_7_div_d2p2_btn" onclick="drawTable(tab7)">Delete second, prepose second
+            <input type="checkbox" id="table_7_div_d2po_btn" onclick="drawTable(tab7)">Delete second, prepose other
+            <input type="checkbox" id="table_7_div_dnp1_btn" onclick="drawTable(tab7)">Delete none, prepose first
+            <input type="checkbox" id="table_7_div_dnp2_btn" onclick="drawTable(tab7)">Delete none, prepose second
+            <input type="checkbox" id="table_7_div_dnpo_btn" onclick="drawTable(tab7)">Delete none, prepose other
+            <input type="checkbox" id="table_7_div_other_btn" onclick="drawTable(tab7)">Other
+        </div>
+
+        <p>Example outputs given by the trained model, whether on the test set or generalization set; and the command that can be used to re-run this experiment.</p>
+        <div id="textmetricsdiv">
+            <input type="checkbox" id="table_7_div_test_ex_btn" onclick="drawTable(tab7)">Test examples
+            <input type="checkbox" id="table_7_div_gen_ex_btn" onclick="drawTable(tab7)">Gen examples
+        </div>
+
+        </div>
+
+
+
+
         <h2>Question formation with tree-based models</h2>
 
         <h3>Tree-based recurrent units</h3>
+
+        <p>We now compare two tree-baed recurrent units (ON-LSTM and Tree-GRU) to the sequential recurrent units used above, all without attention.</p>
 
 		<div style="height:400px;width:950px">
 			<div id="table_9_div" height="700px" width="950px"></div>
@@ -625,6 +725,7 @@
 
         <h3>Effect of encoder and decoder</h3>
 
+        <p>Here we see whether it is more important for the encoder or the decoder to be tree-based.</p>
 
         <div style="height:400px;width:950px">
 			<div id="table_10_div" height="700px" width="950px"></div>
@@ -776,6 +877,7 @@
 
         <h2>Are tree models constrained to generalize hierarchically?</h2>
 
+        <p>Here we train both a sequential GRU and a tree-GRU on datasets that are unambiguous.</p>
 
 		<div style="height:400px;width:950px">
 			<div id="table_11_div" height="700px" width="950px"></div>
@@ -991,7 +1093,7 @@
 
         <h2>Tree structure vs. tree information</h2>
 
-
+        <p>Here we tease apart whether Tree-GRUs do better simply because they have been given more information than the sequential models.</p>
 
 		<div style="height:400px;width:950px">
 			<div id="table_12_div" height="700px" width="950px"></div>
@@ -1211,6 +1313,8 @@
 
 
         <h2>Multitask learning</h2>
+
+        <p>Finally, we investigate multitask learning.</p>
 
 		<div style="height:400px;width:950px">
 			<div id="table_13_div" height="700px" width="950px"></div>
@@ -1441,6 +1545,7 @@
     <script type="text/javascript" src="results_table_p1_js.txt"></script>
     <script type="text/javascript" src="results_table_tense_p1_js.txt"></script>
     <script type="text/javascript" src="results_table_p2_js.txt"></script>
+    <script type="text/javascript" src="results_table_p7_js.txt"></script>
     <script type="text/javascript" src="results_table_p9_js.txt"></script>
     <script type="text/javascript" src="results_table_tense_p9_js.txt"></script>
     <script type="text/javascript" src="results_table_p10_js.txt"></script>
@@ -1453,7 +1558,8 @@
     <script type="text/javascript">
 
         var p1_button_div = "boxplotqfchoicesradio";
-        var p2_button_div = "boxplotsquashchoicesradio";        
+        var p2_button_div = "boxplotsquashchoicesradio";
+        var p7_button_div = "boxplotlrchoicesradio";
         var p9_button_div = "boxplottreechoicesradio";
         var p10_button_div = "boxplotedchoicesradio"; 
         var p11_button_div = "boxplotunambchoicesradio";
@@ -1768,6 +1874,19 @@
             }
 
         }
+
+        var p7_column_div = "columns_p7_question";
+
+        function toggle_p7_column() {
+            if (document.getElementById("p7_toggle_button").checked) {
+                document.getElementById(p7_column_div).style.display = "block";
+            } else {
+
+                document.getElementById(p7_column_div).style.display = "none";
+            }
+
+        }
+
 
 
         var p9_column_div = "columns_p9_question";
@@ -3076,6 +3195,14 @@ function draw_p13_boxplot(metric) {
     table_2_div_test_full_btn.checked = true;
     table_2_div_gen_main_btn.checked = true;
 
+    table_7_div_recurrent_unit_btn.checked = true;
+    table_7_div_attn_btn.checked = true;
+    table_7_div_lr_btn.checked = true;
+    table_7_div_hs_btn.checked = true;
+    table_7_div_test_full_btn.checked = true;
+    table_7_div_gen_main_btn.checked = true;
+
+
     table_9_div_recurrent_unit_btn.checked = true;
     table_9_div_test_full_btn.checked = true;
     table_9_div_gen_main_btn.checked = true;
@@ -3258,6 +3385,8 @@ function draw_p13_boxplot(metric) {
 
         var tab2 = {recurrent_unit:"Any recurrent unit", squashing:"Any squashing", dataset:experiments_2, columns:["recurrent_unit", "squashing", "test_full", "gen_main"], potential_columns: ["dataset", "recurrent_unit", "squashing", "attn", "lr", "hs", "test_full", "test_pos", "gen_full", "gen_pos", "gen_main", "gen_first", "gen_other_aux", "gen_other", "orc", "srct", "srci", "d1p1", "d1p2", "d1po", "d2p1", "d2p2", "d2po", "dnp1", "dnp2", "dnpo", "other", "test_ex", "gen_ex"], display_div:"table_2_div", div_name:"table_2_div", base_on_recurrent_unit:true, base_on_attn:false, base_on_squash:true, base_on_enc:false, base_on_dec:false, base_on_task:false, base_on_parse:false, base_on_mt:false}
 
+        var tab7_question = {recurrent_unit:"Any recurrent unit", attn:"Any attention", dataset:experiments_7, columns:["recurrent_unit", "attn", "lr", "hs", "test_full", "gen_main"], potential_columns: ["dataset", "recurrent_unit", "attn", "lr", "hs", "test_full", "test_pos", "gen_full", "gen_pos", "gen_main", "gen_first", "gen_other_aux", "gen_other", "orc", "srct", "srci", "d1p1", "d1p2", "d1po", "d2p1", "d2p2", "d2po", "dnp1", "dnp2", "dnpo", "other", "test_ex", "gen_ex"], display_div:"table_7_div", div_name:"table_7_div", base_on_recurrent_unit:false, base_on_attn:false, base_on_squash:false, base_on_enc:false, base_on_dec:false, base_on_task:false, base_on_parse:false, base_on_mt:false}
+
         var tab9_question = {recurrent_unit:"Any recurrent unit", dataset:experiments_9, columns:["recurrent_unit", "attn", "test_full", "gen_main"], potential_columns: ["dataset", "recurrent_unit", "attn", "lr", "hs", "test_full", "test_pos", "gen_full", "gen_pos", "gen_main", "gen_first", "gen_other_aux", "gen_other", "orc", "srct", "srci", "d1p1", "d1p2", "d1po", "d2p1", "d2p2", "d2po", "dnp1", "dnp2", "dnpo", "other", "test_ex", "gen_ex"], display_div:"table_9_div", div_name:"table_9_div", base_on_recurrent_unit:true, base_on_squash:false, base_on_enc:false, base_on_dec:false, base_on_task:false, base_on_parse:false, base_on_mt:false}
         var tab9_tense = {recurrent_unit:"Any recurrent unit", dataset:experiments_9_tense, columns:["recurrent_unit", "attn", "test_full", "gen_mv_correct"], potential_columns: ["dataset", "recurrent_unit", "attn", "lr", "hs", "test_full", "test_pos", "gen_full", "gen_pos", "gen_linear", "gen_mv_correct", "gen_mv_linear", "gen_mv_correct_num", "gen_mv_wrong_num", "test_ex", "gen_ex"], display_div:"table_9_div", div_name:"table_9_div_tense", base_on_recurrent_unit:true, base_on_squash:false, base_on_enc:false, base_on_dec:false, base_on_task:false, base_on_parse:false, base_on_mt:false}
 
@@ -3274,6 +3403,7 @@ function draw_p13_boxplot(metric) {
 
 
         var tab1 = tab1_question;
+        var tab7 = tab7_question;
         var tab9 = tab9_question;
         var tab11 = tab11_question;
         var tab12 = tab12_question;
@@ -3293,6 +3423,7 @@ function draw_p13_boxplot(metric) {
 
             function drawAllTables() {
                 drawTable(tab1);
+                drawTable(tab7);
                 drawTable(tab2);
                 drawTable(tab9);
                 drawTable(tab10);
