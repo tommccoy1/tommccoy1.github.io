@@ -894,23 +894,23 @@
         <p>We searched over 2 hyperparameters, learning rate and hidden size, for the question formation task. We do not have hypotheses about how the learning rate would be relevant for this task, but there are plausible reasons  why  hidden  size  might  matter:   a  smaller hidden  size  might  force  a  model  to  learn  more compact  representations,  which  would  lead  to  a bias for generalizations that can be described efficiently.   For a language that can be most compactly described in hierarchical terms, such a bias would  favor <span style="font-variant: small-caps;">Move-Main</span> (<a href="https://cse.iitk.ac.in/users/cs671/2013/hw3/perfors-tenebaum-11_learnability-of-abstract-syntax-principles.pdf">Perfors  et  al.,  2011</a>). On the other hand, the sequential structure of our model  is  closer  to  the  linear  structure  underlying <span style="font-variant: small-caps;">Move-First</span> than the tree structure underlying <span style="font-variant: small-caps;">Move-Main</span>. Thus,  a  more  compressed  hidden state might bias a sequential model toward <span style="font-variant: small-caps;">Move-First</span> by giving it less capacity to develop a representation that deviates from its own structure. The following plots show results of these explorations:</p>
 
         <p>This table shows how generalization set first-word accuracy varies with hidden size (each cell is a median over 10 restarts; 🚫 stands for no attention, 🌎 stands for location-based attention, and 📖 stands for content-based attention):</p>
-        <div style="margin:auto; width:50%"><img src="hs_table.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="hs_table.png" width=100%></div>
 
         <p>From this table, it appears that, for GRUs with location-based attention, greater hidden sizes are associated with higher scores. To test this more systematically, we ran 1 experiment for each of 100 hidden sizes (namely hidden sizes 60, 63, 66, ... , 354, 357), and found that there was indeed a significant positive correlation (Spearman's correlation coefficient = 0.62; p &lt; 10e-11):</p>
-        <div style="margin:auto; width:50%"><img src="hs_scatter.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="hs_scatter.png" width=100%></div>
 
         <p>Moreover, this correlation cannot be attributed to overall stronger performance, since test set full-sentence accuracy was <em>negatively</em> correlated with hidden size (Spearman's correlation coefficient = -0.56). We further ran 100 iterations for each of two hidden sizes, namely 64 and 1024, and also found a noticeable difference between the two:</p>
-        <div style="margin:auto; width:50%"><img src="hs_box.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="hs_box.png" width=100%></div>
 
 
         <p>This table shows how generalization set first-word accuracy varies with learning rate (each cell is a median over 10 restarts; 🚫 stands for no attention, 🌎 stands for location-based attention, and 📖 stands for content-based attention):</p>
-        <div style="margin:auto; width:50%"><img src="lr_table.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="lr_table.png" width=100%></div>
 
         <p>From this table, it appears that, for GRUs with location-based attention, greater learning rates are associated with higher scores. To test this more systematically, we ran 1 experiment for each of 100 learning rates (namely learning rates of 0.00010, 0.00012, 0.00014, ... , 0.00206, 0.00208), and found that there was indeed a significant positive correlation (Spearman's correlation coefficient = 0.42; p &lt; 10e-4):</p>
-        <div style="margin:auto; width:50%"><img src="lr_scatter.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="lr_scatter.png" width=100%></div>
 
         <p>Learning rate is also positively correlated with test set full-sentence accuracy; however, a likelihood ratio test shows that learning rate significantly predicts generalization set first-word accuracy beyond the effects of test set full-sentence accuracy (p &lt; 10e−4).We further ran 100 iterations for each of two learning rates, namely 0.005 and 0.0005, and also found a noticeable difference between the two:</p>
-        <div style="margin:auto; width:50%"><img src="lr_box.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="lr_box.png" width=100%></div>
 
 
         <p>This table gives the results for all model instances trained for this section.</p>
