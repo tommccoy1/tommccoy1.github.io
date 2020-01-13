@@ -23,7 +23,8 @@
 
         <p><em>This page provides the full data for the paper found here. The code is available here.</em></p>
 
-        <h2>Introduction: Inductive biases</h2>
+        <a name="sec_intro"></a>
+        <h2>1. Introduction: Inductive biases</h2>
 
         <p>Consider the miniature experiment below: Two learners are shown a set of training examples which are consistent with multiple possible rules. When the learners are asked to generalize to a novel example, their responses reveal that they have learned different rules. These differences cannot be due to the training data, because both learners have seen the same training data. Instead, the differences must be due to some property of the learners. The properties that determine how a learner generalizes from ambiguous data are called <b>inductive biases</b>. In this case, the learner on the left has an inductive bias favoring generalizations based on shape, while the learner on the right has an inductive bias favoring generalizations based on color. </p>
         
@@ -39,9 +40,41 @@
 
         <p>For both of these tasks, we constrain the training set to be consistent with a generalization based on hierarchical structure and a generalization based on linear order. We then evaluate our models on examples that disambiguate these two types of generalizations to see which one each model has learned. If a model behaves consistently with the hierarchical generalization for both tasks, we would then have converging evidence to conclude that the model has a hierarchical bias.</p>
 
-        <h2>Tasks and evaluation metrics</h2>
+        <div style="border-style: solid; border-width:1px; padding: 15px; width: 400px;">
 
-        <h3>Question formation</h3>
+        <h2>Contents</h2>
+
+        <div><a href="#sec_intro">1. Introduction: Inductive biases</a></div>
+        <div><a href="#sec_tasks">2. Tasks and evaluation metrics</a></div>
+            <div><a href="#sec_qf">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.1. Question formation</a></div>
+            <div><a href="#sec_tr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.2. Tense reinflection</a></div> 
+            <div><a href="#sec_metrics">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.3. Evaluation metrics</a></div>
+        <div><a href="#sec_expts">3. Overview of website</a></div>
+        <div><a href="#sec_seq">4. Variants of sequential RNNs</a></div>
+            <div><a href="#sec_recunit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.1. Comparing recurrent units and attention variants</a></div>
+            <div><a href="#sec_squashing">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.2. Effects of squashing</a></div>
+            <div><a href="#sec_hyperparams">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.3. Learning rate and hidden size</a></div>
+        <div><a href="#sec_tree">5. Tree-based models</a></div>
+            <div><a href="#sec_treeru">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.1. Tree-based recurrent units</a></div>
+            <div><a href="#sec_encdec">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp 5.2. Effects of encoder vs. decoder being tree-based</a></div>
+        <div><a href="#sec_const">6. Are tree models constrained to generalize hierarchically?</a></div>
+        <div><a href="#sec_info">7. Tree structure vs. tree information</a></div>
+        <div><a href="#sec_multi">8. Multitask learning</a></div>
+        <div><a href="#sec_conclusion">9. Conclusion</a></div>
+            <div><a href="#sec_main">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.1. Main takeaways</a></div>
+            <div><a href="#sec_acq">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.2. Relation to human language acquisition</a></div>
+            <div><a href="#sec_practical">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.3. Practical takeaways</a></div>
+        
+        </div>
+        <br>
+        <br>
+
+
+        <a name="sec_tasks"></a>
+        <h2>2. Tasks and evaluation metrics</h2>
+    
+        <a name="sec_qf"></a>
+        <h3>2.1. Question formation</h3>
 
         <p>English question formation involves the movement of an auxiliary verb to the front of the sentence, such as transforming <em>My walrus does giggle</em> into <em>Does my walrus giggle?</em>. Simple examples like that one are consistent with two possible rules, a hierarchical rule called <span style="font-variant: small-caps;">Move-Main</span> and a linear rule called <span style="font-variant: small-caps;">Move-First</span>:
 
@@ -66,8 +99,8 @@
 
         <p>There has been a long and lively debate in linguistics about English question formation. Chomsky (1965, 1980) argued that the input to children acquiring English is ambiguous between <span style="font-variant: small-caps;">Move-Main</span> and <span style="font-variant: small-caps;">Move-First</span> but that all English speakers nevertheless acquire <span style="font-variant: small-caps;">Move-Main</span>, which he uses to argue that humans must have a hierarchical bias. Both the empirical basis of this argument and its conclusion have been debated extensively; see our paper for more discussion of the debate. In this work, we do not directly study human language acquisition but instead investigate which computational models have a hierarchical bias so that we can better understand under what conditions learners will learn <span style="font-variant: small-caps;">Move-Main</span>. In the discussion of our paper, we touch on how our findings relate to the debate about human language acquisition.</p>
 
-        
-        <h3>Tense reinflection</h3>
+        <a name="sec_tr"></a> 
+        <h3>2.2. Tense reinflection</h3>
 
         <p>Our second task, tense reinflection, is the transformation of a past-tense English sentence to a present-tense English sentence, such as turning <em>Her vultures swam</em> into <em>Her vultures swim</em>. The critical part of this task is determining what form the verb should take, as a given past-tense verb in English (such as <em>swam</em>) could be the past tense of either a singular present-tense verb (<em>swims</em>) or a plural present-tense verb (<em>swim</em>). Simple examples such as that one are consistent with two rules, a hierarchical rule called <span style="font-variant: small-caps;">Agree-Subject</span> and a linear rule called <span style="font-variant: small-caps;">Agree-Recent</span>:
 
@@ -86,8 +119,8 @@
 
         <p>As with the question-formation task, we evaluate test set performance with <b>test set full-sentence accuracy</b>. For evaluating generalization performance, we use <b>generalization set main-verb accuracy</b>, which is the proportion of outputs for which the main verb was predicted correctly (such as predicting <em>swim</em> instead of <em>swims</em> in the example above.
 
-
-        <h3>Other evaluation metrics</h3>
+        <a name="sec_metrics"></a>
+        <h3>2.3. Other evaluation metrics</h3>
 
         <p>Most of our discussion in this website uses the 3 metrics mentioned above (test set full-sentence accuracy, generalization set first-word accuracy, and generalization set main-verb accuracy), but in case you want to delve deeper into the results we also provide results for several other metrics, which we describe here. If you just want the gist of the website, you can skip this section (or come back to it if there is a particular metric you are interested in), but if you want to read about the other metrics you should click this button to make them visible: <input type="checkbox" id="all_metrics_btn" onclick="toggle_all_metrics()"></p>
 
@@ -143,15 +176,17 @@
         </ul>
 
         </div>
-
-        <h2>Experiments</h2>
+        
+        <a name="sec_expts"></a>
+        <h2>3. Experiments</h2>
 
         <p>The rest of this website gives the complete results for the experiments described in the paper. For each experiment, we ran 100 re-runs of each model involved to control for variation across restarts. Each section contains a table listing the results for all re-runs of all models as well as a boxplot that you can use to  visualize the distribution across re-runs (the boxplots display the minimum, the lower fence, the first quartile, the median, the third quartile, the upper fence, the maximum, and any outliers. The upper and lower fences are defined as the points that are 1.5 times the interquartile range outside of the middle 50% of the data). Both the tables and the boxplots can be customized by clicking the buttons near them. 
 
+        <a name="sec_seq"></a>
+        <h2>4. Variants of sequential RNNs</h2>
 
-        <h2>Variants of sequential RNNs</h2>
-
-        <h3>Comparing recurrent units and attention variants</h3>
+        <a name="sec_recunit"></a>
+        <h3>4.1. Comparing recurrent units and attention variants</h3>
 
         <div style="margin:auto; width:100%"><img src="seq2seq.png" width=100%></div>
 
@@ -575,8 +610,8 @@
 
 
 
-
-        <h3>Effects of squashing</h3>
+        <a name="sec_squashing"></a>
+        <h3>4.2. Effects of squashing</h3>
 
         <p>One striking result in the previous section is that LSTMs and GRUs display qualitative differences, even though the  two  architectures  are  often  viewed  as  interchangeable and achieve similar performance in applied tasks (Chung et al., 2014).   One difference between  LSTMs  and  GRUs  is  that  a  squashing function is applied to the hidden state of a GRU to keep its values within the range(−1,1), while the cell state of an LSTM is not bounded.  Weiss et al. (2018) demonstrate that such squashing leads to a qualitative difference in how well these models generalize counting behavior.  Such squashing may  also  explain  the  qualitative  differences  that we observe: counting the input elements is equivalent to keeping track of their linear positions, so we might expect that a tendency to count would make the linear generalization more accessible.</p>
 
@@ -841,8 +876,8 @@
         </ul>
 
 
-
-        <h3>Learning rate and hidden size</h3>
+        <a name="sec_hyperparams"></a>
+        <h3>4.3. Learning rate and hidden size</h3>
 
         <p>We searched over 2 hyperparameters, learning rate and hidden size, for the question formation task. We do not have hypotheses about how the learning rate would be relevant for this task, but there are plausible reasons  why  hidden  size  might  matter:   a  smaller hidden  size  might  force  a  model  to  learn  more compact  representations,  which  would  lead  to  a bias for generalizations that can be described efficiently.   For a language that can be most compactly described in hierarchical terms, such a bias would  favor MOVE-MAIN (Perfors  et  al.,  2011). On the other hand, the sequential structure of our model  is  closer  to  the  linear  structure  underlying MOVE-FIRST than the tree structure underlying MOVE-MAIN. Thus,  a  more  compressed  hidden state might bias a sequential model toward MOVE-FIRST by giving it less capacity to develop a representation that deviates from its own structure. The following plots show results of these explorations:</p>
 
@@ -962,10 +997,11 @@
         </div>
 
 
+        <a name="sec_tree"></a>
+        <h2>5. Tree-based models</h2>
 
-        <h2>Question formation with tree-based models</h2>
-
-        <h3>Tree-based recurrent units</h3>
+        <a name="sec_treeru"></a>
+        <h3>5.1. Tree-based recurrent units</h3>
 
         <p>So far we have tested whether properties that are not  interpretably  related  to  hierarchical  structurenevertheless affect how a model generalizes on syntactic tasks. The basic finding is that all of the factors we tested (recurrent unit, type of attention, learning rate, and hidden size) can all significantly affect a model's generalization behavior, but none of the models we tested appear to have a true hierarchical bias. We now turn to a related but opposite question:  when a model’s design is meant to give it a hierarchical inductive bias,  does this design succeed at giving the model this bias?</p>
 
@@ -1367,8 +1403,8 @@
             <li>The Tree-GRU stands out in another way as well: It also achieves reasonably high <em>full-sentence</em> accuracy on the generalization set. (<span class="demo" onclick="tab9 = tab9_question;document.getElementById('tree_task_btn').innerHTML = 'Question formation'; p9_dataset = experiments_9;  set_param(tab9_question, 'recurrent_unit', 'Any recurrent unit', 'tree_enc_btn'); set_param(tab9_tense, 'recurrent_unit', 'Any recurrent unit', 'tree_enc_btn'); p9_column_div = 'columns_p9_question'; hide('columns_p9_tense'); toggle_p9_column(); p9_button_selection(); uncheck_all(tab9, 'p9question'); table_9_div_recurrent_unit_btn.checked = true; table_9_div_gen_full_btn.checked = true; drawTable(tab9); p9question_gen_full.checked = true; draw_p9_boxplot('gen_full'); ">click here to see in plot</span>) (<span class="demo" onclick="tab9 = tab9_tense;document.getElementById('tree_task_btn').innerHTML = 'Tense reinflection'; p9_dataset = experiments_9_tense;  set_param(tab9_question, 'recurrent_unit', 'Any recurrent unit', 'tree_enc_btn'); set_param(tab9_tense, 'recurrent_unit', 'Any recurrent unit', 'tree_enc_btn'); p9_column_div = 'columns_p9_tense'; hide('columns_p9_question'); toggle_p9_column(); p9_button_selection(); uncheck_all(tab9, 'p9tense'); table_9_div_tense_recurrent_unit_btn.checked = true; table_9_div_tense_gen_full_btn.checked = true; drawTable(tab9); p9tense_gen_full.checked = true; draw_p9_boxplot('gen_full'); ">click here to see in plot</span>)</li>
         </ul>
 
-
-        <h3>Effect of encoder and decoder</h3>
+        <a name="sec_encdec"></a>
+        <h3>5.2. Effect of encoder and decoder</h3>
 
         <p>All of the models we use have two components, the encoder and the decoder. So far we have only tested models where the encoder type and the decoder type match, and this has shown that models where both components are explicitly built around trees will generalize hierarchically but models where both components are sequential will not.</p>
         
@@ -1629,8 +1665,8 @@
             <li>Of the two models with a tree-based decoder, only the model that also had a tree-based encoder achieved high full-sentence accuracy on the test set; the model with a GRU encoder and Tree decoder usually performed poorly on the test set, so the only model that performed well on the test set and generalized hierarchically was the model with a tree-based encoder and a tree-based decoder. However, note that some of the GRU/Tree models did perform well, so maybe we just need to train it longer. (<span class="demo" onclick="set_param(tab10, 'enc', 'Any encoder', 'ed_enc_btn'); set_param(tab10, 'dec', 'Any decoder', 'ed_dec_btn'); uncheck_all(tab10, 'p10question'); table_10_div_enc_btn.checked = true; table_10_div_dec_btn.checked = true; table_10_div_test_full_btn.checked = true;  drawTable(tab10); p10question_test_full.checked = true; draw_p10_boxplot('test_full'); ">click here to see in plot</span>)  </li> 
         </ul>
 
-
-        <h2>Are tree models constrained to generalize hierarchically?</h2>
+        <a name="sec_const"></a>
+        <h2>6. Are tree models constrained to generalize hierarchically?</h2>
 
         <p>It may seem that the tree-based models are constrained  by  their  structure  to  make  only  hierarchical  generalizations,  rendering  their  hierarchical generalization trivial.  In this section, we test whether they are in fact constrained in this way, and similarly whether sequential models are constrained to make only linear generalizations.</p>  
         
@@ -2025,8 +2061,8 @@
         </ul>
 
 
-
-        <h2>Tree structure vs. tree information</h2>
+        <a name="sec_info"></a>
+        <h2>7. Tree structure vs. tree information</h2>
 
         <p>Our  sequential  and  tree-based  models  differ  not only in structure but also in the information they have been provided:  the tree-based models have been given correct parse trees for their input and output  sentences,   while  the  sequential  models have not been given parse information. Therefore, it is unclear whether the hierarchical generalization displayed by the tree-based models arose from the tree-based model structure, from the parse information provided to the models, or both.</p>
 
@@ -2427,8 +2463,8 @@
             <li>However, it is not enough to just have any trees built in, as the Tree-GRU with right-branching trees shows; it must have the correct trees.
         </ul>
 
-
-        <h2>Multitask learning</h2>
+        <a name="sec_multi"></a>
+        <h2>8. Multitask learning</h2>
 
         <p>Each experiment discussed so far involved a sin-gle linguistic transformation. By contrast, humansacquiring language are not exposed to phenomena in isolation but rather to a complete language en-compassing many phenomena. This fact has beenpointed to as a possible way to explain hierarchicalgeneralization in humans without needing to pos-tulate any innate preference for hierarchical struc-ture.   While  one  phenomenon,  such  as  questionformation, might be ambiguous in the input, theremight be enough direct evidence among other phe-nomena to conclude that the language as a wholeis hierarchical, a fact which learners can then ex-tend to the ambiguous phenomenon (Pullum andScholz, 2002; Perfors et al., 2011), under the non-trivial assumption that the learner will choose totreat the disparate phenomena in a unified fashion. Therefore, perhaps a training setup that includes more phenomena than just a single ambiguous one can lead to better generalization on the ambiguous phenomenon.</p>
 
@@ -2827,14 +2863,16 @@
 
 
 
+        <a name="sec_conclusion"></a>
+        <h2>9. Conclusion</h2>
 
-        <h2>Conclusion</h2>
-
-        <h3>Main takeaways</h3>
+        <a name="sec_main"></a>
+        <h3>9.1. Main takeaways</h3>
 
         We have found that all factors we tested can qualitatively affect a model’s inductive biases but that a hierarchical bias&emdash;which has been argued to underlie children’s acquisition of syntax&emdash;only arose in a model whose inputs and computations were governed by syntactic structure.
 
-        <h3>Relation to human language acquisition</h3>
+        <a name="sec_acq"></a>
+        <h3>9.2. Relation to human language acquisition</h3>
 
         <p>Our  experiments  showed  that  some  tree-basedmodels displayed a hierarchical bias,  while non-tree-based  models  never  displayed  such  a  bias,even when provided with strong cues to hierarchi-cal structure in their input (through bracketing ormulti-task learning).  These findings suggest thatthe  hierarchical  preference  displayed  by  humanswhen acquiring English requires making explicitreference  to  hierachical  structure,  and  cannot  beargued  to  emerge  from  more  general  biases  ap-plied to input containing cues to hierarchical struc-ture.</p>
 
@@ -2850,7 +2888,8 @@
 
         <p>However, there is still significant value in study-ing  what  can  be  learned  from  strings  alone,  be-cause we are unlikely to understand how the multi-ple components of a child’s input interact withouta  better  understanding  of  each  component.   Fur-thermore,  during  the  acquisition  of  abstract  as-pects of language, real-world grounding is not al-ways  useful  in  the  absence  of  linguistic  biases(Gleitman  and  Gleitman,  1992).More  gener-ally, it is easily possible for learning to be harderwhen  there  is  more  information  available  thanwhen there is less information available (Dupoux,2018).    Thus,  our  restricted  experimental  setupmay actually make learning easier than in the moreinformationally-rich scenario faced by children</p>
 
-        <h3>Practical takeaways</h3>
+        <a name="sec_practical"></a>
+        <h3>9.3. Practical takeaways</h3>
 
         <p>Our  results  leave  room  for  three  possible  approaches to imparting a model with a hierarchical bias.</p>
 
