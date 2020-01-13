@@ -156,7 +156,7 @@
         <div style="margin:auto; width:100%"><img src="seq2seq.png" width=100%></div>
 
 
-        <p>First we trained several types of sequential RNNs on both tasks. The basic structure of this model is illustrated above: First, a component called the encoder reads in the input sequence one word at a time, from left to right, to construct a single vector (E6 in the image) that encodes the input. A second component called the decoder than takes this encoding vector as input and outputs one word at a time to create the output, stopping when it generates a punctuation mark. We vary two aspects of the architecture: the recurrent unit (SRN, GRU, or LSTM; the recurrent unit is the component that updates the hidden state of the model from time step to time step), and the type of attention that was used (no attention, location-based attention, or content-based attention; attention is a mechanism that allows the decoder to peek back at the encoder). The table and boxplot below show the effects of these factors.</p>
+        <p>First we trained several types of sequential RNNs on both tasks. The basic structure of this model is illustrated above: First, a component called the encoder reads in the input sequence one word at a time, from left to right, to construct a single vector (E6 in the image) that encodes the input. A second component called the decoder then takes this encoding vector as input and outputs one word at a time to create the output, stopping when it generates a punctuation mark. We vary two aspects of the architecture: the recurrent unit (SRN, GRU, or LSTM; the recurrent unit is the component that updates the hidden state of the model from time step to time step), and the type of attention that was used (no attention, location-based attention, or content-based attention; attention is a mechanism that allows the decoder to peek back at the encoder). The table and boxplot below show the effects of these factors.</p>
 
 
         <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
@@ -346,7 +346,7 @@
 
 
         <div id='qfBoxplotDiv' style="width:100%; margin:auto;"><!-- Plotly chart will be drawn inside this DIV --></div>
-
+        <p><em>🚫 stands for no attention, 🌎 stands for location-based attention, and 📖 stands for content-based attention</em></p>
 
         <div><input type="checkbox" id="p1_toggle_button_boxplot" onclick="toggle_p1_boxplot()">Click this button to customize the boxplots. If there is only one model type selected with the blue buttons above the table, you can select multiple metrics to be displayed for that model. If there are multiple models selected, you can select one metric to be displayed across those models.</div>
 
@@ -556,7 +556,7 @@
 
             
         <br>
-        <p>Some highlights:</p>
+        <p><b>Takeaways from these experiments:</b></p>
         <ul>
             <li>For both tasks, the SRN without attention fails at the test set, with a test set full-sentence accuracy consistently at 0%. However, its test set full-sentence part of speech accuracy is always high, suggesting that its main error is confusing words that have the same part of speech. (<span class="demo" onclick="tab1 = tab1_question;document.getElementById('qf_task_btn').innerHTML = 'Question formation'; p1_dataset = experiments_1;  set_param(tab1_question, 'recurrent_unit', 'SRN', 'qf_enc_btn'); set_param(tab1_tense, 'recurrent_unit', 'SRN', 'qf_enc_btn'); set_param(tab1_question, 'attn', 'None', 'qf_attn_btn'); set_param(tab1_tense, 'attn', 'None', 'qf_attn_btn'); draw_p1_boxplot(p1_boxplot_metric); p1_column_div = 'columns_p1_question'; hide('columns_p1_tense'); toggle_p1_column(); p1_button_selection(); uncheck_all(tab1, 'p1question'); table_1_div_recurrent_unit_btn.checked = true; table_1_div_attn_btn.checked = true; table_1_div_test_full_btn.checked = true; table_1_div_test_pos_btn.checked = true;  p1question_test_full.checked = true; p1question_test_pos.checked = true; drawTable(tab1); draw_p1_boxplot('test_full'); draw_p1_boxplot('test_pos')">click here to see question formation in plot</span>,
                 <span class="demo" onclick="tab1 = tab1_tense; document.getElementById('qf_task_btn').innerHTML = 'Tense reinflection'; p1_dataset = experiments_1_tense;  set_param(tab1_question, 'recurrent_unit', 'SRN', 'qf_enc_btn'); set_param(tab1_tense, 'recurrent_unit', 'SRN', 'qf_enc_btn'); set_param(tab1_question, 'attn', 'None', 'qf_attn_btn'); set_param(tab1_tense, 'attn', 'None', 'qf_attn_btn'); draw_p1_boxplot(p1_boxplot_metric); p1_column_div = 'columns_p1_tense'; hide('columns_p1_question'); toggle_p1_column(); p1_button_selection(); uncheck_all(tab1, 'p1tense'); table_1_div_tense_recurrent_unit_btn.checked = true; table_1_div_tense_attn_btn.checked = true; table_1_div_tense_test_full_btn.checked = true; table_1_div_tense_test_pos_btn.checked = true;  p1tense_test_full.checked = true; p1tense_test_pos.checked = true; drawTable(tab1); draw_p1_boxplot('test_full'); draw_p1_boxplot('test_pos')">click here to see tense reinflection in plot</span>)
@@ -578,14 +578,12 @@
 
         <h3>Effects of squashing</h3>
 
-        <p>The above experiments surprisingly found that GRUs and LSTMs behave qualitatively differently. This might be attributed to their squashing, so to test this we created a modified GRU (without squashing) and a modified LSTM (with squashing). Results comparing these modified models to their standard variants are below.</p>
+        <p>One striking result in the previous section is that LSTMs and GRUs display qualitative differences, even though the  two  architectures  are  often  viewed  as  interchangeable and achieve similar performance in applied tasks (Chung et al., 2014).   One difference between  LSTMs  and  GRUs  is  that  a  squashing function is applied to the hidden state of a GRU to keep its values within the range(−1,1), while the cell state of an LSTM is not bounded.  Weiss et al. (2018) demonstrate that such squashing leads to a qualitative difference in how well these models generalize counting behavior.  Such squashing may  also  explain  the  qualitative  differences  that we observe: counting the input elements is equivalent to keeping track of their linear positions, so we might expect that a tendency to count would make the linear generalization more accessible.</p>
+
+        <p>To test whether squashing increases a model’s preference for MOVE-MAIN,  we created a modified LSTM that included squashing in the calculation of its cell state, and a modified GRU that did not have the squashing usually present in GRUs. Results for these models, as well as for the standard variants of the GRU and LSTM, are below.</p>
 
 
-        <div style="height:400px;width:950px">
-			<div id="table_2_div" height="700px" width="950px"></div>
-		</div>
-
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
         <div class="dropdown">
           <button onclick="dropFunction('squashEncDropdown')" class="dropbtn" id="squash_enc_btn">Any recurrent unit</button>
           <div id="squashEncDropdown" class="dropdown-content">
@@ -604,6 +602,11 @@
             <a onclick="set_param(tab2, 'squashing', 'unsquashed', 'squash_squash_btn'); drawTable(tab2); draw_p2_boxplot(p2_boxplot_metric); p2_button_selection();">Unsquashed</a>
           </div>
         </div>
+
+
+        <div style="height:400px;width:950px">
+			<div id="table_2_div" height="700px" width="950px"></div>
+		</div>
 
 
 
@@ -841,24 +844,25 @@
 
         <h3>Learning rate and hidden size</h3>
 
-        <p>We searched over 2 hyperparameters, learning rate and hidden size. The following plots show results of these:</p>
+        <p>We searched over 2 hyperparameters, learning rate and hidden size, for the question formation task. We do not have hypotheses about how the learning rate would be relevant for this task, but there are plausible reasons  why  hidden  size  might  matter:   a  smaller hidden  size  might  force  a  model  to  learn  more compact  representations,  which  would  lead  to  a bias for generalizations that can be described efficiently.   For a language that can be most compactly described in hierarchical terms, such a bias would  favor MOVE-MAIN (Perfors  et  al.,  2011). On the other hand, the sequential structure of our model  is  closer  to  the  linear  structure  underlying MOVE-FIRST than the tree structure underlying MOVE-MAIN. Thus,  a  more  compressed  hidden state might bias a sequential model toward MOVE-FIRST by giving it less capacity to develop a representation that deviates from its own structure. The following plots show results of these explorations:</p>
 
-        <p>This table shows how generalization set first-word accuracy varies with hidden size:</p>
+        <p>This table shows how generalization set first-word accuracy varies with hidden size (each cell is a median over 10 restarts; 🚫 stands for no attention, 🌎 stands for location-based attention, and 📖 stands for content-based attention):</p>
         <div style="margin:auto; width:50%"><img src="hs_table.png" width=100%></div>
 
-        <p>From this table, it appears that, for GRUs with location-based attention, greater hidden sizes are associated with higher scores. To test this more systematically, we ran many hidden sizes, and found that there was indeed a significant positive correlation:</p>
+        <p>From this table, it appears that, for GRUs with location-based attention, greater hidden sizes are associated with higher scores. To test this more systematically, we ran 1 experiment for each of 100 hidden sizes (namely hidden sizes 60, 63, 66, ... , 354, 357), and found that there was indeed a significant positive correlation (Spearman's correlation coefficient = 0.62; p &less; 10e-11):</p>
         <div style="margin:auto; width:50%"><img src="hs_scatter.png" width=100%></div>
 
-        <p>We further ran 100 iterations each of two hidden sizes, namely 64 and 1024, and also found a significant difference between the two:</p>
+        <p>Moreover, this correlation cannot be attributed to overall stronger performance, since test set full-sentence accuracy was <em>negatively</em> correlated with hidden size (Spearman's correlation coefficient = -0.56). We further ran 100 iterations for each of two hidden sizes, namely 64 and 1024, and also found a noticeable difference between the two:</p>
         <div style="margin:auto; width:50%"><img src="hs_box.png" width=100%></div>
 
-        <p>This table shows how generalization set first-word accuracy varies with learning rate:</p>
+
+        <p>This table shows how generalization set first-word accuracy varies with learning rate (each cell is a median over 10 restarts; 🚫 stands for no attention, 🌎 stands for location-based attention, and 📖 stands for content-based attention):</p>
         <div style="margin:auto; width:50%"><img src="lr_table.png" width=100%></div>
 
-        <p>From this table, it appears that, for GRUs with location-based attention, greater learning rates are associated with higher scores. To test this more systematically, we ran many hidden sizes, and found that there was indeed a significant positive correlation:</p>
+        <p>From this table, it appears that, for GRUs with location-based attention, greater learning rates are associated with higher scores. To test this more systematically, we ran 1 experiment for each of 100 learning rates (namely learning rates of 0.00010, 0.00012, 0.00014, ... , 0.00206, 0.00208), and found that there was indeed a significant positive correlation (Spearman's correlation coefficient = 0.42; p &less; 10e-4):</p>
         <div style="margin:auto; width:50%"><img src="lr_scatter.png" width=100%></div>
 
-        <p>We further ran 100 iterations each of two learning rates, namely 0.005 and 0.0005, and also found a significant difference between the two:</p>
+        <p>Learning rate is also positively correlated with test set full-sentence accuracy; however, a likelihood ratio test shows that learning rate significantly predicts generalization set first-word accuracy beyond the effects of test set full-sentence accuracy (p &less; 10e−4).We further ran 100 iterations for each of two learning rates, namely 0.005 and 0.0005, and also found a noticeable difference between the two:</p>
         <div style="margin:auto; width:50%"><img src="lr_box.png" width=100%></div>
 
 
@@ -963,13 +967,11 @@
 
         <h3>Tree-based recurrent units</h3>
 
-        <p>We now compare two tree-baed recurrent units (ON-LSTM and Tree-GRU) to the sequential recurrent units used above, all without attention.</p>
+        <p>So far we have tested whether properties that are not  interpretably  related  to  hierarchical  structurenevertheless affect how a model generalizes on syntactic tasks. The basic finding is that all of the factors we tested (recurrent unit, type of attention, learning rate, and hidden size) can all significantly affect a model's generalization behavior, but none of the models we tested appear to have a true hierarchical bias. We now turn to a related but opposite question:  when a model’s design is meant to give it a hierarchical inductive bias,  does this design succeed at giving the model this bias?</p>
 
-		<div style="height:400px;width:950px">
-			<div id="table_9_div" height="700px" width="950px"></div>
-		</div>
+        <p>To investigate this question, we now compare two tree-based recurrent units (ON-LSTM and Tree-GRU) to the sequential recurrent units used above, all without attention.</p>
 
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
 
         <div class="dropdown">
           <button onclick="dropFunction('treeTaskDropdown')" class="dropbtn" id="tree_task_btn">Question formation</button>
@@ -993,7 +995,11 @@
           </div>
         </div>
 
- 
+ 		<div style="height:400px;width:950px">
+			<div id="table_9_div" height="700px" width="950px"></div>
+		</div>
+
+
 
         <div><input type="checkbox" id="p9_toggle_button" onclick="toggle_p9_column()">Click this button to customize which columns are displayed in the table (e.g., to show other metrics of accuracy or to show some example outputs from the trained models).</div>
 
@@ -1364,13 +1370,11 @@
 
         <h3>Effect of encoder and decoder</h3>
 
-        <p>Here we see whether it is more important for the encoder or the decoder to be tree-based.</p>
+        <p>All of the models we use have two components, the encoder and the decoder. So far we have only tested models where the encoder type and the decoder type match, and this has shown that models where both components are explicitly built around trees will generalize hierarchically but models where both components are sequential will not.</p>
+        
+        <p>Is this difference between tree-based models and sequential models due to the encoder, the decoder, or both? Here we test this using a model whose encoder is a sequential GRU but whose decoder is a Tree-GRU and a model whose encoder is a Tree-GRU but whose decoder is a sequential GRU (as well as two models from before: the model with a sequential GRU encoder and sequential GRU decoder, and the model with a Tree-GRU encoder and a Tree-GRU decoder).</p>
 
-        <div style="height:400px;width:950px">
-			<div id="table_10_div" height="700px" width="950px"></div>
-		</div>
-
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
         <div class="dropdown">
           <button onclick="dropFunction('edEncDropdown')" class="dropbtn" id="ed_enc_btn">Any encoder</button>
           <div id="edEncDropdown" class="dropdown-content">
@@ -1390,6 +1394,10 @@
           </div>
         </div>
 
+
+        <div style="height:400px;width:950px">
+			<div id="table_10_div" height="700px" width="950px"></div>
+		</div>
 
 
         <div><input type="checkbox" id="p10_toggle_button" onclick="toggle_p10_column()">Click this button to customize which columns are displayed in the table (e.g., to show other metrics of accuracy or to show some example outputs from the trained models).</div>
@@ -1624,14 +1632,12 @@
 
         <h2>Are tree models constrained to generalize hierarchically?</h2>
 
-        <p>Here we train both a sequential GRU and a tree-GRU on datasets that are unambiguous.</p>
-
-		<div style="height:400px;width:950px">
-			<div id="table_11_div" height="700px" width="950px"></div>
-		</div>
+        <p>It may seem that the tree-based models are constrained  by  their  structure  to  make  only  hierarchical  generalizations,  rendering  their  hierarchical generalization trivial.  In this section, we test whether they are in fact constrained in this way, and similarly whether sequential models are constrained to make only linear generalizations.</p>  
+        
+        <p>Earlier, the training sets for our two tasks were ambiguous between two generalizations, but we now used  training  sets  that  unambiguously  supported either  a  linear  transformation  or  a  hierarchical transformation. For example, we used a MOVE-MAIN training  set  that  included  some  examples like <em>My walrus that does laugh doesn't giggle</em> turning into <em>Doesn't my walrus that does laugh giggle?</em>, while the MOVE-FIRST training set included some examples like  <em>My walrus that does laugh doesn't giggle</em> turning into <em>Does my walrus that laugh doesn't giggle?</em>. Similarly,  for the tense reinflection task,  we created   an AGREE-SUBJECT training   set   and   an AGREE-RECENT training  set.   For  each  of  these four training sets, we trained 100 sequential GRUs and 100 Tree/Tree GRUs, all without attention. Results are below.</p>
 
 
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
         <div class="dropdown">
           <button onclick="dropFunction('unambTaskDropdown')" class="dropbtn" id="unamb_task_btn">Any question formation</button>
           <div id="unambTaskDropdown" class="dropdown-content">
@@ -1656,6 +1662,11 @@
         </div>
 
  
+
+		<div style="height:400px;width:950px">
+			<div id="table_11_div" height="700px" width="950px"></div>
+		</div>
+
 
 
         <div><input type="checkbox" id="p11_toggle_button" onclick="toggle_p11_column()">Click this button to customize which columns are displayed in the table (e.g., to show other metrics of accuracy or to show some example outputs from the trained models).</div>
@@ -2017,11 +2028,9 @@
 
         <h2>Tree structure vs. tree information</h2>
 
-        <p>Here we tease apart whether Tree-GRUs do better simply because they have been given more information than the sequential models.</p>
+        <p>Our  sequential  and  tree-based  models  differ  not only in structure but also in the information they have been provided:  the tree-based models have been given correct parse trees for their input and output  sentences,   while  the  sequential  models have not been given parse information. Therefore, it is unclear whether the hierarchical generalization displayed by the tree-based models arose from the tree-based model structure, from the parse information provided to the models, or both.</p>
 
-		<div style="height:400px;width:950px">
-			<div id="table_12_div" height="700px" width="950px"></div>
-		</div>
+        <p>To  disentangle  these  factors,  we  ran  two  further experiments. First, we retrained the Tree/Tree GRU but using uniformly right-branching trees instead  of  correct  parses. Thus, these models make use of tree structure but not  the  kind  of  parse  structure  that  captures  lin-guistic information. Second, we retrained the sequential GRU without attention but modified theinput and output by adding brackets that indicatee ach sentence’s parse.  Thus, these models are provided with parse information in the input but such structure does not guide the neural network computation as it does with tree RNNs. Results for these experiments are below (along with results for sequential GRUs without brackets in the input, and tree RNNs given the correct parses).</p>
 
 
         <div class="dropdown">
@@ -2033,7 +2042,7 @@
         </div>
 
 
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
         <div class="dropdown">
           <button onclick="dropFunction('infoEncDropdown')" class="dropbtn" id="info_enc_btn">Any recurrent unit</button>
           <div id="infoEncDropdown" class="dropdown-content">
@@ -2052,6 +2061,11 @@
             <a onclick="set_param(tab12_question, 'parse', 'Correct parses provided', 'info_parse_btn'); set_param(tab12_tense, 'Correct parses provided', 'yes', 'info_parse_btn'); draw_p12_boxplot(p12_boxplot_metric); p12_button_selection(); drawTable(tab12); ">Correct parses provided</a>
           </div>
         </div>
+
+
+		<div style="height:400px;width:950px">
+			<div id="table_12_div" height="700px" width="950px"></div>
+		</div>
 
 
 
@@ -2416,13 +2430,11 @@
 
         <h2>Multitask learning</h2>
 
-        <p>Finally, we investigate multitask learning.</p>
+        <p>Each experiment discussed so far involved a sin-gle linguistic transformation. By contrast, humansacquiring language are not exposed to phenomena in isolation but rather to a complete language en-compassing many phenomena. This fact has beenpointed to as a possible way to explain hierarchicalgeneralization in humans without needing to pos-tulate any innate preference for hierarchical struc-ture.   While  one  phenomenon,  such  as  questionformation, might be ambiguous in the input, theremight be enough direct evidence among other phe-nomena to conclude that the language as a wholeis hierarchical, a fact which learners can then ex-tend to the ambiguous phenomenon (Pullum andScholz, 2002; Perfors et al., 2011), under the non-trivial assumption that the learner will choose totreat the disparate phenomena in a unified fashion. Therefore, perhaps a training setup that includes more phenomena than just a single ambiguous one can lead to better generalization on the ambiguous phenomenon.</p>
 
-		<div style="height:400px;width:950px">
-			<div id="table_13_div" height="700px" width="950px"></div>
-		</div>
+        <p>To take a first step toward investigating this pos-sibility, we use a multi-task learning setup, wherewe train a single model to perform both questionformation  and  tense  reinflection.   We  set  up  thetraining set such that one task was unambiguouslyhierarchical  while  the  other  was  ambiguous  be-tween the hierarchical generalization and the lin-ear  generalization.   This  gave  two  settings:  Onewhere  question  formation  was  ambiguous,  andone where tense reinflection was ambiguous.  In addition, one major way in which the two tasks differ is that all question formation examples use auxiliary verbs (e.g., <em>My walrus <b>does giggle</b></em>) while all tense reinflection sentences use inflected verbs (e.g., <em>My walrus <b>giggles</b></em>). In case this disparity makes the tasks too different to enable cross-phenomenon generalization, we also created a third condition of multi-task learning with auxiliary verbs added to the tense reinflection examples to make them more similar to question formation. We trained 100 instances of a GRU without attentionon each setting and assessed how each model generalized for the task that was ambiguous.</p>
 
-
+        <p>Use these buttons to select which task/model combinations will be displayed in the table and plot:</p>
         <div class="dropdown">
           <button onclick="dropFunction('multiTaskDropdown')" class="dropbtn" id="multi_task_btn">Question formation</button>
           <div id="multiTaskDropdown" class="dropdown-content">
@@ -2442,6 +2454,11 @@
             <a onclick="set_param(tab13_question, 'mt', 'Multitask (plus auxiliary verbs)', 'multi_mt_btn'); set_param(tab13_tense, 'mt', 'Multitask (plus auxiliary verbs)', 'multi_mt_btn'); draw_p13_boxplot(p13_boxplot_metric); p13_button_selection(); drawTable(tab13); ">Multitask (plus auxiliary verbs)</a> 
           </div>
         </div>
+
+
+		<div style="height:400px;width:950px">
+			<div id="table_13_div" height="700px" width="950px"></div>
+		</div>
 
 
 
@@ -2815,15 +2832,37 @@
         <p>If you have questions, they might well be answered in the paper! But if not, feel free to email:</p>
 
 
-        <h2>Overall takeaways</h2>
+        <h2>Conclusion</h2>
 
-        <ul>    
-            <li>None of the many types of sequential RNNs that we investigated appears to have a hierarchical bias; even the ones that at first glance appear to actually probably don't.</li>
-            <li>Lots of things affect everything.</li>
-            <li>Tree-structured models do have a hierarchical bias. It appears that it is most important for the decoder to be tree-structured. Simply giving trees to a sequential model via bracketing of the input is not enough.</li>
-            <li>Multitask learning fails.</li>
-        </ul>
+        <h3>Main takeaways</h3>
 
+        We have found that all factors we tested can qualitatively affect a model’s inductive biases but that a hierarchical bias&emdash;which has been argued to underlie children’s acquisition of syntax&emdash;only arose in a model whose inputs and computations were governed by syntactic structure.
+
+        <h3>Relation to human language acquisition</h3>
+
+        <p>Our  experiments  showed  that  some  tree-basedmodels displayed a hierarchical bias,  while non-tree-based  models  never  displayed  such  a  bias,even when provided with strong cues to hierarchi-cal structure in their input (through bracketing ormulti-task learning).  These findings suggest thatthe  hierarchical  preference  displayed  by  humanswhen acquiring English requires making explicitreference  to  hierachical  structure,  and  cannot  beargued  to  emerge  from  more  general  biases  ap-plied to input containing cues to hierarchical struc-ture.</p>
+
+        <p>Moreover, since the only successful hierar-chical model was one that took the correct parsetrees as input, our results suggest that a child’s setof biases includes biases governing which specifictrees will be learned. Such biases could involve in-nate knowledge of likely tree structures, but theydo  not  need  to;  they  might  instead  involve  in-nate tendencies to bootstrap parse trees from othersources,  such  as  prosody  (Morgan  and  Demuth 1996) or semantics (Pinker, 1996).  With such in-formation,  children  might  learn  their  language’sbasic syntax before beginning to acquire questionformation,  and  this  knowledge  might  then  guidetheir acquisition of question formation.</p>
+
+        <p>There are three important caveats for extendingour  conclusions  to  humans.</p>
+
+        <ol>
+            <li>humans  mayhave  a  stronger  bias  to  share  processing  acrossphenomena  than  neural  networks  do,  in  whichcase multi-task learning would be a viable expla-nation  for  the  biases  displayed  by  humans  eventhough it had little effect on our models.  Indeed,this sort of cross-phenomenon consistency is sim-ilar in spirit to the principle of systematicity, and ithas long been argued that humans have a strongbias  for  systematicity  while  neural  networks  donot  (e.g.,  Fodor  and  Pylyshyn,  1988;  Lake  andBaroni,  2018).  </li>
+            <li>ome  have  argued  thatchildren’s  input  actually  does  contain  utterancesunambiguously supporting a hierarchical transfor-mation  (Pullum  and  Scholz,  2002),  whereas  wehave assumed a complete lack of such examples.</li>
+            <li>our  training  data  omit  many  cues  to  hi-erarchical structure that are available to children,including prosody and real-world grounding.  It ispossible that,  with data closer to a child’s input,more general inductive biases might succeed.</li>
+        </ol>
+
+        <p>However, there is still significant value in study-ing  what  can  be  learned  from  strings  alone,  be-cause we are unlikely to understand how the multi-ple components of a child’s input interact withouta  better  understanding  of  each  component.   Fur-thermore,  during  the  acquisition  of  abstract  as-pects of language, real-world grounding is not al-ways  useful  in  the  absence  of  linguistic  biases(Gleitman  and  Gleitman,  1992).More  gener-ally, it is easily possible for learning to be harderwhen  there  is  more  information  available  thanwhen there is less information available (Dupoux,2018).    Thus,  our  restricted  experimental  setupmay actually make learning easier than in the moreinformationally-rich scenario faced by children</p>
+
+        <h3>Practical takeaways</h3>
+
+        <p>Our  results  leave  room  for  three  possible  approaches to imparting a model with a hierarchical bias.</p>
+
+        <p>First, one could search the space of hyperparameters and random seeds to find a setting that leads to the desired generalization.  However, this may be ineffective:  At least in our limited exploration of these factors, we did not find a hyperparameter setting that led to hierarchical generalization across tasks for any non-tree-based model. A more principled search, such as one using meta-learning, might be more promising.</p>
+
+        <p>A second option is to add a pre-training task or use multi-task learning (Caruana, 1997; Collobert and Weston, 2008; Enguehard et al., 2017), where the  additional  task  is  designed  to  highlight  hierarchical structure.  Most of our multi-task experiments only achieved modest improvements over the  single-task  setting,  suggesting  that  this  approach is also not very viable. However, it is possible that further secondary tasks would bring further gains, making this approach more effective.</p>
+
+        <p>A final option is to use more interpretable architectures with explicit hierachical structure. Our results suggest that this approach is the most viable, as it yielded models that reliably generalized hierarchically. However, this approach only worked when  the  architectural  bias  was  augmented  with rich  assumptions  about  the  input  to  the  learner, namely that the input provided correct hierarchical parses for  all  sentences.   We  leave  for  future  work  an investigation of how to effectively use tree-based models without providing correct parses.</p>
 
 
         </div>
