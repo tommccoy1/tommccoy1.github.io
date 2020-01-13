@@ -30,18 +30,23 @@
         <p>Consider the miniature experiment below: Two learners are shown a set of training examples which are consistent with multiple possible rules. When the learners are asked to generalize to a novel example, their responses reveal that they have learned different rules. These differences cannot be due to the training data, because both learners have seen the same training data. Instead, the differences must be due to some property of the learners. The properties that determine how a learner generalizes from ambiguous data are called <b>inductive biases</b>. In this case, the learner on the left has an inductive bias favoring generalizations based on shape, while the learner on the right has an inductive bias favoring generalizations based on color. </p>
         
 
-        <div style="margin:auto; width:50%"><img src="shape_bias.png" width=100%></div>
+        <div style="margin:auto; max-width:500px"><img src="shape_bias.png" width=100%></div>
 
 
         <p>What properties of a learner cause it to have one inductive bias rather than another? We study this question using several types of sequence-to-sequence neural networks, which are models that transform one sequence into another (in our case, the models are transforming one sentence into another sentence). We focus on one particular bias, namely a bias for generalizations based on hierarchical structure, since such a <b>hierarchical bias</b> has long been argued to play a central role in children's acquisition of language. Understanding this bias can therefore lend insight into human language acquisition and can also help us create models of language that generalize better to novel syntactic structures.</p>
         
         <p>To investigate which types of models have a hierarchical bias, we use two tasks based on English syntax: <b>question formation</b> (that is, mapping a declarative sentence to a yes/no question) and <b>tense reinflection</b> (that is, mapping a past-tense sentence to a present-tense sentence). The following diagrams illustrate the experimental setups for these two tasks:</p>
 
-        <div style="margin:auto; width:100%"><img src="question_formation_setup.png" width=50% style="vertical-align: text-top"><img src="tense_reinflection_setup.png" width=50% style="vertical-align: text-top"></div>
-
+         <div style="width:100%; text-align: center">
+        <div style="margin:auto; display:inline-block; max-width:470px;"><img src="question_formation_setup.png" width=100%></div>
+        <div style="margin:auto; display:inline-block; max-width:470px;"><img src="tense_reinflection_setup.png" width=100%></div>
+         </div>
+    
+         <div>
         <p>For both of these tasks, we constrain the training set to be consistent with a generalization based on hierarchical structure and a generalization based on linear order. We then evaluate our models on examples that disambiguate these two types of generalizations to see which one each model has learned. If a model behaves consistently with the hierarchical generalization for both tasks, we would then have converging evidence to conclude that the model has a hierarchical bias.</p>
+         </div>
 
-        <div style="border-style: solid; border-width:1px; padding: 15px; width: 400px;">
+        <div style="border-style: solid; border-width:1px; padding: 15px; max-width: 400px;">
 
         <h2>Contents</h2>
 
