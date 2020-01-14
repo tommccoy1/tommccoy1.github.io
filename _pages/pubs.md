@@ -10,7 +10,7 @@ redirect_from:
 # 2020
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. To appear in <em>Transactions of the Association for Computational Linguistics</em>.
+<b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. To appear in <em>Transactions of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/pdf/2001.03632.pdf">arXiv</a>] [<a href="http://rtmccoy.com/rnn_hierarchical_biases.html">website</a>]
 </p>
 
 # 2019
