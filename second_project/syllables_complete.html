@@ -20,9 +20,10 @@
             return to_return;
         }
 
+        var train_set = [["ge", "ku"], ["be", "be", "po", "po"], ["bi", "de", "bi", "pu", "tu", "pu"], ["gi", "bi", "po", "ku"], ["gi", "gi", "be", "po", "ko", "ko"], ["ge", "ku"], ["de", "gi", "ge", "ku", "ku", "tu"], ["gi", "gi", "gi", "ko", "ku", "ko"], ["de", "di", "tu", "tu"], ["ge", "ku"], ["bi", "pu"], ["di", "di", "to", "tu"], ["de", "gi", "be", "pu", "ko", "tu"], ["de", "ge", "ku", "to"], ["ge", "ku"], ["gi", "de", "to", "ko"], ["bi", "pu"], ["ge", "ku"], ["bi", "pu"], ["be", "ge", "ko", "po"], ["bi", "di", "bi", "po", "tu", "pu"], ["be", "po"], ["ge", "gi", "ko", "ko"], ["be", "pu"], ["be", "gi", "ku", "pu"], ["de", "bi", "pu", "tu"], ["bi", "gi", "ko", "pu"], ["bi", "ge", "be", "po", "ku", "pu"], ["bi", "pu"], ["bi", "bi", "bi", "po", "pu", "pu"], ["gi", "bi", "bi", "po", "po", "ko"], ["de", "gi", "de", "to", "ko", "to"], ["be", "pu"], ["gi", "ge", "be", "po", "ko", "ko"], ["gi", "bi", "pu", "ko"], ["gi", "de", "gi", "ku", "to", "ko"], ["de", "be", "pu", "tu"], ["bi", "ge", "ge", "ko", "ku", "pu"], ["be", "po"], ["de", "de", "bi", "po", "to", "to"], ["di", "di", "to", "to"], ["ge", "bi", "de", "tu", "po", "ko"], ["bi", "be", "gi", "ku", "pu", "po"], ["bi", "bi", "po", "po"], ["bi", "pu"], ["de", "bi", "po", "to"], ["be", "po"], ["bi", "pu"]];
 
-        var train_set = [["di", "gi", "ku", "to"], ["gi", "ku"], ["bi", "po"], ["be", "bi", "pu", "po"], ["di", "gi", "ko", "to"], ["gi", "ge", "ku", "ko"], ["be", "pu"], ["de", "bi", "gi", "ku", "po", "to"], ["gi", "bi", "de", "to", "po", "ku"], ["bi", "pu"], ["ge", "bi", "gi", "ko", "po", "ku"], ["be", "gi", "ko", "po"], ["be", "po"], ["di", "de", "be", "po", "tu", "to"], ["be", "po"], ["gi", "ge", "ko", "ku"], ["de", "tu"], ["be", "po"], ["bi", "di", "to", "pu"], ["de", "di", "to", "tu"], ["be", "ge", "ku", "pu"], ["ge", "de", "gi", "ko", "tu", "ku"], ["di", "de", "tu", "to"], ["de", "di", "bi", "pu", "to", "tu"], ["ge", "bi", "gi", "ko", "pu", "ku"], ["ge", "de", "bi", "pu", "tu", "ku"], ["gi", "bi", "ge", "ko", "pu", "ku"], ["be", "gi", "ku", "pu"], ["ge", "gi", "be", "po", "ko", "ku"], ["di", "to"], ["gi", "be", "pu", "ko"], ["de", "bi", "gi", "ku", "po", "tu"], ["de", "tu"], ["bi", "pu"], ["gi", "ku"], ["gi", "bi", "po", "ko"], ["ge", "gi", "ko", "ku"], ["ge", "be", "gi", "ko", "pu", "ku"], ["be", "ge", "gi", "ku", "ko", "po"], ["bi", "de", "di", "tu", "to", "pu"], ["di", "gi", "be", "po", "ko", "to"], ["de", "bi", "be", "po", "pu", "tu"], ["gi", "ku"], ["ge", "ko"], ["be", "po"], ["de", "bi", "po", "tu"], ["bi", "di", "tu", "pu"], ["be", "po"]];
-        var test_set = [["y", "good", "di", "bi", "de", "tu", "po", "to"], ["y", "good", "be", "di", "tu", "po"], ["y", "good", "di", "tu"], ["y", "good", "di", "de", "bi", "po", "to", "tu"], ["y", "good", "gi", "ko"], ["y", "good", "de", "to"], ["y", "good", "gi", "di", "tu", "ku"], ["y", "good", "be", "bi", "po", "pu"], ["y", "good", "de", "to"], ["y", "good", "gi", "ko"], ["n", "nm", "bi", "gi", "ko"], ["n", "nm", "di", "to", "ko"], ["n", "nm", "de", "gi", "ku"], ["n", "nm", "di", "to", "po"], ["n", "nm", "gi", "ku", "to"], ["n", "longone", "bi", "de", "gi", "ko", "tu", "po", "to"], ["n", "longone", "gi", "di", "de", "bi", "pu", "to", "tu"], ["n", "longone", "di", "gi", "be", "bi", "po", "pu", "ko"], ["n", "longone", "di", "gi", "de", "to", "ko", "tu", "pu"], ["n", "longone", "gi", "ge", "de", "di", "tu", "to", "ko"], ["n", "nodep", "be", "tu"], ["n", "nodep", "gi", "de", "gi", "ku", "to", "po"], ["n", "nodep", "ge", "gi", "bi", "pu", "ku", "tu"], ["n", "nodep", "bi", "di", "ge", "ku", "ko", "po"], ["n", "nodep", "be", "ko"], ["n", "long_nodep", "di", "be", "ge", "de", "to", "pu", "po", "tu"], ["n", "long_nodep", "bi", "be", "ge", "bi", "po", "ko", "pu", "tu"], ["n", "long_nodep", "be", "di", "de", "di", "tu", "ko", "to", "pu"], ["n", "long_nodep", "ge", "bi", "de", "di", "tu", "ku", "po", "ko"], ["n", "long_nodep", "gi", "be", "bi", "ge", "ko", "po", "pu", "to"], ["y", "long", "di", "be", "gi", "de", "to", "ku", "pu", "tu"], ["y", "long", "gi", "di", "de", "ge", "ku", "tu", "to", "ko"], ["y", "long", "ge", "di", "bi", "de", "tu", "pu", "to", "ku"], ["y", "long", "di", "be", "gi", "de", "tu", "ko", "po", "to"], ["y", "long", "bi", "di", "de", "gi", "ku", "to", "tu", "pu"], ["n", "atob", "pu", "po"], ["n", "atob", "pu", "be", "po", "pu"], ["n", "atob", "pu", "po"], ["n", "atob", "tu", "be", "po", "tu"], ["n", "atob", "po", "bi", "pu", "po"], ["y", "seen", "ge", "de", "bi", "pu", "tu", "ku"], ["y", "seen", "be", "gi", "ko", "po"], ["y", "seen", "bi", "po"], ["y", "seen", "de", "tu"], ["y", "seen", "di", "gi", "ko", "to"], ["y", "seen", "be", "pu"], ["y", "seen", "ge", "be", "gi", "ko", "pu", "ku"], ["y", "seen", "de", "di", "bi", "pu", "to", "tu"], ["y", "seen", "ge", "de", "gi", "ko", "tu", "ku"], ["y", "seen", "be", "po"]];
+        var test_set = [["y", "good", "di", "tu"], ["y", "good", "be", "be", "de", "tu", "po", "po"], ["y", "good", "gi", "ko"], ["y", "good", "di", "tu"], ["y", "good", "bi", "po"], ["y", "good", "de", "to"], ["y", "good", "ge", "ko"], ["y", "good", "gi", "di", "de", "to", "to", "ku"], ["y", "good", "gi", "ku"], ["y", "good", "di", "to"], ["n", "nm", "gi", "di", "tu", "ko", "tu"], ["n", "nm", "di", "tu", "ku"], ["n", "nm", "be", "po", "po"], ["n", "nm", "be", "be", "pu"], ["n", "nm", "de", "to", "to"], ["n", "longone", "de", "be", "de", "gi", "ko", "to", "pu"], ["n", "longone", "be", "ge", "di", "tu", "ku", "po", "ku"], ["n", "longone", "bi", "de", "de", "tu", "to", "pu", "ku"], ["n", "longone", "gi", "di", "de", "de", "to", "tu", "tu"], ["n", "longone", "bi", "gi", "be", "be", "po", "po", "ku"], ["n", "nodep", "de", "po"], ["n", "nodep", "de", "be", "di", "tu", "po", "ku"], ["n", "nodep", "di", "ge", "ko", "ko"], ["n", "nodep", "ge", "pu"], ["n", "nodep", "de", "pu"], ["n", "long_nodep", "ge", "ge", "di", "bi", "po", "to", "ko", "to"], ["n", "long_nodep", "di", "di", "bi", "bi", "po", "po", "tu", "po"], ["n", "long_nodep", "de", "gi", "bi", "gi", "ko", "to", "ku", "tu"], ["n", "long_nodep", "di", "bi", "di", "de", "to", "tu", "po", "pu"], ["n", "long_nodep", "bi", "bi", "gi", "be", "pu", "po", "po", "pu"], ["y", "long", "bi", "ge", "di", "ge", "ko", "to", "ku", "po"], ["y", "long", "de", "di", "bi", "bi", "po", "pu", "tu", "to"], ["y", "long", "gi", "di", "de", "bi", "pu", "tu", "tu", "ko"], ["y", "long", "ge", "di", "be", "de", "to", "po", "tu", "ku"], ["y", "long", "di", "ge", "gi", "be", "po", "ku", "ku", "to"], ["n", "atob", "tu", "to"], ["n", "atob", "ko", "ko"], ["n", "atob", "po", "pu"], ["n", "atob", "ko", "gi", "bi", "pu", "ku", "ko"], ["n", "atob", "po", "po"], ["y", "seen", "de", "gi", "de", "to", "ko", "to"], ["y", "seen", "be", "po"], ["y", "seen", "ge", "ku"], ["y", "seen", "bi", "pu"], ["y", "seen", "bi", "ge", "be", "po", "ku", "pu"], ["y", "seen", "ge", "bi", "de", "tu", "po", "ko"], ["y", "seen", "be", "pu"], ["y", "seen", "de", "gi", "ge", "ku", "ku", "tu"], ["y", "seen", "gi", "de", "to", "ko"], ["y", "seen", "bi", "bi", "po", "po"]];
+
 
         var shuffled_train = jsPsych.randomization.repeat(range(train_set.length), 1);
         var shuffled_test = jsPsych.randomization.repeat(range(test_set.length), 1);
@@ -80,6 +81,8 @@
 
 
 
+
+
         var memory_test = {
             type: 'html-button-response',
             stimulus: '<p>Please repeat back the sequence you have just seen by clicking buttons in order. Click "SEQUENCE DONE" when finished.</p>',
@@ -100,7 +103,7 @@
         var error_message = {
             type: "html-keyboard-response",
             stimulus: "<p style='color:red; font-size:100px'>INCORRECT</p>",
-            trial_duration: 1000,
+            trial_duration: 2000,
         }
 
 
@@ -135,9 +138,9 @@
 
         var fixation = {
             type: 'html-keyboard-response',
-            stimulus: '<p style="color: white;">Please click the button corresponding to the syllable shown below.</p><br>' + '<div style="font-size:60px;">+</div><br><div style="width:200px;height:190px;"></div>',
+            stimulus: '<div style="font-size:60px;">+</div>',
             choices: jsPsych.NO_KEYS,
-            trial_duration: 1000,
+            trial_duration: 500,
         }
 
         var pause = {
@@ -170,56 +173,31 @@
 
 
         function syll(spelling) {
-            return {stimulus: '<p style="color: white;">Please click the button corresponding to the syllable shown below.</p><br><div style="font-size:40px;">' + spelling + '</div><br><div style="width:200px;height:190px;"></div>', trial_duration: 1000}
+            return {stimulus: '<div style="font-size:40px;">' +  spelling + '</div>', trial_duration: 1000}
         }
-
-        function single_syllable(this_syll) {
-
-            var syll_screen = {
-                type: 'html-button-response',
-                stimulus: '<p>Please click the button corresponding to the syllable shown below.</p><br><div style="font-size:40px;">' + this_syll + "</div><br>",
-                choices: ["<p style='width: 35px;'>be</p>", "<p style='width: 35px;'>bi</p>", "<p style='width: 35px;'>de</p>", "<p style='width: 35px;'>di</p>", "<p style='width: 35px;'>ge</p>", "<p style='width: 35px;'>gi</p>", "<p style='width: 35px;'>po</p>", "<p style='width: 35px;'>pu</p>", "<p style='width: 35px;'>to</p>", "<p style='width: 35px;'>tu</p>", "<p style='width: 35px;'>ko</p>", "<p style='width: 35px;'>ku</p>"],
-            };
-
-
-            return syll_screen;
-        }
-
-
-        function var_single_syll(this_syll) {
- 
-
-            var this_if_node = {
-                timeline: [error_message],
-                conditional_function: function(){
-                    var data = jsPsych.data.get().last(1).values();
-                    var to_return = false;
-
-                    if(data[0].button_pressed != syll_dict[this_syll]) {
-                        to_return = true;
-                    }
-
-                    return to_return;
-                }
-            }
-
-            return this_if_node;
-
-        }
-
-
 
 
         function word(sylls) {
             tl = []
             tl.push(fixation);
             for (i = 0; i < sylls.length; i++) {
-                tl.push(single_syllable(sylls[i]));
-                tl.push(var_single_syll(sylls[i]));
+                tl.push(syll(sylls[i]));
+                tl.push(pause);
             }
 
-            eval_step = {
+            full_word = {
+                type: 'html-keyboard-response',
+                choices: jsPsych.NO_KEYS,
                 timeline: tl,
+            }
+
+            tl_eval = []
+            tl_eval.push(full_word);
+            tl_eval.push(loop_memory_test);
+            tl_eval.push(var_if_node(this_block[this_shuffled_block[j]]));
+
+            eval_step = {
+                timeline: tl_eval,
             }
 
             return eval_step;
@@ -233,6 +211,7 @@
             tl.push(fixation);
             for (i = 0; i < sylls.length; i++) {
                 tl.push(syll(sylls[i]));
+                tl.push(pause);
             }
 
             full_word = {
