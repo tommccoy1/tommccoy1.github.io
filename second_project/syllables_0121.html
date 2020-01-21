@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="jspsych-6.1.0/jspsych.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
+        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body></body>
+    <script>
+
+        function range(num) {
+            var to_return = [];
+
+            for (k = 0; k < num; k++) {
+                to_return.push(k);
+            }
+
+            return to_return;
+        }
+
+
+        var train_set = [["di", "gi", "ku", "to"], ["gi", "ku"], ["bi", "po"], ["be", "bi", "pu", "po"], ["di", "gi", "ko", "to"], ["gi", "ge", "ku", "ko"], ["be", "pu"], ["de", "bi", "gi", "ku", "po", "to"], ["gi", "bi", "de", "to", "po", "ku"], ["bi", "pu"], ["ge", "bi", "gi", "ko", "po", "ku"], ["be", "gi", "ko", "po"], ["be", "po"], ["di", "de", "be", "po", "tu", "to"], ["be", "po"], ["gi", "ge", "ko", "ku"], ["de", "tu"], ["be", "po"], ["bi", "di", "to", "pu"], ["de", "di", "to", "tu"], ["be", "ge", "ku", "pu"], ["ge", "de", "gi", "ko", "tu", "ku"], ["di", "de", "tu", "to"], ["de", "di", "bi", "pu", "to", "tu"], ["ge", "bi", "gi", "ko", "pu", "ku"], ["ge", "de", "bi", "pu", "tu", "ku"], ["gi", "bi", "ge", "ko", "pu", "ku"], ["be", "gi", "ku", "pu"], ["ge", "gi", "be", "po", "ko", "ku"], ["di", "to"], ["gi", "be", "pu", "ko"], ["de", "bi", "gi", "ku", "po", "tu"], ["de", "tu"], ["bi", "pu"], ["gi", "ku"], ["gi", "bi", "po", "ko"], ["ge", "gi", "ko", "ku"], ["ge", "be", "gi", "ko", "pu", "ku"], ["be", "ge", "gi", "ku", "ko", "po"], ["bi", "de", "di", "tu", "to", "pu"], ["di", "gi", "be", "po", "ko", "to"], ["de", "bi", "be", "po", "pu", "tu"], ["gi", "ku"], ["ge", "ko"], ["be", "po"], ["de", "bi", "po", "tu"], ["bi", "di", "tu", "pu"], ["be", "po"]];
+        var test_set = [["y", "good", "di", "bi", "de", "tu", "po", "to"], ["y", "good", "be", "di", "tu", "po"], ["y", "good", "di", "tu"], ["y", "good", "di", "de", "bi", "po", "to", "tu"], ["y", "good", "gi", "ko"], ["y", "good", "de", "to"], ["y", "good", "gi", "di", "tu", "ku"], ["y", "good", "be", "bi", "po", "pu"], ["y", "good", "de", "to"], ["y", "good", "gi", "ko"], ["n", "nm", "bi", "gi", "ko"], ["n", "nm", "di", "to", "ko"], ["n", "nm", "de", "gi", "ku"], ["n", "nm", "di", "to", "po"], ["n", "nm", "gi", "ku", "to"], ["n", "longone", "bi", "de", "gi", "ko", "tu", "po", "to"], ["n", "longone", "gi", "di", "de", "bi", "pu", "to", "tu"], ["n", "longone", "di", "gi", "be", "bi", "po", "pu", "ko"], ["n", "longone", "di", "gi", "de", "to", "ko", "tu", "pu"], ["n", "longone", "gi", "ge", "de", "di", "tu", "to", "ko"], ["n", "nodep", "be", "tu"], ["n", "nodep", "gi", "de", "gi", "ku", "to", "po"], ["n", "nodep", "ge", "gi", "bi", "pu", "ku", "tu"], ["n", "nodep", "bi", "di", "ge", "ku", "ko", "po"], ["n", "nodep", "be", "ko"], ["n", "long_nodep", "di", "be", "ge", "de", "to", "pu", "po", "tu"], ["n", "long_nodep", "bi", "be", "ge", "bi", "po", "ko", "pu", "tu"], ["n", "long_nodep", "be", "di", "de", "di", "tu", "ko", "to", "pu"], ["n", "long_nodep", "ge", "bi", "de", "di", "tu", "ku", "po", "ko"], ["n", "long_nodep", "gi", "be", "bi", "ge", "ko", "po", "pu", "to"], ["y", "long", "di", "be", "gi", "de", "to", "ku", "pu", "tu"], ["y", "long", "gi", "di", "de", "ge", "ku", "tu", "to", "ko"], ["y", "long", "ge", "di", "bi", "de", "tu", "pu", "to", "ku"], ["y", "long", "di", "be", "gi", "de", "tu", "ko", "po", "to"], ["y", "long", "bi", "di", "de", "gi", "ku", "to", "tu", "pu"], ["n", "atob", "pu", "po"], ["n", "atob", "pu", "be", "po", "pu"], ["n", "atob", "pu", "po"], ["n", "atob", "tu", "be", "po", "tu"], ["n", "atob", "po", "bi", "pu", "po"], ["y", "seen", "ge", "de", "bi", "pu", "tu", "ku"], ["y", "seen", "be", "gi", "ko", "po"], ["y", "seen", "bi", "po"], ["y", "seen", "de", "tu"], ["y", "seen", "di", "gi", "ko", "to"], ["y", "seen", "be", "pu"], ["y", "seen", "ge", "be", "gi", "ko", "pu", "ku"], ["y", "seen", "de", "di", "bi", "pu", "to", "tu"], ["y", "seen", "ge", "de", "gi", "ko", "tu", "ku"], ["y", "seen", "be", "po"]];
+
+        var shuffled_train = jsPsych.randomization.repeat(range(train_set.length), 1);
+        var shuffled_test = jsPsych.randomization.repeat(range(test_set.length), 1);
+
+        var shuffled_trains = [shuffled_train];
+        var trains = [train_set];
+
+        var shuffled_tests = [shuffled_test];
+        var tests = [test_set];
+
+        var timeline = [];
+
+        var welcome = {
+            type: "html-keyboard-response",
+            stimulus: "Welcome to the experiment. Press any key to begin."
+        };
+        timeline.push(welcome);
+
+        var instructions_train = {
+            type: "html-keyboard-response",
+            stimulus: "In this experiment, a plus sign will appear in the center " +
+                "of the screen followed by a sequence of nonsense words, one word at " +
+                "a time. As each word appears, you will be asked to repeat " +
+                "back that word by clicking a button that corresponds to " +
+                "that word. Press any key to begin."
+        };
+        timeline.push(instructions_train);
+
+        var instructions_test = {
+            type: "html-keyboard-response",
+            stimulus: "All of the sequences of words that you have seen " +
+                "were sentences from an alien language. We are now going to show " +
+                "you some more sequences of words and will ask you whether each " +
+                "of these new sequences could also be a sentence in that alien language. " +
+                "Press any key to begin."
+        };
+
+        var syll_dict = {
+            "be": 0,
+            "bi": 1,
+            "de": 2,
+            "di": 3,
+            "ge": 4,
+            "gi": 5,
+            "po": 6,
+            "pu": 7,
+            "to": 8,
+            "tu": 9,
+            "ko": 10,
+            "ku": 11
+        };
+
+
+
+
+
+
+        var memory_test = {
+            type: 'html-button-response',
+            stimulus: '<p>Please repeat back the sequence you have just seen by clicking buttons in order. Click "SEQUENCE DONE" when finished.</p>',
+            choices: ["<p style='width: 35px;'>be</p>", "<p style='width: 35px;'>bi</p>", "<p style='width: 35px;'>de</p>", "<p style='width: 35px;'>di</p>", "<p style='width: 35px;'>ge</p>", "<p style='width: 35px;'>gi</p>", "<p style='width: 35px;'>po</p>", "<p style='width: 35px;'>pu</p>", "<p style='width: 35px;'>to</p>", "<p style='width: 35px;'>tu</p>", "<p style='width: 35px;'>ko</p>", "<p style='width: 35px;'>ku</p>", "<p style='width: 200px;'>SEQUENCE DONE</p>"],
+        };
+        
+        var loop_memory_test = {
+            timeline: [memory_test],
+            loop_function: function(data){
+                if(data.values()[0].button_pressed == 12){
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        var error_message = {
+            type: "html-keyboard-response",
+            stimulus: "<p style='color:red; font-size:100px'>INCORRECT</p><p style='color:red; font-size:32px'>This sequence will now restart from the beginning</p>",
+            trial_duration: 1000,
+        }
+
+
+        function var_if_node(correct_sylls) {
+ 
+
+            var this_if_node = {
+                timeline: [error_message],
+                conditional_function: function(){
+                    if(jsPsych.data.get().values().length < correct_sylls.length + 1) {
+                        return false;
+                    } else {
+                        var data = jsPsych.data.get().last(correct_sylls.length + 1).values();
+                        var to_return = false;
+
+                        var q;
+                        for (q = 0; q < correct_sylls.length; q++) {
+                            if(data[q].button_pressed != syll_dict[correct_sylls[q]]) {
+                                to_return = true;
+                            }
+                        }
+
+                        return to_return;
+                    }
+                }
+            }
+
+            return this_if_node;
+
+        }
+
+
+        var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<p style="color: white;">Please click the button corresponding to the syllable shown below.</p><br>' + '<div style="font-size:60px;">+</div><br><div style="width:200px;height:190px;"></div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 1000,
+        }
+
+        var pause = {
+            type: 'html-keyboard-response',
+            stimulus: '',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 200,
+        }
+
+
+
+
+
+
+        function create_response(answer, example_type, sequence) {
+            var response = {
+                type: 'html-keyboard-response',
+                stimulus: 'Is the sequence below a possible sentence in the alien language? Press y for yes, n for no<br><br><p style="font-size: 32px;">' + sequence + '</p>',
+                choices: ['y', 'n'],
+                data: {correct_response: answer, test_part: example_type },
+                on_finish: function(data){
+                    data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+                },
+            }
+            return response;
+        }
+
+
+       
+
+
+        function syll(spelling) {
+            return {stimulus: '<p style="color: white;">Please click the button corresponding to the syllable shown below.</p><br><div style="font-size:40px;">' + spelling + '</div><br><div style="width:200px;height:190px;"></div>', trial_duration: 1000}
+        }
+
+        
+        var finish_this_word = true;
+
+
+        function single_syllable(this_syll, prev_syll) {
+
+            var syll_screen = {
+                type: 'html-button-response',
+                stimulus: '<p>Please click the button corresponding to the syllable shown below.</p><br><div style="font-size:40px;">' + this_syll + "</div><br>",
+                choices: ["<p style='width: 35px;'>be</p>", "<p style='width: 35px;'>bi</p>", "<p style='width: 35px;'>de</p>", "<p style='width: 35px;'>di</p>", "<p style='width: 35px;'>ge</p>", "<p style='width: 35px;'>gi</p>", "<p style='width: 35px;'>po</p>", "<p style='width: 35px;'>pu</p>", "<p style='width: 35px;'>to</p>", "<p style='width: 35px;'>tu</p>", "<p style='width: 35px;'>ko</p>", "<p style='width: 35px;'>ku</p>"],
+            };
+
+            var this_if_node = {
+                timeline: [syll_screen],
+                conditional_function: function(){
+                    if (prev_syll == "NONE") {
+                        finish_this_word = true;
+                    }
+                    return finish_this_word;
+                }
+
+            }
+
+
+            return this_if_node;
+        }
+
+
+        function var_single_syll(this_syll) {
+ 
+
+            var this_if_node = {
+                timeline: [error_message],
+                conditional_function: function(){
+                    var data = jsPsych.data.get().last(1).values();
+                    var to_return = false;
+
+                    if(data[0].button_pressed != syll_dict[this_syll] && finish_this_word) {
+                        to_return = true;
+                        finish_this_word = false;
+                    }
+
+                    return to_return;
+                }
+            }
+
+            return this_if_node;
+
+        }
+
+
+
+
+        function word(sylls) {
+            finish_this_word = true;
+            tl = []
+            tl.push(fixation);
+            for (i = 0; i < sylls.length; i++) {
+                if (i == 0) {
+                    prev_syll = "NONE";
+                } else {
+                    prev_syll = sylls[i-1];
+                }
+
+                tl.push(single_syllable(sylls[i], prev_syll));
+                finish_this_word = true;
+                tl.push(var_single_syll(sylls[i]));
+                finish_this_word = true;
+            }
+
+            var loop_node = {
+                timeline: tl,
+                loop_function: function() {
+                    return (finish_this_word == false);
+                }
+            }
+
+            return loop_node;
+        }
+
+
+
+        function test_word(test_sylls) {
+            var sylls = test_sylls.slice(2);
+
+            tl_eval = []
+
+            tl_eval.push(create_response(test_sylls[0], test_sylls[1], sylls.join(" ")));
+
+            eval_step = {
+                timeline: tl_eval,
+            }
+
+            return eval_step;
+        }
+
+
+
+
+        for (q = 0; q < trains.length; q++) {
+
+
+            this_block = trains[q];
+            this_shuffled_block = shuffled_trains[q];
+
+            for (j = 0; j < this_block.length; j++) {
+                timeline.push(word(this_block[this_shuffled_block[j]]));
+            }
+
+
+            timeline.push(instructions_test);
+
+            this_block = tests[q];
+            this_shuffled_block = shuffled_tests[q];
+
+            for (j = 0; j < this_block.length; j++) {
+                timeline.push(test_word(this_block[this_shuffled_block[j]]));
+            }
+
+
+
+
+        }
+
+        var debrief_block = {
+            type: "html-keyboard-response",
+            stimulus: function() {
+                var trials = jsPsych.data.get().filter([{test_part: 'good'}, {test_part: 'nm'}, {test_part: 'longone'}, {test_part: 'nodep'}, {test_part: 'long_nodep'}, {test_part: 'long'}, {test_part: 'atob'}, {test_part: 'seen'}]);
+                var correct_trials = trials.filter({correct: true});
+                var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+
+                return "<p>You responded correctly on "+accuracy+"% of the trials.</p>" +
+                    "<p>Press any key to complete the experiment. Thank you!</p>";
+
+           }
+        };
+        timeline.push(debrief_block);
+
+
+
+        jsPsych.init({
+            timeline: timeline,
+            experiment_width: 720,
+            on_finish: function() {
+                jsPsych.data.displayData('csv');
+            },
+            show_progress_bar: true
+        })
+
+
+    </script>
+</html>
+
+
+
+
+
+
