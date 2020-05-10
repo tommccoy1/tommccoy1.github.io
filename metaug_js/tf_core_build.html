@@ -1,0 +1,604 @@
+<html lang="{{ site.lang | default: "en-US" }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="biases.css">
+        <script src="assets/js/scale.fix.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" type="text/css" href="google_chart.css">
+
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+
+		<script src="math.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+<body>
+	<div class="contentwrapper">
+	<section>
+	<h1 style="text-align:center">Imparting universal linguistic inductive biases via meta-learning</h1>
+
+
+	<div id="language1wrapper">
+	<div>Language description: Only consonant-vowel syllables are allowed; delete sounds as needed to make this happen.</div>
+
+<table class="hor-minimalist-a">
+<tr>
+	<th width="50">Input</th>
+	<th>Correct output</th>
+	<th>Meta-initialized<br>model's output</th>
+	<th>Randomly-initialized<br>model's output</th>
+</tr>
+<tr>
+	<td>rOau</td>
+	<td>.rO.a.u.</td>
+	<td><span id="metaoutb1">.rO.a.u.</span></td>
+	<td><span id="randomoutb1">.rO.a.u.</span></td>
+</tr>
+<tr>
+	<td>axxaO</td>
+	<td>.a.xa.O.</td>
+	<td><span id="metaoutb2">.a.xa.O.</span></td>
+	<td><span id="randomoutb2">.a.xa.O.</span></td>
+</tr>
+<tr>
+	<td>rxxa</td>
+	<td>.xa.</td>
+	<td><span id="metaoutb3">.xa.</span></td>
+	<td><span id="randomoutb3">.xa.</span></td>
+</tr>
+<tr>
+	<td>axrxu</td>
+	<td>.a.xu.</td>
+	<td><span id="metaoutb4">.a.xu.</span></td>
+	<td><span id="randomoutb4">.a.xu.</span></td>
+</tr>
+<tr>
+	<td>ttxaO</td>
+	<td>.xa.O.</td>
+	<td><span id="metaoutb5">.xa.O.</span></td>
+	<td><span id="randomoutb5">.xa.O.</span></td>
+</tr>
+</table>
+
+	<div>Training examples seen:</div>
+	<div id="trainingexamplelist"></div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<h3>Introduction: No duplication without representation</h3>
+
+	<div id="printplace"></div>
+
+	<div id="printplaceb"></div>
+
+<button type="button" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random')">Click Me!</button>
+
+	<div id="printplacec"></div>
+<div id="printplaced"></div>
+
+
+<h3>Generalization</h3>
+
+Use multiple tabs: Click on the type of generalization you want to study.
+
+<h3>Sandbox</h3>
+
+People can enter their own training set and test set and see how the model learns it.
+
+
+</section>
+</div> <!--End of content wrapper-->
+
+<script src="maml_weights_js_variables.js"></script>
+<script src="charinddicts.js"></script>
+<script src="tf_weights.js"></script>
+<script>
+
+
+var seen_training = "";
+
+function make_one_hot(index) {
+    onehot_vec = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    onehot_vec[index] = 1;
+    return onehot_vec;  
+}
+console.log(make_one_hot(3));
+function make_one_hot_seq(word, eos=true) {
+    length_word = word.length;
+    onehot_vec = []
+
+    for (ind = 0; ind < length_word; ind++) {
+        charnum = char2ind[word[ind]];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+    }
+
+    if (eos) {
+        charnum = char2ind["EOS"];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+        length_word += 1;
+    }
+
+    return tf.tensor3d(onehot_vec, [1,length_word,34]);
+} 
+
+function output_to_string(outp_logits) {
+    topks = tf.topk(outp_logits)["indices"];
+    topks_usable = topks.dataSync();
+    
+    out_string = "";
+    for (i = 0; i < topks_usable.length; i++) {
+        out_string = out_string + ind2char[topks_usable[i]];
+    }
+
+    return out_string;
+}
+
+function generate_output(model, inp, secondguy) {
+    console.log("herehere");
+    done = false;
+
+    inp1 = word2embs([inp]);
+    inp2 = word2embs([""], sos=true);
+    //inp2 = word2embs([secondguy.substring(0, training_set[ijk][1].length)], sos=true)
+
+    counter = 0;
+    while (!done) {
+        counter += 1;
+        out_string = output_to_string(model.predict([inp1, inp2]));
+        if (out_string[out_string.length - 1] == "Z") {
+            done = true;
+        } else if (counter > 15) {
+            done = true;
+        } else {
+            inp2 = word2embs([out_string], sos=true);
+        }
+        
+    }
+
+    return out_string.substring(0, out_string.length - 1);
+    
+}
+
+function word2embs(words, sos=false) {
+    n_words = words.length;
+
+    embs_list = [];
+
+    word_length = words[0].length;
+    if (sos) {
+        word_length += 1;
+    }
+
+    for (zx = 0; zx < n_words; zx++) {
+        word = words[zx];
+        if (word.length != word_length) {
+            14/0;
+        }
+        if (sos) {
+            embs_list = embs_list.concat(embedding_dictionary["SOS"]);
+        }
+
+        for(i = 0; i < word.length; i++) {
+            embs_list = embs_list.concat(embedding_dictionary[word[i]]);
+        }
+    }
+    console.log(words);
+    return tf.tensor3d(embs_list, [n_words,word_length,10]);
+
+}
+
+training_set = [['r', ''],
+  ['xuOuu', '.xu.O.u.u.'],
+  ['xur', '.xu.'],
+  ['uuxu', '.u.u.xu.'],
+  ['rtrO', '.rO.'],
+  ['rOtuO', '.rO.tu.O.'],
+  ['OtO', '.O.tO.'],
+  ['ttxO', '.xO.'],
+  ['Ott', '.O.'],
+  ['xr', ''],
+  ['uxtO', '.u.tO.'],
+  ['uuxta', '.u.u.ta.'],
+  ['Oaaxt', '.O.a.a.'],
+  ['r', ''],
+  ['Orxuu', '.O.xu.u.'],
+  ['xx', ''],
+  ['xrO', '.rO.'],
+  ['raxr', '.ra.'],
+  ['ratt', '.ra.']];
+
+test_set = [['rOau', '.rO.a.u.'],
+  ['axxaO', '.a.xa.O.'],
+  ['rxxa', '.xa.'],
+  ['axrxu', '.a.xu.'],
+  ['ttxaO', '.xa.O.']];
+//  ['Ouuut', '.O.u.u.u.'],
+//  ['rutOu', '.ru.tO.u.'],
+//  ['tOaux', '.tO.a.u.'],
+//  ['xttax', '.ta.'],
+//  ['xuxut', '.xu.xu.'],
+//  ['xarr', '.xa.']];
+
+
+
+this_input = word2embs(["zaza"]);
+this_input2 = word2embs([".za.za"], sos=true);
+
+
+
+tf_emb_wg = tf.tensor2d(emb_wg, [34,10]);
+weights_emb_bias = tf.zeros([10]);
+tf_full_x = tf.variable(tf.tensor2d(full_x, [10,768]),trainable=true);
+tf_full_w = tf.variable(tf.tensor2d(full_w, [256,768]),trainable=true);
+tf_full_b = tf.variable(tf.tensor(full_b, [3,256]),trainable=true);
+tf_out_wg = tf.variable(tf.tensor(out_wg, [256,34]),trainable=true);
+tf_out_wb = tf.variable(tf.tensor(out_wb, [34]),trainable=true);
+tf_full_xd = tf.variable(tf.tensor2d(full_xd, [10,768]),trainable=true);
+tf_full_wd = tf.variable(tf.tensor2d(full_wd, [256,768]),trainable=true);
+tf_full_bd = tf.variable(tf.tensor(full_bd, [3,256]),trainable=true);
+
+
+
+const xz = tf.variable(tf.slice(tf_full_x, [0,0], [10,256]));
+const xr = tf.variable(tf.slice(tf_full_x, [0,256], [10,256]));
+const xx = tf.variable(tf.slice(tf_full_x, [0,512], [10,256]));
+const wz = tf.variable(tf.slice(tf_full_w, [0,0], [256,256]));
+const wr = tf.variable(tf.slice(tf_full_w, [0,256], [256,256]));
+const wx = tf.variable(tf.slice(tf_full_w, [0,512], [256,256]));
+const bz = tf.variable(tf.slice(tf_full_b, [0,0], [1,256]));
+const br = tf.variable(tf.slice(tf_full_b, [1,0], [1,256]));
+const bx = tf.variable(tf.slice(tf_full_b, [2,0], [1,256]));
+
+const xzd = tf.variable(tf.slice(tf_full_xd, [0,0], [10,256]));
+const xrd = tf.variable(tf.slice(tf_full_xd, [0,256], [10,256]));
+const xxd = tf.variable(tf.slice(tf_full_xd, [0,512], [10,256]));
+const wzd = tf.variable(tf.slice(tf_full_wd, [0,0], [256,256]));
+const wrd = tf.variable(tf.slice(tf_full_wd, [0,256], [256,256]));
+const wxd = tf.variable(tf.slice(tf_full_wd, [0,512], [256,256]));
+const bzd = tf.variable(tf.slice(tf_full_bd, [0,0], [1,256]));
+const brd = tf.variable(tf.slice(tf_full_bd, [1,0], [1,256]));
+const bxd = tf.variable(tf.slice(tf_full_bd, [2,0], [1,256]));
+
+const emb = tf.variable(tf_emb_wg);
+
+const wout = tf.variable(tf_out_wg);
+const bout = tf.variable(tf_out_wb);
+
+
+
+
+
+
+
+const xzb = tf.variable(tf.randomNormal([10,256]));
+const xrb = tf.variable(tf.randomNormal([10,256]));
+const xxb = tf.variable(tf.randomNormal([10,256]));
+const wzb = tf.variable(tf.randomNormal([256,256]));
+const wrb = tf.variable(tf.randomNormal([256,256]));
+const wxb = tf.variable(tf.randomNormal([256,256]));
+const bzb = tf.variable(tf.randomNormal([1,256]));
+const brb = tf.variable(tf.randomNormal([1,256]));
+const bxb = tf.variable(tf.randomNormal([1,256]));
+
+const xzdb = tf.variable(tf.randomNormal([10,256]));
+const xrdb = tf.variable(tf.randomNormal([10,256]));
+const xxdb = tf.variable(tf.randomNormal([10,256]));
+const wzdb = tf.variable(tf.randomNormal([256,256]));
+const wrdb = tf.variable(tf.randomNormal([256,256]));
+const wxdb = tf.variable(tf.randomNormal([256,256]));
+const bzdb = tf.variable(tf.randomNormal([1,256]));
+const brdb = tf.variable(tf.randomNormal([1,256]));
+const bxdb = tf.variable(tf.randomNormal([1,256]));
+
+const embb = tf.variable(tf.randomNormal([34,10]));
+
+const woutb = tf.variable(tf.randomNormal([256,34]));
+const boutb = tf.variable(tf.randomNormal([34]));
+
+
+
+
+
+
+
+
+// The weights and biases for the two dense layers.
+const w1 = tf.variable(tf.randomNormal([784, 32]));
+const b1 = tf.variable(tf.randomNormal([32]));
+const w2 = tf.variable(tf.randomNormal([32, 10]));
+const b2 = tf.variable(tf.randomNormal([10]));
+
+        //hx = hidden
+        //input_plus_hidden = torch.cat((inp, hx), 2)
+
+        //r_t = torch.sigmoid(F.linear(input_plus_hidden, self.wr_weights, self.wr_bias))
+        //z_t = torch.sigmoid(F.linear(input_plus_hidden, self.wz_weights, self.wz_bias))
+        //urh_t = F.linear(r_t * hx, self.wrh_weights, self.wrh_bias) # Correct
+        //#urh_t = r_t*F.linear(hx, self.wrh_weights, self.wrh_bias) # Incorrect
+        //x_t = F.linear(inp, self.wx_weights, self.wx_bias)
+        //h_tilde = F.tanh(urh_t + x_t)
+        //h_t = z_t * hx + (1 - z_t) * h_tilde
+
+console.log(word2embs("za").print());
+function seq2seq(inpseq, outlength=-1) {
+	outseq = "";
+	hidden_state = tf.zeros([1,256]);
+	console.log(inpseq);
+	for (qz = 0; qz < inpseq.length; qz++) {
+		inp = tf.tensor2d(embedding_dictionary[inpseq[qz]], [1,10]);
+		zt = inp.matMul(xz).add(bz).add(hidden_state.matMul(wz)).sigmoid();
+		rt = inp.matMul(xr).add(br).add(hidden_state.matMul(wr)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wx).add(bx);
+		xt = inp.matMul(xx);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+	}
+
+	prev_output = "SOS";
+	logits = [];
+
+	if (outlength == -1) {
+		max_length = 15;
+	} else {
+		max_length = outlength;
+	}
+
+	for (qz = 0; qz < max_length + 1; qz++) {
+		inp = tf.tensor2d(embedding_dictionary[prev_output], [1,10]);
+		zt = inp.matMul(xzd).add(bzd).add(hidden_state.matMul(wzd)).sigmoid();
+		rt = inp.matMul(xrd).add(brd).add(hidden_state.matMul(wrd)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxd).add(bxd);
+		xt = inp.matMul(xxd);
+		h_tilde = urht.add(xt).tanh();
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		logit = hidden_state.matMul(wout).add(bout);//HEREHERE
+		logits = logits.concat(logit);
+
+		topks = tf.topk(logit)["indices"];
+    	topks_usable = topks.dataSync();
+
+		prev_output = ind2char[topks_usable[0]];
+		if (outlength == -1 && prev_output == "Z") {
+			break;
+		}
+
+		outseq = outseq + prev_output;
+	}
+
+
+	return [outseq, tf.stack(logits, axis=1)];	
+	console.log(hidden_state);
+
+}
+
+
+function seq2seqb(inpseq, outlength=-1) {
+	outseq = "";
+	hidden_state = tf.zeros([1,256]);
+	console.log(inpseq);
+	for (qz = 0; qz < inpseq.length; qz++) {
+		inp = tf.tensor2d(embedding_dictionary[inpseq[qz]], [1,10]);
+		zt = inp.matMul(xzb).add(bzb).add(hidden_state.matMul(wzb)).sigmoid();
+		rt = inp.matMul(xrb).add(brb).add(hidden_state.matMul(wrb)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxb).add(bxb);
+		xt = inp.matMul(xxb);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+	}
+
+	prev_output = "SOS";
+	logits = [];
+
+	if (outlength == -1) {
+		max_length = 15;
+	} else {
+		max_length = outlength;
+	}
+
+	for (qz = 0; qz < max_length + 1; qz++) {
+		inp = tf.tensor2d(embedding_dictionary[prev_output], [1,10]);
+		zt = inp.matMul(xzdb).add(bzdb).add(hidden_state.matMul(wzdb)).sigmoid();
+		rt = inp.matMul(xrdb).add(brdb).add(hidden_state.matMul(wrdb)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxdb).add(bxdb);
+		xt = inp.matMul(xxdb);
+		h_tilde = urht.add(xt).tanh();
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		logit = hidden_state.matMul(woutb).add(boutb);//HEREHERE
+		logits = logits.concat(logit);
+
+		topks = tf.topk(logit)["indices"];
+    	topks_usable = topks.dataSync();
+
+		prev_output = ind2char[topks_usable[0]];
+		if (outlength == -1 && prev_output == "Z") {
+			break;
+		}
+
+		outseq = outseq + prev_output;
+	}
+
+
+	return [outseq, tf.stack(logits, axis=1)];	
+	console.log(hidden_state);
+
+}
+
+
+
+
+
+
+
+console.log(seq2seq("axxaO")[0]);
+//console.log(bz.print());
+function model(xlist) {
+  x = xlist[0];
+  for (q = 0; q < xlist.length; q++) {
+    output = tf.tensor([0,0,0,0,0,0,0,0,0,0]);
+    return output.add(x.matMul(w1).add(b1).relu().matMul(w2).add(b2).softmax());
+  }
+}
+
+var xsm = training_set[0][0];
+var ysm = training_set[0][1];
+
+
+
+function* data() {
+ for (let i = 0; i < 1; i++) {
+   // Generate one sample at a time.
+   yield "attt";
+ }
+}
+
+function* labels() {
+ for (let i = 0; i < 1; i++) {
+   // Generate one sample at a time.
+   yield ".a.";
+ }
+}
+
+
+
+//const xsa = tf.data.generator(data);
+//const ysa = tf.data.generator(labels);
+// Zip the data and labels together, shuffle and batch 32 samples at a time.
+//const dsa = tf.data.zip({xsa, ysa}).shuffle(100 /* bufferSize */).batch(32);
+
+const xsma = tf.data.generator(data);
+const ysma = tf.data.generator(labels);
+const ds = tf.data.zip({xsma, ysma}).shuffle(100).batch(1);
+
+function return_inps() {
+	return xs, ys;
+}
+
+document.getElementById("printplacec").innerHTML = "dog";
+
+document.getElementById("printplacec").innerHTML = seq2seq(test_set[0][0])[0] + " " + seq2seq(test_set[1][0])[0] + " " + seq2seq(test_set[2][0])[0] + " " + seq2seq(test_set[3][0])[0];
+
+this_counter = 0;
+async function fitfitfit(seq2seq, prefix) {
+
+const optimizer = tf.train.sgd(0.05);
+// Train for 5 epochs.
+for (let epoch = 0; epoch < 1; epoch++) {
+  await ds.forEachAsync(({xs, ys}) => {
+    optimizer.minimize(() => {
+	  seen_training = seen_training + ", " + xsm + " -> " + ysm;
+	  document.getElementById("trainingexamplelist").innerHTML = seen_training;
+      const predYs = seq2seq(xsm,outlength=ysm.length)[1];
+	  console.log(seq2seq(xsm)[1]);
+	  document.getElementById("printplacec").innerHTML = seq2seq(test_set[0][0])[0] + " " + seq2seq(test_set[1][0])[0] + " " + seq2seq(test_set[2][0])[0] + " " + seq2seq(test_set[3][0])[0];
+	  document.getElementById("printplaced").innerHTML = test_set[0][1] + " " + test_set[1][1] + " " + test_set[2][1] + " " + test_set[3][1];
+      const loss = tf.losses.softmaxCrossEntropy(make_one_hot_seq(ysm), predYs, axis=2);
+      loss.data().then(l => console.log('Loss', l));
+	  this_counter += 1;
+
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = seq2seq(test_set[lmnop][0]);
+ 			if (pred[0] == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+			
+			document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+	  }
+
+
+      return loss;
+    });
+  });
+  console.log('Epoch', epoch);
+}
+console.log("tc", this_counter);
+xsm = training_set[this_counter][0];
+ysm = training_set[this_counter][1];
+}
+
+
+
+async function fitfit() {
+
+const optimizer = tf.train.sgd(0.1 /* learningRate */);
+// Train for 5 epochs.
+for (let epoch = 0; epoch < 5; epoch++) {
+  await ds.forEachAsync(({xs, ys}) => {
+    optimizer.minimize(() => {
+      const predYs = model([xs,xs]);
+      const loss = tf.losses.softmaxCrossEntropy(make_one_hot_seq(ys), predYs);
+      loss.data().then(l => console.log('Loss', l));
+
+	  
+
+      return loss;
+    });
+  });
+  console.log('Epoch', epoch);
+}
+
+}
+
+
+
+
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = seq2seq(test_set[lmnop][0]);
+			console.log(pred, test_set[lmnop][1]);
+			if (pred[0] == test_set[lmnop][1]) {
+				font_color = "green";
+			} else {
+				font_color = "red";
+			}
+			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+	  }
+
+
+
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = seq2seqb(test_set[lmnop][0]);
+			if (pred[0] == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+
+
+			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+	  }
+
+
+
+
+</script>
+
+
+</body>
+
+
+
+</html>
+
+

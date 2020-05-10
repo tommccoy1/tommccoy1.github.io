@@ -1,0 +1,301 @@
+---
+layout: default
+comments: false
+---
+<head>
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script src="math.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+
+	<h1 style="text-align:center"> Uncovering compositional structure in neural networks</h1>
+
+
+	<h3>Introduction: No duplication without representation</h3>
+
+	<div id="printplace"></div>
+
+	<div id="printplaceb"></div>
+
+<button type="button" onclick="fitfitold();">Click Me!</button>
+
+	<div id="printplacec"></div>
+<script src="maml_weights_js_variables.js"></script>
+<script src="charinddicts.js"></script>
+<script src="tf_weights.js"></script>
+<script>
+
+
+function make_one_hot(index) {
+    onehot_vec = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    onehot_vec[index] = 1;
+    return onehot_vec;  
+}
+console.log(make_one_hot(3));
+function make_one_hot_seq(word, eos=true) {
+    length_word = word.length;
+    onehot_vec = []
+
+    for (ind = 0; ind < length_word; ind++) {
+        charnum = char2ind[word[ind]];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+    }
+
+    if (eos) {
+        charnum = char2ind["EOS"];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+        length_word += 1;
+    }
+
+    return tf.tensor3d(onehot_vec, [1,length_word,34]);
+} 
+
+function output_to_string(outp_logits) {
+    topks = tf.topk(outp_logits)["indices"];
+    topks_usable = topks.dataSync();
+    
+    out_string = "";
+    for (i = 0; i < topks_usable.length; i++) {
+        out_string = out_string + ind2char[topks_usable[i]];
+    }
+
+    return out_string;
+}
+
+function generate_output(model, inp, secondguy) {
+    console.log("herehere");
+    done = false;
+
+    inp1 = word2embs([inp]);
+    inp2 = word2embs([""], sos=true);
+    //inp2 = word2embs([secondguy.substring(0, training_set[ijk][1].length)], sos=true)
+
+    counter = 0;
+    while (!done) {
+        counter += 1;
+        out_string = output_to_string(model.predict([inp1, inp2]));
+        if (out_string[out_string.length - 1] == "Z") {
+            done = true;
+        } else if (counter > 15) {
+            done = true;
+        } else {
+            inp2 = word2embs([out_string], sos=true);
+        }
+        
+    }
+
+    return out_string.substring(0, out_string.length - 1);
+    
+}
+
+function word2embs(words, sos=false) {
+    n_words = words.length;
+
+    embs_list = [];
+
+    word_length = words[0].length;
+    if (sos) {
+        word_length += 1;
+    }
+
+    for (zx = 0; zx < n_words; zx++) {
+        word = words[zx];
+        if (word.length != word_length) {
+            14/0;
+        }
+        if (sos) {
+            embs_list = embs_list.concat(embedding_dictionary["SOS"]);
+        }
+
+        for(i = 0; i < word.length; i++) {
+            embs_list = embs_list.concat(embedding_dictionary[word[i]]);
+        }
+    }
+    console.log(words);
+    return tf.tensor3d(embs_list, [n_words,word_length,10]);
+
+}
+
+training_set = [['r', ''],
+  ['xuOuu', '.xu.O.u.u.'],
+  ['xur', '.xu.'],
+  ['uuxu', '.u.u.xu.'],
+  ['rtrO', '.rO.'],
+  ['rOtuO', '.rO.tu.O.'],
+  ['OtO', '.O.tO.'],
+  ['ttxO', '.xO.'],
+  ['Ott', '.O.'],
+  ['xr', ''],
+  ['uxtO', '.u.tO.'],
+  ['uuxta', '.u.u.ta.'],
+  ['Oaaxt', '.O.a.a.'],
+  ['r', ''],
+  ['Orxuu', '.O.xu.u.'],
+  ['xx', ''],
+  ['xrO', '.rO.'],
+  ['raxr', '.ra.'],
+  ['ratt', '.ra.']];
+
+test_set = [['rOau', '.rO.a.u.'],
+  ['axxaO', '.a.xa.O.'],
+  ['rxxa', '.xa.'],
+  ['axrxu', '.a.xu.'],
+  ['ttxaO', '.xa.O.'],
+  ['Ouuut', '.O.u.u.u.'],
+  ['rutOu', '.ru.tO.u.'],
+  ['tOaux', '.tO.a.u.'],
+  ['xttax', '.ta.'],
+  ['xuxut', '.xu.xu.'],
+  ['xarr', '.xa.']];
+
+
+
+this_input = word2embs(["zaza"]);
+this_input2 = word2embs([".za.za"], sos=true);
+
+
+
+
+
+// Define a model for linear regression.
+const model = tf.sequential();
+model.add(tf.layers.dense({units: 2, inputShape: [1]}));
+
+
+model.compile({loss: 'categoricalCrossentropy', optimizer: 'sgd'});
+
+console.log(model.getWeights())
+model.setWeights([tf.tensor([3,2], [1,2]),tf.tensor([5,0])])
+//enc_lstmq.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+
+// Generate some synthetic data for training.
+const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
+const ys = tf.tensor2d([1, 0, 1, 0, 0, 1, 0, 1], [4, 2]);
+
+// Train the model using the data.
+model.fit(xs, ys, {epochs: 10}).then(() => {
+  // Use the model to do inference on a data point the model hasn't seen before:
+  model.predict(tf.tensor2d([5], [1, 1])).print();
+  // Open the browser devtools to see the output
+  // Use the model to do inference on a data point the model hasn't seen before:
+  model.predict(tf.tensor2d([5], [1, 1])).print();
+  // Open the browser devtools to see the output
+
+
+});
+
+const inp1q = tf.input({shape: [,10]})
+const inp2q = tf.input({shape: [,10]})
+
+const enc_lstmq = tf.layers.gru({units: 256, returnSequences: false, recurrentActivation: 'sigmoid'});
+const dec_lstmq = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid'});
+const output_layerq = tf.layers.dense({units:34});
+
+const outseqq = output_layerq.apply(dec_lstmq.apply(inp2q, {initialState: enc_lstmq.apply(inp1q)}));
+//const outseqq = dec_lstmq.apply(inp2q, {initialState: enc_lstmq.apply(inp1q)});
+
+tf_emb_wg = tf.tensor2d(emb_wg, [34,10]);
+weights_emb_bias = tf.zeros([10]);
+tf_full_x = tf.variable(tf.tensor2d(full_x, [10,768]),trainable=true);
+tf_full_w = tf.variable(tf.tensor2d(full_w, [256,768]),trainable=true);
+tf_full_b = tf.variable(tf.tensor(full_b, [768]),trainable=true);
+tf_out_wg = tf.variable(tf.tensor(out_wg, [256,34]),trainable=true);
+tf_out_wb = tf.variable(tf.tensor(out_wb, [34]),trainable=true);
+tf_full_xd = tf.variable(tf.tensor2d(full_xd, [10,768]),trainable=true);
+tf_full_wd = tf.variable(tf.tensor2d(full_wd, [256,768]),trainable=true);
+tf_full_bd = tf.variable(tf.tensor(full_bd, [768]),trainable=true);
+
+
+enc_lstmq.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+dec_lstmq.setWeights([tf_full_xd, tf_full_wd, tf_full_bd]);
+output_layerq.setWeights([tf_out_wg, tf_out_wb]);
+
+const full_modelq = tf.model({inputs:[inp1q,inp2q], outputs: outseqq})
+
+console.log(full_modelq.getWeights(trainable=true));
+
+
+function fitfit() {
+	model.compile({loss: 'categoricalCrossentropy', optimizer: tf.train.sgd(0.01)});
+
+	// Train the model using the data.
+	model.fit(xs, ys, {epochs: 10}).then(() => {
+  		// Use the model to do inference on a data point the model hasn't seen before:
+  		model.predict(tf.tensor2d([5], [1, 1])).print();
+  		// Open the browser devtools to see the output
+	});
+}
+
+var ijk = 0;
+async function fitfitold() {
+        full_modelq.compile({loss: 'categoricalCrossentropy', optimizer: tf.train.sgd(0.01)});
+
+        inp1 = word2embs([training_set[ijk][0]]);
+        inp2 = word2embs([training_set[ijk][1].substring(0, training_set[ijk][1].length)], sos=true);
+        console.log(training_set[ijk][1]);
+        await full_modelq.fit([inp1,inp2], make_one_hot_seq(training_set[ijk][1]), {epochs: 3}).then(() =>        {
+            ijk += 1;
+            for (qm = 0; qm < 3; qm++) {
+                inp1 = word2embs([test_set[qm][0]]);
+                inp2 = word2embs([test_set[qm][1].substring(0, training_set[qm][1].length - 1)],sos=true);
+
+                word_out = generate_output(full_modelq, test_set[qm][0], test_set[qm][1]);
+                console.log(word_out, test_set[qm][1]);
+            }
+
+            full_modelq.apply([this_input, this_input2]).logSoftmax().print();
+        });
+		console.log(ijk, "is ijk");
+
+}
+
+
+
+
+
+// The weights and biases for the two dense layers.
+const w1 = tf.variable(tf.randomNormal([784, 32]));
+const b1 = tf.variable(tf.randomNormal([32]));
+const w2 = tf.variable(tf.randomNormal([32, 10]));
+const b2 = tf.variable(tf.randomNormal([10]));
+
+function model(x) {
+  return x.matMul(w1).add(b1).relu().matMul(w2).add(b2).softmax();
+}
+
+
+function fitfit() {
+
+const optimizer = tf.train.sgd(0.1 /* learningRate */);
+// Train for 5 epochs.
+for (let epoch = 0; epoch < 5; epoch++) {
+  await ds.forEachAsync(({xs, ys}) => {
+    optimizer.minimize(() => {
+      const predYs = model(xs);
+      const loss = tf.losses.softmaxCrossEntropy(ys, predYs);
+      loss.data().then(l => console.log('Loss', l));
+      return loss;
+    });
+  });
+  console.log('Epoch', epoch);
+}
+
+}
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+
+
+
+
+
+

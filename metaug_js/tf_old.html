@@ -1,0 +1,89 @@
+---
+layout: default
+comments: false
+---
+<head>
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script src="math.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+
+	<h1 style="text-align:center"> Uncovering compositional structure in neural networks</h1>
+
+
+	<h3>Introduction: No duplication without representation</h3>
+
+	<div id="printplace"></div>
+
+	<div id="printplaceb"></div>
+
+	<div id="printplacec"></div>
+<script src="maml_weights_js_variables.js"></script>
+<script src="charinddicts.js"></script>
+<script src="tf_weights.js"></script>
+<script>
+
+
+
+
+tf_emb_wg = tf.tensor2d(emb_wg, [34,10]);
+weights_emb_bias = tf.zeros([10]);
+tf_full_x = tf.tensor2d(full_x, [10,768]);
+tf_full_w = tf.tensor2d(full_w, [256,768]);
+tf_full_b = tf.tensor(full_b, [768]);
+tf_out_wg = tf.tensor(out_wg, [256,34]);
+tf_out_wb = tf.tensor(out_wb, [34]);
+tf_full_xd = tf.tensor2d(full_xd, [10,768]);
+tf_full_wd = tf.tensor2d(full_wd, [256,768]);
+tf_full_bd = tf.tensor(full_bd, [768]);
+
+
+
+
+const inp1q = tf.input({shape: [17,10]})
+const inp2q = tf.input({shape: [17,10]})
+
+const enc_lstmq = tf.layers.gru({units: 256, returnSequences: false, recurrentActivation: 'sigmoid'});
+const dec_lstmq = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid'});
+const output_layerq = tf.layers.dense({units:34});
+
+const outseqq = output_layerq.apply(dec_lstmq.apply(inp2q, {initialState: enc_lstmq.apply(inp1q)}));
+//const outseqq = dec_lstmq.apply(inp2q, {initialState: enc_lstmq.apply(inp1q)});
+
+enc_lstmq.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+dec_lstmq.setWeights([tf_full_xd, tf_full_wd, tf_full_bd]);
+output_layerq.setWeights([tf_out_wg, tf_out_wb]);
+
+
+const full_modelq = tf.model({inputs:[inp1q,inp2q], outputs: outseqq})
+
+
+const embedding_dictionary = {
+	"b" : [0.7073, -0.6938,  0.0700, -1.4747, -2.5980, -0.7173, -0.7124,  0.7470,-0.7629, -1.0600],
+	"a" : [-0.0594,  0.4680,  1.1639,  0.7041,  1.0064,  2.7298,  0.3601,  1.4715,1.0622, -0.7886],
+	"SOS" : [-1.8471,  0.1443, -0.5206,  1.2735,  2.3000, -0.3958,  0.4108, -1.1533, -1.8508, -1.0679],
+	"." : [-0.3993, -0.4201, -1.3394,  0.2770,  0.4614,  0.9486,  2.3871, -2.5176,-0.9344,  0.1437],
+	"z" : [-1.1634, -1.5354, -0.9576,  1.5099, -1.0462,  0.9070,  0.5853,  0.5115, 1.4104, -0.3467]
+}
+
+
+
+this_input = tf.tensor3d(embedding_dictionary["z"].concat(embedding_dictionary["a"]), [1,2,10])
+this_input2 = tf.tensor3d(embedding_dictionary["SOS"].concat(embedding_dictionary["."]), [1,2,10])
+//full_modelq.apply([this_input, this_input]).logSoftmax().print(true);
+//console.log(full_modelq.apply([this_input, this_input]).dataSync());
+full_modelq.apply([this_input, this_input2]).logSoftmax().print()
+//enc_lstm.apply(this_inpu
+
+
+</script>
+
+
+</body>
+
+
+
+
+
+

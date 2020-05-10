@@ -1,0 +1,155 @@
+---
+layout: default
+comments: false
+---
+<head>
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script src="math.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+
+	<h1 style="text-align:center"> Uncovering compositional structure in neural networks</h1>
+
+
+	<h3>Introduction: No duplication without representation</h3>
+
+	<div id="printplace"></div>
+
+	<div id="printplaceb"></div>
+
+	<div id="printplacec"></div>
+<script src="maml_weights_js_variables.js"></script>
+<script src="charinddicts.js"></script>
+<script src="tf_weights.js"></script>
+<script>
+
+
+
+
+tf_emb_wg = tf.tensor2d(emb_wg, [34,10]);
+weights_emb_bias = tf.zeros([10]);
+tf_full_x = tf.tensor2d(full_x, [10,768]);
+tf_full_w = tf.tensor2d(full_w, [256,768]);
+tf_full_b = tf.tensor(full_b, [768]);
+tf_out_wg = tf.tensor(out_wg, [256,34]);
+tf_out_wb = tf.tensor(out_wb, [34]);
+tf_full_xd = tf.tensor2d(full_xd, [10,768]);
+tf_full_wd = tf.tensor2d(full_wd, [256,768]);
+tf_full_bd = tf.tensor(full_bd, [768]);
+
+
+
+console.log(tf.oneHot([3], 34));
+
+
+const inp1 = tf.input({shape: [1]})
+const inp2 = tf.input({shape: [1]})
+
+const emb_layer = tf.layers.embedding({inputDim:34,outputDim:10})
+const enc_lstm = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid', inputShape: [19,10]});
+//const dec_lstm = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid'});
+//const output_layer = tf.layers.dense({units:34});
+
+const outseqb = enc_lstm.apply(emb_layer.apply(inp1));
+//const outseq = output_layer.apply(dec_lstm.apply(emb_layer.apply(inp2), {initialState: enc_lstm.apply(emb_layer.apply(inp1))}));
+
+//const embs = emb_layer.apply(inp1)
+
+const full_modelb = tf.model({inputs:inp1, outputs: outseqb})
+//const full_model = tf.model({inputs:inp1, inp2, outputs: outseq});
+//const full_model = tf.model({inputs:[inp1, inp2], outputs: outseq});
+
+
+enc_lstm.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+emb_layer.setWeights([tf_emb_wg]); //, weights_emb_bias]);
+//dec_lstm.setWeights([tf_full_xd, tf_full_wd, tf_full_bd]);
+//output_layer.setWeights([tf_out_wg, tf_out_wb]);
+
+console.log("done!")
+
+//full_model.predict([tf.tensor3d([0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], [2,1,34])]).print();
+
+//full_model.predict([tf.tensor3d([0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], [1,2,34])]).print()
+//full_model.predict(tf.tensor2d([13, 3], [2,1])).print();
+
+//full_model.predict([tf.tensor3d([0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], [2,1,34]), tf.tensor3d([0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], [2,1,34])]).logSoftmax().print();
+
+
+
+const inp1q = tf.input({shape: [17,10]})
+const inp2q = tf.input({shape: [17,10]})
+
+const enc_lstmq = tf.layers.gru({units: 256, returnSequences: false, recurrentActivation: 'sigmoid'});
+const dec_lstmq = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid'});
+const output_layerq = tf.layers.dense({units:34});
+
+//const outseqq = enc_lstm.apply(emb_layer.apply(inp1));
+const outseqq = output_layerq.apply(dec_lstmq.apply(inp2q, {initialState: enc_lstmq.apply(inp1q)}));
+
+//const embs = emb_layer.apply(inp1)
+
+enc_lstmq.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+dec_lstmq.setWeights([tf_full_xd, tf_full_wd, tf_full_bd]);
+output_layerq.setWeights([tf_out_wg, tf_out_wb]);
+
+
+const full_modelq = tf.model({inputs:[inp1q,inp2q], outputs: outseqq})
+//const full_model = tf.model({inputs:inp1, inp2, outputs: outseq});
+//const full_model = tf.model({inputs:[inp1, inp2], outputs: outseq});
+
+
+const embedding_dictionary = {
+	"b" : [0.7073, -0.6938,  0.0700, -1.4747, -2.5980, -0.7173, -0.7124,  0.7470,-0.7629, -1.0600],
+	"a" : [-0.0594,  0.4680,  1.1639,  0.7041,  1.0064,  2.7298,  0.3601,  1.4715,1.0622, -0.7886]
+}
+
+this_input = tf.tensor3d(embedding_dictionary["b"].concat(embedding_dictionary["a"]), [1,2,10])
+full_modelq.apply([this_input, this_input]).print();
+
+
+
+
+//lstm.apply(tf.tensor3d([0.7073, -0.6938,  0.0700, -1.4747, -2.5980, -0.7173, -0.7124,  0.7470,-0.7629, -1.0600, -0.0594,  0.4680,  1.1639,  0.7041,  1.0064,  2.7298,  0.3601,  1.4715,1.0622, -0.7886], [1,2,10])).print();
+
+
+
+
+
+
+//const lstm = tf.layers.gru({units: 256, returnSequences: false, recurrentActivation: 'sigmoid'});
+//const dec_lstm = tf.layers.gru({units: 256, returnSequences: true, recurrentActivation: 'sigmoid'});
+//const output_layer = tf.layers.dense({units:34});
+
+//const input = tf.input({shape: [17, 10]});
+//const output = lstm.apply(input);
+
+//const outseq = output_layer.apply(dec_lstm.apply(emb_layer.apply(inp2), {initialState: enc_lstm.apply(emb_layer.apply(inp1))}));
+
+//const full_model = tf.model({inputs:input, outputs: outseq})
+
+
+//lstm.setWeights([tf_full_x, tf_full_w, tf_full_b]);
+//dec_lstm.setWeights([tf_full_xd, tf_full_wd, tf_full_bd]);
+//output_layer.setWeights([tf_out_wg, tf_out_wb]);
+
+//const embedding_dictionary = {
+//	"b" : [0.7073, -0.6938,  0.0700, -1.4747, -2.5980, -0.7173, -0.7124,  0.7470,-0.7629, -1.0600],
+//	"a" : [-0.0594,  0.4680,  1.1639,  0.7041,  1.0064,  2.7298,  0.3601,  1.4715,1.0622, -0.7886]
+//}
+
+//lstm.predict(tf.tensor3d(embedding_dictionary["b"].concat(embedding_dictionary["a"]), [1,2,10])).print();
+//lstm.apply(tf.tensor3d([0.7073, -0.6938,  0.0700, -1.4747, -2.5980, -0.7173, -0.7124,  0.7470,-0.7629, -1.0600, -0.0594,  0.4680,  1.1639,  0.7041,  1.0064,  2.7298,  0.3601,  1.4715,1.0622, -0.7886], [1,2,10])).print();
+
+
+
+</script>
+
+
+</body>
+
+
+
+
+
+
