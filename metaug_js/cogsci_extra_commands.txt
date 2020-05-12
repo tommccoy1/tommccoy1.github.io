@@ -1,0 +1,66 @@
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000
+--n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0
+--n_test_tasks_per_ranking 10 --output_prefix yoyc_shuffle_aio
+--ranking_prefix yoyc --constraints yoyc --aio_shuffle
+yo_yc_io_correspondences.txt 
+
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000
+--n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0
+--n_test_tasks_per_ranking 10 --output_prefix noyc_shuffle_aio
+--ranking_prefix noyc --constraints noyc --aio_shuffle
+no_yc_io_correspondences.txt 
+
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000
+--n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0
+--n_test_tasks_per_ranking 10 --output_prefix nonc_shuffle_aio
+--ranking_prefix nonc --constraints nonc --aio_shuffle
+no_nc_io_correspondences.txt 
+
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000
+--n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0
+--n_test_tasks_per_ranking 10 --output_prefix wrong_shuffle_aio
+--ranking_prefix yoyc --constraints yoyc --aio_shuffle
+no_yc_io_correspondences.txt,yo_yc_io_correspondences.txt,no_nc_io_correspondences.txt
+
+
+
+
+
+
+
+
+ev_conv_maml_yoncshuff_100  python evaluation.py --data_prefix
+yonc_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix maml_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_transfer_yoncshuff_100  python evaluation.py --data_prefix
+yonc_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix transfer_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_scramble_yoncshuff_100  python evaluation.py --data_prefix
+yonc_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix scramble_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_random_yoncshuff_100    python evaluation.py --data_prefix
+yonc_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix random_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_maml_allshuff_100   python evaluation.py --data_prefix all_shuffle_aio
+--vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 0.001
+--inner_batch_size 10 --save_prefix maml_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_transfer_allshuff_100   python evaluation.py --data_prefix
+all_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix transfer_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_scramble_allshuff_100   python evaluation.py --data_prefix
+all_shuffle_aio --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner
+0.001 --inner_batch_size 10 --save_prefix scramble_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+ev_conv_random_allshuff_100 python evaluation.py --data_prefix all_shuffle_aio
+--vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 0.001
+--inner_batch_size 10 --save_prefix random_yonc_256_5 --print_every 10
+--patience 100000000 --eval_technique converge --threshold 0.95
+
+
+

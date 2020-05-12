@@ -1,0 +1,78 @@
+
+# Create io correspondences
+python input_output_correspondences.py --onset yes --coda yes --prefix yo_yc_ --max_input_length 5
+python input_output_correspondences.py --onset yes --coda no --prefix yo_nc_ --max_input_length 5
+python input_output_correspondences.py --onset no --coda yes --prefix no_yc_ --max_input_length 5
+python input_output_correspondences.py --onset no --coda no --prefix no_nc_ --max_input_length 5
+python input_output_correspondences.py --onset yes --coda no --prefix yo_nc_ --max_input_length 6
+
+# Create keys for tasks
+python train_dev_test_split.py --output_prefix yonc --constraints yonc
+python train_dev_test_split.py --output_prefix yoyc --constraints yoyc
+python train_dev_test_split.py --output_prefix noyc --constraints noyc
+python train_dev_test_split.py --output_prefix nonc --constraints nonc
+
+# (create keys for tasks excluding a constraint)
+python train_dev_test_split.py --output_prefix yonc_ex0 --constraints yonc --rankings 1,2,3,4,5,6,7 
+python train_dev_test_split.py --output_prefix yonc_ex1 --constraints yonc --rankings 0,2,3,4,5,6,7
+python train_dev_test_split.py --output_prefix yonc_ex2 --constraints yonc --rankings 0,1,3,4,5,6,7
+python train_dev_test_split.py --output_prefix yonc_ex3 --constraints yonc --rankings 0,1,2,4,5,6,7
+python train_dev_test_split.py --output_prefix yonc_ex4 --constraints yonc --rankings 0,1,2,3,5,6,7
+python train_dev_test_split.py --output_prefix yonc_ex5 --constraints yonc --rankings 0,1,2,3,4,6,7
+python train_dev_test_split.py --output_prefix yonc_ex6 --constraints yonc --rankings 0,1,2,3,4,5,7
+python train_dev_test_split.py --output_prefix yonc_ex7 --constraints yonc --rankings 0,1,2,3,4,5,6
+
+# Create tasks
+python make_tasks.py --ranking_prefix yonc --constraints yonc
+python make_tasks.py --ranking_prefix yonc --constraints yonc --periods False
+
+# (create tasks excluding a constraint)
+python make_tasks.py --ranking_prefix yonc_ex0 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex1 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex2 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex3 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex4 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex5 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex6 --constraints yonc
+python make_tasks.py --ranking_prefix yonc_ex7 --constraints yonc
+
+# (create tasks for convergence testing)
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000 --n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0 --n_test_tasks_per_ranking 10 --ranking_prefix yonc --output_prefix yonc_10per --constraints yonc
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000 --n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0 --n_test_tasks_per_ranking 10 --ranking_prefix yoyc --output_prefix yoyc_10per --constraints yoyc
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000 --n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0 --n_test_tasks_per_ranking 10 --ranking_prefix noyc --output_prefix noyc_10per --constraints noyc
+python make_tasks.py --n_train 20000 --n_dev 500 --n_test 1000 --n_train_tasks_per_ranking 0 --n_dev_tasks_per_ranking 0 --n_test_tasks_per_ranking 10 --ranking_prefix nonc --output_prefix nonc_10per --constraints nonc
+
+# Train a model with MAML
+python main.py --data_prefix yonc --method maml --save_prefix maml_yonc_256_5
+python main.py --data_prefix yonc --method transfer --save_prefix transfer_yonc_256_5
+python main.py --data_prefix yonc --method scramble --save_prefix scramble_yonc_256_5
+python main.py --data_prefix yonc --method random --save_prefix random_yonc_256_5
+
+python main.py --data_prefix yonc_no_periods --method maml --save_prefix maml_yonc_no_periods_256_5
+
+# (train models on excluded cases)
+python main.py --data_prefix yonc_ex0 --method maml --save_prefix maml_yonc_ex0_256_5
+python main.py --data_prefix yonc_ex1 --method maml --save_prefix maml_yonc_ex1_256_5
+python main.py --data_prefix yonc_ex2 --method maml --save_prefix maml_yonc_ex2_256_5
+python main.py --data_prefix yonc_ex3 --method maml --save_prefix maml_yonc_ex3_256_5
+python main.py --data_prefix yonc_ex4 --method maml --save_prefix maml_yonc_ex4_256_5
+python main.py --data_prefix yonc_ex5 --method maml --save_prefix maml_yonc_ex5_256_5
+python main.py --data_prefix yonc_ex6 --method maml --save_prefix maml_yonc_ex6_256_5
+python main.py --data_prefix yonc_ex7 --method maml --save_prefix maml_yonc_ex7_256_5
+
+# Get results
+# (basic)
+python evaluation.py --data_prefix yonc --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 1.0 --inner_batch_size 100 --save_prefix maml_yonc_256_5
+python evaluation.py --data_prefix yonc --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 1.0 --inner_batch_size 100 --save_prefix transfer_yonc_256_5
+python evaluation.py --data_prefix yonc --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 1.0 --inner_batch_size 100 --save_prefix scramble_yonc_256_5
+python evaluation.py --data_prefix yonc --vocab_size 34 --emb_size 10 --hidden_size 256 --lr_inner 1.0 --inner_batch_size 100 --save_prefix random_yonc_256_5
+
+
+
+
+
+
+
+
+
+

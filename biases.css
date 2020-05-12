@@ -378,3 +378,45 @@ footer {
     color: purple;
     background: lightgrey;
 }
+
+
+
+
+.hor-minimalist-a
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 14px;
+	background: #fff;
+	table-layout: fixed;
+	margin: 45px;
+	width: 540px;
+	border-collapse: collapse;
+	text-align: center;
+	border-top: 2px solid #6678b1;
+	border-bottom: 2px solid #6678b1;
+}
+.hor-minimalist-a th
+{
+	font-size: 14px;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+	text-align: center;
+}
+.hor-minimalist-a td
+{
+	color: #669;
+	padding: 9px 8px 0px 8px;
+	text-align: left;
+}
+.hor-minimalist-a tbody tr:hover td
+{
+	color: #009;
+	background-color: lightgray;
+}
+
+
+
+
+

@@ -1,9 +1,9 @@
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: "en-US" }}"`>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <link rel="stylesheet" href="biases.css">
+        <link rel="stylesheet" href="tf.css">
         <script src="assets/js/scale.fix.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -26,13 +26,74 @@
 
 
 	<div id="language1wrapper">
-	<div>Language description: Only consonant-vowel syllables are allowed; delete sounds as needed to make this happen.</div>
+	<div>Language description: <span id="langdesc"></span></div>
+	<div>Constraint ranking: <span id="constrank"></span></div>
+	<div>Set of consonants: <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnl" class="vinvbtn" type="button" onclick="ctoggle('l')">l</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
+	<div>Set of vowels: <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('biga')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('bige')">E</button><button id="btnbigi" class="vinvbtn" type="button" onclick="vtoggle('bigi')">I</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('bigo')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('bigu')">u</button></div>
+	<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepl" class="vinvbtn" type="button" onclick="ceptoggle('l')">l</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
+	<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('biga')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('bige')">E</button><button id="btnepbigi" class="vinvbtn" type="button" onclick="veptoggle('bigi')">I</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('bigo')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('bigu')">u</button></div>
 
+<div>
+<button type="button" onclick="fitfitfit(seq2seq, 'meta', add_train=true);fitfitfit(seq2seqb, 'random')">Train on example</button>
+
+<button type="button" onclick="renew_language()">Renew</button>
+</div>
+
+
+<div>
+	<table class="hor-minimalist-a">
+	<tr>
+		<th width="50">Input</th>
+		<th width="100">Correct output</th>
+		<th width="110">Meta-initialized<br>model's output</th>
+		<th>Randomly-initialized<br>model's output</th>
+	</tr>
+	<tr>
+		<td><span id="inb1">rOau</span></td>
+		<td><span id="corrb1">.rO.a.u.</span></td>
+		<td><span id="metaoutb1">.rO.a.u.</span></td>
+		<td><span id="randomoutb1">.rO.a.u.</span></td>
+	</tr>
+	<tr>
+		<td><span id="inb2">axxaO</span></td>
+		<td><span id="corrb2">.a.xa.O.</span></td>
+		<td><span id="metaoutb2">.a.xa.O.</span></td>
+		<td><span id="randomoutb2">.a.xa.O.</span></td>
+	</tr>
+	<tr>
+		<td><span id="inb3">rxxa</span></td>
+		<td><span id="corrb3">.xa.</span></td>
+		<td><span id="metaoutb3">.xa.</span></td>
+		<td><span id="randomoutb3">.xa.</span></td>
+	</tr>
+	<tr>
+		<td><span id="inb4">axrxu</span></td>
+		<td><span id="corrb4">.a.xu.</span></td>
+		<td><span id="metaoutb4">.a.xu.</span></td>
+		<td><span id="randomoutb4">.a.xu.</span></td>
+	</tr>
+	<tr>
+		<td><span id="inb5">ttxaO</span></td>
+		<td><span id="corrb5">.xa.O.</span></td>
+		<td><span id="metaoutb5">.xa.O.</span></td>
+		<td><span id="randomoutb5">.xa.O.</span></td>
+	</tr>
+	</table>
+
+	<div>Training examples seen:</div>
+	<div id="trainingexamplelist"></div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>
 <table class="hor-minimalist-a">
 <tr>
 	<th width="50">Input</th>
-	<th>Correct output</th>
-	<th>Meta-initialized<br>model's output</th>
+	<th width="100">Correct output</th>
+	<th width="110">Meta-initialized<br>model's output</th>
 	<th>Randomly-initialized<br>model's output</th>
 </tr>
 <tr>
@@ -69,27 +130,16 @@
 
 	<div>Training examples seen:</div>
 	<div id="trainingexamplelist"></div>
+</div>
 
 
 	</div>
 
 
 
-
-
-
-
-
-
-
-	<h3>Introduction: No duplication without representation</h3>
-
 	<div id="printplace"></div>
 
 	<div id="printplaceb"></div>
-
-<button type="button" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random')">Click Me!</button>
-
 	<div id="printplacec"></div>
 <div id="printplaced"></div>
 
@@ -109,7 +159,545 @@ People can enter their own training set and test set and see how the model learn
 <script src="maml_weights_js_variables.js"></script>
 <script src="charinddicts.js"></script>
 <script src="tf_weights.js"></script>
+<script src="ioc.js"></script>
 <script>
+
+manual_vowel_inventory = [];
+manual_consonant_inventory = [];
+all_vowels = ["a", "e", "i", "o", "u", "biga", "bige", "bigi", "bigo", "bigu"];
+all_consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
+
+function vtoggle(vow) {
+	if (!manual_vowel_inventory.includes(vow)) {
+		manual_vowel_inventory.push(vow);
+		document.getElementById("btn" + vow).style.backgroundColor = "blue";
+		document.getElementById("btn" + vow).style.color = "white";
+	} else {
+
+		split_point = manual_vowel_inventory.indexOf(vow);
+		manual_vowel_inventory = manual_vowel_inventory.slice(0,split_point).concat(manual_vowel_inventory.slice(split_point + 1));
+		document.getElementById("btn" + vow).style.backgroundColor = "white";
+		document.getElementById("btn" + vow).style.color = "black";
+	}
+}
+
+function ctoggle(cons) {
+	if (!manual_consonant_inventory.includes(cons)) {
+		manual_consonant_inventory.push(cons);
+		document.getElementById("btn" + cons).style.backgroundColor = "blue";
+		document.getElementById("btn" + cons).style.color = "white";
+	} else {
+
+		split_point = manual_consonant_inventory.indexOf(cons);
+		manual_consonant_inventory = manual_consonant_inventory.slice(0,split_point).concat(manual_consonant_inventory.slice(split_point + 1));
+		document.getElementById("btn" + cons).style.backgroundColor = "white";
+		document.getElementById("btn" + cons).style.color = "black";
+	}
+}
+
+function ceptoggle(cons) {
+
+	for (cn = 0; cn < manual_consonant_inventory.length; cn++) {
+		first_c = manual_consonant_inventory[cn];
+		document.getElementById("btnep" + first_c).style.color = "black";
+		document.getElementById("btnep" + first_c).style.backgroundColor = "white";
+	}
+	
+	document.getElementById("btnep" + cons).style.color = "white";
+	document.getElementById("btnep" + cons).style.backgroundColor = "blue";
+
+	manual_ep_cons = cons;
+}
+
+function veptoggle(vow) {
+
+	for (vn = 0; vn < manual_vowel_inventory.length; vn++) {
+		first_v = vowel_dict[manual_vowel_inventory[vn]];
+		console.log(first_v);
+		document.getElementById("btnep" + first_v).style.color = "black";
+		document.getElementById("btnep" + first_v).style.backgroundColor = "white";
+	}
+	console.log(vow);
+	document.getElementById("btnep" + vow).style.color = "white";
+	document.getElementById("btnep" + vow).style.backgroundColor = "blue";
+
+	manual_ep_vow = vow;
+}
+
+
+
+vowel_dict = {
+	"a" : "a",
+	"e" : "e",
+	"i" : "i",
+	"o" : "o",
+	"u" : "u",
+	"A" : "biga",
+	"E" : "bige",
+	"I" : "bigi",
+	"O" : "bigo",
+	"U" : "bigu",
+	"biga" : "biga",
+	"bige" : "bige",
+	"bigi" : "bigi",
+	"bigo" : "bigo",
+	"bigu" : "bigu"	
+}
+
+function renew_language() {
+	new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=2, n_test=5, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
+
+	training_set = new_lang[0];
+	dev_set = new_lang[1];
+	test_set = new_lang[2];
+
+	for (spqr = 0; spqr < test_set.length; spqr++) {
+		document.getElementById("inb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][0]);
+		document.getElementById("corrb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][1]);
+	}
+
+
+	for (v_index = 0; v_index < all_vowels.length; v_index++) {
+		vow = all_vowels[v_index];
+		document.getElementById("btn" + vow).style.backgroundColor = "white";
+		document.getElementById("btnep" + vow).style.display = "none";
+	}
+
+	for (vm_index = 0; vm_index < manual_vowel_inventory.length; vm_index++) {
+		console.log(vm_index);
+		console.log(manual_vowel_inventory[vm_index]);
+		console.log(manual_vowel_inventory);
+		console.log(vowel_dict["A"]);
+		console.log(vowel_dict[manual_vowel_inventory[vm_index]]);
+		vow = vowel_dict[manual_vowel_inventory[vm_index]];
+		document.getElementById("btn" + vow).style.backgroundColor = "blue";
+		document.getElementById("btn" + vow).style.color = "white";
+		document.getElementById("btnep" + vow).style.display = "inline";
+	}
+	console.log(manual_ep_vow);
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.backgroundColor = "blue";
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.color =
+ "white";
+
+
+	for (c_index = 0; c_index < all_consonants.length; c_index++) {
+		cons = all_consonants[c_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "white";
+		document.getElementById("btnep" + cons).style.display = "none";
+	}
+
+	for (cm_index = 0; cm_index < manual_consonant_inventory.length; cm_index++) {
+		console.log(cm_index);
+		console.log(manual_consonant_inventory[cm_index]);
+		console.log(manual_consonant_inventory);
+		cons = manual_consonant_inventory[cm_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "blue";
+		document.getElementById("btn" + cons).style.color = "white";
+		document.getElementById("btnep" + cons).style.display = "inline";
+	
+	}
+
+	document.getElementById("btnep" + manual_ep_cons).style.backgroundColor = "blue";
+	document.getElementById("btnep" + manual_ep_cons).style.color = "white";
+
+	
+}
+
+function nullify(inp) {
+
+	if (inp === "") {
+		return "&lt;empty&gt;";
+	} else {
+		return inp;
+	}
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function choice(array) {
+	return array[Math.floor(Math.random() * array.length)];
+}
+
+
+
+function trf(x) {
+	return true;
+}
+
+
+
+
+vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+
+function phoneme_inventory(nc=null, nv=null) {
+	if (nc == null) {
+		nc = Math.floor(Math.random() * 3) + 2;
+	}
+
+	if (nv == null) {
+		nv = Math.floor(Math.random() * 3) + 2;
+	}
+
+	shuffle(vowels);
+	shuffle(consonants);
+
+	v_inv = vowels.slice(0,nv);
+	c_inv = consonants.slice(0,nc);	
+
+	return [v_inv, c_inv];
+
+}
+
+
+function output_string(inp, outp, v_list, c_list, steps=None, change_one=False, change_all=False) {
+	outp_no_periods = outp.replace(/\./g, "");
+	console.log("noper", outp, "next", outp_no_periods)	
+	inp_phonemes = [];
+	for (i = 0; i < inp.length; i++) {
+		thischar = inp[i];
+		if (thischar == "C") {
+			inp_phonemes.push(choice(c_list));
+		} else {
+			inp_phonemes.push(choice(v_list));
+		}
+	}
+
+	inp_word = inp_phonemes.join("");
+	if (change_one) {
+		inp_word = replace_one(inp_word, v_list, c_list);
+	} else if (change_all) {
+		inp_word = replace_all(inp_word, v_list, c_list);
+	}
+
+	inp_phonemes = inp_word;
+
+	outp_phonemes = [];
+	indi = 0;
+	indo = 0;
+
+	for (j = 0; j < steps.length; j++) {
+		stp = steps[j];
+		if (stp == "next") {
+			outp_phonemes.push(inp_phonemes[indi]);
+			indi++;
+			indo++;
+		}
+		if (stp == "del") {
+			indi++;
+		}
+		if (stp == "ins") {
+			if (outp_no_periods[indo] == "C") {
+				outp_phonemes.push(c_list[0]);
+			} else {
+				outp_phonemes.push(v_list[0]);
+			}
+			indo += 1;
+		}
+
+	}
+
+	outp_alignment = [];
+	ind_al = 0;
+
+	for (k = 0; k < outp.length; k++) {
+		thischar = outp[k];
+		if (thischar == ".") {
+			outp_alignment.push(thischar);
+		} else {
+			outp_alignment.push(ind_al);
+			ind_al++;
+		}
+	}
+
+	outp_chars = [];
+	for (q = 0; q < outp_alignment.length; q++) {
+		elt = outp_alignment[q];
+		if (elt == ".") {
+			outp_chars.push(".");
+		} else {
+			outp_chars.push(outp_phonemes[elt]);
+		}
+	}
+
+	outp_word = outp_chars.join("");
+	return [inp_word, outp_word];
+
+}
+	
+
+
+
+
+function make_task(ranking, all_input_outputs, n_train=10, n_dev=10, n_test=10, v_list=null, c_list=null, periods=true, input_filter_dev=trf, output_filter_dev=trf, input_filter_test=trf, output_filter_test=trf, input_filter_train=trf, output_filter_train=trf, abstract_input_filter_dev=trf, abstract_output_filter_dev=trf, abstract_input_filter_test=trf, abstract_output_filter_test=trf, abstract_input_filter_train=trf, abstract_output_filter_train=trf, replace_one_dev=false, replace_one_test=false, replace_one_train=false, replace_all_dev=false, replace_all_test=false, replace_all_train=false, artificial_io_list=null) {
+	if (all_input_outputs != null) {
+		io_list = all_input_outputs[ranking].slice();
+	} else {
+		io_list = artificial_io_list;
+	}
+
+	shuffle(io_list);
+
+	if (v_list == null || c_list == null) {
+		inv = phoneme_inventory();
+		v_list = inv[0];
+		c_list = inv[1];
+	}
+	console.log(v_list);
+	console.log(c_list);
+	14/0;
+
+	train_pairs = [];
+	dev_pairs = [];
+	test_pairs = [];
+
+	train_dict = {};
+	dev_dict = {};
+	test_dict = {};
+
+	console.log("step1")
+
+	for (iqj = 0; iqj < n_dev; iqj++) {
+		console.log("step2 " + iqj);
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+			//console.log("abstract" + abstract);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+			//console.log("candidatestart");
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+			candidate_str = candidate[0] + candidate[1];
+
+			//console.log("candidate" + candidate);
+
+			if (!(candidate_str in dev_dict) && !(candidate_str in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+			//console.log("abstract 9" + abstract);
+
+			
+		}
+
+		//console.log("step 19");
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+			//console.log("step 21", abstract);
+
+			if ((replace_one_dev || replace_all_dev) && abstract[0] == "") {
+				continue;
+			}
+
+			//console.log("step 22");
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_dev, change_all=replace_all_dev);
+
+			//console.log("step 23 cand " + JSON.stringify(candidate) + v_list + c_list);
+			console.log(Object.keys(dev_dict));
+			if (!(candidate in train_dict) && !(candidate in test_dict) && abstract_input_filter_dev(abstract[0]) && abstract_output_filter_dev(abstract[1].replace(/\./g, "")) && input_filter_dev(candidate[0]) && output_filter_dev(candidate[1].replace(/\./g, ""))) {
+				console.log("fulfillinf conditions");
+				satisfied = true;
+
+				if (periods) {
+					dev_pairs.push(candidate);
+				} else {
+					dev_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				dev_dict[candidate] = 1
+
+			}
+
+		}
+
+		//console.log("step 20")
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_test || replace_all_test) && abstract[0] == "") {	
+				continue;
+			}
+			
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_test, change_all=replace_all_test);
+
+			if (!(candidate in train_dict) && !(candidate in dev_dict) && abstract_input_filter_test(abstract[0]) && abstract_output_filter_test(abstract[1].replace(/\./g, "")) && input_filter_test(candidate[0]) || output_filter_test(candidate[1].replace(/\./g, ""))) {
+				satisfied = true; 
+
+				if (periods) {
+					test_pairs.push(candidate);
+				} else {
+					test__pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				test_dict[candidate] = 1;
+			}
+
+		}
+
+	}
+
+
+
+	for (iqk = 0; iqk < n_test - n_dev; iqk++) {
+		console.log("step3 " + i);
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+
+			if (!(candidate in dev_dict) && !(candidate in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+
+			
+		}
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_test || replace_all_test) && abstract[0] == "") {	
+				continue;
+			}
+			
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_test, change_all=replace_all_test);
+
+			if (!(candidate in train_dict) && !(candidate in dev_dict) && abstract_input_filter_test(abstract[0]) && abstract_output_filter_test(abstract[1].replace(/\./g, "")) && input_filter_test(candidate[0]) && output_filter_test(candidate[1].replace(/\./g, ""))) {
+				satisfied = true; 
+
+				if (periods) {
+					test_pairs.push(candidate);
+				} else {
+					test__pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				test_dict[candidate] = 1;
+			}
+
+		}
+
+	}
+
+
+	for (iql = 0; iql < n_train - n_test; iql++) {
+		console.log("step4 " + i);
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+
+			if (!(candidate in dev_dict) && !(candidate in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+
+			
+		}
+
+
+	}
+
+
+	return [train_pairs, dev_pairs, test_pairs, v_list, c_list, ranking];
+	
+
+}
+
+
+//0 = onset
+//1 = nocoda
+//2 = max
+//3 = dep
+
+
+const key2ranking = {
+	"(0, 1, 2, 3)" : "<span style='font-variant:small-caps;'>Onset, NoCoda, Max &#187; Dep</span>",
+	"(0, 1, 3, 2)" : "<span style='font-variant:small-caps;'>Onset, NoCoda, Dep &#187; Max</span>",
+	"(0, 3, 2, 1)" : "<span style='font-variant:small-caps;'>Onset, Dep &#187; Max &#187; NoCoda</span>",
+	"(1, 3, 2, 0)" : "<span style='font-variant:small-caps;'>NoCoda, Dep &#187;  Max &#187; Onset</span>",
+	"(0, 2, 3, 1)" : "<span style='font-variant:small-caps;'>Onset, Max &#187; Dep &#187; NoCoda</span>",
+	"(1, 2, 3, 0)" : "<span style='font-variant:small-caps;'>NoCoda, Max &#187; Dep &#187; Onset</span>",
+	"(3, 2, 0, 1)" : "<span style='font-variant:small-caps;'>Dep &#187; Max &#187; Onset, NoCoda</span>",
+	"(2, 3, 0, 1)" : "<span style='font-variant:small-caps;'>Max &#187; Dep &#187; Onset, NoCoda</span>"
+}
+
+const key2description = {
+	"(0, 1, 2, 3)" : "Insert <em>CONS</em> or <em>VOW</em>  as necessary to ensure that all syllables are of the form consonant-vowel",
+	"(0, 1, 3, 2)" : "Delete sounds as necessary to ensure that all syllables are of the form consonant-vowel",
+	"(0, 3, 2, 1)" : "Delete sounds as necessary to ensure that all syllables start with a consonant",
+	"(1, 3, 2, 0)" : "Delete sounds as necessary to ensure that all syllables end with a vowel",
+	"(0, 2, 3, 1)" : "Insert <em>CONS</em> as necessary to ensure that all syllables start with a consonant",
+	"(1, 2, 3, 0)" : "Insert <em>VOW</em> as necessary to ensure that all syllables end with a vowel",
+	"(3, 2, 0, 1)" : "Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing",
+	"(2, 3, 0, 1)" : "Insert <em>VOW</em> as necessary to ensure that the output is pronounceable, but otherwise change nothing"
+}
+
+
+
+rankings = ["(2, 3, 0, 1)", "(3, 2, 0, 1)", "(1, 2, 3, 0)", "(0, 2, 3, 1)", "(1, 3, 2, 0)", "(0, 3, 2, 1)", "(0, 1, 3, 2)", "(0, 1, 2, 3)"]
+
+new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=2, n_test=5);
+
+training_set = new_lang[0];
+dev_set = new_lang[1];
+test_set = new_lang[2];
+new_vinv = new_lang[3];
+new_cinv = new_lang[4];
+
+manual_vowel_inventory = new_vinv;
+manual_consonant_inventory = new_cinv;
+manual_ep_vow = new_vinv[0];
+manual_ep_cons = new_cinv[0];
+
+renew_language();
+
+document.getElementById("constrank").innerHTML = key2ranking[new_lang[5]];
+document.getElementById("langdesc").innerHTML = key2description[new_lang[5]].replace("CONS", new_lang[4][0]).replace("VOW", new_lang[3][0]);
 
 
 var seen_training = "";
@@ -204,37 +792,8 @@ function word2embs(words, sos=false) {
 
 }
 
-training_set = [['r', ''],
-  ['xuOuu', '.xu.O.u.u.'],
-  ['xur', '.xu.'],
-  ['uuxu', '.u.u.xu.'],
-  ['rtrO', '.rO.'],
-  ['rOtuO', '.rO.tu.O.'],
-  ['OtO', '.O.tO.'],
-  ['ttxO', '.xO.'],
-  ['Ott', '.O.'],
-  ['xr', ''],
-  ['uxtO', '.u.tO.'],
-  ['uuxta', '.u.u.ta.'],
-  ['Oaaxt', '.O.a.a.'],
-  ['r', ''],
-  ['Orxuu', '.O.xu.u.'],
-  ['xx', ''],
-  ['xrO', '.rO.'],
-  ['raxr', '.ra.'],
-  ['ratt', '.ra.']];
 
-test_set = [['rOau', '.rO.a.u.'],
-  ['axxaO', '.a.xa.O.'],
-  ['rxxa', '.xa.'],
-  ['axrxu', '.a.xu.'],
-  ['ttxaO', '.xa.O.']];
-//  ['Ouuut', '.O.u.u.u.'],
-//  ['rutOu', '.ru.tO.u.'],
-//  ['tOaux', '.tO.a.u.'],
-//  ['xttax', '.ta.'],
-//  ['xuxut', '.xu.xu.'],
-//  ['xarr', '.xa.']];
+
 
 
 
@@ -368,6 +927,7 @@ function seq2seq(inpseq, outlength=-1) {
 		urht = rt.mul(hidden_state).matMul(wxd).add(bxd);
 		xt = inp.matMul(xxd);
 		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
 		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
 
 		logit = hidden_state.matMul(wout).add(bout);//HEREHERE
@@ -422,6 +982,7 @@ function seq2seqb(inpseq, outlength=-1) {
 		urht = rt.mul(hidden_state).matMul(wxdb).add(bxdb);
 		xt = inp.matMul(xxdb);
 		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
 		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
 
 		logit = hidden_state.matMul(woutb).add(boutb);//HEREHERE
@@ -499,15 +1060,17 @@ document.getElementById("printplacec").innerHTML = "dog";
 document.getElementById("printplacec").innerHTML = seq2seq(test_set[0][0])[0] + " " + seq2seq(test_set[1][0])[0] + " " + seq2seq(test_set[2][0])[0] + " " + seq2seq(test_set[3][0])[0];
 
 this_counter = 0;
-async function fitfitfit(seq2seq, prefix) {
+async function fitfitfit(seq2seq, prefix, add_train=false) {
 
 const optimizer = tf.train.sgd(0.05);
 // Train for 5 epochs.
 for (let epoch = 0; epoch < 1; epoch++) {
   await ds.forEachAsync(({xs, ys}) => {
     optimizer.minimize(() => {
-	  seen_training = seen_training + ", " + xsm + " -> " + ysm;
-	  document.getElementById("trainingexamplelist").innerHTML = seen_training;
+	  if (add_train) {
+	  	seen_training = seen_training + ", " + xsm + " &rarr; " + ysm;
+	  	document.getElementById("trainingexamplelist").innerHTML = seen_training;
+	  }
       const predYs = seq2seq(xsm,outlength=ysm.length)[1];
 	  console.log(seq2seq(xsm)[1]);
 	  document.getElementById("printplacec").innerHTML = seq2seq(test_set[0][0])[0] + " " + seq2seq(test_set[1][0])[0] + " " + seq2seq(test_set[2][0])[0] + " " + seq2seq(test_set[3][0])[0];
@@ -524,7 +1087,7 @@ for (let epoch = 0; epoch < 1; epoch++) {
                 font_color = "red";
             }
 			
-			document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+			document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred[0]) + "</span>";
 	  }
 
 
@@ -572,7 +1135,7 @@ for (let epoch = 0; epoch < 5; epoch++) {
 			} else {
 				font_color = "red";
 			}
-			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred[0]) + "</span>";
 	  }
 
 
@@ -586,8 +1149,9 @@ for (let epoch = 0; epoch < 5; epoch++) {
             }
 
 
-			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + pred[0] + "</span>";
+			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred[0]) + "</span>";
 	  }
+
 
 
 

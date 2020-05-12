@@ -1,0 +1,89 @@
+<head>
+</head>
+<body>
+
+<p>This is a form that you should use for stuff.</p>
+
+<form method="POST">
+    <input name="text">
+	<input name="output">
+    <input type="submit">
+</form>
+
+<div>
+{{data}}
+</div>
+
+<div id="div0"></div>
+
+<table style="width:100%">
+  <tr>
+    <td><p id="guess0"></p></td>
+    <td><p id="guess1"></p></td>
+	<td><p id="guess2"></p></td>
+	<td><p id="guess3"></p></td>
+	<td><p id="guess4"></p></td>
+	<td><p id="guess5"></p></td>
+	<td><p id="guess6"></p></td>
+	<td><p id="guess7"></p></td>
+	<td><p id="guess8"></p></td>
+	<td><p id="guess9"></p></td>
+  </tr>
+  <tr>
+ 	<td><p id="corr0"></p></td>
+    <td><p id="corr1"></p></td>
+	<td><p id="corr2"></p></td>
+	<td><p id="corr3"></p></td>
+	<td><p id="corr4"></p></td>
+	<td><p id="corr5"></p></td>
+	<td><p id="corr6"></p></td>
+	<td><p id="corr7"></p></td>
+	<td><p id="corr8"></p></td>
+	<td><p id="corr9"></p></td>
+  </tr>
+</table>
+
+
+<script>
+mypreds = '{{preds}}';
+
+mypreds_list = mypreds.split(",");
+
+preds0 = mypreds_list[0].split("*")
+preds1 = mypreds_list[1].split("*")
+preds2 = mypreds_list[2].split("*")
+preds3 = mypreds_list[3].split("*")
+preds4 = mypreds_list[4].split("*")
+preds5 = mypreds_list[5].split("*")
+preds6 = mypreds_list[6].split("*")
+preds7 = mypreds_list[7].split("*")
+preds8 = mypreds_list[8].split("*")
+preds9 = mypreds_list[9].split("*")
+
+
+document.getElementById("guess0").innerHTML = preds0[0];
+document.getElementById("guess1").innerHTML = preds1[0];
+document.getElementById("guess2").innerHTML = preds2[0];
+document.getElementById("guess3").innerHTML = preds3[0];
+document.getElementById("guess4").innerHTML = preds4[0];
+document.getElementById("guess5").innerHTML = preds5[0];
+document.getElementById("guess6").innerHTML = preds6[0];
+document.getElementById("guess7").innerHTML = preds7[0];
+document.getElementById("guess8").innerHTML = preds8[0];
+document.getElementById("guess9").innerHTML = preds9[0];
+
+document.getElementById("corr0").innerHTML = preds0[1];
+document.getElementById("corr1").innerHTML = preds1[1];
+document.getElementById("corr2").innerHTML = preds2[1];
+document.getElementById("corr3").innerHTML = preds3[1];
+document.getElementById("corr4").innerHTML = preds4[1];
+document.getElementById("corr5").innerHTML = preds5[1];
+document.getElementById("corr6").innerHTML = preds6[1];
+document.getElementById("corr7").innerHTML = preds7[1];
+document.getElementById("corr8").innerHTML = preds8[1];
+document.getElementById("corr9").innerHTML = preds9[1];
+
+
+</script>
+
+</body>
