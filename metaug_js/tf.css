@@ -172,6 +172,55 @@ header {
   }
 }
 
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  width: 250px;
+  border: none;
+  cursor: pointer;
+  z-index:1000;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+  outline:none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
 section {
   padding:15px 20px;
   font-size:15px;
@@ -389,7 +438,7 @@ footer {
 	background: #fff;
 	table-layout: fixed;
 	margin: 0px;
-	width: 450px;
+	max-width: 470px;
 	border-collapse: collapse;
 	text-align: center;
 	border-top: 2px solid #6678b1;
@@ -401,9 +450,14 @@ footer {
 	font-weight: normal;
 	color: #039;
 	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
 	text-align: center;
 }
+
+.hor-minimalist-a tr.top
+{
+	border-bottom: 2px solid #6678b1;
+}
+
 .hor-minimalist-a td
 {
 	color: #669;
@@ -435,3 +489,56 @@ footer {
 	background-clip: padding-box;
 	outline: 0 none;
 }
+
+
+
+/* Dropdown Button */
+.trainbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  width: 200px;
+  border: none;
+  cursor: pointer;
+  z-index:1000;
+  border-radius: 10px;
+}
+
+/* Dropdown button on hover & focus */
+.trainbtn:hover {
+  background-color: #2980B9;
+}
+
+
+
+/* Dropdown Button */
+.genbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 12px;
+  font-size: 15px;
+  width: 160px;
+  border: none;
+  cursor: pointer;
+  z-index:1000;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* Dropdown button on hover & focus */
+.genbtn:hover {
+  background-color: #2980B9;
+}
+
+td.cellcollapsible {display:block; }
+th.cellcollapsible {display:block; }
+
+@media only screen and (max-width: 500px) {
+	td.cellcollapsible {display:none; }
+	th.cellcollapsible {display:none; }
+}
+
+
