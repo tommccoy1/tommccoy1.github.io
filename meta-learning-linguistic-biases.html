@@ -1,0 +1,1544 @@
+<html lang="{{ site.lang | default: "en-US" }}"`>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="tf.css">
+        <script src="assets/js/scale.fix.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" type="text/css" href="google_chart.css">
+
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+		<script src="math.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+<body>
+	<div class="contentwrapper">
+	<section>
+	<h1 style="text-align:center">Imparting universal linguistic inductive biases via meta-learning</h1>
+
+
+	<div id="language1wrapper">
+	<div>Language description: <span id="langdescold"></span></div>
+	<div>Constraint ranking:</div>
+
+
+<div class="dropdown">
+  <button onclick="dropFunction()" class="dropbtn" id="rankbtn" style='font-variant:small-caps;'>Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a onclick="ranktoggle('(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Max &#187; Dep</span></a>
+  	<a onclick="ranktoggle('(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Dep &#187; Max</span></a>
+	<a onclick="ranktoggle('(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, Dep &#187; Max &#187; NoCoda</span></a>
+	<a onclick="ranktoggle('(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, Dep &#187;  Max &#187; Onset</span></a>
+	<a onclick="ranktoggle('(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, Max &#187; Dep &#187; NoCoda</span></a>
+	<a onclick="ranktoggle('(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, Max &#187; Dep &#187; Onset</span></a>
+	<a onclick="ranktoggle('(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>Dep &#187; Max &#187; Onset, NoCoda</span></a>
+	<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>Max &#187; Dep &#187; Onset, NoCoda</span></a>
+	</div>
+</div>
+
+	<div>Set of consonants: <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnl" class="vinvbtn" type="button" onclick="ctoggle('l')">l</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
+	<div>Set of vowels: <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('A')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('E')">E</button><button id="btnbigi" class="vinvbtn" type="button" onclick="vtoggle('I')">I</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('O')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('U')">U</button></div>
+	<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepl" class="vinvbtn" type="button" onclick="ceptoggle('l')">l</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
+	<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('A')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('E')">E</button><button id="btnepbigi" class="vinvbtn" type="button" onclick="veptoggle('I')">I</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('O')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('U')">U</button></div>
+
+<div>
+
+<button type="button" onclick="renew_language()">Renew</button>
+</div>
+
+<div style="margin: auto; max-width: 850px;">
+
+<div style="padding: 10px; overflow:hidden;"><span style="width: 450px; float: left;text-align: justify; margin-right: 10px;"><b>Task to be learned:</b> <span id="langdesc" style="text-align: justify"></span></span> <button type="button" class="genbtn" onclick="random_language();" style="display: inline-block;">Generate random new language</button><button type="button" class="genbtn" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random', add_train=true)" style="display: inline-block;">Manually define new language</button> </div>
+
+<div style="overflow: hidden;">
+	<div style="float: left; padding: 10px;">
+		<div "text-align: center; padding: 10px;"><div style="width: 100%; margin: 0 auto; padding: 10px;"><b>Training examples seen:</b> <span id="traincount">0</span></div> </div>
+		<div id="trainingexamplelist" style="border: solid; height:150px; width: 250px; overflow: scroll; padding: 10px;"></div>
+		<br>
+		<div style="text-align: center;"><button type="button" class="trainbtn" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random', add_train=true)" style="font-size: 16px; display: inline-block;">Train on one example</button></div>
+
+
+	</div>
+
+
+	<div style="float: left; padding: 10px;">
+
+		<div style="text-align: center; padding: 10px;"><b>Test set predictions</b></div>
+		<div>
+			<table class="hor-minimalist-a">
+				<tr class="top">
+					<th style="width:50;" class='cell'><div class='cell'>Input</div></th>
+					<th style="width:100;"><div class='cell'>Correct output</div></th>
+					<th style="width:110;"><div class='cell'>Meta-initialized<br>model's output</div></th>
+					<th style="width:150;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cellcollapsible'><div class='cell' id="inb1">rOau</div></td>
+					<td><div class='cell' id="corrb1">.rO.a.u.</div></td>
+					<td><div class='cell' id="metaoutb1">.rO.a.u.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb1">.rO.a.u.</div></td>
+				</tr>
+				<tr>
+					<td><div class='cell' id="inb2">axxaO</div></td>
+					<td><div class='cell' id="corrb2">.a.xa.O.</div></td>
+					<td><div class='cell' id="metaoutb2">.a.xa.O.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb2">.a.xa.O.</div></td>
+				</tr>
+				<tr>
+					<td><div class='cell' id="inb3">rxxa</div></td>
+					<td><div class='cell' id="corrb3">.xa.</div></td>
+					<td><div class='cell' id="metaoutb3">.xa.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb3">.xa.</div></td>
+				</tr>
+				<tr>
+					<td><div class='cell' id="inb4">axrxu</div></td>
+					<td><div class='cell' id="corrb4">.a.xu.</div></td>
+					<td><div class='cell' id="metaoutb4">.a.xu.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb4">.a.xu.</div></td>
+				</tr>
+				<tr>
+					<td><div class='cell' id="inb5">ttxaO</div></td>
+					<td><div class='cell' id="corrb5">.xa.O.</div></td>
+					<td><div class='cell' id="metaoutb5">.xa.O.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb5">.xa.O.</div></td>
+				</tr>
+				<tr>
+					<td><div class='cell' id="inb6">rOau</div></td>
+					<td><div class='cell' id="corrb6">.rO.a.u.</div></td>
+					<td><div class='cell' id="metaoutb6">.rO.a.u.</div></td>
+					<td class='cellcollapsible'><div id="randomoutb6">.rO.a.u.</div></td>
+				</tr>
+			</table>
+
+
+		</div>
+
+	</div>
+
+</div>
+
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+	</div>
+
+
+
+	<div id="printplace"></div>
+
+	<div id="printplaceb"></div>
+	<div id="printplacec"></div>
+<div id="printplaced"></div>
+
+
+<h3>Generalization</h3>
+
+Use multiple tabs: Click on the type of generalization you want to study.
+
+<h3>Sandbox</h3>
+
+People can enter their own training set and test set and see how the model learns it.
+
+
+</section>
+</div> <!--End of content wrapper-->
+
+<script src="maml_weights_js_variables.js"></script>
+<script src="charinddicts.js"></script>
+<script src="tf_weights.js"></script>
+<script src="ioc.js"></script>
+<script>
+
+
+this_counter = 0;
+
+manual_ranking = "";
+manual_vowel_inventory = [];
+manual_consonant_inventory = [];
+all_vowels = ["a", "e", "i", "o", "u", "biga", "bige", "bigi", "bigo", "bigu"];
+all_consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
+
+
+function ranktoggle(ranking) {
+	manual_ranking = ranking;
+	document.getElementById("rankbtn").innerHTML = key2ranking[ranking];
+
+	document.getElementById("langdesc").innerHTML = key2description[ranking].replace("CONS", manual_ep_cons).replace("VOW", manual_ep_vow);
+	renew_language();	
+}
+
+function vtoggle(vow) {
+	if (!manual_vowel_inventory.includes(vow)) {
+		manual_vowel_inventory.push(vow);
+		document.getElementById("btn" + vowel_dict[vow]).style.backgroundColor = "blue";
+		document.getElementById("btn" + vowel_dict[vow]).style.color = "white";
+	} else {
+
+		split_point = manual_vowel_inventory.indexOf(vow);
+		manual_vowel_inventory = manual_vowel_inventory.slice(0,split_point).concat(manual_vowel_inventory.slice(split_point + 1));
+		document.getElementById("btn" + vowel_dict[vow]).style.backgroundColor = "white";
+		document.getElementById("btn" + vowel_dict[vow]).style.color = "black";
+	}
+
+
+
+
+	for (v_index = 0; v_index < all_vowels.length; v_index++) {
+		vow = all_vowels[v_index];
+		document.getElementById("btnep" + vowel_dict[vow]).style.backgroundColor = "white";
+		document.getElementById("btnep" + vowel_dict[vow]).style.color =
+ "black";
+		document.getElementById("btnep" + vowel_dict[vow]).style.display = "none";
+	}
+
+	for (vm_index = 0; vm_index < manual_vowel_inventory.length; vm_index++) {
+		vow = vowel_dict[manual_vowel_inventory[vm_index]];
+		document.getElementById("btnep" + vowel_dict[vow]).style.display = "inline";
+	}
+
+	if (!manual_vowel_inventory.includes(manual_ep_vow)) {
+		manual_ep_vow = choice(manual_vowel_inventory);
+	}
+
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.backgroundColor = "blue";
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.color =
+ "white";
+
+
+	renew_language();
+
+
+}
+
+function ctoggle(cons) {
+	if (!manual_consonant_inventory.includes(cons)) {
+		manual_consonant_inventory.push(cons);
+		document.getElementById("btn" + cons).style.backgroundColor = "blue";
+		document.getElementById("btn" + cons).style.color = "white";
+	} else {
+
+		split_point = manual_consonant_inventory.indexOf(cons);
+		manual_consonant_inventory = manual_consonant_inventory.slice(0,split_point).concat(manual_consonant_inventory.slice(split_point + 1));
+		document.getElementById("btn" + cons).style.backgroundColor = "white";
+		document.getElementById("btn" + cons).style.color = "black";
+	}
+
+
+
+
+	for (c_index = 0; c_index < all_consonants.length; c_index++) {
+		cons = all_consonants[c_index];
+		document.getElementById("btnep" + cons).style.backgroundColor = "white";
+		document.getElementById("btnep" + cons).style.color = "black";
+		document.getElementById("btnep" + cons).style.display = "none";
+	}
+
+	for (cm_index = 0; cm_index < manual_consonant_inventory.length; cm_index++) {
+		cons = manual_consonant_inventory[cm_index];
+		document.getElementById("btnep" + cons).style.display = "inline";
+	}
+
+	if (!manual_consonant_inventory.includes(manual_ep_cons)) {
+		manual_ep_cons = choice(manual_consonant_inventory);
+	}
+
+	document.getElementById("btnep" + manual_ep_cons).style.backgroundColor = "blue";
+	document.getElementById("btnep" + manual_ep_cons).style.color =
+ "white";
+
+
+	renew_language();
+
+
+}
+
+function ceptoggle(cons) {
+
+	for (cn = 0; cn < manual_consonant_inventory.length; cn++) {
+		first_c = manual_consonant_inventory[cn];
+		document.getElementById("btnep" + first_c).style.color = "black";
+		document.getElementById("btnep" + first_c).style.backgroundColor = "white";
+	}
+	
+	document.getElementById("btnep" + cons).style.color = "white";
+	document.getElementById("btnep" + cons).style.backgroundColor = "blue";
+
+	manual_ep_cons = cons;
+
+	renew_language();
+}
+
+function veptoggle(vow) {
+
+	for (vn = 0; vn < manual_vowel_inventory.length; vn++) {
+		first_v = vowel_dict[manual_vowel_inventory[vn]];
+		document.getElementById("btnep" + first_v).style.color = "black";
+		document.getElementById("btnep" + first_v).style.backgroundColor = "white";
+	}
+	document.getElementById("btnep" + vowel_dict[vow]).style.color = "white";
+	document.getElementById("btnep" + vowel_dict[vow]).style.backgroundColor = "blue";
+
+	manual_ep_vow = vow;
+
+	renew_language();
+}
+
+
+
+vowel_dict = {
+	"a" : "a",
+	"e" : "e",
+	"i" : "i",
+	"o" : "o",
+	"u" : "u",
+	"A" : "biga",
+	"E" : "bige",
+	"I" : "bigi",
+	"O" : "bigo",
+	"U" : "bigu",
+	"biga" : "biga",
+	"bige" : "bige",
+	"bigi" : "bigi",
+	"bigo" : "bigo",
+	"bigu" : "bigu"	
+}
+
+function random_language() {
+
+	new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=1, n_test=6);
+
+
+	training_set = new_lang[0];
+	dev_set = new_lang[1];
+	test_set = new_lang[2];
+	new_vinv = new_lang[3];
+	new_cinv = new_lang[4];
+
+	test_set_firsts = [];
+	for (tsf = 0; tsf<test_set.length; tsf++) {
+    	test_set_firsts.push(test_set[tsf][0]);
+	}
+
+	manual_ranking = new_lang[5];
+	manual_vowel_inventory = new_vinv;
+	manual_consonant_inventory = new_cinv;
+	manual_ep_vow = new_vinv[0];
+	manual_ep_cons = new_cinv[0];
+
+
+
+	for (spqr = 0; spqr < test_set.length; spqr++) {
+		document.getElementById("inb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][0]);
+		document.getElementById("corrb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][1]);
+	}
+
+
+	for (v_index = 0; v_index < all_vowels.length; v_index++) {
+		vow = all_vowels[v_index];
+		document.getElementById("btn" + vow).style.backgroundColor = "white";
+		document.getElementById("btn" + vow).style.color = "black";
+		document.getElementById("btnep" + vow).style.display = "none";
+	}
+
+	for (vm_index = 0; vm_index < manual_vowel_inventory.length; vm_index++) {
+		vow = vowel_dict[manual_vowel_inventory[vm_index]];
+		document.getElementById("btn" + vow).style.backgroundColor = "blue";
+		document.getElementById("btn" + vow).style.color = "white";
+		document.getElementById("btnep" + vow).style.display = "inline";
+	}
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.backgroundColor = "blue";
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.color =
+ "white";
+
+
+	for (c_index = 0; c_index < all_consonants.length; c_index++) {
+		cons = all_consonants[c_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "white";
+		document.getElementById("btn" + cons).style.color = "black";
+		document.getElementById("btnep" + cons).style.display = "none";
+	}
+
+	for (cm_index = 0; cm_index < manual_consonant_inventory.length; cm_index++) {
+		cons = manual_consonant_inventory[cm_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "blue";
+		document.getElementById("btn" + cons).style.color = "white";
+		document.getElementById("btnep" + cons).style.display = "inline";
+	
+	}
+
+	document.getElementById("btnep" + manual_ep_cons).style.backgroundColor = "blue";
+	document.getElementById("btnep" + manual_ep_cons).style.color = "white";
+
+
+	reset_weights();
+	
+	  preds = seq2seq(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop])
+			if (pred == test_set[lmnop][1]) {
+				font_color = "green";
+			} else {
+				font_color = "red";
+			}
+			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+	  preds = seq2seqb(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop]);
+			if (pred == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+
+
+			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+	document.getElementById("rankbtn").innerHTML = key2ranking[manual_ranking];
+	document.getElementById("langdesc").innerHTML = key2description[manual_ranking].replace("CONS", manual_ep_cons).replace("VOW", manual_ep_vow);
+
+	this_counter = 0;
+	document.getElementById("traincount").innerHTML = this_counter;
+
+	seen_training = "";
+    document.getElementById("trainingexamplelist").innerHTML = seen_training;
+	document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+}
+
+
+function renew_language() {
+	ind_ep_vow = manual_vowel_inventory.indexOf(manual_ep_vow);
+
+	manual_ep_vow_list = [manual_ep_vow];
+	manual_vowel_inventory = manual_ep_vow_list.concat(manual_vowel_inventory.slice(0,ind_ep_vow).concat(manual_vowel_inventory.slice(ind_ep_vow + 1)));
+
+	ind_ep_cons = manual_consonant_inventory.indexOf(manual_ep_cons);
+
+	manual_ep_cons_list = [manual_ep_cons];
+	manual_consonant_inventory = manual_ep_cons_list.concat(manual_consonant_inventory.slice(0,ind_ep_cons).concat(manual_consonant_inventory.slice(ind_ep_cons + 1)));
+
+
+
+	new_lang = make_task(manual_ranking, all_input_outputs, n_train=100, n_dev=1, n_test=6, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
+
+	training_set = new_lang[0];
+	dev_set = new_lang[1];
+	test_set = new_lang[2];
+	test_set_firsts = [];
+	for (tsf = 0; tsf<test_set.length; tsf++) {
+		test_set_firsts.push(test_set[tsf][0]);
+	}
+	for (spqr = 0; spqr < test_set.length; spqr++) {
+		document.getElementById("inb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][0]);
+		document.getElementById("corrb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][1]);
+	}
+
+
+	for (v_index = 0; v_index < all_vowels.length; v_index++) {
+		vow = all_vowels[v_index];
+		document.getElementById("btn" + vow).style.backgroundColor = "white";
+		document.getElementById("btn" + vow).style.color = "black";
+		document.getElementById("btnep" + vow).style.display = "none";
+	}
+
+	for (vm_index = 0; vm_index < manual_vowel_inventory.length; vm_index++) {
+		vow = vowel_dict[manual_vowel_inventory[vm_index]];
+		document.getElementById("btn" + vow).style.backgroundColor = "blue";
+		document.getElementById("btn" + vow).style.color = "white";
+		document.getElementById("btnep" + vow).style.display = "inline";
+	}
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.backgroundColor = "blue";
+	document.getElementById("btnep" + vowel_dict[manual_ep_vow]).style.color =
+ "white";
+
+
+	for (c_index = 0; c_index < all_consonants.length; c_index++) {
+		cons = all_consonants[c_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "white";
+		document.getElementById("btn" + cons).style.color = "black";
+		document.getElementById("btnep" + cons).style.display = "none";
+	}
+
+	for (cm_index = 0; cm_index < manual_consonant_inventory.length; cm_index++) {
+		cons = manual_consonant_inventory[cm_index];
+		document.getElementById("btn" + cons).style.backgroundColor = "blue";
+		document.getElementById("btn" + cons).style.color = "white";
+		document.getElementById("btnep" + cons).style.display = "inline";
+	
+	}
+
+	document.getElementById("btnep" + manual_ep_cons).style.backgroundColor = "blue";
+	document.getElementById("btnep" + manual_ep_cons).style.color = "white";
+
+
+	reset_weights();
+	
+	  preds = seq2seq(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop])
+			if (pred == test_set[lmnop][1]) {
+				font_color = "green";
+			} else {
+				font_color = "red";
+			}
+			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+	  preds = seq2seqb(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop]);
+			if (pred == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+
+
+			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+	document.getElementById("rankbtn").innerHTML = key2ranking[manual_ranking];
+	document.getElementById("langdesc").innerHTML = key2description[manual_ranking].replace("CONS", manual_ep_cons).replace("VOW", manual_ep_vow);
+
+	this_counter = 0;
+	document.getElementById("traincount").innerHTML = this_counter;
+
+	seen_training = "";
+    document.getElementById("trainingexamplelist").innerHTML = seen_training;
+	document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+}
+
+
+function toz(inp) {
+	if (inp.includes("Z")) {
+		inp = inp.slice(0, inp.indexOf("Z"));
+	}
+
+	return inp;
+}
+
+function nullify(inp) {
+
+	//if (inp.includes("Z")) {
+	//	inp = inp.slice(0, inp.indexOf("Z"));
+	//}
+
+	if (inp === "") {
+		return "&lt;empty&gt;";
+	} else {
+		return inp;
+	}
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function choice(array) {
+	return array[Math.floor(Math.random() * array.length)];
+}
+
+
+
+function trf(x) {
+	return true;
+}
+
+
+
+
+vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+
+function phoneme_inventory(nc=null, nv=null) {
+	if (nc == null) {
+		nc = Math.floor(Math.random() * 3) + 2;
+	}
+
+	if (nv == null) {
+		nv = Math.floor(Math.random() * 3) + 2;
+	}
+
+	shuffle(vowels);
+	shuffle(consonants);
+
+	v_inv = vowels.slice(0,nv);
+	c_inv = consonants.slice(0,nc);	
+
+	return [v_inv, c_inv];
+
+}
+
+
+function output_string(inp, outp, v_list, c_list, steps=None, change_one=False, change_all=False) {
+	outp_no_periods = outp.replace(/\./g, "");
+	inp_phonemes = [];
+	for (i = 0; i < inp.length; i++) {
+		thischar = inp[i];
+		if (thischar == "C") {
+			inp_phonemes.push(choice(c_list));
+		} else {
+			inp_phonemes.push(choice(v_list));
+		}
+	}
+
+	inp_word = inp_phonemes.join("");
+	if (change_one) {
+		inp_word = replace_one(inp_word, v_list, c_list);
+	} else if (change_all) {
+		inp_word = replace_all(inp_word, v_list, c_list);
+	}
+
+	inp_phonemes = inp_word;
+
+	outp_phonemes = [];
+	indi = 0;
+	indo = 0;
+
+	for (j = 0; j < steps.length; j++) {
+		stp = steps[j];
+		if (stp == "next") {
+			outp_phonemes.push(inp_phonemes[indi]);
+			indi++;
+			indo++;
+		}
+		if (stp == "del") {
+			indi++;
+		}
+		if (stp == "ins") {
+			if (outp_no_periods[indo] == "C") {
+				outp_phonemes.push(c_list[0]);
+			} else {
+				outp_phonemes.push(v_list[0]);
+			}
+			indo += 1;
+		}
+
+	}
+
+	outp_alignment = [];
+	ind_al = 0;
+
+	for (k = 0; k < outp.length; k++) {
+		thischar = outp[k];
+		if (thischar == ".") {
+			outp_alignment.push(thischar);
+		} else {
+			outp_alignment.push(ind_al);
+			ind_al++;
+		}
+	}
+
+	outp_chars = [];
+	for (q = 0; q < outp_alignment.length; q++) {
+		elt = outp_alignment[q];
+		if (elt == ".") {
+			outp_chars.push(".");
+		} else {
+			outp_chars.push(outp_phonemes[elt]);
+		}
+	}
+
+	outp_word = outp_chars.join("");
+	return [inp_word, outp_word];
+
+}
+	
+
+
+
+
+function make_task(ranking, all_input_outputs, n_train=10, n_dev=10, n_test=10, v_list=null, c_list=null, periods=true, input_filter_dev=trf, output_filter_dev=trf, input_filter_test=trf, output_filter_test=trf, input_filter_train=trf, output_filter_train=trf, abstract_input_filter_dev=trf, abstract_output_filter_dev=trf, abstract_input_filter_test=trf, abstract_output_filter_test=trf, abstract_input_filter_train=trf, abstract_output_filter_train=trf, replace_one_dev=false, replace_one_test=false, replace_one_train=false, replace_all_dev=false, replace_all_test=false, replace_all_train=false, artificial_io_list=null) {
+	if (all_input_outputs != null) {
+		io_list = all_input_outputs[ranking].slice();
+	} else {
+		io_list = artificial_io_list;
+	}
+
+	shuffle(io_list);
+
+	if (v_list == null || c_list == null) {
+		inv = phoneme_inventory();
+		v_list = inv[0];
+		c_list = inv[1];
+	}
+
+	train_pairs = [];
+	dev_pairs = [];
+	test_pairs = [];
+
+	train_dict = {};
+	dev_dict = {};
+	test_dict = {};
+
+
+	for (iqj = 0; iqj < n_dev; iqj++) {
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+			candidate_str = candidate[0] + candidate[1];
+
+
+			if (!(candidate_str in dev_dict) && !(candidate_str in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+
+			
+		}
+
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_dev || replace_all_dev) && abstract[0] == "") {
+				continue;
+			}
+
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_dev, change_all=replace_all_dev);
+
+			if (!(candidate in train_dict) && !(candidate in test_dict) && abstract_input_filter_dev(abstract[0]) && abstract_output_filter_dev(abstract[1].replace(/\./g, "")) && input_filter_dev(candidate[0]) && output_filter_dev(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+
+				if (periods) {
+					dev_pairs.push(candidate);
+				} else {
+					dev_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				dev_dict[candidate] = 1
+
+			}
+
+		}
+
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_test || replace_all_test) && abstract[0] == "") {	
+				continue;
+			}
+			
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_test, change_all=replace_all_test);
+
+			if (!(candidate in train_dict) && !(candidate in dev_dict) && abstract_input_filter_test(abstract[0]) && abstract_output_filter_test(abstract[1].replace(/\./g, "")) && input_filter_test(candidate[0]) || output_filter_test(candidate[1].replace(/\./g, ""))) {
+				satisfied = true; 
+
+				if (periods) {
+					test_pairs.push(candidate);
+				} else {
+					test__pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				test_dict[candidate] = 1;
+			}
+
+		}
+
+	}
+
+
+
+	for (iqk = 0; iqk < n_test - n_dev; iqk++) {
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+
+			if (!(candidate in dev_dict) && !(candidate in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+
+			
+		}
+
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_test || replace_all_test) && abstract[0] == "") {	
+				continue;
+			}
+			
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_test, change_all=replace_all_test);
+
+			if (!(candidate in train_dict) && !(candidate in dev_dict) && abstract_input_filter_test(abstract[0]) && abstract_output_filter_test(abstract[1].replace(/\./g, "")) && input_filter_test(candidate[0]) && output_filter_test(candidate[1].replace(/\./g, ""))) {
+				satisfied = true; 
+
+				if (periods) {
+					test_pairs.push(candidate);
+				} else {
+					test__pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				test_dict[candidate] = 1;
+			}
+
+		}
+
+	}
+
+
+	for (iql = 0; iql < n_train - n_test; iql++) {
+		satisfied = false;
+		while (!satisfied) {
+			abstract = choice(io_list);
+
+			if ((replace_one_train || replace_all_train) && abstract[0] == "") {
+				continue;
+			}
+
+			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_train, change_all=replace_all_train);
+
+			if (!(candidate in dev_dict) && !(candidate in test_dict) && abstract_input_filter_train(abstract[0]) && abstract_output_filter_train(abstract[1].replace(/\./g, "")) && input_filter_train(candidate[0]) && output_filter_train(candidate[1].replace(/\./g, ""))) {
+				satisfied = true;
+				if (periods) {
+					train_pairs.push(candidate);
+				} else {
+					train_pairs.push([candidate[0], candidate[1].replace(/\./g, "")]);
+				}
+
+				train_dict[candidate] = 1;
+
+			}
+
+			
+		}
+
+
+	}
+
+
+	return [train_pairs, dev_pairs, test_pairs, v_list, c_list, ranking];
+	
+
+}
+
+
+//0 = onset
+//1 = nocoda
+//2 = max
+//3 = dep
+
+
+const key2ranking = {
+	"(0, 1, 2, 3)" : "Onset, NoCoda, Max &#187; Dep",
+	"(0, 1, 3, 2)" : "Onset, NoCoda, Dep &#187; Max",
+	"(0, 3, 2, 1)" : "Onset, Dep &#187; Max &#187; NoCoda",
+	"(1, 3, 2, 0)" : "NoCoda, Dep &#187;  Max &#187; Onset",
+	"(0, 2, 3, 1)" : "Onset, Max &#187; Dep &#187; NoCoda",
+	"(1, 2, 3, 0)" : "NoCoda, Max &#187; Dep &#187; Onset",
+	"(3, 2, 0, 1)" : "Dep &#187; Max &#187; Onset, NoCoda",
+	"(2, 3, 0, 1)" : "Max &#187; Dep &#187; Onset, NoCoda"
+}
+
+const key2description = {
+	"(0, 1, 2, 3)" : "Insert <em>CONS</em> or <em>VOW</em>  as necessary to ensure that all syllables are of the form consonant-vowel; add periods to mark syllable boundaries.",
+	"(0, 1, 3, 2)" : "Delete sounds as necessary to ensure that all syllables are of the form consonant-vowel; add periods to mark syllable boundaries.",
+	"(0, 3, 2, 1)" : "Delete sounds as necessary to ensure that all syllables start with a consonant; add periods to mark syllable boundaries.",
+	"(1, 3, 2, 0)" : "Delete sounds as necessary to ensure that all syllables end with a vowel; add periods to mark syllable boundaries.",
+	"(0, 2, 3, 1)" : "Insert <em>CONS</em> and <em>VOW</em> as necessary to have all syllables start with a consonant and to make the output pronounceable; add periods to mark syllable boundaries.",
+	"(1, 2, 3, 0)" : "Insert <em>VOW</em> as necessary to ensure that all syllables end with a vowel; add periods to mark syllable boundaries.",
+	"(3, 2, 0, 1)" : "Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries.",
+	"(2, 3, 0, 1)" : "Insert <em>VOW</em> as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries."
+}
+
+
+
+rankings = ["(2, 3, 0, 1)", "(3, 2, 0, 1)", "(1, 2, 3, 0)", "(0, 2, 3, 1)", "(1, 3, 2, 0)", "(0, 3, 2, 1)", "(0, 1, 3, 2)", "(0, 1, 2, 3)"]
+
+new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=2, n_test=6);
+
+training_set = new_lang[0];
+dev_set = new_lang[1];
+test_set = new_lang[2];
+new_vinv = new_lang[3];
+new_cinv = new_lang[4];
+
+test_set_firsts = [];
+for (tsf = 0; tsf<test_set.length; tsf++) {
+    test_set_firsts.push(test_set[tsf][0]);
+}
+
+manual_ranking = new_lang[5];
+manual_vowel_inventory = new_vinv;
+manual_consonant_inventory = new_cinv;
+manual_ep_vow = new_vinv[0];
+manual_ep_cons = new_cinv[0];
+
+
+
+
+
+this_input = word2embs(["zaza"]);
+this_input2 = word2embs([".za.za"], sos=true);
+
+
+
+var tf_emb_wg = tf.tensor2d(emb_wg, [34,10]);
+var weights_emb_bias = tf.zeros([10]);
+var tf_full_x = tf.variable(tf.tensor2d(full_x, [10,768]),trainable=true);
+var tf_full_w = tf.variable(tf.tensor2d(full_w, [256,768]),trainable=true);
+var tf_full_b = tf.variable(tf.tensor(full_b, [3,256]),trainable=true);
+var tf_out_wg = tf.variable(tf.tensor(out_wg, [256,34]),trainable=true);
+var tf_out_wb = tf.variable(tf.tensor(out_wb, [34]),trainable=true);
+var tf_full_xd = tf.variable(tf.tensor2d(full_xd, [10,768]),trainable=true);
+var tf_full_wd = tf.variable(tf.tensor2d(full_wd, [256,768]),trainable=true);
+var tf_full_bd = tf.variable(tf.tensor(full_bd, [3,256]),trainable=true);
+
+
+
+var xz = tf.variable(tf.slice(tf_full_x, [0,0], [10,256]));
+var xr = tf.variable(tf.slice(tf_full_x, [0,256], [10,256]));
+var xx = tf.variable(tf.slice(tf_full_x, [0,512], [10,256]));
+var wz = tf.variable(tf.slice(tf_full_w, [0,0], [256,256]));
+var wr = tf.variable(tf.slice(tf_full_w, [0,256], [256,256]));
+var wx = tf.variable(tf.slice(tf_full_w, [0,512], [256,256]));
+var bz = tf.variable(tf.slice(tf_full_b, [0,0], [1,256]));
+var br = tf.variable(tf.slice(tf_full_b, [1,0], [1,256]));
+var bx = tf.variable(tf.slice(tf_full_b, [2,0], [1,256]));
+
+var xzd = tf.variable(tf.slice(tf_full_xd, [0,0], [10,256]));
+var xrd = tf.variable(tf.slice(tf_full_xd, [0,256], [10,256]));
+var xxd = tf.variable(tf.slice(tf_full_xd, [0,512], [10,256]));
+var wzd = tf.variable(tf.slice(tf_full_wd, [0,0], [256,256]));
+var wrd = tf.variable(tf.slice(tf_full_wd, [0,256], [256,256]));
+var wxd = tf.variable(tf.slice(tf_full_wd, [0,512], [256,256]));
+var bzd = tf.variable(tf.slice(tf_full_bd, [0,0], [1,256]));
+var brd = tf.variable(tf.slice(tf_full_bd, [1,0], [1,256]));
+var bxd = tf.variable(tf.slice(tf_full_bd, [2,0], [1,256]));
+
+var emb = tf.variable(tf_emb_wg);
+
+var wout = tf.variable(tf_out_wg);
+var bout = tf.variable(tf_out_wb);
+
+
+
+
+
+
+
+var xzb = tf.variable(tf.randomNormal([10,256]));
+var xrb = tf.variable(tf.randomNormal([10,256]));
+var xxb = tf.variable(tf.randomNormal([10,256]));
+var wzb = tf.variable(tf.randomNormal([256,256]));
+var wrb = tf.variable(tf.randomNormal([256,256]));
+var wxb = tf.variable(tf.randomNormal([256,256]));
+var bzb = tf.variable(tf.randomNormal([1,256]));
+var brb = tf.variable(tf.randomNormal([1,256]));
+var bxb = tf.variable(tf.randomNormal([1,256]));
+
+var xzdb = tf.variable(tf.randomNormal([10,256]));
+var xrdb = tf.variable(tf.randomNormal([10,256]));
+var xxdb = tf.variable(tf.randomNormal([10,256]));
+var wzdb = tf.variable(tf.randomNormal([256,256]));
+var wrdb = tf.variable(tf.randomNormal([256,256]));
+var wxdb = tf.variable(tf.randomNormal([256,256]));
+var bzdb = tf.variable(tf.randomNormal([1,256]));
+var brdb = tf.variable(tf.randomNormal([1,256]));
+var bxdb = tf.variable(tf.randomNormal([1,256]));
+
+var embb = tf.variable(tf.randomNormal([34,10]));
+
+var woutb = tf.variable(tf.randomNormal([256,34]));
+var boutb = tf.variable(tf.randomNormal([34]));
+
+
+
+
+
+
+
+
+
+
+function reset_weights() {
+
+
+	xz = tf.variable(tf.slice(tf_full_x, [0,0], [10,256]));
+	xr = tf.variable(tf.slice(tf_full_x, [0,256], [10,256]));
+	xx = tf.variable(tf.slice(tf_full_x, [0,512], [10,256]));
+	wz = tf.variable(tf.slice(tf_full_w, [0,0], [256,256]));
+	wr = tf.variable(tf.slice(tf_full_w, [0,256], [256,256]));
+	wx = tf.variable(tf.slice(tf_full_w, [0,512], [256,256]));
+	bz = tf.variable(tf.slice(tf_full_b, [0,0], [1,256]));
+	br = tf.variable(tf.slice(tf_full_b, [1,0], [1,256]));
+	bx = tf.variable(tf.slice(tf_full_b, [2,0], [1,256]));
+
+	xzd = tf.variable(tf.slice(tf_full_xd, [0,0], [10,256]));
+	xrd = tf.variable(tf.slice(tf_full_xd, [0,256], [10,256]));
+	xxd = tf.variable(tf.slice(tf_full_xd, [0,512], [10,256]));
+	wzd = tf.variable(tf.slice(tf_full_wd, [0,0], [256,256]));
+	wrd = tf.variable(tf.slice(tf_full_wd, [0,256], [256,256]));
+	wxd = tf.variable(tf.slice(tf_full_wd, [0,512], [256,256]));
+	bzd = tf.variable(tf.slice(tf_full_bd, [0,0], [1,256]));
+	brd = tf.variable(tf.slice(tf_full_bd, [1,0], [1,256]));
+	bxd = tf.variable(tf.slice(tf_full_bd, [2,0], [1,256]));
+
+	emb = tf.variable(tf_emb_wg);
+
+	wout = tf.variable(tf_out_wg);
+	bout = tf.variable(tf_out_wb);
+
+
+
+
+
+
+
+	xzb = tf.variable(tf.randomNormal([10,256]));
+	xrb = tf.variable(tf.randomNormal([10,256]));
+	xxb = tf.variable(tf.randomNormal([10,256]));
+	wzb = tf.variable(tf.randomNormal([256,256]));
+	wrb = tf.variable(tf.randomNormal([256,256]));
+	wxb = tf.variable(tf.randomNormal([256,256]));
+	bzb = tf.variable(tf.randomNormal([1,256]));
+	brb = tf.variable(tf.randomNormal([1,256]));
+	bxb = tf.variable(tf.randomNormal([1,256]));
+
+	xzdb = tf.variable(tf.randomNormal([10,256]));
+	xrdb = tf.variable(tf.randomNormal([10,256]));
+	xxdb = tf.variable(tf.randomNormal([10,256]));
+	wzdb = tf.variable(tf.randomNormal([256,256]));
+	wrdb = tf.variable(tf.randomNormal([256,256]));
+	wxdb = tf.variable(tf.randomNormal([256,256]));
+	bzdb = tf.variable(tf.randomNormal([1,256]));
+	brdb = tf.variable(tf.randomNormal([1,256]));
+	bxdb = tf.variable(tf.randomNormal([1,256]));
+
+	embb = tf.variable(tf.randomNormal([34,10]));
+
+	woutb = tf.variable(tf.randomNormal([256,34]));
+	boutb = tf.variable(tf.randomNormal([34]));
+
+}
+
+
+
+
+
+var these_zeros = [];
+var these_ones = [];
+for (xkcd = 0; xkcd < 256; xkcd++) {
+	these_zeros.push(0);
+	these_ones.push(1);
+}
+
+
+
+
+
+renew_language();
+
+document.getElementById("rankbtn").innerHTML = key2ranking[manual_ranking];
+document.getElementById("langdesc").innerHTML = key2description[new_lang[5]].replace("CONS", new_lang[4][0]).replace("VOW", new_lang[3][0]);
+
+
+var seen_training = "";
+
+function make_one_hot(index) {
+    onehot_vec = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    onehot_vec[index] = 1;
+    return onehot_vec;  
+}
+function make_one_hot_seq(word, eos=true) {
+    length_word = word.length;
+    onehot_vec = []
+
+    for (ind = 0; ind < length_word; ind++) {
+        charnum = char2ind[word[ind]];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+    }
+
+    if (eos) {
+        charnum = char2ind["EOS"];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+        length_word += 1;
+    }
+
+    if (eos && length_word == 1) {
+        charnum = char2ind["EOS"];
+        onehot_vec = onehot_vec.concat(make_one_hot(charnum));
+        length_word += 1;
+    }
+
+
+    return tf.tensor3d(onehot_vec, [1,length_word,34]);
+} 
+
+function output_to_string(outp_logits) {
+    topks = tf.topk(outp_logits)["indices"];
+    topks_usable = topks.dataSync();
+    
+    out_string = "";
+    for (i = 0; i < topks_usable.length; i++) {
+        out_string = out_string + ind2char[topks_usable[i]];
+    }
+
+    return out_string;
+}
+
+function generate_output(model, inp, secondguy) {
+    done = false;
+
+    inp1 = word2embs([inp]);
+    inp2 = word2embs([""], sos=true);
+    //inp2 = word2embs([secondguy.substring(0, training_set[ijk][1].length)], sos=true)
+
+    counter = 0;
+    while (!done) {
+        counter += 1;
+        out_string = output_to_string(model.predict([inp1, inp2]));
+        if (out_string[out_string.length - 1] == "Z") {
+            done = true;
+        } else if (counter > 15) {
+            done = true;
+        } else {
+            inp2 = word2embs([out_string], sos=true);
+        }
+        
+    }
+
+    return out_string.substring(0, out_string.length - 1);
+    
+}
+
+function word2embs(words, sos=false) {
+    n_words = words.length;
+
+    embs_list = [];
+
+    word_length = words[0].length;
+    if (sos) {
+        word_length += 1;
+    }
+
+    for (zx = 0; zx < n_words; zx++) {
+        word = words[zx];
+        if (word.length != word_length) {
+            14/0;
+        }
+        if (sos) {
+            embs_list = embs_list.concat(embedding_dictionary["SOS"]);
+        }
+
+        for(i = 0; i < word.length; i++) {
+            embs_list = embs_list.concat(embedding_dictionary[word[i]]);
+        }
+    }
+    return tf.tensor3d(embs_list, [n_words,word_length,10]);
+
+}
+
+
+
+
+
+
+
+
+function embed_seqs(seqs) {
+	max_seq_length = 0;
+	emb_list = []
+	multiplier_list = [];
+
+	for (seqi = 0; seqi < seqs.length; seqi++) {
+		this_length = seqs[seqi].length;
+		if (this_length > max_seq_length) {
+			max_seq_length = this_length;
+		}
+
+	}
+
+	for (seqind = 0; seqind < max_seq_length; seqind++) {
+		current_emb_list = [];
+		current_mult_list = [];
+
+		for (seqk = 0; seqk < seqs.length; seqk++) {
+		
+			if (seqind < seqs[seqk].length) {
+				thischar = seqs[seqk][seqind];
+				current_mult_list.push(these_ones.slice());
+			} else {
+				thischar = "N";
+				current_mult_list.push(these_zeros.slice());
+			}
+
+			current_emb = embedding_dictionary[thischar];
+			current_emb_list = current_emb_list.concat(current_emb);
+		}
+		emb_list.push(tf.tensor2d(current_emb_list, [seqs.length, 10]));
+		multiplier_list.push(tf.tensor2d(current_mult_list, [seqs.length, 256]));
+	}
+
+	return [emb_list, multiplier_list];
+
+}
+
+function lst_append(lst, nw) {
+	new_lst = [];
+
+	for (lst_ind = 0; lst_ind < lst.length; lst_ind++) {
+		new_lst.push(lst[lst_ind] + nw[lst_ind]);
+	}
+
+	return new_lst;
+}
+
+
+function seq2seq(inpseqs, outlength=-1) {
+	num_seqs = inpseqs.length;
+
+	embs_pair = embed_seqs(inpseqs);
+	embs = embs_pair[0];
+	mults = embs_pair[1];
+
+
+	hidden_state = tf.zeros([num_seqs,256]);
+	for (qz = 0; qz < embs.length; qz++) {
+		inp = embs[qz]; //tf.tensor2d(embedding_dictionary[inpseq[qz]], [1,10]);
+		zt = inp.matMul(xz).add(bz).add(hidden_state.matMul(wz)).sigmoid();
+		rt = inp.matMul(xr).add(br).add(hidden_state.matMul(wr)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wx).add(bx);
+		xt = inp.matMul(xx);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state_new = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		if (num_seqs > 1) {
+			hidden_state = hidden_state_new.mul(mults[qz]).add(hidden_state.mul(ones.sub(mults[qz])));
+		} else {
+			hidden_state = hidden_state_new;
+		}
+
+	}
+	prev_output = []; 
+
+	outseq = [];
+	for (ns = 0; ns < num_seqs; ns++) {
+		prev_output.push("S");
+		outseq.push("");
+	}
+	logits = [];
+
+	if (outlength == -1) {
+		max_length = 15;
+	} else if (outlength == 0) {
+		max_length = 1;
+	} else {
+		max_length = outlength;
+	}
+	for (qz = 0; qz < max_length + 1; qz++) {
+		inp = embed_seqs(prev_output)[0][0]; //tf.tensor2d(embedding_dictionary[prev_output], [1,10]);
+		zt = inp.matMul(xzd).add(bzd).add(hidden_state.matMul(wzd)).sigmoid();
+		rt = inp.matMul(xrd).add(brd).add(hidden_state.matMul(wrd)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxd).add(bxd);
+		xt = inp.matMul(xxd);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		logit = hidden_state.matMul(wout).add(bout);//HEREHERE
+		logits = logits.concat(logit);
+
+		topks = tf.topk(logit)["indices"];
+    	topks_usable = topks.dataSync();
+
+
+		prev_output = []; 
+		for (zzz = 0; zzz < topks_usable.length; zzz++) {
+			prev_output.push(ind2char[topks_usable[zzz]]);
+		}
+
+		if (outlength == -1 && prev_output == "Z") {
+			break;
+		}
+		
+		outseq = lst_append(outseq, prev_output);
+	}
+
+
+	return [outseq, tf.stack(logits, axis=1)];	
+
+}
+
+
+function seq2seqb(inpseqs, outlength=-1) {
+	num_seqs = inpseqs.length;
+	embs_pair = embed_seqs(inpseqs);
+    embs = embs_pair[0];
+    mults = embs_pair[1];
+
+	outseq = "";
+	hidden_state = tf.zeros([num_seqs,256]);
+	for (qz = 0; qz < embs.length; qz++) {
+		inp = embs[qz]; //tf.tensor2d(embedding_dictionary[inpseq[qz]], [1,10]);
+		zt = inp.matMul(xzb).add(bzb).add(hidden_state.matMul(wzb)).sigmoid();
+		rt = inp.matMul(xrb).add(brb).add(hidden_state.matMul(wrb)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxb).add(bxb);
+		xt = inp.matMul(xxb);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state_new = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		if (num_seqs > 1) {
+			hidden_state = hidden_state_new.mul(mults[qz]).add(hidden_state.mul(ones.sub(mults[qz])));
+		} else {
+			hidden_state = hidden_state_new;
+		}
+
+	}
+
+	prev_output = [];
+	outseq = [];
+
+	for (ns = 0; ns < num_seqs; ns++) {
+		prev_output.push("S");
+		outseq.push("");
+	}
+
+
+	logits = [];
+
+	if (outlength == -1) {
+		max_length = 15;
+	} else if (outlength == 0) {
+		max_length = 1;
+	} else {
+		max_length = outlength;
+	}
+	for (qz = 0; qz < max_length + 1; qz++) {
+		inp = embed_seqs(prev_output)[0][0]; //tf.tensor2d(embedding_dictionary[prev_output], [1,10]);
+
+		zt = inp.matMul(xzdb).add(bzdb).add(hidden_state.matMul(wzdb)).sigmoid();
+		rt = inp.matMul(xrdb).add(brdb).add(hidden_state.matMul(wrdb)).sigmoid();
+		urht = rt.mul(hidden_state).matMul(wxdb).add(bxdb);
+		xt = inp.matMul(xxdb);
+		h_tilde = urht.add(xt).tanh();
+		ones = tf.ones([1,256]);
+		hidden_state = zt.mul(hidden_state).add(ones.sub(zt).mul(h_tilde));
+
+		logit = hidden_state.matMul(woutb).add(boutb);//HEREHERE
+		logits = logits.concat(logit);
+
+		topks = tf.topk(logit)["indices"];
+    	topks_usable = topks.dataSync();
+
+		prev_output = [];
+		for (zzz = 0; zzz < topks_usable.length; zzz++) {
+			prev_output.push(ind2char[topks_usable[zzz]]);
+		}
+
+		if (outlength == -1 && prev_output == "Z") {
+			break;
+		}
+
+		outseq = lst_append(outseq, prev_output);
+	}
+
+
+	return [outseq, tf.stack(logits, axis=1)];	
+
+}
+
+
+
+
+
+
+
+var xsm = training_set[0][0];
+var ysm = training_set[0][1];
+
+
+
+function* data() {
+ for (let i = 0; i < 1; i++) {
+   // Generate one sample at a time.
+   yield "attt";
+ }
+}
+
+function* labels() {
+ for (let i = 0; i < 1; i++) {
+   // Generate one sample at a time.
+   yield ".a.";
+ }
+}
+
+
+
+//const xsa = tf.data.generator(data);
+//const ysa = tf.data.generator(labels);
+// Zip the data and labels together, shuffle and batch 32 samples at a time.
+//const dsa = tf.data.zip({xsa, ysa}).shuffle(100 /* bufferSize */).batch(32);
+
+const xsma = tf.data.generator(data);
+const ysma = tf.data.generator(labels);
+const ds = tf.data.zip({xsma, ysma}).shuffle(100).batch(1);
+
+function return_inps() {
+	return xs, ys;
+}
+
+document.getElementById("printplacec").innerHTML = "dog";
+
+
+async function fitfitfit(seq2seq, prefix, add_train=false) {
+
+const optimizer = tf.train.sgd(0.05);
+// Train for 5 epochs.
+for (let epoch = 0; epoch < 1; epoch++) {
+  await ds.forEachAsync(({xs, ys}) => {
+    optimizer.minimize(() => {
+	  if (add_train) {
+	  	seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
+	  	document.getElementById("trainingexamplelist").innerHTML = seen_training;
+		document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+		console.log("tc", this_counter);
+		xsm = training_set[this_counter][0];
+		ysm = training_set[this_counter][1];
+	  	this_counter += 1;
+		document.getElementById("traincount").innerHTML = this_counter;
+	  }
+      const predYs = seq2seq([xsm],outlength=ysm.length)[1];
+	  
+      const loss = tf.losses.softmaxCrossEntropy(make_one_hot_seq(ysm), predYs, axis=1);
+      loss.data().then(l => console.log('Loss', l));
+
+	  preds = seq2seq(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop]);
+ 			if (pred == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+			
+			document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+      return loss;
+    });
+  });
+  console.log('Epoch', epoch);
+}
+}
+
+
+
+
+	  console.log("tfs", test_set_firsts);
+	  preds = seq2seq(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop])
+			if (pred == test_set[lmnop][1]) {
+				font_color = "green";
+			} else {
+				font_color = "red";
+			}
+			document.getElementById("metaoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+	  preds = seq2seqb(test_set_firsts)[0];
+	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+			pred = toz(preds[lmnop]);
+			if (pred == test_set[lmnop][1]) {
+                font_color = "green";
+            } else {
+                font_color = "red";
+            }
+
+
+			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	  }
+
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function dropFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+
+</script>
+
+
+</body>
+
+
+
+</html>
+
+
