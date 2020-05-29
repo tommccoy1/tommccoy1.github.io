@@ -16,11 +16,17 @@ body {
 
 
 .contentwrapper {
-  max-width:1000px;
+  max-width:800px;
   margin:0 auto;
   background:white;
-  border-radius: 8px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);
+  /*border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);*/
+}
+
+.maindemowrapper {
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0 0 0 3px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);
 }
 
 header, section, footer {
@@ -223,7 +229,7 @@ header {
 
 section {
   padding:15px 20px;
-  font-size:15px;
+  font-size:14px;
   border-top:1px solid #fff;
   background: linear_gradient(#fafafa, #DEDEDE 700px);
   border-radius: 0 0 8px 8px;
@@ -434,7 +440,7 @@ footer {
 .hor-minimalist-a
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 14px;
+	font-size: 13px;
 	background: #fff;
 	table-layout: fixed;
 	margin: 0px;
@@ -510,15 +516,20 @@ footer {
   background-color: #2980B9;
 }
 
+.trainbtn:disabled, .trainbtn[disabled] {
+  background-color: lightgray;
+}
+
+
 
 
 /* Dropdown Button */
 .genbtn {
-  background-color: #3498DB;
+  background-color: #8c1aff;
   color: white;
   padding: 12px;
-  font-size: 15px;
-  width: 160px;
+  font-size: 13px;
+  width: 120px;
   border: none;
   cursor: pointer;
   z-index:1000;
@@ -530,7 +541,7 @@ footer {
 
 /* Dropdown button on hover & focus */
 .genbtn:hover {
-  background-color: #2980B9;
+  background-color: #4d0099;
 }
 
 td.cellcollapsible {display:block; }

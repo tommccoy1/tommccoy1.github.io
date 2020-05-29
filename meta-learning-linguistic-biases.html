@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <link rel="stylesheet" href="tf.css">
+        <link rel="stylesheet" href="metaug_js/tf.css">
         <script src="assets/js/scale.fix.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="google_chart.css">
 
 		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-		<script src="math.js"></script>
+		<script src="metaug_js/math.js"></script>
 
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -24,47 +24,85 @@
 	<h1 style="text-align:center">Imparting universal linguistic inductive biases via meta-learning</h1>
 
 
-	<div id="language1wrapper">
+	<h2>Introduction</h2>
+
+	<p>Language acquisition involves a complex interplay between the data and the learner. The importance of data is clear: we can only learn a language if we have experience with it. Less obviously, acquisition is also guided by properties of the learner called <b>inductive biases</b>, which determine how the learner will generalize beyond the utterances they have encountered. As an example, consider the following pattern:</p>
+
+	<ul>
+		<li>gbg &rarr; .ga.ba.ga.</li>
+		<li>qq &rarr; .qa.qa.</li>
+		<li>tlv &rarr; ???</li>
+	</ul>
+
+
+	<p>What output should replace the question marks? You probably answered <em>.ta.la.va.</em> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <em>.va.la.ta.</em> If you answered <em>.ta.la.va.</em> instead of <em>.va.la.ta.</em>, it suggests that you have an inductive bias for preserving the input order.</p>
+
+	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling of this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
+
+	<p>In our framework, the inductive biases are encoded in the initial state of a neural network. This initial state is found with <b>meta-learning</b>, a technique through which a model discovers how to acquire new languages more easily via exposure to many possible languages. By controlling the properties of the languages that are used during meta-learning, we can control the set of inductive biases that meta-learning imparts.</p>
+
+
+	<h2>Try it out!</h2>
+
+	<p>To demonstrate this framework, we use the linguistic phenomenon of syllable structure.  For a given language, the model must learn how to map a sequence of sounds (e.g., <em>talava</em>)  into a sequence of syllables (e.g., <em>.ta.la.va.</em>). Each language has restrictions on what types of syllables are allowed, and sounds may need to be inserted or deleted to meet these restrictions. For example, if a language requires all syllables to end with a vowel, the input <em>kep</em> might map to <em>.ke.pa.</em>  (if the language uses insertion) or <em>.ke.</em>  (if the language uses deletion).</p>
+
+
+	<p>The demo below shows how a neural network initialized with meta-learning can learn syllable structure mappings much more quickly than a neural network with a standard random initialization.</p>
+
+<div style="margin: auto; max-width: 850px;" class="maindemowrapper">
+
+<div style="overflow: hidden;">
+
+	<div style="padding: 10px; overflow:hidden; float: left;">
+		<span style="max-width: 410px;text-align: justify; margin-right: 10px; display: inline-block; font-size: 13px;"><b>Pattern to be learned:</b> 
+			<span id="langdesc" style="text-align: justify">Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundariesDelete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries.</span>
+		</span> 
+		<button type="button" class="genbtn" onclick="random_language();" style="display: inline-block; vertical-align:top;">Random new language</button>
+		<button type="button" class="genbtn" onclick="toggleshowadv()" style="display: inline-block; vertical-align:top;"><span id="advbtntxt">Show advanced settings</span></button> 
+	</div>
+
+	<div id="advancedsettings">
 	<div>Language description: <span id="langdescold"></span></div>
 	<div>Constraint ranking:</div>
 
 
-<div class="dropdown">
-  <button onclick="dropFunction()" class="dropbtn" id="rankbtn" style='font-variant:small-caps;'>Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a onclick="ranktoggle('(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Max &#187; Dep</span></a>
-  	<a onclick="ranktoggle('(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Dep &#187; Max</span></a>
-	<a onclick="ranktoggle('(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, Dep &#187; Max &#187; NoCoda</span></a>
-	<a onclick="ranktoggle('(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, Dep &#187;  Max &#187; Onset</span></a>
-	<a onclick="ranktoggle('(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, Max &#187; Dep &#187; NoCoda</span></a>
-	<a onclick="ranktoggle('(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, Max &#187; Dep &#187; Onset</span></a>
-	<a onclick="ranktoggle('(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>Dep &#187; Max &#187; Onset, NoCoda</span></a>
-	<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>Max &#187; Dep &#187; Onset, NoCoda</span></a>
+	<div class="dropdown">
+  		<button onclick="dropFunction()" class="dropbtn" id="rankbtn" style='font-variant:small-caps;'>Dropdown</button>
+  		<div id="myDropdown" class="dropdown-content">
+    		<a onclick="ranktoggle('(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Max &#187; Dep</span></a>
+  			<a onclick="ranktoggle('(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Dep &#187; Max</span></a>
+			<a onclick="ranktoggle('(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, Dep &#187; Max &#187; NoCoda</span></a>
+			<a onclick="ranktoggle('(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, Dep &#187;  Max &#187; Onset</span></a>
+			<a onclick="ranktoggle('(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, Max &#187; Dep &#187; NoCoda</span></a>
+			<a onclick="ranktoggle('(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, Max &#187; Dep &#187; Onset</span></a>
+			<a onclick="ranktoggle('(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>Dep &#187; Max &#187; Onset, NoCoda</span></a>
+			<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>Max &#187; Dep &#187; Onset, NoCoda</span></a>
+		</div>
 	</div>
-</div>
 
-	<div>Set of consonants: <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnl" class="vinvbtn" type="button" onclick="ctoggle('l')">l</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
-	<div>Set of vowels: <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('A')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('E')">E</button><button id="btnbigi" class="vinvbtn" type="button" onclick="vtoggle('I')">I</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('O')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('U')">U</button></div>
-	<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepl" class="vinvbtn" type="button" onclick="ceptoggle('l')">l</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
-	<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('A')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('E')">E</button><button id="btnepbigi" class="vinvbtn" type="button" onclick="veptoggle('I')">I</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('O')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('U')">U</button></div>
+		<div>Set of consonants: <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnl" class="vinvbtn" type="button" onclick="ctoggle('l')">l</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
+		<div>Set of vowels: <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('A')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('E')">E</button><button id="btnbigi" class="vinvbtn" type="button" onclick="vtoggle('I')">I</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('O')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('U')">U</button></div>
+		<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepl" class="vinvbtn" type="button" onclick="ceptoggle('l')">l</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
+		<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('A')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('E')">E</button><button id="btnepbigi" class="vinvbtn" type="button" onclick="veptoggle('I')">I</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('O')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('U')">U</button></div>
 
-<div>
+		<div>
+			<button type="button" onclick="renew_language()">Renew</button>
+		</div>
 
-<button type="button" onclick="renew_language()">Renew</button>
-</div>
+	</div>
 
-<div style="margin: auto; max-width: 850px;">
 
-<div style="padding: 10px; overflow:hidden;"><span style="width: 450px; float: left;text-align: justify; margin-right: 10px;"><b>Task to be learned:</b> <span id="langdesc" style="text-align: justify"></span></span> <button type="button" class="genbtn" onclick="random_language();" style="display: inline-block;">Generate random new language</button><button type="button" class="genbtn" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random', add_train=true)" style="display: inline-block;">Manually define new language</button> </div>
-
-<div style="overflow: hidden;">
 	<div style="float: left; padding: 10px;">
-		<div "text-align: center; padding: 10px;"><div style="width: 100%; margin: 0 auto; padding: 10px;"><b>Training examples seen:</b> <span id="traincount">0</span></div> </div>
-		<div id="trainingexamplelist" style="border: solid; height:150px; width: 250px; overflow: scroll; padding: 10px;"></div>
+		<div "text-align: center; padding: 10px;">
+			<div style="width: 100%; margin: 0 auto; padding: 10px;">
+				<b>Training examples:</b> <span id="traincount">0</span>
+			</div> 
+		</div>
+		<div id="trainingexamplelist" style="border: solid; height:150px; width: 200px; overflow: scroll; padding: 10px;"></div>
 		<br>
-		<div style="text-align: center;"><button type="button" class="trainbtn" onclick="fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random', add_train=true)" style="font-size: 16px; display: inline-block;">Train on one example</button></div>
-
-
+		<div style="text-align: center;">
+			<button type="button" class="trainbtn" onclick="update_display(seq2seq, 'meta');update_display(seq2seqb, 'random');fitfitfit(seq2seq, 'meta');fitfitfit(seq2seqb, 'random', add_train=true)" style="font-size: 16px; display: inline-block;" id="oneexamplebtn">Train on one example</button>
+		</div>
 	</div>
 
 
@@ -74,67 +112,1443 @@
 		<div>
 			<table class="hor-minimalist-a">
 				<tr class="top">
-					<th style="width:50;" class='cell'><div class='cell'>Input</div></th>
-					<th style="width:100;"><div class='cell'>Correct output</div></th>
-					<th style="width:110;"><div class='cell'>Meta-initialized<br>model's output</div></th>
+					<th style="width:50;" class='cell'><div>Input</div></th>
+					<th style="width:100;" class='cell'><div>Correct output</div></th>
+					<th style="width:110;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:150;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
 				<tr>
-					<td class='cellcollapsible'><div class='cell' id="inb1">rOau</div></td>
-					<td><div class='cell' id="corrb1">.rO.a.u.</div></td>
-					<td><div class='cell' id="metaoutb1">.rO.a.u.</div></td>
+					<td class='cell'><div id="inb1">rOau</div></td>
+					<td class='cell'><div id="corrb1">.rO.a.u.</div></td>
+					<td class='cell'><div id="metaoutb1">.rO.a.u.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb1">.rO.a.u.</div></td>
 				</tr>
 				<tr>
-					<td><div class='cell' id="inb2">axxaO</div></td>
-					<td><div class='cell' id="corrb2">.a.xa.O.</div></td>
-					<td><div class='cell' id="metaoutb2">.a.xa.O.</div></td>
+					<td class='cell'><div id="inb2">axxaO</div></td>
+					<td class='cell'><div id="corrb2">.a.xa.O.</div></td>
+					<td class='cell'><div id="metaoutb2">.a.xa.O.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb2">.a.xa.O.</div></td>
 				</tr>
 				<tr>
-					<td><div class='cell' id="inb3">rxxa</div></td>
-					<td><div class='cell' id="corrb3">.xa.</div></td>
-					<td><div class='cell' id="metaoutb3">.xa.</div></td>
+					<td class='cell'><div id="inb3">rxxa</div></td>
+					<td class='cell'><div id="corrb3">.xa.</div></td>
+					<td class='cell'><div id="metaoutb3">.xa.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb3">.xa.</div></td>
 				</tr>
 				<tr>
-					<td><div class='cell' id="inb4">axrxu</div></td>
-					<td><div class='cell' id="corrb4">.a.xu.</div></td>
-					<td><div class='cell' id="metaoutb4">.a.xu.</div></td>
+					<td class='cell'><div id="inb4">axrxu</div></td>
+					<td class='cell'><div id="corrb4">.a.xu.</div></td>
+					<td class='cell'><div id="metaoutb4">.a.xu.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb4">.a.xu.</div></td>
 				</tr>
 				<tr>
-					<td><div class='cell' id="inb5">ttxaO</div></td>
-					<td><div class='cell' id="corrb5">.xa.O.</div></td>
-					<td><div class='cell' id="metaoutb5">.xa.O.</div></td>
+					<td class='cell'><div id="inb5">ttxaO</div></td>
+					<td class='cell'><div id="corrb5">.xa.O.</div></td>
+					<td class='cell'><div id="metaoutb5">.xa.O.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb5">.xa.O.</div></td>
 				</tr>
 				<tr>
-					<td><div class='cell' id="inb6">rOau</div></td>
-					<td><div class='cell' id="corrb6">.rO.a.u.</div></td>
-					<td><div class='cell' id="metaoutb6">.rO.a.u.</div></td>
+					<td class='cell'><div id="inb6">rOau</div></td>
+					<td class='cell'><div id="corrb6">.rO.a.u.</div></td>
+					<td class='cell'><div id="metaoutb6">.rO.a.u.</div></td>
 					<td class='cellcollapsible'><div id="randomoutb6">.rO.a.u.</div></td>
 				</tr>
 			</table>
-
-
 		</div>
 
 	</div>
 
-</div>
-
-
-</div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
 	</div>
+</div>
+
+<div style="padding-top: 15px; padding-bottom: 40px; padding-left: 50px; padding-right: 50px; font-size: 13px;">
+	<em>How to use: Click "Train on one example" to show the models a single input-output pair. Click "Random new language" or "Manually define language" to restart the demo with a new language.</em>
+</div>
+
+
+<p>The meta-initialized model can typically learn any of these syllable structure mappings from fewer than 100 examples&mdash;sometimes substantially fewer. In contrast, after the same number of examples, the outputs of the randomly initialized model are usually nowhere near the correct answers.</p>
+
+<h2>Generalization</h2>
+
+<p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
+
+1,3,2,0
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>uttxr</td>
+		<td>.u.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.u.xu.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+		<td>.u.</td>
+	</tr>
+	<tr>
+		<td>raxur</td>
+		<td>.ra.xu.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.u.</td>
+		<td>.ra.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+		<td>.ra.xu.</td>
+	</tr>
+	<tr>
+		<td>Oar</td>
+		<td>.O.a.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.O.ra.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+		<td>.O.a.</td>
+	</tr>
+	<tr>
+		<td>atrau</td>
+		<td>.a.ra.u.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.a.ra.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ru.u.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ra.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ra.u.</td>
+		<td>.a.ra.u.</td>
+	</tr>
+	<tr>
+		<td>tOuxa</td>
+		<td>.tO.u.xa.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.tO.xo.x.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td> 
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+		<td>.tO.u.xa.</td>
+	</tr>
+	<tr>
+		<td>xruto</td>
+		<td>.ru.tO.</td>
+		<td>plllllllllllllllllll</td>
+		<td>.tu.xO.</td>
+		<td>.tu.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.O.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.</td>
+		<td>.ru.tO.</td>
+	</tr>
+	<tr>
+		<td>xOxra</td>
+		<td>.xO.ra.</td>
+		<td>pzllllllllllllllllll</td>
+		<td>.xO.xa.</td>
+		<td>.xO.xa.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+		<td>.xO.ra.</td>
+	</tr>
+	<tr>
+		<td>uuuuO</td>
+		<td>.u.u.u.u.O.</td>
+		<td>xhIjjjjjjjjjjjjjjjjj</td>
+		<td>.u.uu.O..</td>
+		<td>.u.u.u.u.</td>
+		<td>.u.u.u.u.O.</td>
+		<td>.u.u.u.O.O.</td>
+		<td>.u.u.u.O.</td>
+		<td>.u.u.u.u.</td>
+		<td>.u.u.u.u.O.</td>
+		<td>.u.u.u.u.O.</td>
+		<td>.u.u.u.u.u.</td>
+		<td>.u.u.u.u.O.</td>
+	</tr>
+	<tr>
+		<td>xt</td>
+		<td></td>
+		<td>plllllllllllllllllll</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>aata</td>
+		<td>.a.a.ta.</td>
+		<td>paw.www.www.www.wwww</td>
+		<td>.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+		<td>.a.a.ta.</td>
+	</tr>
+</table>
+
+2,3,1,0
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>IIEm</td>
+		<td>.I.I.Em.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.I.mI.E..</td>
+		<td>.I.E.m</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.E.Em.</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.Em.</td>
+		<td>.I.I.Em.</td>
+	</tr>
+	<tr>
+		<td>pppE</td>
+		<td>.pEp.pE.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.pE.pE.EE..</td>
+		<td>.pEp.pE..</td>
+		<td>.pEp.pE.</td>
+		<td>.pE..pE.</td>
+		<td>.pEp.pE.</td>
+		<td>.pEp.pE.</td>
+		<td>.pEp.pE.</td>
+		<td>.pEp.pE.</td>
+		<td>.pEp.pE.</td>
+		<td>.pEp.pE.</td>
+	</tr>
+	<tr>
+		<td>ImE</td>
+		<td>.I.mE.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.I.mE..</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+		<td>.I.mE.</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.EE.</td>
+		<td>.EE.</td>
+		<td>.EE.</td>
+		<td>.EE.</td>
+		<td>.xE.</td>
+		<td>.cE.</td>
+		<td>.xE.</td>
+		<td>.xE.</td>
+		<td>.xE.</td>
+		<td>.cE.</td>
+	</tr>
+	<tr>
+		<td>xEpcI</td>
+		<td>.xEp.cI.</td>
+		<td>eNmmm....Okkkkkkkkkk</td>
+		<td>.xE.......</td>
+		<td>.xE..pE..I.</td>
+		<td>.xE..pI.</td>
+		<td>.xE..cc.II.</td>
+		<td>.xEp.cI.</td>
+		<td>.xEp.cI.</td>
+		<td>.xEp.cI.</td>
+		<td>.xEp.cI.</td>
+		<td>.xEp.cI.</td>
+		<td>.xEp.cI.</td>
+	</tr>
+	<tr>
+		<td>mExE</td>
+		<td>.mE.xE.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.mE.EE.E.</td>
+		<td>.mExxE..</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+		<td>.mE.xE.</td>
+	</tr>
+	<tr>
+		<td>IIIEE</td>
+		<td>.I.I.I.E.E.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.I.II.E.E..</td>
+		<td>.I.I.EE.</td>
+		<td>.I.I.I.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+		<td>.I.I.I.E.E.</td>
+	</tr>
+	<tr>
+		<td>Exppp</td>
+		<td>.E.xEp.pEp.</td>
+		<td>eNmmm....Okkkkkkkkkk</td>
+		<td>.E.xEppEpp.</td>
+		<td>.Ex.pEppEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td>
+		<td>.E.xEp.pEp.</td> 
+	</tr>
+	<tr>
+		<td>IpEIc</td>
+		<td>.I.pE.Ic.</td>
+		<td>emmm....Okkkkkkkkkk</td>
+		<td>.I..pE.E...</td>
+		<td>.I.pE.I..</td>
+		<td>.I.pE.cc.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+		<td>.I.pE.Ic.</td>
+	</tr>
+	<tr>
+		<td>EIIpm</td>
+		<td>.E.I.I.pEm.</td>
+		<td>emmm....Okkkkkkkkkkk</td>
+		<td>.I.E..E..E.</td>
+		<td>.E.I.pEp.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+		<td>.E.I.I.pEm.</td>
+	</tr>
+</table>
+
+
+0,2,3,1
+
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>Uktt</td>
+		<td>.kUk.tIt.</td>
+		<td>I.kI.kkI..kkI..kI.kk</td>
+		<td>.kU.tIt.</td>
+		<td>.kUk.IIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+		<td>.kUk.tIt.</td>
+	</tr>
+	<tr>
+		<td>aukk</td>
+		<td>.ka.ku.kIk.</td>
+		<td>II.kkI..kkI..kI.kkI.</td>
+		<td>.ka.kukk</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+		<td>.ka.ku.kIk.</td>
+	</tr>
+	<tr>
+		<td>Ita</td>
+		<td>.kI.ta.</td>
+		<td>II.kkI..kkI..kI.kkI.</td>
+		<td>.kI.ka..</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+		<td>.kI.ta.</td>
+	</tr>
+	<tr>
+		<td>tak</td>
+		<td>.tak.</td>
+		<td>II.kkI..kkI..kI.kkI.</td>
+		<td>.tI..</td>
+		<td>.ta.k</td>
+		<td>.tak.</td>
+		<td>.tak.</td>
+		<td>.tak.</td>
+		<td>.tak.</td> 
+		<td>.tak.</td>
+		<td>.tak.</td>
+		<td>.tak.</td>
+		<td>.ta.kak.</td>
+	</tr>
+	<tr>
+		<td>ttktU</td>
+		<td>.tI.tIk.tU.</td>
+		<td>nkaaaaaaaaaaaaaaaaaa</td>
+		<td>.tI.tIt.</td>
+		<td>.tI..It.kU.</td>
+		<td>.tI.tIt.tU.</td>
+		<td>.tI.tIk.tU.</td>
+		<td>.tI.tIk.tU.</td>
+		<td>.tI.tIk.tU.</td> 
+		<td>.tI.tIk.tU.</td>
+		<td>.tI.tIk.tU.</td>
+		<td>.tI.tIk.tU.</td>
+		<td>.tI.tIk.tU.</td>
+	</tr>
+	<tr>
+		<td>ItUIa</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>II.kkI..kkI..kI.kkI.</td>
+		<td>.kI.kI.ka.ka.</td>
+		<td>.kI.tU.kU.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+		<td>.kI.tU.kI.ka.</td>
+	</tr>
+	<tr>
+		<td>kuIta</td>
+		<td>.ku.kI.ta.</td>
+		<td>I.kI.kkI..kkI..kI.kk</td>
+		<td>.kU.kI.ka..</td>
+		<td>.ku.kI.tI.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+		<td>.ku.kI.ta.</td>
+	</tr>
+	<tr>
+		<td>katta</td>
+		<td>.kat.ta.</td>
+		<td>I.kI.kkI..kkI..kI.kk</td>
+		<td>.ka.tat..</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+		<td>.kat.ta.</td>
+	</tr>
+	<tr>
+		<td>I</td>
+		<td>.kI.</td>
+		<td>IIkkkaaaaaaaaaaaaaaa</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td>.kI.</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>kattu</td>
+		<td>.kat.tu.</td>
+		<td>I.kkI..kkI..kI.kkI..</td>
+		<td>.ka.tut</td>
+		<td>.kat.ku.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+		<td>.kat.tu.</td>
+	</tr>
+</table>
+
+0,1,2,3
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>btubo</td>
+		<td>.bU.tu.bo.</td>
+		<td>uttjutjutjutjutjutju</td>
+		<td>.bU.bo.fo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+		<td>.bU.tu.bo.</td>
+	</tr>
+	<tr>
+		<td>uuutb</td>
+		<td>.fu.fu.fu.tU.bU.</td>
+		<td>tNujutjutjutjutjutju</td>
+		<td>.fu.fu.fu.bU.bU.</td>
+		<td>.fu.fu.tU.bU.bU.</td>
+		<td>.fu.fu.tU.bU.bU.</td>
+		<td>.fu.fu.fu.tU.</td>
+		<td>.fu.fu.fu.tU.bU.</td>
+		<td>.fu.fu.tU.bU.bU.</td>
+		<td>.fu.fu.tU.bU.bU.</td>
+		<td>.fu.fu.fu.tU.bU.</td>
+		<td>.fu.fu.fu.tU.bU.</td>
+		<td>.fu.fu.fu.tU.bU.</td>
+	</tr>
+	<tr>
+		<td>fffbf</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+		<td>jutjutjutjutjutjutju</td>
+		<td>.fU.fU.bU.bU.</td>
+		<td>.fU.fU.bU.fU.</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+		<td>.fU.fU.fU.fU.fU.</td>
+		<td>.fU.fU.bU.fU.fU.</td>
+		<td>.fU.fU.bU.bU.fU.</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+		<td>.fU.fU.fU.bU.fU.</td>
+	</tr>
+	<tr>
+		<td>votuv</td>
+		<td>.vo.tu.vU.</td>
+		<td>uttjutjutjutjutjutju</td>
+		<td>.vo.vo.vU.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td> 
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+		<td>.vo.tu.vU.</td>
+	</tr>
+	<tr>
+		<td>uoUUf</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>jutjutjutjutjutjutju</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+		<td>.fu.fo.fU.fU.fU.</td>
+	</tr>
+	<tr>
+		<td>vuufu</td>
+		<td>.vu.fu.fu.</td>
+		<td>tNujutjutjutjutjutju</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td> 
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+		<td>.vu.fu.fu.</td>
+	</tr>
+	<tr>
+		<td>ubuu</td>
+		<td>.fu.bu.fu.</td>
+		<td>rZAbwjutjutjutjutjut</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+		<td>.fu.bu.fu.</td>
+	</tr>
+	<tr>
+		<td>fvuof</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>jutjutjutjutjutjutju</td>
+		<td>.fU.fo.fU.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+		<td>.fU.vu.fo.fU.</td>
+	</tr>
+	<tr>
+		<td>vuofu</td>
+		<td>.vu.fo.fu.</td>
+		<td>tNujutjutjutjutjutju</td>
+		<td>.vu.fo.fu.fU.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+		<td>.vu.fo.fu.</td>
+	</tr>
+	<tr>
+		<td>ootUU</td>
+		<td>.fo.fo.tU.fU.</td>
+		<td>ffffffffffffffffffff</td>
+		<td>.fo.fo.fU.tU.tU.</td>
+		<td>.fo.fo.tU.fU.</td>
+		<td>.fo.fo.tU.fU.</td>
+		<td>.fo.fo.tU.fU.</td>
+		<td>.fo.fo.tU.fU.</td>
+		<td>.fo.to.tU.fU.</td>
+		<td>.fo.to.tU.fU.</td> 
+		<td>.fo.to.tU.fU.</td>
+		<td>.fo.to.tU.fU.</td>
+		<td>.fo.to.tU.fU.</td>
+	</tr>
+</table>
+
+
+3,2,1,0
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>Ebhhh</td>
+		<td>.Eh.</td>
+		<td>iibEuccEccEccEccEccE</td>
+		<td>.Eh.</td>
+		<td>.Eh.hh.</td>
+		<td>.Eh.</td>
+		<td>.Eh.</td>
+		<td>.Eh.</td> 
+		<td>.Eh.</td>
+		<td>.Eh.</td>
+		<td>.Eh.</td>
+		<td>.Eh.</td>
+		<td>.Eh.</td>
+	</tr>
+	<tr>
+		<td>AAr</td>
+		<td>.A.Ar.</td>
+		<td>nquccEccEccEccEccEcc</td>
+		<td>.A.AA.</td>
+		<td>.A.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+		<td>.A.Ar.</td>
+	</tr>
+	<tr>
+		<td>EhrA</td>
+		<td>.Eh.rA.</td>
+		<td>bEuccEccEccEccEccEcc</td>
+		<td>.Er.AA.</td>
+		<td>.Er.rA.</td>
+		<td>.Eh.hA.</td>
+		<td>.Er.rA.</td>
+		<td>.Eh.rA.</td>
+		<td>.Eh.rA.</td>
+		<td>.Eh.rA.</td>
+		<td>.Eh.rA.</td>
+		<td>.Eh.rA.</td>
+		<td>.Eh.rA.</td>
+	</tr>
+	<tr>
+		<td>AhrhA</td>
+		<td>.Ar.hA.</td>
+		<td>xuccEccEccEccEccEccE</td>
+		<td>.A.AA.</td>
+		<td>.Ah.hA..A.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.rA.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.hA.</td>
+		<td>.Ah.hA.</td>
+	</tr>
+	<tr>
+		<td>AAhEE</td>
+		<td>.A.A.hE.E.</td>
+		<td>ujccEccEccEccEccEccE</td>
+		<td>.A.A.EE.</td>
+		<td>.A.A.rE.E.</td>
+		<td>.A.A.hE.</td>
+		<td>.A.A.hE.E.</td>
+		<td>.A.A.hA.E.</td>
+		<td>.A.A.hE.E.</td>
+		<td>.A.A.hE.E.</td> 
+		<td>.A.A.hE.E.</td> 
+		<td>.A.A.hE.E.</td> 
+		<td>.A.A.hE.E.</td> 
+	</tr>
+	<tr>
+		<td>rhA</td>
+		<td>.hA.</td>
+		<td>xuccEccEccEccEccEccE</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+		<td>.hA.</td>
+	</tr>
+	<tr>
+		<td>EArrA</td>
+		<td>.E.Ar.rA.</td>
+		<td>xuccEccEccEccEccEccE</td>
+		<td>.E.AA.AA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+		<td>.E.Ar.rA.</td>
+	</tr>
+	<tr>
+		<td>AEErE</td>
+		<td>.A.E.E.rE.</td>
+		<td>ibEuccEccEccEccEccEc</td>
+		<td>.A.E.E..</td>
+		<td>.A.E.rE.E.</td>
+		<td>.A.E.EE.E.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+		<td>.A.E.E.rE.</td>
+	</tr>
+	<tr>
+		<td>EEEE</td>
+		<td>.E.E.E.E.</td>
+		<td>ujccEccEccEccEccEccE</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E..</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+		<td>.E.E.E.E.</td>
+	</tr>
+	<tr>
+		<td>hrAA</td>
+		<td>.rA.A.</td>
+		<td>xxuccEccEccEccEccEcc</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+		<td>.rA.A.</td>
+	</tr>
+</table>
+
+1,2,3,0
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>rUUUr</td>
+		<td>.rU.U.U.re.</td>
+		<td>fddddddddddddddddddd</td>
+		<td>.rU.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.U.e.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+		<td>.rU.U.U.re.</td>
+	</tr>
+	<tr>
+		<td>UU</td>
+		<td>.U.U.</td>
+		<td>xcrfdddddddddddddddd</td>
+		<td>.U.U.</td>
+		<td>.U.U.</td>
+		<td>.U.U.</td>
+		<td>.U.</td>
+		<td>.U.U.</td>
+		<td>.U.</td>
+		<td>.U.</td>
+		<td>.U.</td>
+		<td>.U.</td>
+		<td>.U.</td>
+	</tr>
+	<tr>
+		<td>heee</td>
+		<td>.he.e.e.</td>
+		<td>xbxbkxbkxbkkxbkxbkkx</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+		<td>.he.e.e.</td>
+	</tr>
+	<tr>
+		<td>eger</td>
+		<td>.e.ge.re.</td>
+		<td>ehcrfddddddddddddddd</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td> 
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+		<td>.e.ge.re.</td>
+	</tr>
+	<tr>
+		<td>heeUU</td>
+		<td>.he.e.U.U.</td>
+		<td>xSOSxcrfdddddddddddddd</td>
+		<td>.he.e.e...</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+		<td>.he.e.U.U.</td>
+	</tr>
+	<tr>
+		<td>heUh</td>
+		<td>.he.U.he.</td>
+		<td>xtxOkkxkkxbkkxbkxbkk</td>
+		<td>.he.h..e.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+		<td>.hU.U.e.he.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+		<td>.he.U.he.</td>
+	</tr>
+	<tr>
+		<td>rrUU</td>
+		<td>.re.rU.U.</td>
+		<td>xtxOkkxkkxbkkxbkxbkk</td>
+		<td>.re.rU.UU.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+		<td>.re.rU.U.</td>
+	</tr>
+	<tr>
+		<td>gr</td>
+		<td>.ge.re.</td>
+		<td>fddddddddddddddddddd</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td> 
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+		<td>.ge.re.</td>
+	</tr>
+	<tr>
+		<td>grreg</td>
+		<td>.ge.re.re.ge.</td>
+		<td>fddddddddddddddddddd</td>
+		<td>.ge.re.ge.ge.</td>
+		<td>.ge.re.re.ge.</td>
+		<td>.ge.re.re.ge.</td>
+		<td>.ge.re.ge.ge.</td>
+		<td>.ge.re.re.ge.ge.</td>
+		<td>.ge.re.re.ge.</td>
+		<td>.ge.re.re.ge.ge.</td>
+		<td>.ge.re.re.ge.</td>
+		<td>.ge.re.re.ge.</td>
+		<td>.ge.re.re.ge.</td>
+	</tr>
+	<tr>
+		<td>UeerU</td>
+		<td>.U.e.e.rU.</td>
+		<td>xtxOkkxkkxbkkxbkxbkk</td>
+		<td>.U.U.rU.U.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td>
+		<td>.U.e.e.rU.</td> 
+		<td>.U.e.e.rU.</td> 
+	</tr>
+</table>
+
+0,1,3,2
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>Iulu</td>
+		<td>.lu.</td>
+		<td>ssssssssssssssssssss</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+		<td>.lu.</td>
+	</tr>
+	<tr>
+		<td>lIj</td>
+		<td>.lI.</td>
+		<td>jfffffffffffffffffff</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+		<td>.lI.</td>
+	</tr>
+	<tr>
+		<td>udub</td>
+		<td>.du.</td>
+		<td>jfffffffffffffffffff</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+		<td>.du.</td>
+	</tr>
+	<tr>
+		<td>uIIII</td>
+		<td></td>
+		<td>kmffffffffffffffffff</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>jIu</td>
+		<td>.ju.</td>
+		<td>kmffffffffffffffffff</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+		<td>.ju.</td>
+	</tr>
+	<tr>
+		<td>uIuIu</td>
+		<td></td>
+		<td>ssssssssssssssssssss</td>
+		<td></td> 
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>bbudI</td>
+		<td>.bu.dI.</td>
+		<td>kmffffffffffffffffff</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+		<td>.bu.dI.</td>
+	</tr>
+	<tr>
+		<td>Iubjj</td>
+		<td></td>
+		<td>jfffffffffffffffffff</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>II</td>
+		<td></td>
+		<td>kmffffffffffffffffff</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>juIb</td>
+		<td>.jI.</td>
+		<td>kmffffffffffffffffff</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+		<td>.jI.</td>
+	</tr>
+</table>
+
+0,3,2,1
+<table>
+	<tr>
+		<th>input</th>
+		<th>correct output</th>
+		<th>0 iterations</th>
+		<th>1000 iterations</th>
+		<th>2000 iterations</th>
+		<th>3000 iterations</th>
+		<th>4000 iterations</th>
+		<th>5000 iterations</th>
+		<th>6000 iterations</th>
+		<th>7000 iterations</th>
+		<th>8000 iterations</th>
+		<th>9000 iterations</th>
+		<th>10000 iterations</th>
+	</tr>
+	<tr>
+		<td>fIxa</td>
+		<td>.fI.xa.</td>
+		<td>g.xwiiss.ligs.xis.is</td>
+		<td>.fI.fI..</td>
+		<td>.fI..a.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+		<td>.fI.xa.</td>
+	</tr>
+	<tr>
+		<td>ama</td>
+		<td>.ma.</td>
+		<td>..is.islg.xwiisseeee</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+	</tr>
+	<tr>
+		<td>xxx</td>
+		<td></td>
+		<td>Oeg.xwiisseeeeeexwii</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>faxII</td>
+		<td>.fa.xI.</td>
+		<td>eg.xwiisseeeeeexwiis</td>
+		<td>.fI..I.</td>
+		<td>.fI.fI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+		<td>.fa.xI.</td>
+	</tr>
+	<tr>
+		<td>axIII</td>
+		<td>.xI.</td>
+		<td>egk.xiiss.ligs.xis.i</td>
+		<td>.xI..II.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+	</tr>
+	<tr>
+		<td>axI</td>
+		<td>.xI.</td>
+		<td>eg.xwiisseeeeeexwiis</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+		<td>.xI.</td>
+	</tr>
+	<tr>
+		<td>Ifaaa</td>
+		<td>.fa.</td>
+		<td>..xiiss.ligs.xis.isl</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+		<td>.fa.</td>
+	</tr>
+	<tr>
+		<td>xdId</td>
+		<td>.dId.</td>
+		<td>Ik.islg.xiiss.ligs.x</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+		<td>.dId.</td>
+	</tr>
+	<tr>
+		<td>IxfdI</td>
+		<td>.dI.</td>
+		<td>f.l.iiss.ligs.xis.is</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+		<td>.dI.</td>
+	</tr>
+	<tr>
+		<td>mxma</td>
+		<td>.ma.</td>
+		<td>..is.islg.xwiisseeee</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+		<td>.ma.</td>
+	</tr>
+</table>
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+	<canvas id="myCanvas" style="border-style: solid;" height=300 width=300px></canvas>
+
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+  <p>Value: <span id="demo"></span></p>
+</div>
+
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 
 
@@ -157,11 +1571,26 @@ People can enter their own training set and test set and see how the model learn
 </section>
 </div> <!--End of content wrapper-->
 
-<script src="maml_weights_js_variables.js"></script>
-<script src="charinddicts.js"></script>
-<script src="tf_weights.js"></script>
-<script src="ioc.js"></script>
+<script src="metaug_js/maml_weights_js_variables.js"></script>
+<script src="metaug_js/charinddicts.js"></script>
+<script src="metaug_js/tf_weights.js"></script>
+<script src="metaug_js/ioc.js"></script>
 <script>
+
+var showing_adv = true;
+function toggleshowadv() {
+	if (showing_adv) {
+		document.getElementById("advancedsettings").style.display = "none";
+		showing_adv = false;
+		document.getElementById("advbtntxt").innerHTML = "Show advanced settings";
+	} else {
+		document.getElementById("advancedsettings").style.display = "block";
+		showing_adv = true;
+		document.getElementById("advbtntxt").innerHTML = "Hide advanced settings";
+	}
+} 
+
+toggleshowadv();
 
 
 this_counter = 0;
@@ -319,7 +1748,7 @@ vowel_dict = {
 
 function random_language() {
 
-	new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=1, n_test=6);
+	new_lang = make_task(choice(rankings), all_input_outputs, n_train=200, n_dev=1, n_test=6);
 
 
 	training_set = new_lang[0];
@@ -386,7 +1815,7 @@ function random_language() {
 
 	reset_weights();
 	
-	  preds = seq2seq(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop])
 			if (pred == test_set[lmnop][1]) {
@@ -398,7 +1827,7 @@ function random_language() {
 	  }
 
 
-	  preds = seq2seqb(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seqb(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop]);
 			if (pred == test_set[lmnop][1]) {
@@ -421,6 +1850,12 @@ function random_language() {
 	seen_training = "";
     document.getElementById("trainingexamplelist").innerHTML = seen_training;
 	document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+
+	document.getElementById("oneexamplebtn").disabled = false;
+
+	fitfitfitfirst(seq2seq, 'meta', add_train=true);
+	fitfitfitfirst(seq2seqb, 'random');
+
 }
 
 
@@ -437,7 +1872,7 @@ function renew_language() {
 
 
 
-	new_lang = make_task(manual_ranking, all_input_outputs, n_train=100, n_dev=1, n_test=6, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
+	new_lang = make_task(manual_ranking, all_input_outputs, n_train=200, n_dev=1, n_test=6, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
 
 	training_set = new_lang[0];
 	dev_set = new_lang[1];
@@ -491,7 +1926,7 @@ function renew_language() {
 
 	reset_weights();
 	
-	  preds = seq2seq(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop])
 			if (pred == test_set[lmnop][1]) {
@@ -503,7 +1938,7 @@ function renew_language() {
 	  }
 
 
-	  preds = seq2seqb(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seqb(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop]);
 			if (pred == test_set[lmnop][1]) {
@@ -526,6 +1961,9 @@ function renew_language() {
 	seen_training = "";
     document.getElementById("trainingexamplelist").innerHTML = seen_training;
 	document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+
+	fitfitfitfirst(seq2seq, 'meta', add_train=true);
+    fitfitfitfirst(seq2seqb, 'random');
 }
 
 
@@ -1082,12 +2520,6 @@ for (xkcd = 0; xkcd < 256; xkcd++) {
 
 
 
-renew_language();
-
-document.getElementById("rankbtn").innerHTML = key2ranking[manual_ranking];
-document.getElementById("langdesc").innerHTML = key2description[new_lang[5]].replace("CONS", new_lang[4][0]).replace("VOW", new_lang[3][0]);
-
-
 var seen_training = "";
 
 function make_one_hot(index) {
@@ -1438,7 +2870,8 @@ function return_inps() {
 document.getElementById("printplacec").innerHTML = "dog";
 
 
-async function fitfitfit(seq2seq, prefix, add_train=false) {
+async function fitfitfitfirst(seq2seq, prefix, add_train=false) {
+
 
 const optimizer = tf.train.sgd(0.05);
 // Train for 5 epochs.
@@ -1446,45 +2879,124 @@ for (let epoch = 0; epoch < 1; epoch++) {
   await ds.forEachAsync(({xs, ys}) => {
     optimizer.minimize(() => {
 	  if (add_train) {
-	  	seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
-	  	document.getElementById("trainingexamplelist").innerHTML = seen_training;
-		document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
-		console.log("tc", this_counter);
-		xsm = training_set[this_counter][0];
+	  	xsm = training_set[this_counter][0];
 		ysm = training_set[this_counter][1];
+		seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
+		console.log("tc", this_counter);
 	  	this_counter += 1;
-		document.getElementById("traincount").innerHTML = this_counter;
+		if (this_counter > training_set.length - 1) {
+			document.getElementById("oneexamplebtn").disabled = true;
+		}
+		document.getElementById("traincount").innerHTML = this_counter - 1;
 	  }
-      const predYs = seq2seq([xsm],outlength=ysm.length)[1];
+      const predYs = tf.tidy(() => seq2seq([xsm],outlength=ysm.length)[1]);
 	  
       const loss = tf.losses.softmaxCrossEntropy(make_one_hot_seq(ysm), predYs, axis=1);
       loss.data().then(l => console.log('Loss', l));
 
-	  preds = seq2seq(test_set_firsts)[0];
-	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
-			pred = toz(preds[lmnop]);
- 			if (pred == test_set[lmnop][1]) {
-                font_color = "green";
-            } else {
-                font_color = "red";
-            }
+      return loss;
+    });
+  });
+
+  console.log('Epoch', epoch);
+}
+
+
+}
+
+function update_display(seq2seq, prefix) {
+
+  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
+  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+	pred = toz(preds[lmnop]);
+ 	if (pred == test_set[lmnop][1]) {
+    	font_color = "green";
+    } else {
+    	font_color = "red";
+    }
 			
-			document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	console.log("here we are everyone!!!");
+  }
+
+	  	document.getElementById("trainingexamplelist").innerHTML = seen_training;
+		document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+
+
+		document.getElementById("traincount").innerHTML = this_counter;
+
+
+
+}
+async function fitfitfit(seq2seq, prefix, add_train=false) {
+setTimeout(async function () {
+	//update_display(seq2seq, prefix);
+const optimizer = tf.train.sgd(0.05);
+// Train for 5 epochs.
+for (let epoch = 0; epoch < 1; epoch++) {
+
+
+  await ds.forEachAsync(({xs, ys}) => {
+
+  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
+  seen_training_prime = seen_training;
+    optimizer.minimize(() => {
+	  if (add_train) {
+	  	xsm = training_set[this_counter][0];
+		ysm = training_set[this_counter][1];
+		seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
+		console.log("tc", this_counter);
+	  	this_counter += 1;
+		if (this_counter > training_set.length - 1) {
+			document.getElementById("oneexamplebtn").disabled = true;
+		}
 	  }
+      const predYs = tf.tidy(() => seq2seq([xsm],outlength=ysm.length)[1]);
+	  
+      const loss = tf.losses.softmaxCrossEntropy(make_one_hot_seq(ysm), predYs, axis=1);
+      loss.data().then(l => console.log('Loss', l));
 
 
       return loss;
     });
+
+
+  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
+	pred = toz(preds[lmnop]);
+ 	if (pred == test_set[lmnop][1]) {
+    	font_color = "green";
+    } else {
+    	font_color = "red";
+    }
+			
+	document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
+	console.log("here we are everyone!!!");
+  }
+
+	if (add_train) {
+	  	document.getElementById("trainingexamplelist").innerHTML = seen_training_prime;
+		document.getElementById("trainingexamplelist").scrollTop = document.getElementById("trainingexamplelist").scrollHeight;
+
+
+		document.getElementById("traincount").innerHTML = this_counter - 1;
+	}
+
+
   });
+
   console.log('Epoch', epoch);
 }
+
+}, 1);
+
+
 }
 
 
 
 
 	  console.log("tfs", test_set_firsts);
-	  preds = seq2seq(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop])
 			if (pred == test_set[lmnop][1]) {
@@ -1496,7 +3008,7 @@ for (let epoch = 0; epoch < 1; epoch++) {
 	  }
 
 
-	  preds = seq2seqb(test_set_firsts)[0];
+	  preds = tf.tidy(() => seq2seqb(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop]);
 			if (pred == test_set[lmnop][1]) {
@@ -1508,6 +3020,12 @@ for (let epoch = 0; epoch < 1; epoch++) {
 
 			document.getElementById("randomoutb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
 	  }
+
+
+renew_language();
+
+document.getElementById("rankbtn").innerHTML = key2ranking[manual_ranking];
+document.getElementById("langdesc").innerHTML = key2description[new_lang[5]].replace("CONS", new_lang[4][0]).replace("VOW", new_lang[3][0]);
 
 
 /* When the user clicks on the button,
@@ -1530,6 +3048,206 @@ window.onclick = function(event) {
   }
 }
 
+
+function drawStar(centerX, centerY, points, outer, inner, fill, stroke, line) {
+    // define the star
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY+outer);
+    for (var i=0; i < 2*points+1; i++) {
+        var r = (i%2 == 0)? outer : inner;
+        var a = Math.PI * i/points;
+        ctx.lineTo(centerX + r*Math.sin(a), centerY + r*Math.cos(a));
+    };
+    ctx.closePath();
+    // draw
+    ctx.fillStyle=fill;
+    ctx.fill();
+    ctx.strokeStyle=stroke;
+    ctx.lineWidth=line;
+    ctx.stroke()
+}
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.moveTo(0, 150);
+ctx.lineTo(300, 150);
+ctx.stroke();
+
+ctx.moveTo(150, 0);
+ctx.lineTo(150, 300);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+ctx.stroke();
+
+ctx.fillRect(240,90,3,3)
+drawStar(240, 90, 5, 10, 5, 'mediumseagreen','gray',1);
+
+function loss(m,b,x1,x2,y1,y2,r) {
+	l1 = m * x2 + 2*r*x1*y1*x2 - 2*r*(x1*x1)*m*x2 - 2*r*b*x1*x2 + b + 2*r*y1 - 2*r*m*x1 - 2*r*b - y2;
+	
+	dldm = 2*l1 * (x2 - 2*r*(x1*x1)*x2 - 2*r*x1);
+	dldb = 2*l1*(-2*r*x1*x2 + 1 - 2*r);
+
+	return [dldm, dldb];
+
+}
+
+
+function loss_non_meta(m,b,x,y) {
+	dldm = -2*x*y + 2*x*x*m + 2*b*x;
+	dldb = -2*y + 2*m*x + 2*b;
+
+	return [dldm, dldb];
+}
+
+
+var slope = 3;
+var intercept = 2;
+var rinner = 0.5;
+var router = 0.01;
+
+demo_ind = 0;
+
+function myLoop() {
+
+	setTimeout(function () {
+	randnum = 2 * Math.PI * Math.random();
+	mcorr = Math.cos(randnum) - 3;
+	bcorr = Math.sin(randnum) -2;
+	//bcorr = Math.sqrt((1.0 - randnum*randnum)) - 2;
+	
+	cointoss = choice([0,1]);
+	if (cointoss == 0) {
+		bcorr = -1 * (bcorr + 4);
+	}
+
+	x1 = 2 * Math.random() - 1;
+	x2 = 2 * Math.random() - 1;
+	x3 = 2 * Math.random() - 1; //
+
+	y1 = mcorr*x1 + bcorr;
+	y2 = mcorr*x2 + bcorr;
+	y3 = mcorr*x3 + bcorr; //
+
+	losses = loss(slope, intercept, x1, x2, y1, y2, rinner);
+	dldm = losses[0];
+	dldb = losses[1];
+
+	inner_losses = loss_non_meta(slope,intercept,x1,y1);
+	dldmi = inner_losses[0];
+	dldbi = inner_losses[1];
+
+	for (qinn = 0; qinn < 10; qinn++) {	
+		x3 = 2 * Math.random() - 1;
+		y3 = mcorr*x3 + bcorr;
+
+		inner_losses_b = loss_non_meta(slope,intercept,x3,y3);
+		dldmi = dldmi + inner_losses_b[0];
+		dldbi = dldbi + inner_losses_b[1];
+
+		losses_b = loss(slope, intercept, x3, x2, y3, y2, rinner);
+		dldm = dldm + losses_b[0];
+		dldb = dldb + losses_b[1];
+	}
+
+	dldmi = dldmi/11;
+	dldbi = dldbi/11;
+
+	slopenew = slope - router*dldm;
+	interceptnew = intercept - router*dldb;
+
+	slopenewb = slope - rinner*dldmi;
+	interceptnewb = intercept - rinner*dldbi;
+
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.font = "12px Arial";
+	ctx.fillStyle="black";
+	ctx.fillText("Parameter 2", 120, 20);	
+	ctx.fillText("Parameter 1", 10, 145); 
+	
+	drawStar(30*mcorr+150, -30*bcorr+150, 5, 2, 5, 'purple','gray',0);
+	
+	ctx.moveTo(0, 150);
+	ctx.lineTo(300, 150);
+	ctx.stroke();
+
+	ctx.moveTo(150, 0);
+	ctx.lineTo(150, 300);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+	ctx.stroke();
+	drawStar(30*slope+150, -30*intercept+150, 5, 2, 5, 'mediumseagreen','gray',0);
+
+	
+	setTimeout(function () {
+
+
+		drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 2, 5, 'orange','gray',0);
+		ctx.moveTo(30*slope+150, -30*intercept+150);
+		ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
+		ctx.stroke();
+
+
+		setTimeout(function () {
+
+			slope = slopenew;
+			intercept = interceptnew;
+
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.font = "12px Arial";
+			ctx.fillStyle="black";
+			ctx.fillText("Parameter 2", 120, 20);	
+			ctx.fillText("Parameter 1", 10, 145); 
+			drawStar(30*mcorr+150, -30*bcorr+150, 5, 2, 5, 'purple','gray',0);	
+			drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 2, 5, 'orange','gray',0);
+			ctx.moveTo(30*slope+150, -30*intercept+150);
+			ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
+			ctx.stroke();
+
+
+			drawStar(30*slope+150, -30*intercept+150, 5, 2, 5, 'mediumseagreen','gray',0);
+			ctx.moveTo(0, 150);
+			ctx.lineTo(300, 150);
+			ctx.stroke();
+
+			ctx.moveTo(150, 0);
+			ctx.lineTo(150, 300);
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+			ctx.stroke();
+			demo_ind++;
+	
+			if (demo_ind < 10000) {
+				myLoop();
+			}
+		}, 2000/(Math.pow(2, pace)))
+
+	}, 2000/(Math.pow(2, pace)))
+
+	}, 800/(Math.pow(2, pace)))
+}
+var pace = 1;
+myLoop();
+
+
+console.log(slope, intercept);
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+slider.value = 1;
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  pace = Math.sqrt(this.value);
+}
 
 
 </script>
