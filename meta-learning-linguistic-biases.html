@@ -21,7 +21,7 @@
 <body>
 	<div class="contentwrapper">
 	<section>
-	<h1 style="text-align:center">Imparting universal linguistic inductive biases via meta-learning</h1>
+	<h1 style="text-align:center">Universal linguistic inductive biases via meta-learning</h1>
 
 
 	<h2>Introduction</h2>
@@ -29,13 +29,13 @@
 	<p>Language acquisition involves a complex interplay between the data and the learner. The importance of data is clear: we can only learn a language if we have experience with it. Less obviously, acquisition is also guided by properties of the learner called <b>inductive biases</b>, which determine how the learner will generalize beyond the utterances they have encountered. As an example, consider the following pattern:</p>
 
 	<ul>
-		<li>gbg &rarr; .ga.ba.ga.</li>
-		<li>qq &rarr; .qa.qa.</li>
-		<li>tlv &rarr; ???</li>
+		<li style="color: blue">gbg &rarr; .ga.ba.ga.</li>
+		<li style="color: blue">qq &rarr; .qa.qa.</li>
+		<li style="color: blue">tlv &rarr; ???</li>
 	</ul>
 
 
-	<p>What output should replace the question marks? You probably answered <em>.ta.la.va.</em> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <em>.va.la.ta.</em> If you answered <em>.ta.la.va.</em> instead of <em>.va.la.ta.</em>, it suggests that you have an inductive bias for preserving the input order.</p>
+	<p>What output should replace the question marks? You probably answered <span style="color:blue"><em>.ta.la.va.</em></span> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <span style="color:blue"><em>.va.la.ta.</em></span> If you answered <span style="color:blue"><em>.ta.la.va.</em></span> instead of <span style="color:blue"><em>.va.la.ta.</em></span>, it suggests that you have an inductive bias for preserving the input order.</p>
 
 	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling of this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
 
@@ -67,16 +67,16 @@
 
 
 	<div class="dropdown">
-  		<button onclick="dropFunction()" class="dropbtn" id="rankbtn" style='font-variant:small-caps;'>Dropdown</button>
+  		<button onclick="dropFunction()" class="dropbtn" id="rankbtn" style='font-variant:small-caps; font-size:15px;'>Dropdown</button>
   		<div id="myDropdown" class="dropdown-content">
-    		<a onclick="ranktoggle('(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Max &#187; Dep</span></a>
-  			<a onclick="ranktoggle('(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, Dep &#187; Max</span></a>
-			<a onclick="ranktoggle('(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, Dep &#187; Max &#187; NoCoda</span></a>
-			<a onclick="ranktoggle('(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, Dep &#187;  Max &#187; Onset</span></a>
-			<a onclick="ranktoggle('(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, Max &#187; Dep &#187; NoCoda</span></a>
-			<a onclick="ranktoggle('(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, Max &#187; Dep &#187; Onset</span></a>
-			<a onclick="ranktoggle('(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>Dep &#187; Max &#187; Onset, NoCoda</span></a>
-			<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>Max &#187; Dep &#187; Onset, NoCoda</span></a>
+    		<a onclick="ranktoggle('(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoDeletion &#187; NoInsertion</span></a>
+  			<a onclick="ranktoggle('(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoInsertion &#187; NoDeletion</span></a>
+			<a onclick="ranktoggle('(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, NoInsertion &#187; NoDeletion &#187; NoCoda</span></a>
+			<a onclick="ranktoggle('(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, NoInsertion &#187;  NoDeletion &#187; Onset</span></a>
+			<a onclick="ranktoggle('(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, NoDeletion &#187; NoInsertion &#187; NoCoda</span></a>
+			<a onclick="ranktoggle('(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, NoDeletion &#187; NoInsertion &#187; Onset</span></a>
+			<a onclick="ranktoggle('(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>NoInsertion &#187; NoDeletion &#187; Onset, NoCoda</span></a>
+			<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>NoDeletion &#187; NoInsertion &#187; Onset, NoCoda</span></a>
 		</div>
 	</div>
 
@@ -168,1368 +168,1915 @@
 
 <p>The meta-initialized model can typically learn any of these syllable structure mappings from fewer than 100 examples&mdash;sometimes substantially fewer. In contrast, after the same number of examples, the outputs of the randomly initialized model are usually nowhere near the correct answers.</p>
 
-<h2>Generalization</h2>
+<p>How many examples does the randomly-initialized model need to begin performing well? The table below should give some sense of this; it contains data from one language for each of the 8 abstract categories of languages that we use in our experiments. On these languages, the randomly-initialized model typically needs a few thousand examples, compared to a few dozen for the meta-initialized model.</p>
 
-<p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
+<div style="margin:auto">
+<div style="width:600px; margin:auto;">
+	<div class="dropdown">
+  		<button onclick="dropFunction2()" class="dropbtn" id="rankbtn2">Choose constraint ranking</button>
+  		<div id="myDropdown2" class="dropdown-content">
+    		<a onclick="change_thousands(4, '(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoDeletion &#187; NoInsertion</span></a>
+  			<a onclick="change_thousands(7, '(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoInsertion &#187; NoDeletion</span></a>
+			<a onclick="change_thousands(8, '(0, 3, 2, 1)')"><span style='font-variant:small-caps;'>Onset, NoInsertion &#187; NoDeletion &#187; NoCoda</span></a>
+			<a onclick="change_thousands(1, '(1, 3, 2, 0)')"><span style='font-variant:small-caps;'>NoCoda, NoInsertion &#187;  NoDeletion &#187; Onset</span></a>
+			<a onclick="change_thousands(3, '(0, 2, 3, 1)')"><span style='font-variant:small-caps;'>Onset, NoDeletion &#187; NoInsertion &#187; NoCoda</span></a>
+			<a onclick="change_thousands(6, '(1, 2, 3, 0)')"><span style='font-variant:small-caps;'>NoCoda, NoDeletion &#187; NoInsertion &#187; Onset</span></a>
+			<a onclick="change_thousands(5, '(3, 2, 0, 1)')"><span style='font-variant:small-caps;'>NoInsertion &#187; NoDeletion &#187; Onset, NoCoda</span></a>
+			<a onclick="change_thousands(2, '(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>NoDeletion &#187; NoInsertion &#187; Onset, NoCoda</span></a>
+		</div>
+	</div>
 
-1,3,2,0
-<table>
+
+
+
+
+
+
+</div>
+</div>
+
+<div class="outertable" id="thousands1">
+<table class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>uttxr</td>
 		<td>.u.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.u.xu.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
-		<td>.u.</td>
+		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>.u.xu.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
+		<td><span style='color: green'>.u.</span></td>
 	</tr>
 	<tr>
 		<td>raxur</td>
 		<td>.ra.xu.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.u.</td>
-		<td>.ra.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
-		<td>.ra.xu.</td>
+		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: red'>.ra.xu.u.</span></td>
+		<td><span style='color: red'>.ra.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
+		<td><span style='color: green'>.ra.xu.</span></td>
 	</tr>
 	<tr>
 		<td>Oar</td>
 		<td>.O.a.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.O.ra.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
-		<td>.O.a.</td>
+		<td><span style='color: red'>pzllllllll</td></span>
+		<td><span style='color: red'>.O.ra.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
+		<td><span style='color: green'>.O.a.</span></td>
 	</tr>
 	<tr>
 		<td>atrau</td>
 		<td>.a.ra.u.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.a.ra.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ru.u.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ra.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ra.u.</td>
-		<td>.a.ra.u.</td>
+		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>.a.ra.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: green'>.a.ru.u.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: red'>.a.ra.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
+		<td><span style='color: green'>.a.ra.u.</span></td>
 	</tr>
 	<tr>
 		<td>tOuxa</td>
 		<td>.tO.u.xa.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.tO.xo.x.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td> 
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
-		<td>.tO.u.xa.</td>
+		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>.tO.xo.x.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td> 
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
+		<td><span style='color: green'>.tO.u.xa.</span></td>
 	</tr>
 	<tr>
 		<td>xruto</td>
 		<td>.ru.tO.</td>
-		<td>plllllllllllllllllll</td>
-		<td>.tu.xO.</td>
-		<td>.tu.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.O.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.</td>
-		<td>.ru.tO.</td>
+		<td><span style='color: red'>plllllllll</span></td>
+		<td><span style='color: red'>.tu.xO.</span></td>
+		<td><span style='color: red'>.tu.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: red'>.ru.tO.O.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
+		<td><span style='color: green'>.ru.tO.</span></td>
 	</tr>
 	<tr>
 		<td>xOxra</td>
 		<td>.xO.ra.</td>
-		<td>pzllllllllllllllllll</td>
-		<td>.xO.xa.</td>
-		<td>.xO.xa.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
-		<td>.xO.ra.</td>
+		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>.xO.xa.</span></td>
+		<td><span style='color: red'>.xO.xa.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
+		<td><span style='color: green'>.xO.ra.</span></td>
 	</tr>
 	<tr>
 		<td>uuuuO</td>
 		<td>.u.u.u.u.O.</td>
-		<td>xhIjjjjjjjjjjjjjjjjj</td>
-		<td>.u.uu.O..</td>
-		<td>.u.u.u.u.</td>
-		<td>.u.u.u.u.O.</td>
-		<td>.u.u.u.O.O.</td>
-		<td>.u.u.u.O.</td>
-		<td>.u.u.u.u.</td>
-		<td>.u.u.u.u.O.</td>
-		<td>.u.u.u.u.O.</td>
-		<td>.u.u.u.u.u.</td>
-		<td>.u.u.u.u.O.</td>
+		<td><span style='color: red'>xhIjjjjjjj</span></td>
+		<td><span style='color: red'>.u.uu.O..</span></td>
+		<td><span style='color: red'>.u.u.u.u.</span></td>
+		<td><span style='color: green'>.u.u.u.u.O.</span></td>
+		<td><span style='color: red'>.u.u.u.O.O.</span></td>
+		<td><span style='color: red'>.u.u.u.O.</span></td>
+		<td><span style='color: red'>.u.u.u.u.</span></td>
+		<td><span style='color: green'>.u.u.u.u.O.</span></td>
+		<td><span style='color: green'>.u.u.u.u.O.</span></td>
+		<td><span style='color: red'>.u.u.u.u.u.</span></td>
+		<td><span style='color: green'>.u.u.u.u.O.</span></td>
 	</tr>
 	<tr>
 		<td>xt</td>
-		<td></td>
-		<td>plllllllllllllllllll</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>plllllllll</td></span>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>aata</td>
 		<td>.a.a.ta.</td>
-		<td>paw.www.www.www.wwww</td>
-		<td>.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
-		<td>.a.a.ta.</td>
+		<td><span style='color: red'>pai.iii.ii</span></td>
+		<td><span style='color: red'>.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
+		<td><span style='color: green'>.a.a.ta.</span></td>
 	</tr>
-</table>
+</table></div>
 
-2,3,1,0
-<table>
+<div class="outertable" id="thousands2">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
 		<th>10000 iterations</th>
 	</tr>
 	<tr>
 		<td>IIEm</td>
 		<td>.I.I.Em.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.I.mI.E..</td>
-		<td>.I.E.m</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.E.Em.</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.Em.</td>
-		<td>.I.I.Em.</td>
+		<td><span style='color: red'>emmm....Ok</td></span>
+		<td><span style='color: red'>.I.mI.E..</span></td>
+		<td><span style='color: red'>.I.E.m</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: red'>.I.I.E.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: green'>.I.I.Em.</span></td>
 	</tr>
 	<tr>
 		<td>pppE</td>
 		<td>.pEp.pE.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.pE.pE.EE..</td>
-		<td>.pEp.pE..</td>
-		<td>.pEp.pE.</td>
-		<td>.pE..pE.</td>
-		<td>.pEp.pE.</td>
-		<td>.pEp.pE.</td>
-		<td>.pEp.pE.</td>
-		<td>.pEp.pE.</td>
-		<td>.pEp.pE.</td>
-		<td>.pEp.pE.</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.pE.pE.EE..</span></td>
+		<td><span style='color: green'>.pEp.pE..</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: red'>.pE..pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
+		<td><span style='color: green'>.pEp.pE.</span></td>
 	</tr>
 	<tr>
 		<td>ImE</td>
 		<td>.I.mE.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.I.mE..</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
-		<td>.I.mE.</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.I.mE..</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: green'>.I.mE.</span></td>
 	</tr>
 	<tr>
-		<td></td>
-		<td></td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.EE.</td>
-		<td>.EE.</td>
-		<td>.EE.</td>
-		<td>.EE.</td>
-		<td>.xE.</td>
-		<td>.cE.</td>
-		<td>.xE.</td>
-		<td>.xE.</td>
-		<td>.xE.</td>
-		<td>.cE.</td>
+		<td>&lt;empty&gt;</td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.EE.</span></td>
+		<td><span style='color: red'>.EE.</span></td>
+		<td><span style='color: red'>.EE.</span></td>
+		<td><span style='color: red'>.EE.</span></td>
+		<td><span style='color: red'>.xE.</span></td>
+		<td><span style='color: red'>.cE.</span></td>
+		<td><span style='color: red'>.xE.</span></td>
+		<td><span style='color: red'>.xE.</span></td>
+		<td><span style='color: red'>.xE.</span></td>
+		<td><span style='color: red'>.cE.</span></td>
 	</tr>
 	<tr>
 		<td>xEpcI</td>
 		<td>.xEp.cI.</td>
-		<td>eNmmm....Okkkkkkkkkk</td>
-		<td>.xE.......</td>
-		<td>.xE..pE..I.</td>
-		<td>.xE..pI.</td>
-		<td>.xE..cc.II.</td>
-		<td>.xEp.cI.</td>
-		<td>.xEp.cI.</td>
-		<td>.xEp.cI.</td>
-		<td>.xEp.cI.</td>
-		<td>.xEp.cI.</td>
-		<td>.xEp.cI.</td>
+		<td><span style='color: red'>eNmmm....O</span></td>
+		<td><span style='color: red'>.xE.......</span></td>
+		<td><span style='color: red'>.xE..pE..I.</span></td>
+		<td><span style='color: red'>.xE..pI.</span></td>
+		<td><span style='color: red'>.xE..cc.II.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: green'>.xEp.cI.</span></td>
 	</tr>
 	<tr>
 		<td>mExE</td>
 		<td>.mE.xE.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.mE.EE.E.</td>
-		<td>.mExxE..</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
-		<td>.mE.xE.</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.mE.EE.E.</span></td>
+		<td><span style='color: red'>.mExxE..</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
+		<td><span style='color: green'>.mE.xE.</span></td>
 	</tr>
 	<tr>
 		<td>IIIEE</td>
 		<td>.I.I.I.E.E.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.I.II.E.E..</td>
-		<td>.I.I.EE.</td>
-		<td>.I.I.I.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
-		<td>.I.I.I.E.E.</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.I.II.E.E..</span></td>
+		<td><span style='color: red'>.I.I.EE.</span></td>
+		<td><span style='color: red'>.I.I.I.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</span></td>
+		<td><span style='color: green'>.I.I.I.E.E.</td></span>
 	</tr>
 	<tr>
 		<td>Exppp</td>
 		<td>.E.xEp.pEp.</td>
-		<td>eNmmm....Okkkkkkkkkk</td>
-		<td>.E.xEppEpp.</td>
-		<td>.Ex.pEppEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td>
-		<td>.E.xEp.pEp.</td> 
+		<td><span style='color: red'>eNmmm....O</span></td>
+		<td><span style='color: red'>.E.xEppEpp.</span></td>
+		<td><span style='color: red'>.Ex.pEppEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td>
+		<td><span style='color: green'>.E.xEp.pEp.</span></td> 
 	</tr>
 	<tr>
 		<td>IpEIc</td>
 		<td>.I.pE.Ic.</td>
-		<td>emmm....Okkkkkkkkkk</td>
-		<td>.I..pE.E...</td>
-		<td>.I.pE.I..</td>
-		<td>.I.pE.cc.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
-		<td>.I.pE.Ic.</td>
+		<td><span style='color: red'>emmm....O</td></span>
+		<td><span style='color: red'>.I..pE.E...</span></td>
+		<td><span style='color: red'>.I.pE.I..</span></td>
+		<td><span style='color: red'>.I.pE.cc.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: green'>.I.pE.Ic.</span></td>
 	</tr>
 	<tr>
 		<td>EIIpm</td>
 		<td>.E.I.I.pEm.</td>
-		<td>emmm....Okkkkkkkkkkk</td>
-		<td>.I.E..E..E.</td>
-		<td>.E.I.pEp.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
-		<td>.E.I.I.pEm.</td>
+		<td><span style='color: red'>emmm....Ok</span></td>
+		<td><span style='color: red'>.I.E..E..E.</span></td>
+		<td><span style='color: red'>.E.I.pEp.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: green'>.E.I.I.pEm.</span></td>
 	</tr>
-</table>
+</table></div>
 
+<div class="outertable" id="thousands3">
 
-0,2,3,1
-
-<table>
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>Uktt</td>
 		<td>.kUk.tIt.</td>
-		<td>I.kI.kkI..kkI..kI.kk</td>
-		<td>.kU.tIt.</td>
-		<td>.kUk.IIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
-		<td>.kUk.tIt.</td>
+		<td><span style='color: red'>I.kI.kkI..</span></td>
+		<td><span style='color: red'>.kU.tIt.</span></td>
+		<td><span style='color: red'>.kUk.IIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td><span style='color: green'>.kUk.tIt.</span></td>
 	</tr>
 	<tr>
 		<td>aukk</td>
 		<td>.ka.ku.kIk.</td>
-		<td>II.kkI..kkI..kI.kkI.</td>
-		<td>.ka.kukk</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
-		<td>.ka.ku.kIk.</td>
+		<td><span style='color: red'>II.kkI..k</span></td>
+		<td><span style='color: red'>.ka.kukk</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kIk.</span></td>
 	</tr>
 	<tr>
 		<td>Ita</td>
 		<td>.kI.ta.</td>
-		<td>II.kkI..kkI..kI.kkI.</td>
-		<td>.kI.ka..</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
-		<td>.kI.ta.</td>
+		<td><span style='color: red'>II.kkI..kk</span></td>
+		<td><span style='color: red'>.kI.ka..</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
+		<td><span style='color: green'>.kI.ta.</span></td>
 	</tr>
 	<tr>
 		<td>tak</td>
 		<td>.tak.</td>
-		<td>II.kkI..kkI..kI.kkI.</td>
-		<td>.tI..</td>
-		<td>.ta.k</td>
-		<td>.tak.</td>
-		<td>.tak.</td>
-		<td>.tak.</td>
-		<td>.tak.</td> 
-		<td>.tak.</td>
-		<td>.tak.</td>
-		<td>.tak.</td>
-		<td>.ta.kak.</td>
+		<td><span style='color: red'>II.kkI..kk</td></span>
+		<td><span style='color: red'>.tI..</span></td>
+		<td><span style='color: red'>.ta.k</span></td>
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: green'>.tak.</span></td> 
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: green'>.tak.</span></td>
+		<td><span style='color: red'>.ta.kak.</span></td>
 	</tr>
 	<tr>
 		<td>ttktU</td>
 		<td>.tI.tIk.tU.</td>
-		<td>nkaaaaaaaaaaaaaaaaaa</td>
-		<td>.tI.tIt.</td>
-		<td>.tI..It.kU.</td>
-		<td>.tI.tIt.tU.</td>
-		<td>.tI.tIk.tU.</td>
-		<td>.tI.tIk.tU.</td>
-		<td>.tI.tIk.tU.</td> 
-		<td>.tI.tIk.tU.</td>
-		<td>.tI.tIk.tU.</td>
-		<td>.tI.tIk.tU.</td>
-		<td>.tI.tIk.tU.</td>
+		<td><span style='color: red'>nkaaaaaaaa</span></td>
+		<td><span style='color: red'>.tI.tIt.</span></td>
+		<td><span style='color: red'>.tI..It.kU.</span></td>
+		<td><span style='color: red'>.tI.tIt.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td> 
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: green'>.tI.tIk.tU.</span></td>
 	</tr>
 	<tr>
 		<td>ItUIa</td>
 		<td>.kI.tU.kI.ka.</td>
-		<td>II.kkI..kkI..kI.kkI.</td>
-		<td>.kI.kI.ka.ka.</td>
-		<td>.kI.tU.kU.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td>.kI.tU.kI.ka.</td>
+		<td><span style='color: red'>II.kkI..kk</span></td>
+		<td><span style='color: red'>.kI.kI.ka.ka.</span></td>
+		<td><span style='color: red'>.kI.tU.kU.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
 	</tr>
 	<tr>
 		<td>kuIta</td>
 		<td>.ku.kI.ta.</td>
-		<td>I.kI.kkI..kkI..kI.kk</td>
-		<td>.kU.kI.ka..</td>
-		<td>.ku.kI.tI.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
-		<td>.ku.kI.ta.</td>
+		<td><span style='color: red'>I.kI.kkI..</span></td>
+		<td><span style='color: red'>.kU.kI.ka..</span></td>
+		<td><span style='color: red'>.ku.kI.tI.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td><span style='color: green'>.ku.kI.ta.</span></td>
 	</tr>
 	<tr>
 		<td>katta</td>
 		<td>.kat.ta.</td>
-		<td>I.kI.kkI..kkI..kI.kk</td>
-		<td>.ka.tat..</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
-		<td>.kat.ta.</td>
+		<td><span style='color: red'>I.kI.kkI..</span></td>
+		<td><span style='color: red'>.ka.tat..</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
+		<td><span style='color: green'>.kat.ta.</span></td>
 	</tr>
 	<tr>
 		<td>I</td>
 		<td>.kI.</td>
-		<td>IIkkkaaaaaaaaaaaaaaa</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
-		<td>.kI.</td>
+		<td><span style='color: red'>IIkkkaaaaa</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
+		<td><span style='color: green'>.kI.</span></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>kattu</td>
 		<td>.kat.tu.</td>
-		<td>I.kkI..kkI..kI.kkI..</td>
-		<td>.ka.tut</td>
-		<td>.kat.ku.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
-		<td>.kat.tu.</td>
+		<td><span style='color: red'>I.kkI..kkI</span></td>
+		<td><span style='color: red'>.ka.tut</span></td>
+		<td><span style='color: red'>.kat.ku.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
+		<td><span style='color: green'>.kat.tu.</span></td>
 	</tr>
-</table>
+</table></div>
 
-0,1,2,3
-<table>
+<div class="outertable" id="thousands4">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>btubo</td>
 		<td>.bU.tu.bo.</td>
-		<td>uttjutjutjutjutjutju</td>
-		<td>.bU.bo.fo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
-		<td>.bU.tu.bo.</td>
+		<td><span style='color: red'>uttjutjutj</span></td>
+		<td><span style='color: red'>.bU.bo.fo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
+		<td><span style='color: green'>.bU.tu.bo.</span></td>
 	</tr>
 	<tr>
 		<td>uuutb</td>
 		<td>.fu.fu.fu.tU.bU.</td>
-		<td>tNujutjutjutjutjutju</td>
-		<td>.fu.fu.fu.bU.bU.</td>
-		<td>.fu.fu.tU.bU.bU.</td>
-		<td>.fu.fu.tU.bU.bU.</td>
-		<td>.fu.fu.fu.tU.</td>
-		<td>.fu.fu.fu.tU.bU.</td>
-		<td>.fu.fu.tU.bU.bU.</td>
-		<td>.fu.fu.tU.bU.bU.</td>
-		<td>.fu.fu.fu.tU.bU.</td>
-		<td>.fu.fu.fu.tU.bU.</td>
-		<td>.fu.fu.fu.tU.bU.</td>
+		<td><span style='color: red'>tNujutjutj</span></td>
+		<td><span style='color: red'>.fu.fu.fu.bU.bU.</span></td>
+		<td><span style='color: red'>.fu.fu.tU.bU.bU.</span></td>
+		<td><span style='color: red'>.fu.fu.tU.bU.bU.</span></td>
+		<td><span style='color: red'>.fu.fu.fu.tU.</span></td>
+		<td><span style='color: green'>.fu.fu.fu.tU.bU.</span></td>
+		<td><span style='color: red'>.fu.fu.tU.bU.bU.</span></td>
+		<td><span style='color: red'>.fu.fu.tU.bU.bU.</span></td>
+		<td><span style='color: green'>.fu.fu.fu.tU.bU.</span></td>
+		<td><span style='color: green'>.fu.fu.fu.tU.bU.</span></td>
+		<td><span style='color: green'>.fu.fu.fu.tU.bU.</span></td>
 	</tr>
 	<tr>
 		<td>fffbf</td>
 		<td>.fU.fU.fU.bU.fU.</td>
-		<td>jutjutjutjutjutjutju</td>
-		<td>.fU.fU.bU.bU.</td>
-		<td>.fU.fU.bU.fU.</td>
-		<td>.fU.fU.fU.bU.fU.</td>
-		<td>.fU.fU.fU.fU.fU.</td>
-		<td>.fU.fU.bU.fU.fU.</td>
-		<td>.fU.fU.bU.bU.fU.</td>
-		<td>.fU.fU.fU.bU.fU.</td>
-		<td>.fU.fU.fU.bU.fU.</td>
-		<td>.fU.fU.fU.bU.fU.</td>
-		<td>.fU.fU.fU.bU.fU.</td>
+		<td><span style='color: red'>jutjutjutj</span></td>
+		<td><span style='color: red'>.fU.fU.bU.bU.</span></td>
+		<td><span style='color: red'>.fU.fU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.fU.fU.</span></td>
+		<td><span style='color: red'>.fU.fU.bU.fU.fU.</span></td>
+		<td><span style='color: red'>.fU.fU.bU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.bU.fU.</span></td>
+		<td><span style='color: green'>.fU.fU.fU.bU.fU.</span></td>
 	</tr>
 	<tr>
 		<td>votuv</td>
 		<td>.vo.tu.vU.</td>
-		<td>uttjutjutjutjutjutju</td>
-		<td>.vo.vo.vU.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td> 
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
-		<td>.vo.tu.vU.</td>
+		<td><span style='color: red'>uttjutjutj</span></td>
+		<td><span style='color: red'>.vo.vo.vU.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td> 
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
+		<td><span style='color: green'>.vo.tu.vU.</span></td>
 	</tr>
 	<tr>
 		<td>uoUUf</td>
 		<td>.fu.fo.fU.fU.fU.</td>
-		<td>jutjutjutjutjutjutju</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
-		<td>.fu.fo.fU.fU.fU.</td>
+		<td><span style='color: red'>jutjutjutj</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: red'>.fu.fo.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
+		<td><span style='color: green'>.fu.fo.fU.fU.fU.</span></td>
 	</tr>
 	<tr>
 		<td>vuufu</td>
 		<td>.vu.fu.fu.</td>
-		<td>tNujutjutjutjutjutju</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td> 
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
-		<td>.vu.fu.fu.</td>
+		<td><span style='color: red'>tNujutjutj</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td> 
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
+		<td><span style='color: green'>.vu.fu.fu.</span></td>
 	</tr>
 	<tr>
 		<td>ubuu</td>
 		<td>.fu.bu.fu.</td>
-		<td>rZAbwjutjutjutjutjut</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
-		<td>.fu.bu.fu.</td>
+		<td><span style='color: red'>rZAbwjutju</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
+		<td><span style='color: green'>.fu.bu.fu.</span></td>
 	</tr>
 	<tr>
 		<td>fvuof</td>
 		<td>.fU.vu.fo.fU.</td>
-		<td>jutjutjutjutjutjutju</td>
-		<td>.fU.fo.fU.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
-		<td>.fU.vu.fo.fU.</td>
+		<td><span style='color: red'>jutjutjutj</span></td>
+		<td><span style='color: red'>.fU.fo.fU.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
+		<td><span style='color: green'>.fU.vu.fo.fU.</span></td>
 	</tr>
 	<tr>
 		<td>vuofu</td>
 		<td>.vu.fo.fu.</td>
-		<td>tNujutjutjutjutjutju</td>
-		<td>.vu.fo.fu.fU.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
-		<td>.vu.fo.fu.</td>
+		<td><span style='color: red'>tNujutjutj</span></td>
+		<td><span style='color: red'>.vu.fo.fu.fU.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
+		<td><span style='color: green'>.vu.fo.fu.</span></td>
 	</tr>
 	<tr>
 		<td>ootUU</td>
 		<td>.fo.fo.tU.fU.</td>
-		<td>ffffffffffffffffffff</td>
-		<td>.fo.fo.fU.tU.tU.</td>
-		<td>.fo.fo.tU.fU.</td>
-		<td>.fo.fo.tU.fU.</td>
-		<td>.fo.fo.tU.fU.</td>
-		<td>.fo.fo.tU.fU.</td>
-		<td>.fo.to.tU.fU.</td>
-		<td>.fo.to.tU.fU.</td> 
-		<td>.fo.to.tU.fU.</td>
-		<td>.fo.to.tU.fU.</td>
-		<td>.fo.to.tU.fU.</td>
+		<td><span style='color: red'>ffffffffff</span></td>
+		<td><span style='color: red'>.fo.fo.fU.tU.tU.</span></td>
+		<td><span style='color: green'>.fo.fo.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.fo.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.fo.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.fo.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.to.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.to.tU.fU.</span></td> 
+		<td><span style='color: green'>.fo.to.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.to.tU.fU.</span></td>
+		<td><span style='color: green'>.fo.to.tU.fU.</span></td>
 	</tr>
-</table>
+</table></div>
 
-
-3,2,1,0
-<table>
+<div class="outertable" id="thousands5">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>Ebhhh</td>
 		<td>.Eh.</td>
-		<td>iibEuccEccEccEccEccE</td>
-		<td>.Eh.</td>
-		<td>.Eh.hh.</td>
-		<td>.Eh.</td>
-		<td>.Eh.</td>
-		<td>.Eh.</td> 
-		<td>.Eh.</td>
-		<td>.Eh.</td>
-		<td>.Eh.</td>
-		<td>.Eh.</td>
-		<td>.Eh.</td>
+		<td><span style='color: red'>iibEuccEcc</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: red'>.Eh.hh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td> 
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
+		<td><span style='color: green'>.Eh.</span></td>
 	</tr>
 	<tr>
 		<td>AAr</td>
 		<td>.A.Ar.</td>
-		<td>nquccEccEccEccEccEcc</td>
-		<td>.A.AA.</td>
-		<td>.A.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
-		<td>.A.Ar.</td>
+		<td><span style='color: red'>nquccEccEc</span></td>
+		<td><span style='color: red'>.A.AA.</span></td>
+		<td><span style='color: red'>.A.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
+		<td><span style='color: green'>.A.Ar.</span></td>
 	</tr>
 	<tr>
 		<td>EhrA</td>
 		<td>.Eh.rA.</td>
-		<td>bEuccEccEccEccEccEcc</td>
-		<td>.Er.AA.</td>
-		<td>.Er.rA.</td>
-		<td>.Eh.hA.</td>
-		<td>.Er.rA.</td>
-		<td>.Eh.rA.</td>
-		<td>.Eh.rA.</td>
-		<td>.Eh.rA.</td>
-		<td>.Eh.rA.</td>
-		<td>.Eh.rA.</td>
-		<td>.Eh.rA.</td>
+		<td><span style='color: red'>bEuccEccEc</span></td>
+		<td><span style='color: red'>.Er.AA.</span></td>
+		<td><span style='color: red'>.Er.rA.</span></td>
+		<td><span style='color: red'>.Eh.hA.</span></td>
+		<td><span style='color: green'>.Er.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
+		<td><span style='color: green'>.Eh.rA.</span></td>
 	</tr>
 	<tr>
 		<td>AhrhA</td>
 		<td>.Ar.hA.</td>
-		<td>xuccEccEccEccEccEccE</td>
-		<td>.A.AA.</td>
-		<td>.Ah.hA..A.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.rA.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.hA.</td>
-		<td>.Ah.hA.</td>
+		<td><span style='color: red'>xuccEccEcc</span></td>
+		<td><span style='color: red'>.A.AA.</span></td>
+		<td><span style='color: red'>.Ah.hA..A.</span></td>
+		<td><span style='color: red'>.Ah.hA.</span></td>
+		<td><span style='color: red'>.Ah.rA.</span></td>
+		<td><span style='color: red'>.Ah.hA.</span></td>
+		<td><span style='color: green'>.Ar.hA.</span></td>
+		<td><span style='color: green'>.Ar.hA.</span></td>
+		<td><span style='color: green'>.Ar.hA.</span></td>
+		<td><span style='color: green'>.Ar.hA.</span></td>
+		<td><span style='color: green'>.Ar.hA.</span></td>
 	</tr>
 	<tr>
 		<td>AAhEE</td>
 		<td>.A.A.hE.E.</td>
-		<td>ujccEccEccEccEccEccE</td>
-		<td>.A.A.EE.</td>
-		<td>.A.A.rE.E.</td>
-		<td>.A.A.hE.</td>
-		<td>.A.A.hE.E.</td>
-		<td>.A.A.hA.E.</td>
-		<td>.A.A.hE.E.</td>
-		<td>.A.A.hE.E.</td> 
-		<td>.A.A.hE.E.</td> 
-		<td>.A.A.hE.E.</td> 
-		<td>.A.A.hE.E.</td> 
+		<td><span style='color: red'>ujccEccEcc</span></td>
+		<td><span style='color: red'>.A.A.EE.</span></td>
+		<td><span style='color: red'>.A.A.rE.E.</span></td>
+		<td><span style='color: red'>.A.A.hE.</span></td>
+		<td><span style='color: green'>.A.A.hE.E.</span></td>
+		<td><span style='color: red'>.A.A.hA.E.</span></td>
+		<td><span style='color: green'>.A.A.hE.E.</span></td>
+		<td><span style='color: green'>.A.A.hE.E.</span></td> 
+		<td><span style='color: green'>.A.A.hE.E.</span></td> 
+		<td><span style='color: green'>.A.A.hE.E.</span></td> 
+		<td><span style='color: green'>.A.A.hE.E.</span></td> 
 	</tr>
 	<tr>
 		<td>rhA</td>
 		<td>.hA.</td>
-		<td>xuccEccEccEccEccEccE</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
-		<td>.hA.</td>
+		<td><span style='color: red'>xuccEccEcc</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
+		<td><span style='color: green'>.hA.</span></td>
 	</tr>
 	<tr>
 		<td>EArrA</td>
 		<td>.E.Ar.rA.</td>
-		<td>xuccEccEccEccEccEccE</td>
-		<td>.E.AA.AA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
-		<td>.E.Ar.rA.</td>
+		<td><span style='color: red'>xuccEccEcc</span></td>
+		<td><span style='color: red'>.E.AA.AA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
+		<td><span style='color: green'>.E.Ar.rA.</span></td>
 	</tr>
 	<tr>
 		<td>AEErE</td>
 		<td>.A.E.E.rE.</td>
-		<td>ibEuccEccEccEccEccEc</td>
-		<td>.A.E.E..</td>
-		<td>.A.E.rE.E.</td>
-		<td>.A.E.EE.E.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
-		<td>.A.E.E.rE.</td>
+		<td><span style='color: red'>ibEuccEccE</span></td>
+		<td><span style='color: red'>.A.E.E..</span></td>
+		<td><span style='color: red'>.A.E.rE.E.</span></td>
+		<td><span style='color: red'>.A.E.EE.E.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
+		<td><span style='color: green'>.A.E.E.rE.</span></td>
 	</tr>
 	<tr>
 		<td>EEEE</td>
 		<td>.E.E.E.E.</td>
-		<td>ujccEccEccEccEccEccE</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E..</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
-		<td>.E.E.E.E.</td>
+		<td><span style='color: red'>ujccEccEcc</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E..</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
+		<td><span style='color: green'>.E.E.E.E.</span></td>
 	</tr>
 	<tr>
 		<td>hrAA</td>
 		<td>.rA.A.</td>
-		<td>xxuccEccEccEccEccEcc</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
-		<td>.rA.A.</td>
+		<td><span style='color: red'>xxuccEccEc</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
+		<td><span style='color: green'>.rA.A.</span></td>
 	</tr>
-</table>
+</table></div>
 
-1,2,3,0
-<table>
+<div class="outertable" id="thousands6">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>rUUUr</td>
 		<td>.rU.U.U.re.</td>
-		<td>fddddddddddddddddddd</td>
-		<td>.rU.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.U.e.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
-		<td>.rU.U.U.re.</td>
+		<td><span style='color: red'>fddddddddd</span></td>
+		<td><span style='color: red'>.rU.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: red'>.rU.U.U.U.e.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
+		<td><span style='color: green'>.rU.U.U.re.</span></td>
 	</tr>
 	<tr>
 		<td>UU</td>
 		<td>.U.U.</td>
-		<td>xcrfdddddddddddddddd</td>
-		<td>.U.U.</td>
-		<td>.U.U.</td>
-		<td>.U.U.</td>
-		<td>.U.</td>
-		<td>.U.U.</td>
-		<td>.U.</td>
-		<td>.U.</td>
-		<td>.U.</td>
-		<td>.U.</td>
-		<td>.U.</td>
+		<td><span style='color: red'>xcrfdddddd</span></td>
+		<td><span style='color: green'>.U.U.</span></td>
+		<td><span style='color: green'>.U.U.</span></td>
+		<td><span style='color: green'>.U.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
+		<td><span style='color: green'>.U.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
+		<td><span style='color: red'>.U.</span></td>
 	</tr>
 	<tr>
 		<td>heee</td>
 		<td>.he.e.e.</td>
-		<td>xbxbkxbkxbkkxbkxbkkx</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
-		<td>.he.e.e.</td>
+		<td><span style='color: red'>xbxbkxbkxb</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: red'>.he.e.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
+		<td><span style='color: green'>.he.e.e.</span></td>
 	</tr>
 	<tr>
 		<td>eger</td>
 		<td>.e.ge.re.</td>
-		<td>ehcrfddddddddddddddd</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td> 
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
-		<td>.e.ge.re.</td>
+		<td><span style='color: red'>ehcrfddddd</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td> 
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
+		<td><span style='color: green'>.e.ge.re.</span></td>
 	</tr>
 	<tr>
 		<td>heeUU</td>
 		<td>.he.e.U.U.</td>
-		<td>xSOSxcrfdddddddddddddd</td>
-		<td>.he.e.e...</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
-		<td>.he.e.U.U.</td>
+		<td><span style='color: red'>xSxcrfdddd</span></td>
+		<td><span style='color: red'>.he.e.e...</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
+		<td><span style='color: green'>.he.e.U.U.</span></td>
 	</tr>
 	<tr>
 		<td>heUh</td>
 		<td>.he.U.he.</td>
-		<td>xtxOkkxkkxbkkxbkxbkk</td>
-		<td>.he.h..e.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
-		<td>.hU.U.e.he.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
-		<td>.he.U.he.</td>
+		<td><span style='color: red'>xtxOkkxkkx</span></td>
+		<td><span style='color: red'>.he.h..e.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: red'>.hU.U.e.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
+		<td><span style='color: green'>.he.U.he.</span></td>
 	</tr>
 	<tr>
 		<td>rrUU</td>
 		<td>.re.rU.U.</td>
-		<td>xtxOkkxkkxbkkxbkxbkk</td>
-		<td>.re.rU.UU.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
-		<td>.re.rU.U.</td>
+		<td><span style='color: red'>xtxOkkxkkx</span></td>
+		<td><span style='color: red'>.re.rU.UU.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: red'>.re.rU.U.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
+		<td><span style='color: green'>.re.rU.U.</span></td>
 	</tr>
 	<tr>
 		<td>gr</td>
 		<td>.ge.re.</td>
-		<td>fddddddddddddddddddd</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td> 
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
-		<td>.ge.re.</td>
+		<td><span style='color: red'>fddddddddd</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td> 
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
+		<td><span style='color: green'>.ge.re.</span></td>
 	</tr>
 	<tr>
 		<td>grreg</td>
 		<td>.ge.re.re.ge.</td>
-		<td>fddddddddddddddddddd</td>
-		<td>.ge.re.ge.ge.</td>
-		<td>.ge.re.re.ge.</td>
-		<td>.ge.re.re.ge.</td>
-		<td>.ge.re.ge.ge.</td>
-		<td>.ge.re.re.ge.ge.</td>
-		<td>.ge.re.re.ge.</td>
-		<td>.ge.re.re.ge.ge.</td>
-		<td>.ge.re.re.ge.</td>
-		<td>.ge.re.re.ge.</td>
-		<td>.ge.re.re.ge.</td>
+		<td><span style='color: red'>fddddddddd</span></td>
+		<td><span style='color: red'>.ge.re.ge.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
+		<td><span style='color: red'>.ge.re.ge.ge.</span></td>
+		<td><span style='color: red'>.ge.re.re.ge.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
+		<td><span style='color: red'>.ge.re.re.ge.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
+		<td><span style='color: green'>.ge.re.re.ge.</span></td>
 	</tr>
 	<tr>
 		<td>UeerU</td>
 		<td>.U.e.e.rU.</td>
-		<td>xtxOkkxkkxbkkxbkxbkk</td>
-		<td>.U.U.rU.U.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td>
-		<td>.U.e.e.rU.</td> 
-		<td>.U.e.e.rU.</td> 
+		<td><span style='color: red'>xtxOkkxkkx</span></td>
+		<td><span style='color: red'>.U.U.rU.U.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td>
+		<td><span style='color: green'>.U.e.e.rU.</span></td> 
+		<td><span style='color: green'>.U.e.e.rU.</span></td> 
 	</tr>
-</table>
+</table></div>
 
-0,1,3,2
-<table>
+<div class="outertable" id="thousands7">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>Iulu</td>
 		<td>.lu.</td>
-		<td>ssssssssssssssssssss</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
-		<td>.lu.</td>
+		<td><span style='color: red'>ssssssssss</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.lu.</span></td>
 	</tr>
 	<tr>
 		<td>lIj</td>
 		<td>.lI.</td>
-		<td>jfffffffffffffffffff</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
-		<td>.lI.</td>
+		<td><span style='color: red'>jfffffffff</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.lI.</span></td>
 	</tr>
 	<tr>
 		<td>udub</td>
 		<td>.du.</td>
-		<td>jfffffffffffffffffff</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
-		<td>.du.</td>
+		<td><span style='color: red'>jfffffffff</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
+		<td><span style='color: green'>.du.</span></td>
 	</tr>
 	<tr>
 		<td>uIIII</td>
-		<td></td>
-		<td>kmffffffffffffffffff</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>kmffffffff</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>jIu</td>
 		<td>.ju.</td>
-		<td>kmffffffffffffffffff</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
-		<td>.ju.</td>
+		<td><span style='color: red'>kmffffffff</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
+		<td><span style='color: green'>.ju.</span></td>
 	</tr>
 	<tr>
 		<td>uIuIu</td>
-		<td></td>
-		<td>ssssssssssssssssssss</td>
-		<td></td> 
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>ssssssssss</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td> 
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>bbudI</td>
 		<td>.bu.dI.</td>
-		<td>kmffffffffffffffffff</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
-		<td>.bu.dI.</td>
+		<td><span style='color: red'>kmffffffff</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dI.</span></td>
 	</tr>
 	<tr>
 		<td>Iubjj</td>
-		<td></td>
-		<td>jfffffffffffffffffff</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>jfffffffff</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>II</td>
-		<td></td>
-		<td>kmffffffffffffffffff</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>kmffffffff</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>juIb</td>
 		<td>.jI.</td>
-		<td>kmffffffffffffffffff</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
-		<td>.jI.</td>
+		<td><span style='color: red'>kmffffffff</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jI.</span></td>
 	</tr>
-</table>
+</table></div>
 
-0,3,2,1
-<table>
+
+<div class="outertable" id="thousands8">
+<table  class="thousands">
 	<tr>
 		<th>input</th>
 		<th>correct output</th>
 		<th>0 iterations</th>
-		<th>1000 iterations</th>
-		<th>2000 iterations</th>
-		<th>3000 iterations</th>
-		<th>4000 iterations</th>
-		<th>5000 iterations</th>
-		<th>6000 iterations</th>
-		<th>7000 iterations</th>
-		<th>8000 iterations</th>
-		<th>9000 iterations</th>
-		<th>10000 iterations</th>
+		<th>1,000 iterations</th>
+		<th>2,000 iterations</th>
+		<th>3,000 iterations</th>
+		<th>4,000 iterations</th>
+		<th>5,000 iterations</th>
+		<th>6,000 iterations</th>
+		<th>7,000 iterations</th>
+		<th>8,000 iterations</th>
+		<th>9,000 iterations</th>
+		<th>10,000 iterations</th>
 	</tr>
 	<tr>
 		<td>fIxa</td>
 		<td>.fI.xa.</td>
-		<td>g.xwiiss.ligs.xis.is</td>
-		<td>.fI.fI..</td>
-		<td>.fI..a.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
-		<td>.fI.xa.</td>
+		<td><span style='color: red'>g.xwiiss.l</span></td>
+		<td><span style='color: red'>.fI.fI..</span></td>
+		<td><span style='color: red'>.fI..a.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: green'>.fI.xa.</span></td>
 	</tr>
 	<tr>
 		<td>ama</td>
 		<td>.ma.</td>
-		<td>..is.islg.xwiisseeee</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
+		<td><span style='color: red'>..is.islg.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
 	</tr>
 	<tr>
 		<td>xxx</td>
-		<td></td>
-		<td>Oeg.xwiisseeeeeexwii</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>&lt;empty&gt;</td>
+		<td><span style='color: red'>Oeg.xwiiss</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
+		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
 		<td>faxII</td>
 		<td>.fa.xI.</td>
-		<td>eg.xwiisseeeeeexwiis</td>
-		<td>.fI..I.</td>
-		<td>.fI.fI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
-		<td>.fa.xI.</td>
+		<td><span style='color: red'>eg.xwiisse</span></td>
+		<td><span style='color: red'>.fI..I.</span></td>
+		<td><span style='color: red'>.fI.fI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: green'>.fa.xI.</span></td>
 	</tr>
 	<tr>
 		<td>axIII</td>
 		<td>.xI.</td>
-		<td>egk.xiiss.ligs.xis.i</td>
-		<td>.xI..II.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
+		<td><span style='color: red'>egk.xiiss.</span></td>
+		<td><span style='color: red'>.xI..II.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
 	</tr>
 	<tr>
 		<td>axI</td>
 		<td>.xI.</td>
-		<td>eg.xwiisseeeeeexwiis</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
-		<td>.xI.</td>
+		<td><span style='color: red'>eg.xwiisse</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xI.</span></td>
 	</tr>
 	<tr>
 		<td>Ifaaa</td>
 		<td>.fa.</td>
-		<td>..xiiss.ligs.xis.isl</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
-		<td>.fa.</td>
+		<td><span style='color: red'>..xiiss.li</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
+		<td><span style='color: green'>.fa.</span></td>
 	</tr>
 	<tr>
 		<td>xdId</td>
 		<td>.dId.</td>
-		<td>Ik.islg.xiiss.ligs.x</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
-		<td>.dId.</td>
+		<td><span style='color: red'>Ik.islg.xi</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
+		<td><span style='color: green'>.dId.</span></td>
 	</tr>
 	<tr>
 		<td>IxfdI</td>
 		<td>.dI.</td>
-		<td>f.l.iiss.ligs.xis.is</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
-		<td>.dI.</td>
+		<td><span style='color: red'>f.l.iiss.l</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
+		<td><span style='color: green'>.dI.</span></td>
 	</tr>
 	<tr>
 		<td>mxma</td>
 		<td>.ma.</td>
-		<td>..is.islg.xwiisseeee</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
-		<td>.ma.</td>
+		<td><span style='color: red'>..is.islg.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
+		<td><span style='color: green'>.ma.</span></td>
 	</tr>
-</table>
+</table></div>
 
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
+<h2>Generalization</h2>
+
+<p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
+
+<div style="margin: auto;">
+<div style="margin: auto; max-width:670px;">
+<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Implicational universals</div>
+</div>
+</div>
+
+
+<div id="pos_length_container" style="margin: auto;">
+
+<div id="pos_length" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+	<div>
+		<b>Generalization to a novel length:</b> Models are trained on inputs of length at most 4, then evaluated on inputs of the type they have seen before or on longer inputs.
+	</div>
+	<br>
+
+
+	<div style="display: inline-block; width: 340px;">
+	<div style="width:320px;">
+		<b>Predictions for inputs of length 4 or less (the models have seen inputs of these lengths, but not these particular inputs)</b>
+	</div>
+
+			<table class="hor-minimalist-a" style="width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>jkk</div></td>
+					<td class='cell'><div>.ja.ka.ka.</div></td>
+					<td class='cell'><div style='color: green'>.ja.ka.ka.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.ja.ka.ka.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>iji</div></td>
+					<td class='cell'><div>.ji.ji.</div></td>
+					<td class='cell'><div style='color: green'>.ji.ji.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.ji.ji.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>iEEE</div></td>
+					<td class='cell'><div>.ji.jE.jE.jE.</div></td>
+					<td class='cell'><div style='color: green'>.ji.jE.jE.jE.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.ji.jE.jE.jE.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Oij</div></td>
+					<td class='cell'><div>.jO.ji.ja.</div></td>
+					<td class='cell'><div style='color: green'>.jO.ji.ja.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.jO.ji.ja.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>xaOO</div></td>
+					<td class='cell'><div>.xa.jO.jO.</div></td>
+					<td class='cell'><div style='color: green'>.xa.jO.jO.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.xa.jO.jO.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>axEk</div></td>
+					<td class='cell'><div>.ja.xE.ka.</div></td>
+					<td class='cell'><div style='color: green'>.ja.xE.ka.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.ja.xE.ka.</div></td>
+				</tr>
+		<!--		<tr>
+                    <td class='cell'><div>kO</div></td>
+                    <td class='cell'><div>.kO.</div></td>
+                    <td class='cell'><div style='color: green'>.kO.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.ko.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>kEik</div></td>
+                    <td class='cell'><div>.kE.ji.ka.</div></td>
+                    <td class='cell'><div style='color: green'>.kE.ji.ka.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.kE.ji.ka.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>kkx</div></td>
+                    <td class='cell'><div>.ka.ka.xa.</div></td>
+                    <td class='cell'><div style='color: green'>.ka.ka.xa.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.ka.ka.xa.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>j</div></td>
+                    <td class='cell'><div>.ja.</div></td>
+                    <td class='cell'><div style='color: green'>.ja.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.ja.</div></td>
+                </tr> -->
+			</table>
+	</div>
+
+
+
+	<div style="display: inline-block;">
+	<div style="width:320px;">
+		<b>Predictions for inputs of length 5 (models have not seen any inputs of this length)</b>
+	</div>
+
+
+			<table class="hor-minimalist-a" style="max-width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>jxaai</div></td>
+					<td class='cell'><div>.ja.xa.ja.ji.</div></td>
+					<td class='cell'><div style='color: green'>.ja.xa.ja.ji.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.ja.xa.ji.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>jjEjO</div></td>
+					<td class='cell'><div>.ja.jE.jO.</div></td>
+					<td class='cell'><div style='color: green'>.ja.jE.jO.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.ja.jE.jO.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>jOOja</div></td>
+					<td class='cell'><div>.jO.jO.ja.</div></td>
+					<td class='cell'><div style='color: green'>.jO.jO.ja.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.jO.jO.ja.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>jkkaa</div></td>
+					<td class='cell'><div>.ja.ka.ka.ja.</div></td>
+					<td class='cell'><div style='color: green'>.ja.ka.ka.ja.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.ja.ka.ja.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Ejjaa</div></td>
+					<td class='cell'><div>.jE.ja.ja.ja.</div></td>
+					<td class='cell'><div style='color: green'>.jE.ja.ja.ja.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.jE.ja.ja.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>OEOja</div></td>
+					<td class='cell'><div>.jO.jE.jO.ja.</div></td>
+					<td class='cell'><div style='color: green'>.jO.jE.jO.ja.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.jO.jE.jO.</div></td>
+				</tr>
+		<!--		<tr>
+                    <td class='cell'><div>xjOka</div></td>
+                    <td class='cell'><div>.xa.jO.ka.</div></td>
+                    <td class='cell'><div style='color: green'>.xa.jO.ka.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.xa.jO.ka.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>akEja</div></td>
+                    <td class='cell'><div>.ja.kE.ja.</div></td>
+                    <td class='cell'><div style='color: green'>.ja.kE.ja.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.ja.kE.ja.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>EiEEk</div></td>
+                    <td class='cell'><div>.jE.ji.jE.jE.ka.</div></td>
+                    <td class='cell'><div style='color: green'>.jE.ji.jE.jE.ka.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.jE.ji.jE.ka.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>kakjk</div></td>
+                    <td class='cell'><div>.ka.ka.ja.ka.</div></td>
+                    <td class='cell'><div style='color: green'>.ka.ka.ja.ka.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.ka.ka.ja.ka.</div></td>
+                </tr> -->
+			</table>
+
+	</div>
+</div>
+</div>
+
+
+
+
+<div id="pos_imp_container" style="margin: auto;">
+<div id="pos_imp" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+	<div>
+		<b>Implicational universal:</b> Models are trained on mappings of the form <em>vowel-consonant &rarr; vowel</em>, then evaluated on generalization to inputs of the form <em>consonant-vowel-consonant</em>. In the framework we use, any language that maps <em>vowel-consonant</em> to <em>vowel</em> will also map <em>consonant-vowel-consonant</em> to <em>consonant-vowel</em>.
+	</div>
+	<br>
+
+
+	<div style="display:inline-block; width: 340px;">
+	<div style="width:320px;">
+		<b>Predictions for inputs of the form vowel-consonant (models have seen this type of input, but not these particular examples)</b>
+	</div>
+
+
+			<table class="hor-minimalist-a" style="max-width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>is</div></td>
+					<td class='cell'><div>.i.</div></td>
+					<td class='cell'><div style='color: green'>.i.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.i.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Um</div></td>
+					<td class='cell'><div>.U.</div></td>
+					<td class='cell'><div style='color: green'>.U.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.U.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>iq</div></td>
+					<td class='cell'><div>.i.</div></td>
+					<td class='cell'><div style='color: green'>.i.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.i.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>or</div></td>
+					<td class='cell'><div>.o.</div></td>
+					<td class='cell'><div style='color: green'>.o.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.o.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>El</div></td>
+					<td class='cell'><div>.E.</div></td>
+					<td class='cell'><div style='color: green'>.E.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Ex</div></td>
+					<td class='cell'><div>.E.</div></td>
+					<td class='cell'><div style='color: green'>.E.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.</div></td>
+				</tr>
+			<!--	<tr>
+                    <td class='cell'><div>ah</div></td>
+                    <td class='cell'><div>.a.</div></td>
+                    <td class='cell'><div style='color: green'>.a.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.a.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>Im</div></td>
+                    <td class='cell'><div>.I.</div></td>
+                    <td class='cell'><div style='color: green'>.I.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.I.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>um</div></td>
+                    <td class='cell'><div>.u.</div></td>
+                    <td class='cell'><div style='color: green'>.u.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.u.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>Ur</div></td>
+                    <td class='cell'><div>.U.</div></td>
+                    <td class='cell'><div style='color: green'>.U.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.U.</div></td>
+                </tr> -->
+			</table>
+	</div>
+
+
+
+	<div style="display: inline-block;">
+	<div style="width:320px;">
+		<b>Predictions for inputs of the form consonant-vowel-consonant (models have not seen this type of input during training)</b>
+	</div>
+
+
+
+			<table class="hor-minimalist-a" style="max-width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>fil</div></td>
+					<td class='cell'><div>.fi.</div></td>
+					<td class='cell'><div style='color: green'>.fi.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.o.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>bit</div></td>
+					<td class='cell'><div>.bi.</div></td>
+					<td class='cell'><div style='color: green'>.bi.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.i.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>bac</div></td>
+					<td class='cell'><div>.ba.</div></td>
+					<td class='cell'><div style='color: green'>.ba.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.e.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>hoh</div></td>
+					<td class='cell'><div>.ho.</div></td>
+					<td class='cell'><div style='color: green'>.ho.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.o.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>vIk</div></td>
+					<td class='cell'><div>.vI.</div></td>
+					<td class='cell'><div style='color: green'>.vI.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.I.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>cOx</div></td>
+					<td class='cell'><div>.cO.</div></td>
+					<td class='cell'><div style='color: green'>.cO.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.O.</div></td>
+				</tr>
+			<!--	<tr>
+                    <td class='cell'><div>qab</div></td>
+                    <td class='cell'><div>.qa.</div></td>
+                    <td class='cell'><div style='color: green'>.qa.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.a.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>gOx</div></td>
+                    <td class='cell'><div>.gO.</div></td>
+                    <td class='cell'><div style='color: green'>.gO.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.O.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>zOb</div></td>
+                    <td class='cell'><div>.zO.</div></td>
+                    <td class='cell'><div style='color: green'>.zO.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.O.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>dip</div></td>
+                    <td class='cell'><div>.di.</div></td>
+                    <td class='cell'><div style='color: green'>.di.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.i.</div></td>
+                </tr> -->
+			</table>
+
+	</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="pos_new_container" style="margin: auto;">
+<div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+	<div>
+		<b>Generalization to a novel symbols:</b> Models are trained on inputs containing only the letters <em>E, I, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel sounds.
+	</div>
+	<br>
+
+
+	<div style="display: inline-block; width: 340px;">
+	<div style="width:320px;">
+		<b>Predictions for inputs composed of familiar sounds</b>
+	</div>
+
+
+			<table class="hor-minimalist-a" style="max-width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>Empmm</div></td>
+					<td class='cell'><div>.E.mEp.mEm.</div></td>
+					<td class='cell'><div style='color: green'>.E.mEp.mEm.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.mEp.mEm.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>ImmmE</div></td>
+					<td class='cell'><div>.I.mEm.mE.</div></td>
+					<td class='cell'><div style='color: green'>.I.mEm.mE.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.I.mEm.mE.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>mxIxp</div></td>
+					<td class='cell'><div>.mE.xI.xEp.</div></td>
+					<td class='cell'><div style='color: green'>.mE.xI.xEp.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.mE.xI.xEp.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>EImEI</div></td>
+					<td class='cell'><div>.E.I.mE.I.</div></td>
+					<td class='cell'><div style='color: green'>.E.I.mE.I.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.I.mE.I.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Em</div></td>
+					<td class='cell'><div>.Em.</div></td>
+					<td class='cell'><div style='color: green'>.Em.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.Em.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>pEI</div></td>
+					<td class='cell'><div>.pE.I.</div></td>
+					<td class='cell'><div style='color: green'>.pE.I.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.pE.I.</div></td>
+				</tr>
+			<!--	<tr>
+                    <td class='cell'><div>xII</div></td>
+                    <td class='cell'><div>.xI.I.</div></td>
+                    <td class='cell'><div style='color: green'>.xI.I.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.xI.I.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>mIEEE</div></td>
+                    <td class='cell'><div>.mI.E.E.E.</div></td>
+                    <td class='cell'><div style='color: green'>.mI.E.E.E.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.mI.E.E.E.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>cIEp</div></td>
+                    <td class='cell'><div>.cI.Ep.</div></td>
+                    <td class='cell'><div style='color: green'>.cI.Ep.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.cI.Ep.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>pEmmc</div></td>
+                    <td class='cell'><div>.pEm.mEc.</div></td>
+                    <td class='cell'><div style='color: green'>.pEm.mEc.</div></td>
+                    <td class='cellcollapsible'><div style='color: green'>.pEm.mEc.</div></td>
+                </tr> -->
+			</table>
+
+	</div>
+
+
+
+	<div style="display: inline-block;">
+	<div style="width:320px;">
+		<b>Predictions for inputs composed of unfamiliar sounds</b>
+	</div>
+
+
+			<table class="hor-minimalist-a" style="max-width:320px;">
+				<tr class="top">
+					<th style="width:35;" class='cell'><div>Input</div></th>
+					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
+					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
+				</tr>
+				<tr>
+					<td class='cell'><div>elr</div></td>
+					<td class='cell'><div>.e.lEr.</div></td>
+					<td class='cell'><div style='color: green'>.e.lEr.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.I.E.XE.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>Oenw</div></td>
+					<td class='cell'><div>.O.e.nEw.</div></td>
+					<td class='cell'><div style='color: green'>.O.e.nEw.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.I.I.cEc.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>UUAfi</div></td>
+					<td class='cell'><div>.U.U.A.fi.</div></td>
+					<td class='cell'><div style='color: green'>.U.U.A.fi.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.cI.Em.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>kdAli</div></td>
+					<td class='cell'><div>.kE.dA.li.</div></td>
+					<td class='cell'><div style='color: green'>.kE.dA.li.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.Im.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>eh</div></td>
+					<td class='cell'><div>.eh.</div></td>
+					<td class='cell'><div style='color: green'>.eh.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.I.I.</div></td>
+				</tr>
+				<tr>
+					<td class='cell'><div>tnsvU</div></td>
+					<td class='cell'><div>.tE.nEs.vU.</div></td>
+					<td class='cell'><div style='color: green'>.tE.nEs.vU.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.mE.xEm.mEc.</div></td>
+				</tr>
+			<!--	<tr>
+                    <td class='cell'><div>fA</div></td>
+                    <td class='cell'><div>.fA.</div></td>
+                    <td class='cell'><div style='color: green'>.fA.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.E.I.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>gijru</div></td>
+                    <td class='cell'><div>.gij.ru.</div></td>
+                    <td class='cell'><div style='color: red'>.gig.ru.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.E.mI.cI.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>egfAu</div></td>
+                    <td class='cell'><div>.eg.fA.u.</div></td>
+                    <td class='cell'><div style='color: red'>.eg.gA.u.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.I.E.E.I.I.</div></td>
+                </tr>
+				<tr>
+                    <td class='cell'><div>Ulosj</div></td>
+                    <td class='cell'><div>.U.lo.sEj.</div></td>
+                    <td class='cell'><div style='color: green'>.U.lo.sEj.</div></td>
+                    <td class='cellcollapsible'><div style='color: red'>.cE.xE.pIp.</div></td>
+                </tr> -->
+			</table>
+	</div>
+</div>
+</div>
+
+
+
+
+
+
+<h2>How does it work?</h2>
 
 	<canvas id="myCanvas" style="border-style: solid;" height=300 width=300px></canvas>
 
@@ -1537,6 +2084,13 @@
   <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
   <p>Value: <span id="demo"></span></p>
 </div>
+
+
+	<canvas id="myCanvas2" style="border-style: solid;" height=300 width=300px></canvas>
+
+
+<h2>Shortcomings</h2>
+
 
 </div>
 
@@ -1576,6 +2130,62 @@ People can enter their own training set and test set and see how the model learn
 <script src="metaug_js/tf_weights.js"></script>
 <script src="metaug_js/ioc.js"></script>
 <script>
+
+
+function toggle_pos(pos_type) {
+	document.getElementById("pos_length_container").style.display = "none";
+	document.getElementById("pos_imp_container").style.display = "none";
+	document.getElementById("pos_new_container").style.display = "none";
+	
+	document.getElementById("lengthbtn").style.backgroundColor = "white";
+    document.getElementById("lengthbtn").style.color = "black";
+	document.getElementById("lengthbtn").style.borderColor = "black";
+
+	document.getElementById("impbtn").style.backgroundColor = "white";
+    document.getElementById("impbtn").style.color = "black";
+	document.getElementById("impbtn").style.borderColor = "black";
+
+	document.getElementById("newbtn").style.backgroundColor = "white";
+    document.getElementById("newbtn").style.color = "black";
+	document.getElementById("newbtn").style.borderColor = "black";
+
+	document.getElementById("pos_" + pos_type + "_container").style.display = "block";
+
+	document.getElementById(pos_type + "btn").style.backgroundColor = "blue";
+	document.getElementById(pos_type + "btn").style.borderColor = "blue";
+	document.getElementById(pos_type + "btn").style.color = "white";
+
+}
+
+toggle_pos("length");
+
+
+const key2ranking = {
+	"(0, 1, 2, 3)" : "Onset, NoCoda, NoDeletion &#187; NoInsertion",
+	"(0, 1, 3, 2)" : "Onset, NoCoda, NoInsertion &#187; NoDeletion",
+	"(0, 3, 2, 1)" : "Onset, NoInsertion &#187; NoDeletion &#187; NoCoda",
+	"(1, 3, 2, 0)" : "NoCoda, NoInsertion &#187;  NoDeletion &#187; Onset",
+	"(0, 2, 3, 1)" : "Onset, NoDeletion &#187; NoInsertion &#187; NoCoda",
+	"(1, 2, 3, 0)" : "NoCoda, NoDeletion &#187; NoInsertion &#187; Onset",
+	"(3, 2, 0, 1)" : "NoInsertion &#187; NoDeletion &#187; Onset, NoCoda",
+	"(2, 3, 0, 1)" : "NoDeletion &#187; NoInsertion &#187; Onset, NoCoda"
+}
+
+
+
+function change_thousands(to_show, ranking) {
+	for(th_index = 1; th_index < 9; th_index++) {
+		document.getElementById("thousands" + th_index).style.display = "none";
+	}
+
+	document.getElementById("thousands" + to_show).style.display = "block";
+
+	document.getElementById("rankbtn2").innerHTML = key2ranking[ranking];
+
+}
+
+change_thousands(4, '(0, 1, 2, 3)');
+
 
 var showing_adv = true;
 function toggleshowadv() {
@@ -2311,18 +2921,6 @@ function make_task(ranking, all_input_outputs, n_train=10, n_dev=10, n_test=10, 
 //2 = max
 //3 = dep
 
-
-const key2ranking = {
-	"(0, 1, 2, 3)" : "Onset, NoCoda, Max &#187; Dep",
-	"(0, 1, 3, 2)" : "Onset, NoCoda, Dep &#187; Max",
-	"(0, 3, 2, 1)" : "Onset, Dep &#187; Max &#187; NoCoda",
-	"(1, 3, 2, 0)" : "NoCoda, Dep &#187;  Max &#187; Onset",
-	"(0, 2, 3, 1)" : "Onset, Max &#187; Dep &#187; NoCoda",
-	"(1, 2, 3, 0)" : "NoCoda, Max &#187; Dep &#187; Onset",
-	"(3, 2, 0, 1)" : "Dep &#187; Max &#187; Onset, NoCoda",
-	"(2, 3, 0, 1)" : "Max &#187; Dep &#187; Onset, NoCoda"
-}
-
 const key2description = {
 	"(0, 1, 2, 3)" : "Insert <em>CONS</em> or <em>VOW</em>  as necessary to ensure that all syllables are of the form consonant-vowel; add periods to mark syllable boundaries.",
 	"(0, 1, 3, 2)" : "Delete sounds as necessary to ensure that all syllables are of the form consonant-vowel; add periods to mark syllable boundaries.",
@@ -3034,6 +3632,11 @@ function dropFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+function dropFunction2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
+
+
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -3067,6 +3670,18 @@ function drawStar(centerX, centerY, points, outer, inner, fill, stroke, line) {
     ctx.stroke()
 }
 
+var canvas2 = document.getElementById("myCanvas2");
+var ctx2 = canvas2.getContext("2d");
+ctx2.beginPath();
+ctx2.moveTo(0, 150);
+ctx2.lineTo(300, 150);
+ctx2.stroke();
+
+ctx2.moveTo(150, 0);
+ctx2.lineTo(150, 300);
+ctx2.stroke();
+
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 ctx.moveTo(0, 150);
@@ -3081,7 +3696,7 @@ ctx.arc(60, 210, 30, 0, 2 * Math.PI);
 ctx.stroke();
 
 ctx.fillRect(240,90,3,3)
-drawStar(240, 90, 5, 10, 5, 'mediumseagreen','gray',1);
+drawStar(240, 90, 5, 3, 6, 'mediumseagreen','gray',1);
 
 function loss(m,b,x1,x2,y1,y2,r) {
 	l1 = m * x2 + 2*r*x1*y1*x2 - 2*r*(x1*x1)*m*x2 - 2*r*b*x1*x2 + b + 2*r*y1 - 2*r*m*x1 - 2*r*b - y2;
@@ -3138,9 +3753,13 @@ function myLoop() {
 	dldmi = inner_losses[0];
 	dldbi = inner_losses[1];
 
+	all_points = [];
+
 	for (qinn = 0; qinn < 10; qinn++) {	
 		x3 = 2 * Math.random() - 1;
 		y3 = mcorr*x3 + bcorr;
+
+		all_points.push([x3, y3]);
 
 		inner_losses_b = loss_non_meta(slope,intercept,x3,y3);
 		dldmi = dldmi + inner_losses_b[0];
@@ -3166,8 +3785,48 @@ function myLoop() {
 	ctx.fillStyle="black";
 	ctx.fillText("Parameter 2", 120, 20);	
 	ctx.fillText("Parameter 1", 10, 145); 
-	
-	drawStar(30*mcorr+150, -30*bcorr+150, 5, 2, 5, 'purple','gray',0);
+
+
+	ctx.beginPath();
+    ctx.rect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7);
+    ctx.fillStyle="purple";
+    ctx.fillRect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7); 	
+	//drawStar(30*mcorr+150, -30*bcorr+150, 5, 3, 6, 'purple','gray',0);
+
+
+	ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+	ctx2.font = "12px Arial";
+    ctx2.fillStyle="black";
+    ctx2.fillText("Output", 120, 20);   
+    ctx2.fillText("Input", 10, 145); 
+
+	ctx2.beginPath();
+
+	ctx2.lineWidth = 1;
+	ctx2.setLineDash([]);
+	ctx2.moveTo(0, 150);
+	ctx2.lineTo(300, 150);
+	ctx2.strokeStyle="black";
+	ctx2.stroke();
+
+	ctx2.beginPath();
+	ctx2.lineWidth = 1;
+	ctx2.setLineDash([]);
+	ctx2.moveTo(150, 0);
+	ctx2.lineTo(150, 300);
+	ctx2.strokeStyle="black";
+	ctx2.stroke();
+
+	console.log(JSON.stringify(all_points));
+	for (ap = 0; ap < all_points.length; ap++) {
+		this_pt = all_points[ap];
+		xcoord = 30*this_pt[0] + 150;
+		ycoord = -30*this_pt[1] + 150;
+		ctx2.fillStyle="purple";
+		ctx2.fillRect(xcoord, ycoord, 5, 5);
+		
+	}
 	
 	ctx.moveTo(0, 150);
 	ctx.lineTo(300, 150);
@@ -3180,18 +3839,42 @@ function myLoop() {
 	ctx.beginPath();
 	ctx.arc(60, 210, 30, 0, 2 * Math.PI);
 	ctx.stroke();
-	drawStar(30*slope+150, -30*intercept+150, 5, 2, 5, 'mediumseagreen','gray',0);
+	drawStar(30*slope+150, -30*intercept+150, 5, 3, 6, 'mediumseagreen','gray',0);
 
+	ctx2.beginPath();
+	ctx2.lineWidth = 3;
+	ctx2.setLineDash([]);
+	ctx2.moveTo(-150, -30*(slope*-10 + intercept) + 150);
+	ctx2.lineTo(450, -30*(slope*10 + intercept) + 150);
+	ctx2.strokeStyle="mediumseagreen";
+	ctx2.stroke();
 	
 	setTimeout(function () {
 
-
-		drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 2, 5, 'orange','gray',0);
+		ctx.beginPath();
+		ctx.arc(30*slopenewb+150, -30*interceptnewb+150, 4, 0, 2 * Math.PI);
+		ctx.fillStyle = "orange";
+		ctx.fill();
+		
+		ctx.strokeStyle='gray';
+    	ctx.lineWidth=0;
+		ctx.stroke();
+	
+		ctx.beginPath();
+		//drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 3, 6, 'orange','gray',0);
 		ctx.moveTo(30*slope+150, -30*intercept+150);
 		ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
 		ctx.stroke();
 
 
+		ctx2.beginPath();
+		ctx2.lineWidth = 3;
+		ctx2.setLineDash([10, 10]);
+		ctx2.moveTo(-150, -30*(slopenewb*-10 + interceptnewb) + 150);
+		ctx2.lineTo(450, -30*(slopenewb*10 + interceptnewb) + 150);
+		ctx2.strokeStyle="orange";
+		ctx2.stroke();
+	
 		setTimeout(function () {
 
 			slope = slopenew;
@@ -3201,15 +3884,34 @@ function myLoop() {
 			ctx.font = "12px Arial";
 			ctx.fillStyle="black";
 			ctx.fillText("Parameter 2", 120, 20);	
-			ctx.fillText("Parameter 1", 10, 145); 
-			drawStar(30*mcorr+150, -30*bcorr+150, 5, 2, 5, 'purple','gray',0);	
-			drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 2, 5, 'orange','gray',0);
+			ctx.fillText("Parameter 1", 10, 145);
+
+			ctx.beginPath();
+			ctx.rect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7);
+			ctx.fillStyle="purple";
+        	ctx.fillRect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7); 
+			//drawStar(30*mcorr+150, -30*bcorr+150, 5, 3, 6, 'purple','gray',0);	
+			
+
+			ctx.beginPath();
+        	ctx.arc(30*slopenewb+150, -30*interceptnewb+150, 4, 0, 2 * Math.PI);
+     	    ctx.fillStyle = "orange";
+        	ctx.fill();
+        
+        	ctx.strokeStyle='gray';
+        	ctx.lineWidth=0;
+        	ctx.stroke();
+    
+        	ctx.beginPath();
+
+
+			//drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 3, 6, 'orange','gray',0);
 			ctx.moveTo(30*slope+150, -30*intercept+150);
 			ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
 			ctx.stroke();
 
 
-			drawStar(30*slope+150, -30*intercept+150, 5, 2, 5, 'mediumseagreen','gray',0);
+			drawStar(30*slope+150, -30*intercept+150, 5, 3, 6, 'mediumseagreen','gray',0);
 			ctx.moveTo(0, 150);
 			ctx.lineTo(300, 150);
 			ctx.stroke();

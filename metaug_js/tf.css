@@ -185,7 +185,7 @@ header {
   color: white;
   padding: 16px;
   font-size: 16px;
-  width: 250px;
+  width: 350px;
   border: none;
   cursor: pointer;
   z-index:1000;
@@ -550,6 +550,22 @@ th.cellcollapsible {display:block; }
 @media only screen and (max-width: 500px) {
 	td.cellcollapsible {display:none; }
 	th.cellcollapsible {display:none; }
+}
+
+
+.thousands {
+	table-layout: auto;
+	font-size: 14px;
+}
+
+.thousands td, th {
+	padding: 0px 20px 0px 0px;
+}
+
+.outertable {
+	margin: auto;
+	width: 600px;
+	overflow-x: auto;
 }
 
 
