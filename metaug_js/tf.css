@@ -23,7 +23,7 @@ body {
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);*/
 }
 
-.maindemowrapper {
+.demowrapper {
 	padding: 10px;
 	border-radius: 8px;
 	box-shadow: 0 0 0 3px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.45);
@@ -520,6 +520,26 @@ footer {
   background-color: lightgray;
 }
 
+
+.startstopbtn {
+  background-color: #8c1aff;
+  color: white;
+  padding: 12px;
+  font-size: 13px;
+  width: 100px;
+  border: none;
+  cursor: pointer;
+  z-index:1000;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* Dropdown button on hover & focus */
+.startstopbtn:hover {
+  background-color: #4d0099;
+}
 
 
 

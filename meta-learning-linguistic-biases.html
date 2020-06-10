@@ -21,7 +21,7 @@
 <body>
 	<div class="contentwrapper">
 	<section>
-	<h1 style="text-align:center">Universal linguistic inductive biases via meta-learning</h1>
+	<h1 style="text-align:center; max-width: 500px; margin: auto;">Universal linguistic inductive biases via meta-learning</h1>
 
 
 	<h2>Introduction</h2>
@@ -49,7 +49,7 @@
 
 	<p>The demo below shows how a neural network initialized with meta-learning can learn syllable structure mappings much more quickly than a neural network with a standard random initialization.</p>
 
-<div style="margin: auto; max-width: 850px;" class="maindemowrapper">
+<div style="margin: auto; max-width: 850px;" class="demowrapper">
 
 <div style="overflow: hidden;">
 
@@ -1554,6 +1554,8 @@
 
 <p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
 
+<p>The figure below shows how meta-learning facilitates three types of generalization: generalization to a novel length, generalization to novel symbols, and generalization to novel input structures (implicational universals). In each case, we train our model on a training set which has certain types of examples withheld, then evaluate it on the withheld class of examples.</p>
+
 <div style="margin: auto;">
 <div style="margin: auto; max-width:670px;">
 <div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Implicational universals</div>
@@ -1909,7 +1911,7 @@
 <div id="pos_new_container" style="margin: auto;">
 <div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
 	<div>
-		<b>Generalization to a novel symbols:</b> Models are trained on inputs containing only the letters <em>E, I, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel sounds.
+		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, I, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
 	</div>
 	<br>
 
@@ -2071,55 +2073,80 @@
 </div>
 </div>
 
+<br>
 
+<p>Across all three cases, the meta-initialized model generalizes well while the randomly-initialized model generalizes poorly. These results indicate that meta-learning has successfully imparted a bias for extending observed patterns to a novel length, a bias for assuming two universal classes of symbols (namely, consonants and vowels), and a bias for associating certain mappings with certain other mappings (a.k.a. implicational universals).</p>
 
+<p>See the paper for more discussion of these experiments and for investigation of three other inductive biases using an alternate technique, namely ease of learning (that is, which types of languages are easiest for a model to learn?)</p>
 
 
 
 <h2>How does it work?</h2>
 
-	<canvas id="myCanvas" style="border-style: solid;" height=300 width=300px></canvas>
+	<p>Our method can be summarized as follows:</p>
 
-<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-  <p>Value: <span id="demo"></span></p>
+	<ol>
+		<li>Determine the set of inductive biases that you wish to impart to a model.</li>
+		<li>Define a space of languages encoding those inductive biases.</li>
+		<li>Have a model meta-learn from this space of languages; this process is intended to give the model an initial parameter setting from which it can easily learn any language in the space of languages you have defined.</li>
+		<li>Analyze the model to verify that meta-learning has given it the intended inductive biases.</li>
+	</ol>
+
+	<p>The core component of our method is meta-learning; the particular type of meta-learning that we use is MAML. In MAML, a model is exposed to a variety of tasks, each of which comes with a limited amount of data. After exposure to each task, the model's weights are adjusted so that, if it were taught the same task again, it would perform better. As MAML proceeds, the model converges to an initial state from which it can readily learn any task in the distribution of tasks it has been shown. The demo below gives an example of MAML.</p>
+
+
+
+	<div style="margin: auto; max-width: 550px;" class="demowrapper">
+	<div style="display:inline-block; margin: auto">
+	<div style="margin: auto; width: 150px;"><b>Model parameters</b></div>
+	<canvas id="myCanvas" style="border-style: solid;" height=200 width=200px></canvas>
+	</div>
+
+	<div style="display:inline-block; margin: auto">
+    <div style="margin: auto; width: 150px;"><b>Inputs and outpus</b></div>
+	<canvas id="myCanvas2" style="border-style: solid;" height=200 width=200px></canvas>
+	</div>
+
+	<div width=100 style="display: inline-block; width: 110px; vertical-align:top" id="mamltextcontainer">
+
+		<br>
+		<br>
+
+		<div style="height: 60px; padding-left: 10px;">
+		<div class="slidecontainer" style="width: 10px;">
+  			<input style="width: 100px" type="range" min="1" max="100" value="50" class="slider" id="myRange">
+		</div>
+
+		<div>Adjust speed</div>
+
+		</div>
+		<button type="button" class="startstopbtn" id="mamlstart" onclick="myLoop();" style="display: inline-block; vertical-align:top;">Start demo</button>
+
+		
+		<button type="button" class="startstopbtn" onclick="resetDemo();" style="display: inline-block; vertical-align:top;">Reset demo</button>
+
+	</div>
+
+	<div id="mamltext" style="padding-left: 90px;"><br></div>
+
+	</div>
+
+<div style="padding-top: 15px; padding-bottom: 40px; padding-left: 50px; padding-right: 50px; font-size: 13px;">
+    <em>Demonstration of meta-learning using MAML. The model is a simple linear function with 2 parameters (a slope and an intercept): the green star in the left plot shows the parameters, and the solid green line in the right plot shows the function defined by these parameters. This model is exposed to many target tasks, each a linear function defined by a purple square in the left plot. For each target task, a copy of the model is trained on 10 examples (the purple points in the right plot), yielding the parameters at the orange circle in the left plot and the function shown by the orange dotted line in the right plot. Based on how close this copy is to the target, the model's initialization is adjusted. After many iterations, the model's initialization reaches a point from which the model can learn any target task&mdash;somewhere in the middle of the circle in the left plot.</em>
+</div>
+
+	<p>If meta-learning is successful, the model's initialization will encode some set of inductive biases that are useful for learning the space of tasks that the model is being shown. In the demo, the initialization that the model converges to encodes a bias for the slope to be close to -3 and for the intercept to be close to -2.</p>
+
+	<p>The biases that can be encoded in this way are very simple for the 2-parameter linear model in the demo, but standard models have many more parameters (often tens of millions of parameters, or even 175 billion parameters), leaving room for much more sophisticated biases to be encoded.</p>
+
+	<p>In our application of meta-learning, each “task” is a language, and the goal is to find a set of initial parameter values that allow the model to quickly learn any language. We hypothesize that, if we carefully construct the space of languages used during meta-learning to encode a desired set of inductive biases, we can find an initial parameter setting that will give the model these inductive biases.</p>
+
+<h2>Conclusions and future directions</h2>
+
+
 </div>
 
 
-	<canvas id="myCanvas2" style="border-style: solid;" height=300 width=300px></canvas>
-
-
-<h2>Shortcomings</h2>
-
-
-</div>
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-
-
-	<div id="printplace"></div>
-
-	<div id="printplaceb"></div>
-	<div id="printplacec"></div>
-<div id="printplaced"></div>
-
-
-<h3>Generalization</h3>
-
-Use multiple tabs: Click on the type of generalization you want to study.
-
-<h3>Sandbox</h3>
-
-People can enter their own training set and test set and see how the model learns it.
 
 
 </section>
@@ -3465,7 +3492,6 @@ function return_inps() {
 	return xs, ys;
 }
 
-document.getElementById("printplacec").innerHTML = "dog";
 
 
 async function fitfitfitfirst(seq2seq, prefix, add_train=false) {
@@ -3651,6 +3677,9 @@ window.onclick = function(event) {
   }
 }
 
+size = 200;
+mmult = size/10;
+halfsize = size/2;
 
 function drawStar(centerX, centerY, points, outer, inner, fill, stroke, line) {
     // define the star
@@ -3670,33 +3699,63 @@ function drawStar(centerX, centerY, points, outer, inner, fill, stroke, line) {
     ctx.stroke()
 }
 
+
+var slope = 3;
+var intercept = 2;
+var rinner = 0.5;
+var router = 0.01;
+
+
+
 var canvas2 = document.getElementById("myCanvas2");
 var ctx2 = canvas2.getContext("2d");
+
+
 ctx2.beginPath();
-ctx2.moveTo(0, 150);
-ctx2.lineTo(300, 150);
+ctx2.moveTo(0, halfsize);
+ctx2.lineTo(2*halfsize, halfsize);
 ctx2.stroke();
 
-ctx2.moveTo(150, 0);
-ctx2.lineTo(150, 300);
+ctx2.moveTo(halfsize, 0);
+ctx2.lineTo(halfsize, 2*halfsize);
+ctx2.stroke();
+
+
+ctx2.beginPath();
+ctx2.lineWidth = 3;
+ctx2.setLineDash([]);
+ctx2.moveTo(-1*halfsize, -mmult*(slope*-10 + intercept) + halfsize);
+ctx2.lineTo(3*halfsize, -mmult*(slope*10 + intercept) + halfsize);
+ctx2.strokeStyle="mediumseagreen";
 ctx2.stroke();
 
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-ctx.moveTo(0, 150);
-ctx.lineTo(300, 150);
+
+
+ctx.moveTo(0, halfsize);
+ctx.lineTo(2*halfsize, halfsize);
 ctx.stroke();
 
-ctx.moveTo(150, 0);
-ctx.lineTo(150, 300);
+ctx.moveTo(halfsize, 0);
+ctx.lineTo(halfsize, 2*halfsize);
 ctx.stroke();
 ctx.beginPath();
-ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+ctx.arc(2*mmult, 7*mmult, mmult, 0, 2 * Math.PI);
 ctx.stroke();
 
-ctx.fillRect(240,90,3,3)
-drawStar(240, 90, 5, 3, 6, 'mediumseagreen','gray',1);
+ctx.font = "12px Arial";
+ctx.fillStyle="black";
+ctx.fillText("Intercept", halfsize-30, 20); 
+ctx.fillText("Slope", 10, halfsize-5); 
+
+ctx2.font = "12px Arial";
+ctx2.fillStyle="black";
+ctx2.fillText("Output", halfsize-30, 20);   
+ctx2.fillText("Input", 10, halfsize-5); 
+
+drawStar(mmult*3+halfsize, -mmult*2+halfsize, 5, 3, 6, 'mediumseagreen','gray',1);
 
 function loss(m,b,x1,x2,y1,y2,r) {
 	l1 = m * x2 + 2*r*x1*y1*x2 - 2*r*(x1*x1)*m*x2 - 2*r*b*x1*x2 + b + 2*r*y1 - 2*r*m*x1 - 2*r*b - y2;
@@ -3716,17 +3775,99 @@ function loss_non_meta(m,b,x,y) {
 	return [dldm, dldb];
 }
 
-
-var slope = 3;
-var intercept = 2;
-var rinner = 0.5;
-var router = 0.01;
-
 demo_ind = 0;
+
+var looping = false;
+
+function resetDemo() {
+	document.getElementById("mamltext").innerHTML = "<br>";
+
+	endMyLoop();
+
+	if (looping) {
+		timeoutTime = 3000;
+	} else {
+		timeoutTime = 1;
+	}
+
+	setTimeout(function () {
+
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx2.clearRect(0,0,canvas.width,canvas.height);
+
+		ctx.beginPath();
+		ctx2.beginPath();
+		ctx2.setLineDash([]);
+
+		slope = 3;
+		intercept = 2;
+		rinner = 0.5;
+		router = 0.01;
+
+		ctx2.lineWidth=1;
+		ctx2.strokeStyle="gray";
+		ctx2.beginPath();
+		ctx2.moveTo(0, halfsize);
+		ctx2.lineTo(2*halfsize, halfsize);
+		ctx2.stroke();
+
+		ctx2.moveTo(halfsize, 0);
+		ctx2.lineTo(halfsize, 2*halfsize);
+		ctx2.stroke();
+
+
+		ctx2.lineWidth = 3;
+		ctx2.beginPath();
+		ctx2.setLineDash([]);
+		ctx2.moveTo(-1*halfsize, -mmult*(slope*-10 + intercept) + halfsize);
+		ctx2.lineTo(3*halfsize, -mmult*(slope*10 + intercept) + halfsize);
+		ctx2.strokeStyle="mediumseagreen";
+		ctx2.stroke();
+
+
+		ctx.moveTo(0, halfsize);
+		ctx.lineTo(2*halfsize, halfsize);
+		ctx.stroke();
+
+		ctx.moveTo(halfsize, 0);
+		ctx.lineTo(halfsize, 2*halfsize);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.arc(2*mmult, 7*mmult, mmult, 0, 2 * Math.PI);
+		ctx.stroke();
+
+		ctx.font = "12px Arial";
+		ctx.fillStyle="black";
+		ctx.fillText("Intercept", halfsize-30, 20); 
+		ctx.fillText("Slope", 10, halfsize-5); 
+
+		ctx2.font = "12px Arial";
+		ctx2.fillStyle="black";
+		ctx2.fillText("Output", halfsize-30, 20);   
+		ctx2.fillText("Input", 10, halfsize-5); 
+
+		drawStar(mmult*3+halfsize, -mmult*2+halfsize, 5, 3, 6, 'mediumseagreen','gray',1);
+	}, timeoutTime);
+
+}
+
+function endMyLoop() {
+	looping = false;
+
+	document.getElementById("mamlstart").innerHTML = "Start demo";
+	document.getElementById("mamlstart").setAttribute('onclick','myLoop()');
+
+}
 
 function myLoop() {
 
+	looping = true;
+
+	document.getElementById("mamlstart").innerHTML = "Pause demo";
+	document.getElementById("mamlstart").setAttribute('onclick','endMyLoop()');
+
 	setTimeout(function () {
+	if (looping) {
 	randnum = 2 * Math.PI * Math.random();
 	mcorr = Math.cos(randnum) - 3;
 	bcorr = Math.sin(randnum) -2;
@@ -3783,118 +3924,177 @@ function myLoop() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.font = "12px Arial";
 	ctx.fillStyle="black";
-	ctx.fillText("Parameter 2", 120, 20);	
-	ctx.fillText("Parameter 1", 10, 145); 
+	ctx.fillText("Intercept", halfsize-30, 20);	
+	ctx.fillText("Slope", 10, halfsize-5); 
 
-
+	ctx.lineWidth=0;
 	ctx.beginPath();
-    ctx.rect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7);
+    ctx.rect(mmult*mcorr+halfsize-3, -mmult*bcorr+halfsize-3, 7, 7);
     ctx.fillStyle="purple";
-    ctx.fillRect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7); 	
+    ctx.fillRect(mmult*mcorr+halfsize-3, -mmult*bcorr+halfsize-3, 7, 7); 	
 	//drawStar(30*mcorr+150, -30*bcorr+150, 5, 3, 6, 'purple','gray',0);
+
+	if (pace <= 5) {
+		document.getElementById("mamltext").innerHTML = "Step 1: Choose target function";
+	} else {
+		document.getElementById("mamltext").innerHTML = "<br>";
+	}
 
 
 	ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
 
 	ctx2.font = "12px Arial";
     ctx2.fillStyle="black";
-    ctx2.fillText("Output", 120, 20);   
-    ctx2.fillText("Input", 10, 145); 
+    ctx2.fillText("Output", halfsize-30, 20);   
+    ctx2.fillText("Input", 10, halfsize-5); 
 
 	ctx2.beginPath();
 
 	ctx2.lineWidth = 1;
 	ctx2.setLineDash([]);
-	ctx2.moveTo(0, 150);
-	ctx2.lineTo(300, 150);
-	ctx2.strokeStyle="black";
+	ctx2.moveTo(0, halfsize);
+	ctx2.lineTo(2*halfsize, halfsize);
+	ctx2.strokeStyle="gray";
 	ctx2.stroke();
 
 	ctx2.beginPath();
 	ctx2.lineWidth = 1;
 	ctx2.setLineDash([]);
-	ctx2.moveTo(150, 0);
-	ctx2.lineTo(150, 300);
-	ctx2.strokeStyle="black";
+	ctx2.moveTo(halfsize, 0);
+	ctx2.lineTo(halfsize, 2*halfsize);
+	ctx2.strokeStyle="gray";
 	ctx2.stroke();
 
-	console.log(JSON.stringify(all_points));
 	for (ap = 0; ap < all_points.length; ap++) {
 		this_pt = all_points[ap];
-		xcoord = 30*this_pt[0] + 150;
-		ycoord = -30*this_pt[1] + 150;
+		xcoord = mmult*this_pt[0] + halfsize;
+		ycoord = -mmult*this_pt[1] + halfsize;
 		ctx2.fillStyle="purple";
 		ctx2.fillRect(xcoord, ycoord, 5, 5);
 		
 	}
 	
-	ctx.moveTo(0, 150);
-	ctx.lineTo(300, 150);
+	ctx.moveTo(0, halfsize);
+	ctx.lineTo(2*halfsize, halfsize);
 	ctx.stroke();
 
-	ctx.moveTo(150, 0);
-	ctx.lineTo(150, 300);
+	ctx.moveTo(halfsize, 0);
+	ctx.lineTo(halfsize, 2*halfsize);
 	ctx.stroke();
 
 	ctx.beginPath();
-	ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+	ctx.arc(2*mmult, 7*mmult, mmult, 0, 2 * Math.PI);
 	ctx.stroke();
-	drawStar(30*slope+150, -30*intercept+150, 5, 3, 6, 'mediumseagreen','gray',0);
+	drawStar(mmult*slope+halfsize, -mmult*intercept+halfsize, 5, 3, 6, 'mediumseagreen','gray',0);
 
 	ctx2.beginPath();
 	ctx2.lineWidth = 3;
 	ctx2.setLineDash([]);
-	ctx2.moveTo(-150, -30*(slope*-10 + intercept) + 150);
-	ctx2.lineTo(450, -30*(slope*10 + intercept) + 150);
+	ctx2.moveTo(-1*halfsize, -mmult*(slope*-10 + intercept) + halfsize);
+	ctx2.lineTo(3*halfsize, -mmult*(slope*10 + intercept) + halfsize);
 	ctx2.strokeStyle="mediumseagreen";
 	ctx2.stroke();
 	
 	setTimeout(function () {
 
+		if (looping) {
 		ctx.beginPath();
-		ctx.arc(30*slopenewb+150, -30*interceptnewb+150, 4, 0, 2 * Math.PI);
+		ctx.arc(mmult*slopenewb+halfsize, -mmult*interceptnewb+halfsize, 4, 0, 2 * Math.PI);
 		ctx.fillStyle = "orange";
 		ctx.fill();
-		
+
+		if (pace <= 5) {	
+			document.getElementById("mamltext").innerHTML = "Step 2: Train a copy of the model";
+		} else {
+			document.getElementById("mamltext").innerHTML = "<br>";
+		}
+	
 		ctx.strokeStyle='gray';
     	ctx.lineWidth=0;
 		ctx.stroke();
 	
 		ctx.beginPath();
-		//drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 3, 6, 'orange','gray',0);
-		ctx.moveTo(30*slope+150, -30*intercept+150);
-		ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
+		//drawStar(mmult*slopenewb+halfsize, -mmult*interceptnewb+halfsize, 5, 3, 6, 'orange','gray',0);
+		ctx.moveTo(mmult*slope+halfsize, -mmult*intercept+halfsize);
+		ctx.lineTo(mmult*slopenewb+halfsize, -mmult*interceptnewb+halfsize);
 		ctx.stroke();
 
 
 		ctx2.beginPath();
 		ctx2.lineWidth = 3;
 		ctx2.setLineDash([10, 10]);
-		ctx2.moveTo(-150, -30*(slopenewb*-10 + interceptnewb) + 150);
-		ctx2.lineTo(450, -30*(slopenewb*10 + interceptnewb) + 150);
+		ctx2.moveTo(-1*halfsize, -mmult*(slopenewb*-10 + interceptnewb) + halfsize);
+		ctx2.lineTo(3*halfsize, -mmult*(slopenewb*10 + interceptnewb) + halfsize);
 		ctx2.strokeStyle="orange";
 		ctx2.stroke();
 	
 		setTimeout(function () {
 
+			if (looping) {
 			slope = slopenew;
 			intercept = interceptnew;
 
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+
+			ctx2.font = "12px Arial";
+	    	ctx2.fillStyle="black";
+		    ctx2.fillText("Output", halfsize-30, 20);   
+    		ctx2.fillText("Input", 10, halfsize-5); 
+
+			ctx2.beginPath();
+
+			ctx2.lineWidth = 1;
+			ctx2.setLineDash([]);
+			ctx2.moveTo(0, halfsize);
+			ctx2.lineTo(2*halfsize, halfsize);
+			ctx2.strokeStyle="gray";
+			ctx2.stroke();
+
+			ctx2.beginPath();
+			ctx2.lineWidth = 1;
+			ctx2.setLineDash([]);
+			ctx2.moveTo(halfsize, 0);
+			ctx2.lineTo(halfsize, 2*halfsize);
+			ctx2.strokeStyle="gray";
+			ctx2.stroke();
+
+			for (ap = 0; ap < all_points.length; ap++) {
+				this_pt = all_points[ap];
+				xcoord = mmult*this_pt[0] + halfsize;
+				ycoord = -mmult*this_pt[1] + halfsize;
+				ctx2.fillStyle="purple";
+				ctx2.fillRect(xcoord, ycoord, 5, 5);
+		
+			}
+			ctx2.beginPath();
+        	ctx2.lineWidth = 3;
+	        ctx2.setLineDash([10, 10]);
+	        ctx2.moveTo(-1*halfsize, -mmult*(slopenewb*-10 + interceptnewb) + halfsize);
+    	    ctx2.lineTo(3*halfsize, -mmult*(slopenewb*10 + interceptnewb) + halfsize);
+        	ctx2.strokeStyle="orange";
+	        ctx2.stroke();	
+
+
 			ctx.font = "12px Arial";
 			ctx.fillStyle="black";
-			ctx.fillText("Parameter 2", 120, 20);	
-			ctx.fillText("Parameter 1", 10, 145);
+			ctx.fillText("Intercept", halfsize-30, 20);	
+			ctx.fillText("Slope", 10, halfsize-5);
 
 			ctx.beginPath();
-			ctx.rect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7);
 			ctx.fillStyle="purple";
-        	ctx.fillRect(30*mcorr+150-3, -30*bcorr+150-3, 7, 7); 
+        	ctx.fillRect(mmult*mcorr+halfsize-3, -mmult*bcorr+halfsize-3, 7, 7); 
 			//drawStar(30*mcorr+150, -30*bcorr+150, 5, 3, 6, 'purple','gray',0);	
-			
+	
+			ctx.beginPath();
+			ctx.strokeStyle="gray";
+			ctx.rect(mmult*mcorr+halfsize-3, -mmult*bcorr+halfsize-3, 7, 7);
+			ctx.stroke();
+					
 
 			ctx.beginPath();
-        	ctx.arc(30*slopenewb+150, -30*interceptnewb+150, 4, 0, 2 * Math.PI);
+        	ctx.arc(mmult*slopenewb+halfsize, -mmult*interceptnewb+halfsize, 4, 0, 2 * Math.PI);
      	    ctx.fillStyle = "orange";
         	ctx.fill();
         
@@ -3906,48 +4106,60 @@ function myLoop() {
 
 
 			//drawStar(30*slopenewb+150, -30*interceptnewb+150, 5, 3, 6, 'orange','gray',0);
-			ctx.moveTo(30*slope+150, -30*intercept+150);
-			ctx.lineTo(30*slopenewb+150, -30*interceptnewb+150);
+			ctx.moveTo(mmult*slope+halfsize, -mmult*intercept+halfsize);
+			ctx.lineTo(mmult*slopenewb+halfsize, -mmult*interceptnewb+halfsize);
 			ctx.stroke();
 
 
-			drawStar(30*slope+150, -30*intercept+150, 5, 3, 6, 'mediumseagreen','gray',0);
-			ctx.moveTo(0, 150);
-			ctx.lineTo(300, 150);
+			if (pace <= 5) {
+				document.getElementById("mamltext").innerHTML = "Step 3: Adjust model initialization";
+			} else {
+				document.getElementById("mamltext").innerHTML = "<br>";
+			}
+	
+			drawStar(mmult*slope+halfsize, -mmult*intercept+halfsize, 5, 3, 6, 'mediumseagreen','gray',0);
+			ctx.moveTo(0, halfsize);
+			ctx.lineTo(2*halfsize, halfsize);
 			ctx.stroke();
 
-			ctx.moveTo(150, 0);
-			ctx.lineTo(150, 300);
+			ctx2.beginPath();
+    		ctx2.lineWidth = 3;
+    		ctx2.setLineDash([]);
+    		ctx2.moveTo(-halfsize, -mmult*(slope*-10 + intercept) + halfsize);
+    		ctx2.lineTo(3*halfsize, -mmult*(slope*10 + intercept) + halfsize);
+    		ctx2.strokeStyle="mediumseagreen";
+    		ctx2.stroke();
+
+			ctx.moveTo(halfsize, 0);
+			ctx.lineTo(halfsize, 2*halfsize);
 			ctx.stroke();
 
 			ctx.beginPath();
-			ctx.arc(60, 210, 30, 0, 2 * Math.PI);
+			ctx.arc(2*mmult, 7*mmult, mmult, 0, 2 * Math.PI);
 			ctx.stroke();
 			demo_ind++;
-	
-			if (demo_ind < 10000) {
+
+			if (demo_ind < 10000 && looping) {
 				myLoop();
 			}
-		}, 2000/(Math.pow(2, pace)))
+		}}, 3000/(Math.pow(2, pace)))
 
-	}, 2000/(Math.pow(2, pace)))
+	}}, 3000/(Math.pow(2, pace)))
 
-	}, 800/(Math.pow(2, pace)))
+	}}, 3000/(Math.pow(2, pace)))
 }
 var pace = 1;
-myLoop();
 
 
-console.log(slope, intercept);
 
 var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
+//var output = document.getElementById("demo");
 slider.value = 1;
-output.innerHTML = slider.value; // Display the default slider value
+//output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
-  output.innerHTML = this.value;
+  //output.innerHTML = this.value;
   pace = Math.sqrt(this.value);
 }
 
