@@ -571,6 +571,7 @@ th.cellcollapsible {display:block; }
 @media only screen and (max-width: 500px) {
 	td.cellcollapsible {display:none; }
 	th.cellcollapsible {display:none; }
+	div.postable {max-width:320;}
 }
 
 @media only screen and (max-width: 775px) {
