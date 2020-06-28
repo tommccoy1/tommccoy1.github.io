@@ -41,7 +41,7 @@
 
 	<p>What output should replace the question marks? You probably answered <span style="color:blue"><em>.ta.ra.va.</em></span> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <span style="color:blue"><em>.va.ra.ta.</em></span> If you answered <span style="color:blue"><em>.ta.ra.va.</em></span> instead of <span style="color:blue"><em>.va.ra.ta.</em></span>, it suggests that you have an inductive bias for preserving the input order.</p>
 
-	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling of this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
+	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling aimed at answering this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
 
 	<p>In our framework, the inductive biases are encoded in the initial state of a neural network. This initial state is found with <b>meta-learning</b>, a technique through which a model discovers how to acquire new languages more easily via exposure to many possible languages. By controlling the properties of the languages that are used during meta-learning, we can control the set of inductive biases that meta-learning imparts.</p>
 
@@ -1585,7 +1585,7 @@
 	</tr>
 </table></div>
 
-<div style="padding-top: 15px; padding-bottom: 40px; padding-left: 100px; padding-right: 100px; font-size: 13px;">
+<div style="padding-top: 15px; padding-bottom: 40px; max-width: 600px; margin:auto; font-size: 13px;">
 	<em>The performance of a randomly-initialized model after being trained on various numbers of examples. You may need to scroll to the right to see the full table.</em>
 </div>
 
@@ -1598,7 +1598,7 @@
 
 <div style="margin: auto;">
 <div style="margin: auto; max-width:670px;">
-<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Implicational universals</div>
+<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 90px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Implicational universals</div>
 </div>
 </div>
 
@@ -1617,10 +1617,10 @@
 		<b>Predictions for inputs of length 4 or less (the models have seen inputs of these lengths, but not these particular inputs)</b>
 	</div>
 
-			<table class="hor-minimalist-a" style="width:320px;">
+			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1674,7 +1674,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1746,7 +1746,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1801,7 +1801,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1883,7 +1883,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1938,7 +1938,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct output</div></th>
+					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>

@@ -185,7 +185,7 @@ header {
   color: white;
   padding: 16px;
   font-size: 16px;
-  width: 350px;
+  max-width: 350px;
   border: none;
   cursor: pointer;
   z-index:1000;
@@ -494,6 +494,7 @@ footer {
 	border-radius: 7px;
 	background-clip: padding-box;
 	outline: 0 none;
+	display: inline-block;
 }
 
 
