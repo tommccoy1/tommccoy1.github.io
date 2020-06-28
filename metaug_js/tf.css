@@ -603,7 +603,7 @@ th.cellcollapsible {display:block; }
 
 .outertable {
 	margin: auto;
-	width: 600px;
+	max-width: 600px;
 	overflow-x: auto;
 }
 
