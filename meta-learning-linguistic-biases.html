@@ -70,7 +70,7 @@
 	<div id="advancedsettings" style="border-bottom: 1px solid black">
 
 
-	<div id="parameters" class="params" style="max-width:350; display:inline-block; vertical-align:top; padding:10px;">
+	<div id="parameters" class="params" style="max-width:320; display:inline-block; vertical-align:top; padding:10px;">
 
 	<p>
 		<b>Define a language based on the factors in Fig. 3 of the paper (middle panel):</b> Choose properties for the language from the fields below.
@@ -1598,7 +1598,7 @@
 
 <div style="margin: auto;">
 <div style="margin: auto; max-width:670px;">
-<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 90px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Implicational universals</div>
+<div id="lengthbtn" onClick="toggle_pos('length')" style="margin-left:20px; height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 60px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 90px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Implicational universals</div>
 </div>
 </div>
 
@@ -1746,7 +1746,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
+					<th style="width:50;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1801,7 +1801,7 @@
 			<table class="hor-minimalist-a" style="max-width:320px;">
 				<tr class="top">
 					<th style="width:35;" class='cell'><div>Input</div></th>
-					<th style="width:75;" class='cell'><div>Correct<br> output</div></th>
+					<th style="width:50;" class='cell'><div>Correct<br> output</div></th>
 					<th style="width:75;" class='cell'><div>Meta-initialized<br>model's output</div></th>
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
@@ -1869,7 +1869,7 @@
 <div id="pos_new_container" style="margin: auto;">
 <div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
-		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, A, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
+		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, A, j, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
 	</div>
 	<br>
 
@@ -1888,34 +1888,34 @@
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
 				<tr>
-					<td class='cell'><div>Empmm</div></td>
-					<td class='cell'><div>.E.mEp.mEm.</div></td>
-					<td class='cell'><div style='color: green'>.E.mEp.mEm.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.E.mEp.mEm.</div></td>
+					<td class='cell'><div>Ejpjj</div></td>
+					<td class='cell'><div>.E.jEp.jEj.</div></td>
+					<td class='cell'><div style='color: green'>.E.jEp.jEj.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.jEp.jEj.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>AmmmE</div></td>
-					<td class='cell'><div>.A.mEm.mE.</div></td>
-					<td class='cell'><div style='color: green'>.A.mEm.mE.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.A.mEm.mE.</div></td>
+					<td class='cell'><div>AjjjE</div></td>
+					<td class='cell'><div>.A.jEj.jE.</div></td>
+					<td class='cell'><div style='color: green'>.A.jEj.jE.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.A.jEj.jE.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>mxAxp</div></td>
-					<td class='cell'><div>.mE.xA.xEp.</div></td>
-					<td class='cell'><div style='color: green'>.mE.xA.xEp.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.mE.xA.xEp.</div></td>
+					<td class='cell'><div>jxAxp</div></td>
+					<td class='cell'><div>.jE.xA.xEp.</div></td>
+					<td class='cell'><div style='color: green'>.jE.xA.xEp.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.jE.xA.xEp.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>EAmEA</div></td>
-					<td class='cell'><div>.E.A.mE.A.</div></td>
-					<td class='cell'><div style='color: green'>.E.A.mE.A.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.E.A.mE.A.</div></td>
+					<td class='cell'><div>EAjEA</div></td>
+					<td class='cell'><div>.E.A.jE.A.</div></td>
+					<td class='cell'><div style='color: green'>.E.A.jE.A.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.A.jE.A.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>Em</div></td>
-					<td class='cell'><div>.Em.</div></td>
-					<td class='cell'><div style='color: green'>.Em.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.Em.</div></td>
+					<td class='cell'><div>Ej</div></td>
+					<td class='cell'><div>.Ej.</div></td>
+					<td class='cell'><div style='color: green'>.Ej.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.Ej.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>pEA</div></td>
@@ -1958,13 +1958,13 @@
 					<td class='cell'><div>UUAfi</div></td>
 					<td class='cell'><div>.U.U.A.fi.</div></td>
 					<td class='cell'><div style='color: green'>.U.U.A.fi.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.cE.cA.Em.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.cA.Ej.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>kdAri</div></td>
 					<td class='cell'><div>.kE.dA.ri.</div></td>
 					<td class='cell'><div style='color: green'>.kE.dA.ri.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.cE.Am.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.Aj.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>eh</div></td>
@@ -1976,7 +1976,7 @@
 					<td class='cell'><div>tnsvU</div></td>
 					<td class='cell'><div>.tE.nEs.vU.</div></td>
 					<td class='cell'><div style='color: green'>.tE.nEs.vU.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.mE.xEm.mEc.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.jE.xEj.jEc.</div></td>
 				</tr>
 			</table>
 	</div>
