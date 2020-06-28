@@ -30,7 +30,7 @@
 
 	<h2>Introduction</h2>
 
-	<p>Language acquisition involves a complex interplay between the data and the learner. The importance of data is clear: we can only learn a language if we have experience with it. Less obviously, acquisition is also guided by properties of the learner called <b>inductive biases</b>, which determine how the learner will generalize beyond the utterances they have encountered. As an example, consider the following pattern:</p>
+	<p>Language acquisition involves a complex interplay between the data and the learner. The importance of data is clear: we can only learn a language if we have experience with it. Less obviously, acquisition is also guided by properties of the learner called <b style="font-weight:bold">inductive biases</b>, which determine how the learner will generalize beyond the utterances they have encountered. As an example, consider the following pattern:</p>
 
 	<ul>
 		<li style="color: blue">gbg &rarr; .ga.ba.ga.</li>
@@ -43,7 +43,7 @@
 
 	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling aimed at answering this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
 
-	<p>In our framework, the inductive biases are encoded in the initial state of a neural network. This initial state is found with <b>meta-learning</b>, a technique through which a model discovers how to acquire new languages more easily via exposure to many possible languages. By controlling the properties of the languages that are used during meta-learning, we can control the set of inductive biases that meta-learning imparts.</p>
+	<p>In our framework, the inductive biases are encoded in the initial state of a neural network. This initial state is found with <b style="font-weight:bold">meta-learning</b>, a technique through which a model discovers how to acquire new languages more easily via exposure to many possible languages. By controlling the properties of the languages that are used during meta-learning, we can control the set of inductive biases that meta-learning imparts.</p>
 
 
 	<h2>Try it out!</h2>
@@ -58,7 +58,7 @@
 <div style="overflow: hidden;">
 
 	<div id="patterndiv" style="padding: 10px; overflow:hidden; float: left;border-bottom:1pt solid black;">
-		<span style="max-width: 410px;text-align: justify; margin-right: 10px; display: inline-block; font-size: 13px;"><b>Pattern to be learned:</b> 
+		<span style="max-width: 410px;text-align: justify; margin-right: 10px; display: inline-block; font-size: 13px;"><b style="font-weight:bold">Pattern to be learned:</b> 
 			<span id="langdesc" style="text-align: justify">Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundariesDelete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries.</span>
 		</span> 
 		<button type="button" class="genbtn" onclick="random_language(true);" style="display: inline-block; vertical-align:top;">Random new language</button>
@@ -73,7 +73,7 @@
 	<div id="parameters" class="params" style="max-width:320; display:inline-block; vertical-align:top; padding:10px;">
 
 	<p>
-		<b>Define a language based on the factors in Fig. 3 of the paper (middle panel):</b> Choose properties for the language from the fields below.
+		<b style="font-weight:bold">Define a language based on the factors in Fig. 3 of the paper (middle panel):</b> Choose properties for the language from the fields below.
 	</p>
 
 	<div>Constraint ranking:</div>
@@ -115,7 +115,7 @@
 	</div> <!-- End of parameters -->
 
 	<div id="manualinputs" class="manual" style="max-width:320; display:inline-block; vertical-align:top; padding-left:20px; padding-top:10px;">
-		<p><b>Manually define a training and test set:</b> Enter your training and test examples in the spaces below. Use one line per input-output pair, with a comma (no spaces) separating the input and output.</p>
+		<p><b style="font-weight:bold">Manually define a training and test set:</b> Enter your training and test examples in the spaces below. Use one line per input-output pair, with a comma (no spaces) separating the input and output.</p>
 
 		<div>Training set</div>
 		<textarea id="traintextarea" cols="30" rows="5" maxlength="5000"></textarea>
@@ -135,7 +135,7 @@
 	<div style="float: left; padding: 10px;">
 		<div "text-align: center; padding: 10px;">
 			<div style="width: 100%; margin: 0 auto; padding: 10px;">
-				<b>Training examples:</b> <span id="traincount">0</span>
+				<b style="font-weight:bold">Training examples:</b> <span id="traincount">0</span>
 			</div> 
 		</div>
 		<div id="trainingexamplelist" style="border: solid; height:150px; width: 200px; overflow: scroll; padding: 10px;"></div>
@@ -148,7 +148,7 @@
 
 	<div style="float: left; padding: 10px;">
 
-		<div style="text-align: center; padding: 10px;"><b>Test set predictions after training on <span id="traincount2">0</span> <span id="exsing">examples</span></b></div>
+		<div style="text-align: center; padding: 10px;"><b style="font-weight:bold">Test set predictions after training on <span id="traincount2">0</span> <span id="exsing">examples</span></b></div>
 		<div>
 			<table class="hor-minimalist-a">
 				<tr class="top">
@@ -1607,14 +1607,14 @@
 
 <div id="pos_length" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
-		<b>Generalization to a novel length:</b> Models are trained on inputs of length at most 4, then evaluated on inputs of the type they have seen before or on longer inputs.
+		<b style="font-weight:bold">Generalization to a novel length:</b> Models are trained on inputs of length at most 4, then evaluated on inputs of the type they have seen before or on longer inputs.
 	</div>
 	<br>
 
 
 	<div class="postable" style="display: inline-block; padding-right: 20px;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs of length 4 or less (the models have seen inputs of these lengths, but not these particular inputs)</b>
+		<b style="font-weight:bold">Predictions for inputs of length 4 or less (the models have seen inputs of these lengths, but not these particular inputs)</b>
 	</div>
 
 			<table class="hor-minimalist-a" style="max-width:320px;">
@@ -1667,7 +1667,7 @@
 
 	<div class="postable" style="display: inline-block;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs of length 5 (models have not seen any inputs of this length)</b>
+		<b style="font-weight:bold">Predictions for inputs of length 5 (models have not seen any inputs of this length)</b>
 	</div>
 
 
@@ -1719,7 +1719,7 @@
 	</div>
 <br><br>
 <div>
-<b>Comments:</b> During meta-training, all languages featured inputs up to length 5. Thus, this experiment only requires generalization within the bounds seen during meta-learning. We also tested how models generalized from lengths at most 5 to length 6; in this case, the model initialized with meta-learning did not perform as well as it does in generalizing to length 5, suggesting that its generalization capabilities are restricted to the types of patterns seen during meta-learning.
+<b style="font-weight:bold">Comments:</b> During meta-training, all languages featured inputs up to length 5. Thus, this experiment only requires generalization within the bounds seen during meta-learning. We also tested how models generalized from lengths at most 5 to length 6; in this case, the model initialized with meta-learning did not perform as well as it does in generalizing to length 5, suggesting that its generalization capabilities are restricted to the types of patterns seen during meta-learning.
 </div>
 
 
@@ -1732,14 +1732,14 @@
 <div id="pos_imp_container" style="margin: auto;">
 <div id="pos_imp" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
-		<b>Implicational universal:</b> Models are trained on mappings of the form <em>vowel-consonant &rarr; vowel</em>, then evaluated on generalization to inputs of the form <em>consonant-vowel-consonant</em>. In the framework we use, any language that maps <em>vowel-consonant</em> to <em>vowel</em> will also map <em>consonant-vowel-consonant</em> to <em>consonant-vowel</em>.
+		<b style="font-weight:bold">Implicational universal:</b> Models are trained on mappings of the form <em>vowel-consonant &rarr; vowel</em>, then evaluated on generalization to inputs of the form <em>consonant-vowel-consonant</em>. In the framework we use, any language that maps <em>vowel-consonant</em> to <em>vowel</em> will also map <em>consonant-vowel-consonant</em> to <em>consonant-vowel</em>.
 	</div>
 	<br>
 
 
 	<div class="postable" style="display:inline-block; padding-right: 20px;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs of the form vowel-consonant (models have seen this type of input, but not these particular examples)</b>
+		<b style="font-weight:bold">Predictions for inputs of the form vowel-consonant (models have seen this type of input, but not these particular examples)</b>
 	</div>
 
 
@@ -1793,7 +1793,7 @@
 
 	<div class="postable" style="display: inline-block;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs of the form consonant-vowel-consonant (models have not seen this type of input during training)</b>
+		<b style="font-weight:bold">Predictions for inputs of the form consonant-vowel-consonant (models have not seen this type of input during training)</b>
 	</div>
 
 
@@ -1847,7 +1847,7 @@
 
 <br><br>
 <div>
-<b>Comments:</b> The randomly-initialized model appears to have learned a constraint on the form of the output, namely that it must consist of a single vowel. This constraint holds for the models' training set but not for the generalization that we test, giving this model poor generalization performance.
+<b style="font-weight:bold">Comments:</b> The randomly-initialized model appears to have learned a constraint on the form of the output, namely that it must consist of a single vowel. This constraint holds for the models' training set but not for the generalization that we test, giving this model poor generalization performance.
 </div>
 
 
@@ -1869,14 +1869,14 @@
 <div id="pos_new_container" style="margin: auto;">
 <div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
-		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, A, j, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
+		<b style="font-weight:bold">Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, A, j, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
 	</div>
 	<br>
 
 
 	<div class="postable" style="display: inline-block; padding-right: 20px;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs composed of familiar sounds</b>
+		<b style="font-weight:bold">Predictions for inputs composed of familiar sounds</b>
 	</div>
 
 
@@ -1931,7 +1931,7 @@
 
 	<div class="postable" style="display: inline-block;">
 	<div style="max-width:320px;">
-		<b>Predictions for inputs composed of unfamiliar sounds</b>
+		<b style="font-weight:bold">Predictions for inputs composed of unfamiliar sounds</b>
 	</div>
 
 
@@ -1983,7 +1983,7 @@
 
 <br><br>
 <div>
-<b>Comments:</b> The randomly-initialized model has no hope of success in this case, since it has no way to know whether each novel symbol is a consonant or vowel, which is critical information for processing each input. However, the meta-initialized model could have learned this information during its meta-training phase, and its successful generalization shows that it has indeed done so.
+<b style="font-weight:bold">Comments:</b> The randomly-initialized model has no hope of success in this case, since it has no way to know whether each novel symbol is a consonant or vowel, which is critical information for processing each input. However, the meta-initialized model could have learned this information during its meta-training phase, and its successful generalization shows that it has indeed done so.
 </div>
 
 
@@ -2015,12 +2015,12 @@
 
 	<div style="margin: auto; max-width: 550px;" class="demowrapper">
 	<div style="display:inline-block; margin: auto">
-	<div style="margin: auto; width: 150px;"><b>Model parameters</b></div>
+	<div style="margin: auto; width: 150px;"><b style="font-weight:bold">Model parameters</b></div>
 	<canvas id="myCanvas" style="border-style: solid;" height=200 width=200px></canvas>
 	</div>
 
 	<div style="display:inline-block; margin: auto">
-    <div style="margin: auto; width: 150px;"><b>Inputs and outpus</b></div>
+    <div style="margin: auto; width: 150px;"><b style="font-weight:bold">Inputs and outpus</b></div>
 	<canvas id="myCanvas2" style="border-style: solid;" height=200 width=200px></canvas>
 	</div>
 
