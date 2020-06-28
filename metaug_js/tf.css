@@ -572,6 +572,25 @@ th.cellcollapsible {display:block; }
 	th.cellcollapsible {display:none; }
 }
 
+@media only screen and (max-width: 775px) {
+	div.params {
+		border-right-style: none;
+	}
+	div.manual {
+		border-top: 1pt solid black;
+	}
+}
+
+
+@media only screen and (min-width: 776px) {
+	div.params {
+		border-right: 1pt solid black;
+	}
+	div.manual {
+		border-top-style: none;
+	}
+}
+
 
 .thousands {
 	table-layout: auto;

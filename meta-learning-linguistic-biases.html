@@ -22,7 +22,11 @@
 	<div class="contentwrapper">
 	<section>
 	<h1 style="text-align:center; max-width: 500px; margin: auto;">Universal linguistic inductive biases via meta-learning</h1>
+	<br>
+	<p style="text-align:center;"><a href="http://rtmccoy.com/">Tom McCoy</a>, <a href="https://eringrant.github.io/">Erin Grant</a>, <a href="https://www.microsoft.com/en-us/research/people/psmo/">Paul Smolensky</a>, <a href="http://cocosci.princeton.edu/tom/index.php">Tom Griffiths</a>, <a href="https://tallinzen.net/">Tal Linzen</a></p>
 
+
+	<p><em>This post accompanies the paper found here and the code found <a href="https://github.com/tommccoy1/meta-learning-linguistic-biases">here</a>.</em></p>
 
 	<h2>Introduction</h2>
 
@@ -31,11 +35,11 @@
 	<ul>
 		<li style="color: blue">gbg &rarr; .ga.ba.ga.</li>
 		<li style="color: blue">qq &rarr; .qa.qa.</li>
-		<li style="color: blue">tlv &rarr; ???</li>
+		<li style="color: blue">trv &rarr; ???</li>
 	</ul>
 
 
-	<p>What output should replace the question marks? You probably answered <span style="color:blue"><em>.ta.la.va.</em></span> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <span style="color:blue"><em>.va.la.ta.</em></span> If you answered <span style="color:blue"><em>.ta.la.va.</em></span> instead of <span style="color:blue"><em>.va.la.ta.</em></span>, it suggests that you have an inductive bias for preserving the input order.</p>
+	<p>What output should replace the question marks? You probably answered <span style="color:blue"><em>.ta.ra.va.</em></span> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <span style="color:blue"><em>.va.ra.ta.</em></span> If you answered <span style="color:blue"><em>.ta.ra.va.</em></span> instead of <span style="color:blue"><em>.va.ra.ta.</em></span>, it suggests that you have an inductive bias for preserving the input order.</p>
 
 	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling of this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
 
@@ -44,7 +48,7 @@
 
 	<h2>Try it out!</h2>
 
-	<p>To demonstrate this framework, we use the linguistic phenomenon of syllable structure.  For a given language, the model must learn how to map a sequence of sounds (e.g., <em>talava</em>)  into a sequence of syllables (e.g., <em>.ta.la.va.</em>). Each language has restrictions on what types of syllables are allowed, and sounds may need to be inserted or deleted to meet these restrictions. For example, if a language requires all syllables to end with a vowel, the input <em>kep</em> might map to <em>.ke.pa.</em>  (if the language uses insertion) or <em>.ke.</em>  (if the language uses deletion).</p>
+	<p>To demonstrate this framework, we use the linguistic domain of syllable structure.  For a given language, the model must learn how to map a sequence of sounds (e.g., <em>tarava</em>)  into a sequence of syllables (e.g., <em>.ta.ra.va.</em>). Each language has restrictions on what types of syllables are allowed, and sounds may need to be inserted or deleted to meet these restrictions. For example, if a language requires all syllables to end with a vowel, the input <em>kep</em> might map to <em>.ke.pa.</em>  (if the language uses insertion) or <em>.ke.</em>  (if the language uses deletion).</p>
 
 
 	<p>The demo below shows how a neural network initialized with meta-learning can learn syllable structure mappings much more quickly than a neural network with a standard random initialization.</p>
@@ -53,16 +57,25 @@
 
 <div style="overflow: hidden;">
 
-	<div style="padding: 10px; overflow:hidden; float: left;">
+	<div id="patterndiv" style="padding: 10px; overflow:hidden; float: left;border-bottom:1pt solid black;">
 		<span style="max-width: 410px;text-align: justify; margin-right: 10px; display: inline-block; font-size: 13px;"><b>Pattern to be learned:</b> 
 			<span id="langdesc" style="text-align: justify">Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundariesDelete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries.</span>
 		</span> 
-		<button type="button" class="genbtn" onclick="random_language();" style="display: inline-block; vertical-align:top;">Random new language</button>
+		<button type="button" class="genbtn" onclick="random_language(true);" style="display: inline-block; vertical-align:top;">Random new language</button>
 		<button type="button" class="genbtn" onclick="toggleshowadv()" style="display: inline-block; vertical-align:top;"><span id="advbtntxt">Show advanced settings</span></button> 
 	</div>
 
-	<div id="advancedsettings">
-	<div>Language description: <span id="langdescold"></span></div>
+
+
+	<div id="advancedsettings" style="border-bottom: 1px solid black">
+
+
+	<div id="parameters" class="params" style="max-width:350; display:inline-block; vertical-align:top; padding:10px;">
+
+	<p>
+		<b>Define a language based on the factors in Fig. 3 of the paper (middle panel):</b> Choose properties for the language from the fields below.
+	</p>
+
 	<div>Constraint ranking:</div>
 
 
@@ -79,17 +92,44 @@
 			<a onclick="ranktoggle('(2, 3, 0, 1)')"><span style='font-variant:small-caps;'>NoDeletion &#187; NoInsertion &#187; Onset, NoCoda</span></a>
 		</div>
 	</div>
+	<br><br>
+		
+	<div>Set of consonants:</div>
+	<div> <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button></div>
+	<div><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
+		
+	<br>
+	<div>Set of vowels:</div>
 
-		<div>Set of consonants: <button id="btnb" class="vinvbtn" type="button" onclick="ctoggle('b')">b</button><button id="btnc" class="vinvbtn" type="button" onclick="ctoggle('c')">c</button><button id="btnd" class="vinvbtn" type="button" onclick="ctoggle('d')">d</button><button id="btnf" class="vinvbtn" type="button" onclick="ctoggle('f')">f</button><button id="btng" class="vinvbtn" type="button" onclick="ctoggle('g')">g</button><button id="btnh" class="vinvbtn" type="button" onclick="ctoggle('h')">h</button><button id="btnj" class="vinvbtn" type="button" onclick="ctoggle('j')">j</button><button id="btnk" class="vinvbtn" type="button" onclick="ctoggle('k')">k</button><button id="btnl" class="vinvbtn" type="button" onclick="ctoggle('l')">l</button><button id="btnm" class="vinvbtn" type="button" onclick="ctoggle('m')">m</button><button id="btnn" class="vinvbtn" type="button" onclick="ctoggle('n')">n</button><button id="btnp" class="vinvbtn" type="button" onclick="ctoggle('p')">p</button><button id="btnq" class="vinvbtn" type="button" onclick="ctoggle('q')">q</button><button id="btnr" class="vinvbtn" type="button" onclick="ctoggle('r')">r</button><button id="btns" class="vinvbtn" type="button" onclick="ctoggle('s')">s</button><button id="btnt" class="vinvbtn" type="button" onclick="ctoggle('t')">t</button><button id="btnv" class="vinvbtn" type="button" onclick="ctoggle('v')">v</button><button id="btnw" class="vinvbtn" type="button" onclick="ctoggle('w')">w</button><button id="btnx" class="vinvbtn" type="button" onclick="ctoggle('x')">x</button><button id="btnz" class="vinvbtn" type="button" onclick="ctoggle('z')">z</button></div>
-		<div>Set of vowels: <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('A')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('E')">E</button><button id="btnbigi" class="vinvbtn" type="button" onclick="vtoggle('I')">I</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('O')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('U')">U</button></div>
-		<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepl" class="vinvbtn" type="button" onclick="ceptoggle('l')">l</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
-		<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('A')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('E')">E</button><button id="btnepbigi" class="vinvbtn" type="button" onclick="veptoggle('I')">I</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('O')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('U')">U</button></div>
+	<div> <button id="btna" class="vinvbtn" type="button" onclick="vtoggle('a')">a</button><button id="btne" class="vinvbtn" type="button" onclick="vtoggle('e')">e</button><button id="btni" class="vinvbtn" type="button" onclick="vtoggle('i')">i</button><button id="btno" class="vinvbtn" type="button" onclick="vtoggle('o')">o</button><button id="btnu" class="vinvbtn" type="button" onclick="vtoggle('u')">u</button><button id="btnbiga" class="vinvbtn" type="button" onclick="vtoggle('A')">A</button><button id="btnbige" class="vinvbtn" type="button" onclick="vtoggle('E')">E</button><button id="btnbigo" class="vinvbtn" type="button" onclick="vtoggle('O')">O</button><button id="btnbigu" class="vinvbtn" type="button" onclick="vtoggle('U')">U</button></div>
+	<br>
+	
+	<div>Consonant for insertion: <button id="btnepb" class="vinvbtn" type="button" onclick="ceptoggle('b')">b</button><button id="btnepc" class="vinvbtn" type="button" onclick="ceptoggle('c')">c</button><button id="btnepd" class="vinvbtn" type="button" onclick="ceptoggle('d')">d</button><button id="btnepf" class="vinvbtn" type="button" onclick="ceptoggle('f')">f</button><button id="btnepg" class="vinvbtn" type="button" onclick="ceptoggle('g')">g</button><button id="btneph" class="vinvbtn" type="button" onclick="ceptoggle('h')">h</button><button id="btnepj" class="vinvbtn" type="button" onclick="ceptoggle('j')">j</button><button id="btnepk" class="vinvbtn" type="button" onclick="ceptoggle('k')">k</button><button id="btnepm" class="vinvbtn" type="button" onclick="ceptoggle('m')">m</button><button id="btnepn" class="vinvbtn" type="button" onclick="ceptoggle('n')">n</button><button id="btnepp" class="vinvbtn" type="button" onclick="ceptoggle('p')">p</button><button id="btnepq" class="vinvbtn" type="button" onclick="ceptoggle('q')">q</button><button id="btnepr" class="vinvbtn" type="button" onclick="ceptoggle('r')">r</button><button id="btneps" class="vinvbtn" type="button" onclick="ceptoggle('s')">s</button><button id="btnept" class="vinvbtn" type="button" onclick="ceptoggle('t')">t</button><button id="btnepv" class="vinvbtn" type="button" onclick="ceptoggle('v')">v</button><button id="btnepw" class="vinvbtn" type="button" onclick="ceptoggle('w')">w</button><button id="btnepx" class="vinvbtn" type="button" onclick="ceptoggle('x')">x</button><button id="btnepz" class="vinvbtn" type="button" onclick="ceptoggle('z')">z</button></div>
+		<div>Vowel for insertion: <button id="btnepa" class="vinvbtn" type="button" onclick="veptoggle('a')">a</button><button id="btnepe" class="vinvbtn" type="button" onclick="veptoggle('e')">e</button><button id="btnepi" class="vinvbtn" type="button" onclick="veptoggle('i')">i</button><button id="btnepo" class="vinvbtn" type="button" onclick="veptoggle('o')">o</button><button id="btnepu" class="vinvbtn" type="button" onclick="veptoggle('u')">u</button><button id="btnepbiga" class="vinvbtn" type="button" onclick="veptoggle('A')">A</button><button id="btnepbige" class="vinvbtn" type="button" onclick="veptoggle('E')">E</button><button id="btnepbigo" class="vinvbtn" type="button" onclick="veptoggle('O')">O</button><button id="btnepbigu" class="vinvbtn" type="button" onclick="veptoggle('U')">U</button></div>
 
+		<br>
 		<div>
-			<button type="button" onclick="renew_language()">Renew</button>
+			<button type="button" onclick="renew_language()">Generate language with these parameters</button>
 		</div>
 
+	</div> <!-- End of parameters -->
+
+	<div id="manualinputs" class="manual" style="max-width:320; display:inline-block; vertical-align:top; padding-left:20px; padding-top:10px;">
+		<p><b>Manually define a training and test set:</b> Enter your training and test examples in the spaces below. Use one line per input-output pair, with a comma (no spaces) separating the input and output.</p>
+
+		<div>Training set</div>
+		<textarea id="traintextarea" cols="30" rows="5" maxlength="5000"></textarea>
+
+		<br><br>
+		<div>Test set</div>
+		<textarea id="testtextarea" cols="30" rows="5" maxlength="120"></textarea>
+		
+		<br>
+		<button onclick="random_language(false)">Use the above training and test sets</button>
+		<div id="errorarea"></div>
 	</div>
+
+	</div> <!-- End of advanced settings -->
 
 
 	<div style="float: left; padding: 10px;">
@@ -108,7 +148,7 @@
 
 	<div style="float: left; padding: 10px;">
 
-		<div style="text-align: center; padding: 10px;"><b>Test set predictions</b></div>
+		<div style="text-align: center; padding: 10px;"><b>Test set predictions after training on <span id="traincount2">0</span> <span id="exsing">examples</span></b></div>
 		<div>
 			<table class="hor-minimalist-a">
 				<tr class="top">
@@ -168,12 +208,14 @@
 
 <p>The meta-initialized model can typically learn any of these syllable structure mappings from fewer than 100 examples&mdash;sometimes substantially fewer. In contrast, after the same number of examples, the outputs of the randomly initialized model are usually nowhere near the correct answers.</p>
 
-<p>How many examples does the randomly-initialized model need to begin performing well? The table below should give some sense of this; it contains data from one language for each of the 8 abstract categories of languages that we use in our experiments. On these languages, the randomly-initialized model typically needs a few thousand examples, compared to a few dozen for the meta-initialized model.</p>
+<p>How many examples does the randomly-initialized model need before it begins performing well? The table below should give some sense of this; it contains data from one language for each of the 8 abstract categories of languages that we use in our experiments. On these languages, the randomly-initialized model typically needs a few thousand examples, compared to a few dozen for the meta-initialized model.</p>
 
 <div style="margin:auto">
-<div style="width:600px; margin:auto;">
+<div style="max-width:600px; margin:auto;">
+	<div>Click to select language type:</div>
+	<div>(defined by a constraint ranking)</div>
 	<div class="dropdown">
-  		<button onclick="dropFunction2()" class="dropbtn" id="rankbtn2">Choose constraint ranking</button>
+  		<button onclick="dropFunction2()" class="dropbtn" id="rankbtn2" style="padding:16px;">Choose constraint ranking</button>
   		<div id="myDropdown2" class="dropdown-content">
     		<a onclick="change_thousands(4, '(0, 1, 2, 3)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoDeletion &#187; NoInsertion</span></a>
   			<a onclick="change_thousands(7, '(0, 1, 3, 2)')"><span style='font-variant:small-caps;'>Onset, NoCoda, NoInsertion &#187; NoDeletion</span></a>
@@ -186,16 +228,10 @@
 		</div>
 	</div>
 
-
-
-
-
-
-
 </div>
 </div>
-
-<div class="outertable" id="thousands1">
+<br>
+<div class="outertable" id="thousands1" style="max-width:600">
 <table class="thousands">
 	<tr>
 		<th>input</th>
@@ -215,7 +251,7 @@
 	<tr>
 		<td>uttxr</td>
 		<td>.u.</td>
-		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>pzrrrrrrrr</span></td>
 		<td><span style='color: red'>.u.xu.</span></td>
 		<td><span style='color: green'>.u.</span></td>
 		<td><span style='color: green'>.u.</span></td>
@@ -230,7 +266,7 @@
 	<tr>
 		<td>raxur</td>
 		<td>.ra.xu.</td>
-		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>pzrrrrrrrr</span></td>
 		<td><span style='color: green'>.ra.xu.</span></td>
 		<td><span style='color: green'>.ra.xu.</span></td>
 		<td><span style='color: green'>.ra.xu.</span></td>
@@ -245,7 +281,7 @@
 	<tr>
 		<td>Oar</td>
 		<td>.O.a.</td>
-		<td><span style='color: red'>pzllllllll</td></span>
+		<td><span style='color: red'>pzrrrrrrrr</td></span>
 		<td><span style='color: red'>.O.ra.</span></td>
 		<td><span style='color: green'>.O.a.</span></td>
 		<td><span style='color: green'>.O.a.</span></td>
@@ -260,7 +296,7 @@
 	<tr>
 		<td>atrau</td>
 		<td>.a.ra.u.</td>
-		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>pzrrrrrrrr</span></td>
 		<td><span style='color: red'>.a.ra.</span></td>
 		<td><span style='color: green'>.a.ra.u.</span></td>
 		<td><span style='color: green'>.a.ru.u.</span></td>
@@ -275,7 +311,7 @@
 	<tr>
 		<td>tOuxa</td>
 		<td>.tO.u.xa.</td>
-		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>pzrrrrrrrr</span></td>
 		<td><span style='color: red'>.tO.xo.x.</span></td>
 		<td><span style='color: green'>.tO.u.xa.</span></td>
 		<td><span style='color: green'>.tO.u.xa.</span></td>
@@ -290,7 +326,7 @@
 	<tr>
 		<td>xruto</td>
 		<td>.ru.tO.</td>
-		<td><span style='color: red'>plllllllll</span></td>
+		<td><span style='color: red'>prrrrrrrrr</span></td>
 		<td><span style='color: red'>.tu.xO.</span></td>
 		<td><span style='color: red'>.tu.</span></td>
 		<td><span style='color: green'>.ru.tO.</span></td>
@@ -305,7 +341,7 @@
 	<tr>
 		<td>xOxra</td>
 		<td>.xO.ra.</td>
-		<td><span style='color: red'>pzllllllll</span></td>
+		<td><span style='color: red'>pzrrrrrrrr</span></td>
 		<td><span style='color: red'>.xO.xa.</span></td>
 		<td><span style='color: red'>.xO.xa.</span></td>
 		<td><span style='color: green'>.xO.ra.</span></td>
@@ -320,7 +356,7 @@
 	<tr>
 		<td>uuuuO</td>
 		<td>.u.u.u.u.O.</td>
-		<td><span style='color: red'>xhIjjjjjjj</span></td>
+		<td><span style='color: red'>xhUjjjjjjj</span></td>
 		<td><span style='color: red'>.u.uu.O..</span></td>
 		<td><span style='color: red'>.u.u.u.u.</span></td>
 		<td><span style='color: green'>.u.u.u.u.O.</span></td>
@@ -335,7 +371,7 @@
 	<tr>
 		<td>xt</td>
 		<td>&lt;empty&gt;</td>
-		<td><span style='color: red'>plllllllll</td></span>
+		<td><span style='color: red'>prrrrrrrrr</td></span>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
@@ -382,19 +418,19 @@
 		<th>10000 iterations</th>
 	</tr>
 	<tr>
-		<td>IIEm</td>
-		<td>.I.I.Em.</td>
+		<td>UUEm</td>
+		<td>.U.U.Em.</td>
 		<td><span style='color: red'>emmm....Ok</td></span>
-		<td><span style='color: red'>.I.mI.E..</span></td>
-		<td><span style='color: red'>.I.E.m</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: red'>.I.I.E.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
-		<td><span style='color: green'>.I.I.Em.</span></td>
+		<td><span style='color: red'>.U.mU.E..</span></td>
+		<td><span style='color: red'>.U.E.m</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: red'>.U.U.E.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
+		<td><span style='color: green'>.U.U.Em.</span></td>
 	</tr>
 	<tr>
 		<td>pppE</td>
@@ -412,19 +448,19 @@
 		<td><span style='color: green'>.pEp.pE.</span></td>
 	</tr>
 	<tr>
-		<td>ImE</td>
-		<td>.I.mE.</td>
+		<td>UmE</td>
+		<td>.U.mE.</td>
 		<td><span style='color: red'>emmm....Ok</span></td>
-		<td><span style='color: red'>.I.mE..</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
-		<td><span style='color: green'>.I.mE.</span></td>
+		<td><span style='color: red'>.U.mE..</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
+		<td><span style='color: green'>.U.mE.</span></td>
 	</tr>
 	<tr>
 		<td>&lt;empty&gt;</td>
@@ -442,19 +478,19 @@
 		<td><span style='color: red'>.cE.</span></td>
 	</tr>
 	<tr>
-		<td>xEpcI</td>
-		<td>.xEp.cI.</td>
+		<td>xEpcU</td>
+		<td>.xEp.cU.</td>
 		<td><span style='color: red'>eNmmm....O</span></td>
 		<td><span style='color: red'>.xE.......</span></td>
-		<td><span style='color: red'>.xE..pE..I.</span></td>
-		<td><span style='color: red'>.xE..pI.</span></td>
-		<td><span style='color: red'>.xE..cc.II.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
-		<td><span style='color: green'>.xEp.cI.</span></td>
+		<td><span style='color: red'>.xE..pE..U.</span></td>
+		<td><span style='color: red'>.xE..pU.</span></td>
+		<td><span style='color: red'>.xE..cc.UU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
+		<td><span style='color: green'>.xEp.cU.</span></td>
 	</tr>
 	<tr>
 		<td>mExE</td>
@@ -472,19 +508,19 @@
 		<td><span style='color: green'>.mE.xE.</span></td>
 	</tr>
 	<tr>
-		<td>IIIEE</td>
-		<td>.I.I.I.E.E.</td>
+		<td>UUUEE</td>
+		<td>.U.U.U.E.E.</td>
 		<td><span style='color: red'>emmm....Ok</span></td>
-		<td><span style='color: red'>.I.II.E.E..</span></td>
-		<td><span style='color: red'>.I.I.EE.</span></td>
-		<td><span style='color: red'>.I.I.I.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</span></td>
-		<td><span style='color: green'>.I.I.I.E.E.</td></span>
+		<td><span style='color: red'>.U.UU.E.E..</span></td>
+		<td><span style='color: red'>.U.U.EE.</span></td>
+		<td><span style='color: red'>.U.U.U.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</span></td>
+		<td><span style='color: green'>.U.U.U.E.E.</td></span>
 	</tr>
 	<tr>
 		<td>Exppp</td>
@@ -502,34 +538,34 @@
 		<td><span style='color: green'>.E.xEp.pEp.</span></td> 
 	</tr>
 	<tr>
-		<td>IpEIc</td>
-		<td>.I.pE.Ic.</td>
+		<td>UpEUc</td>
+		<td>.U.pE.Uc.</td>
 		<td><span style='color: red'>emmm....O</td></span>
-		<td><span style='color: red'>.I..pE.E...</span></td>
-		<td><span style='color: red'>.I.pE.I..</span></td>
-		<td><span style='color: red'>.I.pE.cc.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
-		<td><span style='color: green'>.I.pE.Ic.</span></td>
+		<td><span style='color: red'>.U..pE.E...</span></td>
+		<td><span style='color: red'>.U.pE.U..</span></td>
+		<td><span style='color: red'>.U.pE.cc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
+		<td><span style='color: green'>.U.pE.Uc.</span></td>
 	</tr>
 	<tr>
-		<td>EIIpm</td>
-		<td>.E.I.I.pEm.</td>
+		<td>EUUpm</td>
+		<td>.E.U.U.pEm.</td>
 		<td><span style='color: red'>emmm....Ok</span></td>
-		<td><span style='color: red'>.I.E..E..E.</span></td>
-		<td><span style='color: red'>.E.I.pEp.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
-		<td><span style='color: green'>.E.I.I.pEm.</span></td>
+		<td><span style='color: red'>.U.E..E..E.</span></td>
+		<td><span style='color: red'>.E.U.pEp.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
+		<td><span style='color: green'>.E.U.U.pEm.</span></td>
 	</tr>
 </table></div>
 
@@ -552,55 +588,55 @@
 		<th>10,000 iterations</th>
 	</tr>
 	<tr>
-		<td>Uktt</td>
-		<td>.kUk.tIt.</td>
-		<td><span style='color: red'>I.kI.kkI..</span></td>
-		<td><span style='color: red'>.kU.tIt.</span></td>
-		<td><span style='color: red'>.kUk.IIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
-		<td><span style='color: green'>.kUk.tIt.</span></td>
+		<td>Aktt</td>
+		<td>.kAk.tUt.</td>
+		<td><span style='color: red'>U.kA.kkU..</span></td>
+		<td><span style='color: red'>.kA.tUt.</span></td>
+		<td><span style='color: red'>.kAk.UUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
+		<td><span style='color: green'>.kAk.tUt.</span></td>
 	</tr>
 	<tr>
 		<td>aukk</td>
-		<td>.ka.ku.kIk.</td>
-		<td><span style='color: red'>II.kkI..k</span></td>
+		<td>.ka.ku.kUk.</td>
+		<td><span style='color: red'>UU.kkU..k</span></td>
 		<td><span style='color: red'>.ka.kukk</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
-		<td><span style='color: green'>.ka.ku.kIk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
+		<td><span style='color: green'>.ka.ku.kUk.</span></td>
 	</tr>
 	<tr>
-		<td>Ita</td>
-		<td>.kI.ta.</td>
-		<td><span style='color: red'>II.kkI..kk</span></td>
-		<td><span style='color: red'>.kI.ka..</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
-		<td><span style='color: green'>.kI.ta.</span></td>
+		<td>Uta</td>
+		<td>.kU.ta.</td>
+		<td><span style='color: red'>UU.kkU..kk</span></td>
+		<td><span style='color: red'>.kU.ka..</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
+		<td><span style='color: green'>.kU.ta.</span></td>
 	</tr>
 	<tr>
 		<td>tak</td>
 		<td>.tak.</td>
-		<td><span style='color: red'>II.kkI..kk</td></span>
-		<td><span style='color: red'>.tI..</span></td>
+		<td><span style='color: red'>UU.kkU..kk</td></span>
+		<td><span style='color: red'>.tU..</span></td>
 		<td><span style='color: red'>.ta.k</span></td>
 		<td><span style='color: green'>.tak.</span></td>
 		<td><span style='color: green'>.tak.</span></td>
@@ -612,54 +648,54 @@
 		<td><span style='color: red'>.ta.kak.</span></td>
 	</tr>
 	<tr>
-		<td>ttktU</td>
-		<td>.tI.tIk.tU.</td>
+		<td>ttktA</td>
+		<td>.tU.tUk.tA.</td>
 		<td><span style='color: red'>nkaaaaaaaa</span></td>
-		<td><span style='color: red'>.tI.tIt.</span></td>
-		<td><span style='color: red'>.tI..It.kU.</span></td>
-		<td><span style='color: red'>.tI.tIt.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td> 
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
-		<td><span style='color: green'>.tI.tIk.tU.</span></td>
+		<td><span style='color: red'>.tU.tUt.</span></td>
+		<td><span style='color: red'>.tU..Ut.kA.</span></td>
+		<td><span style='color: red'>.tU.tUt.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td> 
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
+		<td><span style='color: green'>.tU.tUk.tA.</span></td>
 	</tr>
 	<tr>
-		<td>ItUIa</td>
-		<td>.kI.tU.kI.ka.</td>
-		<td><span style='color: red'>II.kkI..kk</span></td>
-		<td><span style='color: red'>.kI.kI.ka.ka.</span></td>
-		<td><span style='color: red'>.kI.tU.kU.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
-		<td><span style='color: green'>.kI.tU.kI.ka.</span></td>
+		<td>UtAUa</td>
+		<td>.kU.tA.kU.ka.</td>
+		<td><span style='color: red'>UU.kkU..kk</span></td>
+		<td><span style='color: red'>.kU.kU.ka.ka.</span></td>
+		<td><span style='color: red'>.kU.tA.kA.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
+		<td><span style='color: green'>.kU.tA.kU.ka.</span></td>
 	</tr>
 	<tr>
-		<td>kuIta</td>
-		<td>.ku.kI.ta.</td>
-		<td><span style='color: red'>I.kI.kkI..</span></td>
-		<td><span style='color: red'>.kU.kI.ka..</span></td>
-		<td><span style='color: red'>.ku.kI.tI.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
-		<td><span style='color: green'>.ku.kI.ta.</span></td>
+		<td>kuUta</td>
+		<td>.ku.kU.ta.</td>
+		<td><span style='color: red'>U.kU.kkU..</span></td>
+		<td><span style='color: red'>.kU.kU.ka..</span></td>
+		<td><span style='color: red'>.ku.kU.tU.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
+		<td><span style='color: green'>.ku.kU.ta.</span></td>
 	</tr>
 	<tr>
 		<td>katta</td>
 		<td>.kat.ta.</td>
-		<td><span style='color: red'>I.kI.kkI..</span></td>
+		<td><span style='color: red'>U.kU.kkU..</span></td>
 		<td><span style='color: red'>.ka.tat..</span></td>
 		<td><span style='color: green'>.kat.ta.</span></td>
 		<td><span style='color: green'>.kat.ta.</span></td>
@@ -672,24 +708,24 @@
 		<td><span style='color: green'>.kat.ta.</span></td>
 	</tr>
 	<tr>
-		<td>I</td>
-		<td>.kI.</td>
-		<td><span style='color: red'>IIkkkaaaaa</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
-		<td><span style='color: green'>.kI.</span></td>
+		<td>U</td>
+		<td>.kU.</td>
+		<td><span style='color: red'>UUkkkaaaaa</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
+		<td><span style='color: green'>.kU.</span></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>kattu</td>
 		<td>.kat.tu.</td>
-		<td><span style='color: red'>I.kkI..kkI</span></td>
+		<td><span style='color: red'>U.kkU..kkU</span></td>
 		<td><span style='color: red'>.ka.tut</span></td>
 		<td><span style='color: red'>.kat.ku.</span></td>
 		<td><span style='color: green'>.kat.tu.</span></td>
@@ -1228,34 +1264,34 @@
 		<th>10,000 iterations</th>
 	</tr>
 	<tr>
-		<td>Iulu</td>
-		<td>.lu.</td>
+		<td>Uuru</td>
+		<td>.ru.</td>
 		<td><span style='color: red'>ssssssssss</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
-		<td><span style='color: green'>.lu.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
+		<td><span style='color: green'>.ru.</span></td>
 	</tr>
 	<tr>
-		<td>lIj</td>
-		<td>.lI.</td>
+		<td>rUj</td>
+		<td>.rU.</td>
 		<td><span style='color: red'>jfffffffff</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
-		<td><span style='color: green'>.lI.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
+		<td><span style='color: green'>.rU.</span></td>
 	</tr>
 	<tr>
 		<td>udub</td>
@@ -1273,7 +1309,7 @@
 		<td><span style='color: green'>.du.</span></td>
 	</tr>
 	<tr>
-		<td>uIIII</td>
+		<td>uUUUU</td>
 		<td>&lt;empty&gt;</td>
 		<td><span style='color: red'>kmffffffff</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
@@ -1288,7 +1324,7 @@
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
-		<td>jIu</td>
+		<td>jUu</td>
 		<td>.ju.</td>
 		<td><span style='color: red'>kmffffffff</span></td>
 		<td><span style='color: green'>.ju.</span></td>
@@ -1303,7 +1339,7 @@
 		<td><span style='color: green'>.ju.</span></td>
 	</tr>
 	<tr>
-		<td>uIuIu</td>
+		<td>uUuUu</td>
 		<td>&lt;empty&gt;</td>
 		<td><span style='color: red'>ssssssssss</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td> 
@@ -1318,22 +1354,22 @@
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
-		<td>bbudI</td>
-		<td>.bu.dI.</td>
+		<td>bbudU</td>
+		<td>.bu.dU.</td>
 		<td><span style='color: red'>kmffffffff</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
-		<td><span style='color: green'>.bu.dI.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
+		<td><span style='color: green'>.bu.dU.</span></td>
 	</tr>
 	<tr>
-		<td>Iubjj</td>
+		<td>Uubjj</td>
 		<td>&lt;empty&gt;</td>
 		<td><span style='color: red'>jfffffffff</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
@@ -1348,7 +1384,7 @@
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
-		<td>II</td>
+		<td>UU</td>
 		<td>&lt;empty&gt;</td>
 		<td><span style='color: red'>kmffffffff</span></td>
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
@@ -1363,19 +1399,19 @@
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
-		<td>juIb</td>
-		<td>.jI.</td>
+		<td>juUb</td>
+		<td>.jU.</td>
 		<td><span style='color: red'>kmffffffff</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
-		<td><span style='color: green'>.jI.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
+		<td><span style='color: green'>.jU.</span></td>
 	</tr>
 </table></div>
 
@@ -1398,24 +1434,24 @@
 		<th>10,000 iterations</th>
 	</tr>
 	<tr>
-		<td>fIxa</td>
-		<td>.fI.xa.</td>
+		<td>fUxa</td>
+		<td>.fU.xa.</td>
 		<td><span style='color: red'>g.xwiiss.l</span></td>
-		<td><span style='color: red'>.fI.fI..</span></td>
-		<td><span style='color: red'>.fI..a.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
-		<td><span style='color: green'>.fI.xa.</span></td>
+		<td><span style='color: red'>.fU.fU..</span></td>
+		<td><span style='color: red'>.fU..a.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
+		<td><span style='color: green'>.fU.xa.</span></td>
 	</tr>
 	<tr>
 		<td>ama</td>
 		<td>.ma.</td>
-		<td><span style='color: red'>..is.islg.</span></td>
+		<td><span style='color: red'>..is.isrg.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
@@ -1443,54 +1479,54 @@
 		<td><span style='color: green'>&lt;empty&gt;</span></td>
 	</tr>
 	<tr>
-		<td>faxII</td>
-		<td>.fa.xI.</td>
+		<td>faxUU</td>
+		<td>.fa.xU.</td>
 		<td><span style='color: red'>eg.xwiisse</span></td>
-		<td><span style='color: red'>.fI..I.</span></td>
-		<td><span style='color: red'>.fI.fI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
-		<td><span style='color: green'>.fa.xI.</span></td>
+		<td><span style='color: red'>.fU..U.</span></td>
+		<td><span style='color: red'>.fU.fU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
+		<td><span style='color: green'>.fa.xU.</span></td>
 	</tr>
 	<tr>
-		<td>axIII</td>
-		<td>.xI.</td>
+		<td>axUUU</td>
+		<td>.xU.</td>
 		<td><span style='color: red'>egk.xiiss.</span></td>
-		<td><span style='color: red'>.xI..II.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: red'>.xU..UU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
 	</tr>
 	<tr>
-		<td>axI</td>
-		<td>.xI.</td>
+		<td>axU</td>
+		<td>.xU.</td>
 		<td><span style='color: red'>eg.xwiisse</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
-		<td><span style='color: green'>.xI.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
+		<td><span style='color: green'>.xU.</span></td>
 	</tr>
 	<tr>
-		<td>Ifaaa</td>
+		<td>Ufaaa</td>
 		<td>.fa.</td>
-		<td><span style='color: red'>..xiiss.li</span></td>
+		<td><span style='color: red'>..xiiss.ri</span></td>
 		<td><span style='color: green'>.fa.</span></td>
 		<td><span style='color: green'>.fa.</span></td>
 		<td><span style='color: green'>.fa.</span></td>
@@ -1503,39 +1539,39 @@
 		<td><span style='color: green'>.fa.</span></td>
 	</tr>
 	<tr>
-		<td>xdId</td>
-		<td>.dId.</td>
-		<td><span style='color: red'>Ik.islg.xi</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
-		<td><span style='color: green'>.dId.</span></td>
+		<td>xdUd</td>
+		<td>.dUd.</td>
+		<td><span style='color: red'>Uk.isrg.xi</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
+		<td><span style='color: green'>.dUd.</span></td>
 	</tr>
 	<tr>
-		<td>IxfdI</td>
-		<td>.dI.</td>
-		<td><span style='color: red'>f.l.iiss.l</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
-		<td><span style='color: green'>.dI.</span></td>
+		<td>UxfdU</td>
+		<td>.dU.</td>
+		<td><span style='color: red'>f.r.iiss.r</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
+		<td><span style='color: green'>.dU.</span></td>
 	</tr>
 	<tr>
 		<td>mxma</td>
 		<td>.ma.</td>
-		<td><span style='color: red'>..is.islg.</span></td>
+		<td><span style='color: red'>..is.isrg.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
 		<td><span style='color: green'>.ma.</span></td>
@@ -1549,23 +1585,27 @@
 	</tr>
 </table></div>
 
-<br>
+<div style="padding-top: 15px; padding-bottom: 40px; padding-left: 100px; padding-right: 100px; font-size: 13px;">
+	<em>The performance of a randomly-initialized model after being trained on various numbers of examples. You may need to scroll to the right to see the full table.</em>
+</div>
+
+
 <h2>Generalization</h2>
 
 <p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
 
-<p>The figure below shows how meta-learning facilitates three types of generalization: generalization to a novel length, generalization to novel symbols, and generalization to novel input structures (implicational universals). In each case, we train our model on a training set which has certain types of examples withheld, then evaluate it on the withheld class of examples.</p>
+<p>The figure below shows how meta-learning facilitates three types of generalization: generalization to a novel length, generalization to novel symbols, and generalization to novel input structures (implicational universals). In each case, we train our model on a training set which has certain types of examples withheld, then evaluate it on the withheld class of examples. Click the tabs above the figure to explore these three types of generalization.</p>
 
 <div style="margin: auto;">
 <div style="margin: auto; max-width:670px;">
-<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;">Implicational universals</div>
+<div id="lengthbtn" onClick="toggle_pos('length')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel<br> lengths</div><div id="newbtn" onClick="toggle_pos('new')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Novel symbols</div><div id="impbtn" onClick="toggle_pos('imp')" style="height: 40px; width: 100px;display: inline-block;border-style:solid;padding:10px;cursor:pointer;">Implicational universals</div>
 </div>
 </div>
 
 
 <div id="pos_length_container" style="margin: auto;">
 
-<div id="pos_length" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+<div id="pos_length" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
 		<b>Generalization to a novel length:</b> Models are trained on inputs of length at most 4, then evaluated on inputs of the type they have seen before or on longer inputs.
 	</div>
@@ -1620,30 +1660,6 @@
 					<td class='cell'><div style='color: green'>.ja.xE.ka.</div></td>
 					<td class='cellcollapsible'><div style='color: green'>.ja.xE.ka.</div></td>
 				</tr>
-		<!--		<tr>
-                    <td class='cell'><div>kO</div></td>
-                    <td class='cell'><div>.kO.</div></td>
-                    <td class='cell'><div style='color: green'>.kO.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.ko.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>kEik</div></td>
-                    <td class='cell'><div>.kE.ji.ka.</div></td>
-                    <td class='cell'><div style='color: green'>.kE.ji.ka.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.kE.ji.ka.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>kkx</div></td>
-                    <td class='cell'><div>.ka.ka.xa.</div></td>
-                    <td class='cell'><div style='color: green'>.ka.ka.xa.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.ka.ka.xa.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>j</div></td>
-                    <td class='cell'><div>.ja.</div></td>
-                    <td class='cell'><div style='color: green'>.ja.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.ja.</div></td>
-                </tr> -->
 			</table>
 	</div>
 
@@ -1698,33 +1714,15 @@
 					<td class='cell'><div style='color: green'>.jO.jE.jO.ja.</div></td>
 					<td class='cellcollapsible'><div style='color: red'>.jO.jE.jO.</div></td>
 				</tr>
-		<!--		<tr>
-                    <td class='cell'><div>xjOka</div></td>
-                    <td class='cell'><div>.xa.jO.ka.</div></td>
-                    <td class='cell'><div style='color: green'>.xa.jO.ka.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.xa.jO.ka.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>akEja</div></td>
-                    <td class='cell'><div>.ja.kE.ja.</div></td>
-                    <td class='cell'><div style='color: green'>.ja.kE.ja.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.ja.kE.ja.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>EiEEk</div></td>
-                    <td class='cell'><div>.jE.ji.jE.jE.ka.</div></td>
-                    <td class='cell'><div style='color: green'>.jE.ji.jE.jE.ka.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.jE.ji.jE.ka.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>kakjk</div></td>
-                    <td class='cell'><div>.ka.ka.ja.ka.</div></td>
-                    <td class='cell'><div style='color: green'>.ka.ka.ja.ka.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.ka.ka.ja.ka.</div></td>
-                </tr> -->
 			</table>
 
 	</div>
+<br><br>
+<div>
+<b>Comments:</b> During meta-training, all languages featured inputs up to length 5. Thus, this experiment only requires generalization within the bounds seen during meta-learning. We also tested how models generalized from lengths at most 5 to length 6; in this case, the model initialized with meta-learning did not perform as well as it does in generalizing to length 5, suggesting that its generalization capabilities are restricted to the types of patterns seen during meta-learning.
+</div>
+
+
 </div>
 </div>
 
@@ -1732,7 +1730,7 @@
 
 
 <div id="pos_imp_container" style="margin: auto;">
-<div id="pos_imp" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+<div id="pos_imp" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
 		<b>Implicational universal:</b> Models are trained on mappings of the form <em>vowel-consonant &rarr; vowel</em>, then evaluated on generalization to inputs of the form <em>consonant-vowel-consonant</em>. In the framework we use, any language that maps <em>vowel-consonant</em> to <em>vowel</em> will also map <em>consonant-vowel-consonant</em> to <em>consonant-vowel</em>.
 	</div>
@@ -1777,7 +1775,7 @@
 					<td class='cellcollapsible'><div style='color: green'>.o.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>El</div></td>
+					<td class='cell'><div>Er</div></td>
 					<td class='cell'><div>.E.</div></td>
 					<td class='cell'><div style='color: green'>.E.</div></td>
 					<td class='cellcollapsible'><div style='color: green'>.E.</div></td>
@@ -1788,30 +1786,6 @@
 					<td class='cell'><div style='color: green'>.E.</div></td>
 					<td class='cellcollapsible'><div style='color: green'>.E.</div></td>
 				</tr>
-			<!--	<tr>
-                    <td class='cell'><div>ah</div></td>
-                    <td class='cell'><div>.a.</div></td>
-                    <td class='cell'><div style='color: green'>.a.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.a.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>Im</div></td>
-                    <td class='cell'><div>.I.</div></td>
-                    <td class='cell'><div style='color: green'>.I.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.I.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>um</div></td>
-                    <td class='cell'><div>.u.</div></td>
-                    <td class='cell'><div style='color: green'>.u.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.u.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>Ur</div></td>
-                    <td class='cell'><div>.U.</div></td>
-                    <td class='cell'><div style='color: green'>.U.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.U.</div></td>
-                </tr> -->
 			</table>
 	</div>
 
@@ -1832,7 +1806,7 @@
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
 				<tr>
-					<td class='cell'><div>fil</div></td>
+					<td class='cell'><div>fir</div></td>
 					<td class='cell'><div>.fi.</div></td>
 					<td class='cell'><div style='color: green'>.fi.</div></td>
 					<td class='cellcollapsible'><div style='color: red'>.o.</div></td>
@@ -1856,10 +1830,10 @@
 					<td class='cellcollapsible'><div style='color: red'>.o.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>vIk</div></td>
-					<td class='cell'><div>.vI.</div></td>
-					<td class='cell'><div style='color: green'>.vI.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.I.</div></td>
+					<td class='cell'><div>vAk</div></td>
+					<td class='cell'><div>.vA.</div></td>
+					<td class='cell'><div style='color: green'>.vA.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.A.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>cOx</div></td>
@@ -1867,33 +1841,17 @@
 					<td class='cell'><div style='color: green'>.cO.</div></td>
 					<td class='cellcollapsible'><div style='color: red'>.O.</div></td>
 				</tr>
-			<!--	<tr>
-                    <td class='cell'><div>qab</div></td>
-                    <td class='cell'><div>.qa.</div></td>
-                    <td class='cell'><div style='color: green'>.qa.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.a.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>gOx</div></td>
-                    <td class='cell'><div>.gO.</div></td>
-                    <td class='cell'><div style='color: green'>.gO.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.O.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>zOb</div></td>
-                    <td class='cell'><div>.zO.</div></td>
-                    <td class='cell'><div style='color: green'>.zO.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.O.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>dip</div></td>
-                    <td class='cell'><div>.di.</div></td>
-                    <td class='cell'><div style='color: green'>.di.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.i.</div></td>
-                </tr> -->
 			</table>
 
 	</div>
+
+<br><br>
+<div>
+<b>Comments:</b> The randomly-initialized model appears to have learned a constraint on the form of the output, namely that it must consist of a single vowel. This constraint holds for the models' training set but not for the generalization that we test, giving this model poor generalization performance.
+</div>
+
+
+
 </div>
 </div>
 
@@ -1909,9 +1867,9 @@
 
 
 <div id="pos_new_container" style="margin: auto;">
-<div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:blue;">
+<div id="pos_new" style="margin: auto; max-width: 670px;border-style:solid;padding: 20px;border-color:gray;border-radius:15px;">
 	<div>
-		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, I, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
+		<b>Generalization a novel symbols:</b> Models are trained on inputs containing only the symbols <em>E, A, m, x, p,</em> and <em>c</em>, then are tested on generalization to inputs containing novel symbols.
 	</div>
 	<br>
 
@@ -1936,22 +1894,22 @@
 					<td class='cellcollapsible'><div style='color: green'>.E.mEp.mEm.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>ImmmE</div></td>
-					<td class='cell'><div>.I.mEm.mE.</div></td>
-					<td class='cell'><div style='color: green'>.I.mEm.mE.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.I.mEm.mE.</div></td>
+					<td class='cell'><div>AmmmE</div></td>
+					<td class='cell'><div>.A.mEm.mE.</div></td>
+					<td class='cell'><div style='color: green'>.A.mEm.mE.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.A.mEm.mE.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>mxIxp</div></td>
-					<td class='cell'><div>.mE.xI.xEp.</div></td>
-					<td class='cell'><div style='color: green'>.mE.xI.xEp.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.mE.xI.xEp.</div></td>
+					<td class='cell'><div>mxAxp</div></td>
+					<td class='cell'><div>.mE.xA.xEp.</div></td>
+					<td class='cell'><div style='color: green'>.mE.xA.xEp.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.mE.xA.xEp.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>EImEI</div></td>
-					<td class='cell'><div>.E.I.mE.I.</div></td>
-					<td class='cell'><div style='color: green'>.E.I.mE.I.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.E.I.mE.I.</div></td>
+					<td class='cell'><div>EAmEA</div></td>
+					<td class='cell'><div>.E.A.mE.A.</div></td>
+					<td class='cell'><div style='color: green'>.E.A.mE.A.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.E.A.mE.A.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>Em</div></td>
@@ -1960,35 +1918,11 @@
 					<td class='cellcollapsible'><div style='color: green'>.Em.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>pEI</div></td>
-					<td class='cell'><div>.pE.I.</div></td>
-					<td class='cell'><div style='color: green'>.pE.I.</div></td>
-					<td class='cellcollapsible'><div style='color: green'>.pE.I.</div></td>
+					<td class='cell'><div>pEA</div></td>
+					<td class='cell'><div>.pE.A.</div></td>
+					<td class='cell'><div style='color: green'>.pE.A.</div></td>
+					<td class='cellcollapsible'><div style='color: green'>.pE.A.</div></td>
 				</tr>
-			<!--	<tr>
-                    <td class='cell'><div>xII</div></td>
-                    <td class='cell'><div>.xI.I.</div></td>
-                    <td class='cell'><div style='color: green'>.xI.I.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.xI.I.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>mIEEE</div></td>
-                    <td class='cell'><div>.mI.E.E.E.</div></td>
-                    <td class='cell'><div style='color: green'>.mI.E.E.E.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.mI.E.E.E.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>cIEp</div></td>
-                    <td class='cell'><div>.cI.Ep.</div></td>
-                    <td class='cell'><div style='color: green'>.cI.Ep.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.cI.Ep.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>pEmmc</div></td>
-                    <td class='cell'><div>.pEm.mEc.</div></td>
-                    <td class='cell'><div style='color: green'>.pEm.mEc.</div></td>
-                    <td class='cellcollapsible'><div style='color: green'>.pEm.mEc.</div></td>
-                </tr> -->
 			</table>
 
 	</div>
@@ -2009,34 +1943,34 @@
 					<th style="width:75;" class='cellcollapsible'><div class='cell'>Randomly-initialized<br>model's output</div></th>
 				</tr>
 				<tr>
-					<td class='cell'><div>elr</div></td>
-					<td class='cell'><div>.e.lEr.</div></td>
-					<td class='cell'><div style='color: green'>.e.lEr.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.I.E.XE.</div></td>
+					<td class='cell'><div>eXr</div></td>
+					<td class='cell'><div>.e.XEr.</div></td>
+					<td class='cell'><div style='color: green'>.e.XEr.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.A.E.XE.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>Oenw</div></td>
 					<td class='cell'><div>.O.e.nEw.</div></td>
 					<td class='cell'><div style='color: green'>.O.e.nEw.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.I.I.cEc.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.A.A.cEc.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>UUAfi</div></td>
 					<td class='cell'><div>.U.U.A.fi.</div></td>
 					<td class='cell'><div style='color: green'>.U.U.A.fi.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.cE.cI.Em.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.cA.Em.</div></td>
 				</tr>
 				<tr>
-					<td class='cell'><div>kdAli</div></td>
-					<td class='cell'><div>.kE.dA.li.</div></td>
-					<td class='cell'><div style='color: green'>.kE.dA.li.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.cE.Im.</div></td>
+					<td class='cell'><div>kdAri</div></td>
+					<td class='cell'><div>.kE.dA.ri.</div></td>
+					<td class='cell'><div style='color: green'>.kE.dA.ri.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.cE.Am.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>eh</div></td>
 					<td class='cell'><div>.eh.</div></td>
 					<td class='cell'><div style='color: green'>.eh.</div></td>
-					<td class='cellcollapsible'><div style='color: red'>.I.I.</div></td>
+					<td class='cellcollapsible'><div style='color: red'>.A.A.</div></td>
 				</tr>
 				<tr>
 					<td class='cell'><div>tnsvU</div></td>
@@ -2044,32 +1978,15 @@
 					<td class='cell'><div style='color: green'>.tE.nEs.vU.</div></td>
 					<td class='cellcollapsible'><div style='color: red'>.mE.xEm.mEc.</div></td>
 				</tr>
-			<!--	<tr>
-                    <td class='cell'><div>fA</div></td>
-                    <td class='cell'><div>.fA.</div></td>
-                    <td class='cell'><div style='color: green'>.fA.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.E.I.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>gijru</div></td>
-                    <td class='cell'><div>.gij.ru.</div></td>
-                    <td class='cell'><div style='color: red'>.gig.ru.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.E.mI.cI.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>egfAu</div></td>
-                    <td class='cell'><div>.eg.fA.u.</div></td>
-                    <td class='cell'><div style='color: red'>.eg.gA.u.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.I.E.E.I.I.</div></td>
-                </tr>
-				<tr>
-                    <td class='cell'><div>Ulosj</div></td>
-                    <td class='cell'><div>.U.lo.sEj.</div></td>
-                    <td class='cell'><div style='color: green'>.U.lo.sEj.</div></td>
-                    <td class='cellcollapsible'><div style='color: red'>.cE.xE.pIp.</div></td>
-                </tr> -->
 			</table>
 	</div>
+
+<br><br>
+<div>
+<b>Comments:</b> The randomly-initialized model has no hope of success in this case, since it has no way to know whether each novel symbol is a consonant or vowel, which is critical information for processing each input. However, the mea-initialized model could have learned this information during its meta-training phase, and its successful generalization shows that it has indeed done so.
+</div>
+
+
 </div>
 </div>
 
@@ -2092,7 +2009,7 @@
 		<li>Analyze the model to verify that meta-learning has given it the intended inductive biases.</li>
 	</ol>
 
-	<p>The core component of our method is meta-learning; the particular type of meta-learning that we use is MAML. In MAML, a model is exposed to a variety of tasks, each of which comes with a limited amount of data. After exposure to each task, the model's weights are adjusted so that, if it were taught the same task again, it would perform better. As MAML proceeds, the model converges to an initial state from which it can readily learn any task in the distribution of tasks it has been shown. The demo below gives an example of MAML.</p>
+	<p>The core component of our method is meta-learning; the particular type of meta-learning that we use is <a href="http://proceedings.mlr.press/v70/finn17a/finn17a.pdf">MAML</a>. In MAML, a model is exposed to a variety of tasks, each of which comes with a limited amount of data. After exposure to each task, the model's weights are adjusted so that, if it were taught the same task again, it would perform better. As MAML proceeds, the model converges to an initial state from which it can readily learn any task in the distribution of tasks it has been shown. The demo below gives an example of MAML.</p>
 
 
 
@@ -2137,12 +2054,21 @@
 
 	<p>If meta-learning is successful, the model's initialization will encode some set of inductive biases that are useful for learning the space of tasks that the model is being shown. In the demo, the initialization that the model converges to encodes a bias for the slope to be close to -3 and for the intercept to be close to -2.</p>
 
-	<p>The biases that can be encoded in this way are very simple for the 2-parameter linear model in the demo, but standard models have many more parameters (often tens of millions of parameters, or even 175 billion parameters), leaving room for much more sophisticated biases to be encoded.</p>
+	<p>The biases that can be encoded in this way are very simple for the 2-parameter linear model in the demo. For example, it is possible to encode a bias for the slope to be close to -3 and for the intercept to be close to -2, but it is not possible to encode a bias for these parameters to lie exactly on the perimeter of the circle in the left plot. However, standard models have many more parameters (often tens of millions of parameters, or even <a href="https://arxiv.org/pdf/2005.14165.pdf">175 billion parameters</a>), leaving room for much more sophisticated biases to be encoded.</p>
 
 	<p>In our application of meta-learning, each “task” is a language, and the goal is to find a set of initial parameter values that allow the model to quickly learn any language. We hypothesize that, if we carefully construct the space of languages used during meta-learning to encode a desired set of inductive biases, we can find an initial parameter setting that will give the model these inductive biases.</p>
 
 <h2>Conclusions and future directions</h2>
 
+<p>We have shown how meta-learning can impart inductive biases specified by the modeler. While the meta-learned biases are not as transparent as those encoded in probabilistic symbolic models, analysis of the model's learning behavior can be used to evaluate whether meta-learning has produced the desired biases, as we have shown. Our case study demonstrates that linguistic inductive biases that have previously been framed in symbolic terms can be reformulated in the context of neural networks, facilitating cognitive modeling that combines the power of neural networks with the controlled inductive biases of symbolic methods.</p>
+
+<p>In future work, we plan to use this approach to study open questions in cognitive science. For example, by creating a model that has a particular bias which has been argued to be important for human cognition, we can empirically test whether the bias has the explanatory power that it has been argued to have. Alternately, while our case study involved giving a model certain pre-selected biases, this approach could instead be applied to naturally-occurring linguistic data to lend insight into the inductive biases that shaped this data. Finally, this approach might have applications in Artificial Intelligence: By giving targeted, cognitively-motivated learning biases to models, we may be able to decrease the gap between the learning capabilities of AI models and humans.</p>
+
+<p><em>See <a href="">the full paper</a> for more details. If you have questions or comments, email <a href="mailto:tom.mccoy@jhu.edu">tom.mccoy@jhu.edu</a>.</em></p>
+
+<p style="text-align: center">*****</p>
+
+<p><em>Some fine print about this website: The demos differ from the experiments in the paper in a few ways designed to decrease the computation load for the website. First, the models on the website are GRUs, while in the paper we used LSTMs. Second, training in the demos uses a batch size of 1 with stochastic gradient descent, while the paper uses a batch size of 10 with the Adam optimizer. Thus, the performance of the demo models is not guaranteed to be the same as the performance of the models used in the paper. Finally, on this page, we have excluded any examples containing lowercase L or capital i, as the similarity of these letters sometimes makes examples hard to read, but both letters were available in the experiments in the paper.</em></p>
 
 </div>
 
@@ -2178,8 +2104,8 @@ function toggle_pos(pos_type) {
 
 	document.getElementById("pos_" + pos_type + "_container").style.display = "block";
 
-	document.getElementById(pos_type + "btn").style.backgroundColor = "blue";
-	document.getElementById(pos_type + "btn").style.borderColor = "blue";
+	document.getElementById(pos_type + "btn").style.backgroundColor = "gray";
+	document.getElementById(pos_type + "btn").style.borderColor = "gray";
 	document.getElementById(pos_type + "btn").style.color = "white";
 
 }
@@ -2220,10 +2146,12 @@ function toggleshowadv() {
 		document.getElementById("advancedsettings").style.display = "none";
 		showing_adv = false;
 		document.getElementById("advbtntxt").innerHTML = "Show advanced settings";
+		document.getElementById("patterndiv").style.borderBottom = "1pt none black";
 	} else {
 		document.getElementById("advancedsettings").style.display = "block";
 		showing_adv = true;
 		document.getElementById("advbtntxt").innerHTML = "Hide advanced settings";
+		document.getElementById("patterndiv").style.borderBottom = "1pt solid black";
 	}
 } 
 
@@ -2235,8 +2163,8 @@ this_counter = 0;
 manual_ranking = "";
 manual_vowel_inventory = [];
 manual_consonant_inventory = [];
-all_vowels = ["a", "e", "i", "o", "u", "biga", "bige", "bigi", "bigo", "bigu"];
-all_consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
+all_vowels = ["a", "e", "i", "o", "u", "biga", "bige", "bigo", "bigu"];
+all_consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
 
 
 function ranktoggle(ranking) {
@@ -2373,24 +2301,34 @@ vowel_dict = {
 	"u" : "u",
 	"A" : "biga",
 	"E" : "bige",
-	"I" : "bigi",
 	"O" : "bigo",
 	"U" : "bigu",
 	"biga" : "biga",
 	"bige" : "bige",
-	"bigi" : "bigi",
 	"bigo" : "bigo",
 	"bigu" : "bigu"	
 }
 
-function random_language() {
+function random_language(full_random) {
 
 	new_lang = make_task(choice(rankings), all_input_outputs, n_train=200, n_dev=1, n_test=6);
+	
+	if (full_random) {
+		training_set = new_lang[0];
+		training_set.push(["fake", "fake"]);
+		test_set = new_lang[2];
+	} else {
+		results = manual_train_set();
+		if (!results[0]) {
+			return false;
+		} else {
+			training_set = results[1];
+			test_set = results[2];
+		}
+	}
 
 
-	training_set = new_lang[0];
 	dev_set = new_lang[1];
-	test_set = new_lang[2];
 	new_vinv = new_lang[3];
 	new_cinv = new_lang[4];
 
@@ -2410,6 +2348,12 @@ function random_language() {
 	for (spqr = 0; spqr < test_set.length; spqr++) {
 		document.getElementById("inb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][0]);
 		document.getElementById("corrb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][1]);
+	}
+	for (spqr = test_set.length; spqr < 6; spqr++) {
+		document.getElementById("inb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("corrb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("metaoutb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("randomoutb" + (spqr + 1)).innerHTML = "-";
 	}
 
 
@@ -2483,6 +2427,12 @@ function random_language() {
 
 	this_counter = 0;
 	document.getElementById("traincount").innerHTML = this_counter;
+	document.getElementById("traincount2").innerHTML = this_counter;
+	if (this_counter == 1) {
+		document.getElementById("exsing").innerHTML = "example";
+	} else {
+		document.getElementById("exsing").innerHTML = "examples";
+	}
 
 	seen_training = "";
     document.getElementById("trainingexamplelist").innerHTML = seen_training;
@@ -2522,6 +2472,13 @@ function renew_language() {
 		document.getElementById("inb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][0]);
 		document.getElementById("corrb" + (spqr + 1)).innerHTML = nullify(test_set[spqr][1]);
 	}
+	for (spqr = test_set.length; spqr < 6; spqr++) {
+		document.getElementById("inb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("corrb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("metaoutb" + (spqr + 1)).innerHTML = "-";
+		document.getElementById("randomoutb" + (spqr + 1)).innerHTML = "-";
+	}
+
 
 
 	for (v_index = 0; v_index < all_vowels.length; v_index++) {
@@ -2594,6 +2551,13 @@ function renew_language() {
 
 	this_counter = 0;
 	document.getElementById("traincount").innerHTML = this_counter;
+	document.getElementById("traincount2").innerHTML = this_counter;
+	if (this_counter == 1) {
+		document.getElementById("exsing").innerHTML = "example";
+	} else {
+		document.getElementById("exsing").innerHTML = "examples";
+	}
+
 
 	seen_training = "";
     document.getElementById("trainingexamplelist").innerHTML = seen_training;
@@ -2646,8 +2610,8 @@ function trf(x) {
 
 
 
-vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
-consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'O', 'U'];
+consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
 
 function phoneme_inventory(nc=null, nv=null) {
 	if (nc == null) {
@@ -3506,12 +3470,19 @@ for (let epoch = 0; epoch < 1; epoch++) {
 	  	xsm = training_set[this_counter][0];
 		ysm = training_set[this_counter][1];
 		seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
-		console.log("tc", this_counter);
 	  	this_counter += 1;
 		if (this_counter > training_set.length - 1) {
 			document.getElementById("oneexamplebtn").disabled = true;
 		}
 		document.getElementById("traincount").innerHTML = this_counter - 1;
+		document.getElementById("traincount2").innerHTML = this_counter - 1;
+		if (this_counter - 1 == 1) {
+			document.getElementById("exsing").innerHTML = "example";
+		} else {
+			document.getElementById("exsing").innerHTML = "examples";
+		}
+
+
 	  }
       const predYs = tf.tidy(() => seq2seq([xsm],outlength=ysm.length)[1]);
 	  
@@ -3522,7 +3493,6 @@ for (let epoch = 0; epoch < 1; epoch++) {
     });
   });
 
-  console.log('Epoch', epoch);
 }
 
 
@@ -3540,7 +3510,6 @@ function update_display(seq2seq, prefix) {
     }
 			
 	document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
-	console.log("here we are everyone!!!");
   }
 
 	  	document.getElementById("trainingexamplelist").innerHTML = seen_training;
@@ -3548,6 +3517,14 @@ function update_display(seq2seq, prefix) {
 
 
 		document.getElementById("traincount").innerHTML = this_counter;
+		document.getElementById("traincount2").innerHTML = this_counter;
+
+		if (this_counter == 1) {
+			document.getElementById("exsing").innerHTML = "example";
+		} else {
+			document.getElementById("exsing").innerHTML = "examples";
+		}
+
 
 
 
@@ -3569,7 +3546,6 @@ for (let epoch = 0; epoch < 1; epoch++) {
 	  	xsm = training_set[this_counter][0];
 		ysm = training_set[this_counter][1];
 		seen_training = seen_training + nullify(xsm) + " &rarr; " + nullify(ysm) + "<br>";
-		console.log("tc", this_counter);
 	  	this_counter += 1;
 		if (this_counter > training_set.length - 1) {
 			document.getElementById("oneexamplebtn").disabled = true;
@@ -3594,7 +3570,6 @@ for (let epoch = 0; epoch < 1; epoch++) {
     }
 			
 	document.getElementById(prefix + "outb" + (lmnop + 1)).innerHTML = "<span style='color: " + font_color + ";'>" + nullify(pred) + "</span>";
-	console.log("here we are everyone!!!");
   }
 
 	if (add_train) {
@@ -3603,12 +3578,19 @@ for (let epoch = 0; epoch < 1; epoch++) {
 
 
 		document.getElementById("traincount").innerHTML = this_counter - 1;
+		document.getElementById("traincount2").innerHTML = this_counter - 1;
+		if (this_counter - 1 == 1) {
+			document.getElementById("exsing").innerHTML = "example";
+		} else {
+			document.getElementById("exsing").innerHTML = "examples";
+		}
+
+
 	}
 
 
   });
 
-  console.log('Epoch', epoch);
 }
 
 }, 1);
@@ -3619,7 +3601,6 @@ for (let epoch = 0; epoch < 1; epoch++) {
 
 
 
-	  console.log("tfs", test_set_firsts);
 	  preds = tf.tidy(() => seq2seq(test_set_firsts)[0]);
 	  for (lmnop = 0; lmnop < test_set.length; lmnop++) {
 			pred = toz(preds[lmnop])
@@ -4161,6 +4142,78 @@ slider.value = 1;
 slider.oninput = function() {
   //output.innerHTML = this.value;
   pace = Math.sqrt(this.value);
+}
+
+
+
+
+
+function get_manual_set(textarea,max,type,min) {
+	entered_text = document.getElementById(textarea).value;
+
+	train_list = [];
+
+	trainlines = entered_text.split(/\r?\n/)
+	if (trainlines.length == 0) {
+		return [false, "Error: Must input at least one example for the " + type + " and test set"];
+	}
+
+	if (trainlines.length > max) {
+		return [false, "Must input no more than " + max + " examples for the " + type + " set"]
+	}
+
+	
+	for (i = 0; i < trainlines.length; i++) {
+		charlist = trainlines[i].split('');
+		contains_comma = charlist.indexOf(",")
+
+		if (contains_comma == -1) {
+			return [false,"Error: Each " + type + " set line must contain a comma"];
+		}
+
+		in_out_pair = trainlines[i].split(",");
+		if (in_out_pair.length > 2) {
+			return [false, "Each line must contain exactly one comma"];
+		}
+		
+		for (j = 0; j < charlist.length; j++) {
+			thischar = charlist[j];
+
+			if (vowels.indexOf(thischar) == -1 && consonants.indexOf(thischar) == -1 && thischar != "." && thischar != ",") {
+				return [false,"Error: You may not use the character '" + thischar + "'"]
+			}
+
+		}
+		
+		
+
+		train_list.push(in_out_pair);
+	}
+
+	console.log(charlist)
+
+	return [true,train_list];
+	
+}
+
+function manual_train_set() {
+	inputted_train = get_manual_set("traintextarea",1000,"training",5);
+	inputted_test = get_manual_set("testtextarea",6,"test",5);
+	
+	valid_train = inputted_train[0];
+	valid_test = inputted_test[0];
+	if (!valid_train) {
+		document.getElementById("errorarea").innerHTML = inputted_train[1];
+		return [false, false];
+	} else if (!valid_test) {
+		document.getElementById("errorarea").innerHTML = inputted_test[1];
+		return [false, false];
+	} else {
+		document.getElementById("errorarea").innerHTML = "Input processed successfully";
+		inputted_train[1].push(["fake", "fake"]);
+		return [true, inputted_train[1], inputted_test[1]];
+	}
+
 }
 
 
