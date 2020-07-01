@@ -10,7 +10,20 @@ redirect_from:
 # 2020
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. To appear in <em>Transactions of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/pdf/2001.03632.pdf">arXiv</a>] [<a href="http://rtmccoy.com/rnn_hierarchical_biases.html">website</a>]
+<b>R. Thomas McCoy</b>, Erin Grant, Paul Smolensky, Thomas L. Griffiths, and Tal Linzen. Universal linguistic inductive biases via meta-learning. <em>Proceedings of the 42nd Annual Conference of the Cognitive Science Society</em>. [<a href="https://arxiv.org/pdf/2006.16324.pdf">pdf</a>] [<a href="http://rtmccoy.com/meta-learning-linguistic-biases.html">demo</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Michael Lepori, Tal Linzen, and <b>R. Thomas McCoy</b>. Representations of syntax [MASK] useful: Effects of constituency and dependency structure in recursive LSTMs. <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/pdf/2005.00019">pdf</a>]
+</p> 
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Junghyun Min, <b>R. Thomas McCoy</b>, Dipanjan Das, Emily Pitler, and Tal Linzen. Syntactic data augmentation increases robustness to inference heuristics. <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/pdf/2004.11999">pdf</a>]
+</p> 
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. <em>Transactions of the Association for Computational Linguistics</em>. [<a href="https://arxiv.org/pdf/2001.03632.pdf">arXiv</a>] [<a href="http://rtmccoy.com/rnn_hierarchical_biases.html">website</a>]
 </p>
 
 # 2019
@@ -58,14 +71,14 @@ Ian Tenney, Patrick Xia, Berlin Chen, Alex Wang, Adam Poliak, <b>R. Thomas McCoy
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Robert Frank, and Tal Linzen. 2018. Revisiting the poverty of
 the stimulus: hierarchical generalization without a hierarchical bias in recurrent
-neural networks. To appear in <em>Proceedings of the 40th Annual Conference of the
+neural networks. In <em>Proceedings of the 40th Annual Conference of the
 Cognitive Science Society</em>. [<a href="https://arxiv.org/abs/1802.09091">arxiv</a>] [<a href="https://arxiv.org/pdf/1802.09091.pdf">pdf</a>] 
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Patrick Littell, <b>R. Thomas McCoy</b>, Na-Rae Han, Shruti Rijhwani, Zaid Sheikh,
 David Mortensen, Teruko Mitamura, and Lori Levin. 2018. Parser combinators for
-Tigrinya and Oromo morphology. To appear in <em>Language Resources and Evaluation
+Tigrinya and Oromo morphology. In <em>Language Resources and Evaluation
 Conference (LREC) 2018</em>. [<a href="https://www.aclweb.org/anthology/L18-1611">ACL anthology</a>] [<a href="https://www.aclweb.org/anthology/L18-1611.pdf">pdf</a>]
 </p>
 
