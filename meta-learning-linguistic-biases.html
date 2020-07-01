@@ -18,6 +18,10 @@
         <![endif]-->
     </head>
 
+<script>
+
+</script>
+
 <body>
 	<div class="contentwrapper">
 	<section>
@@ -41,7 +45,7 @@
 
 	<p>What output should replace the question marks? You probably answered <span style="color:blue"><em>.ta.ra.va.</em></span> even though other answers are conceivable; e.g., the provided outputs are consistent with a rule that involves reversing the input, so the answer could instead be <span style="color:blue"><em>.va.ra.ta.</em></span> If you answered <span style="color:blue"><em>.ta.ra.va.</em></span> instead of <span style="color:blue"><em>.va.ra.ta.</em></span>, it suggests that you have an inductive bias for preserving the input order.</p>
 
-	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling aimed at answering this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like learning.</p>
+	<p>Which inductive biases enable humans to acquire language? The answer is hotly debated. To facilitate computational modeling aimed at answering this question, we introduce a framework for giving particular linguistic inductive biases to a model. Such a model can then be used to explore the effects of those inductive biases, and to see which biases yield the most human-like generalization behavior.</p>
 
 	<p>In our framework, the inductive biases are encoded in the initial state of a neural network. This initial state is found with <b style="font-weight:bold">meta-learning</b>, a technique through which a model discovers how to acquire new languages more easily via exposure to many possible languages. By controlling the properties of the languages that are used during meta-learning, we can control the set of inductive biases that meta-learning imparts.</p>
 
@@ -61,7 +65,7 @@
 		<span style="max-width: 410px;text-align: justify; margin-right: 10px; display: inline-block; font-size: 13px;"><b style="font-weight:bold">Pattern to be learned:</b> 
 			<span id="langdesc" style="text-align: justify">Delete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundariesDelete sounds as necessary to ensure that the output is pronounceable, but otherwise change nothing; add periods to mark syllable boundaries.</span>
 		</span> 
-		<button type="button" class="genbtn" onclick="random_language(true);" style="display: inline-block; vertical-align:top;">Random new language</button>
+		<button type="button" class="genbtn" onclick="random_language(true, trf);" style="display: inline-block; vertical-align:top;">Random new language</button>
 		<button type="button" class="genbtn" onclick="toggleshowadv()" style="display: inline-block; vertical-align:top;"><span id="advbtntxt">Show advanced settings</span></button> 
 	</div>
 
@@ -125,8 +129,20 @@
 		<textarea id="testtextarea" cols="30" rows="5" maxlength="120"></textarea>
 		
 		<br>
-		<button onclick="random_language(false)">Use the above training and test sets</button>
+		<button onclick="random_language(false, trf)">Use the above training and test sets</button>
 		<div id="errorarea"></div>
+	</div>
+
+	<div style="border-top: 1px solid black; padding:10px;">
+		<div style="display: inline-block; vertical-align: top; max-width: 410px;">
+			<b>Investigate absolute universals:</b> Certain inputs will map to the same output regardless of language. Thus, our models will ideally be able to handle these inputs even without any training. Click these buttons to test the models on such inputs. <em>C</em> stands for <em>consonant</em>, and <em>V</em> stands for <em>vowel</em>; any <em>CV</em> input should map to <em>.CV.</em>, while any <em>CVCV</em> input should map to <em>.CV.CV.</em>
+		</div>
+
+		<button type="button" class="genbtn" onclick="random_language(true, is_cv);" style="display: inline-block; vertical-align:top;">All CV inputs</button>
+
+		<button type="button" class="genbtn" onclick="random_language(true, is_cvcv);" style="display: inline-block; vertical-align:top;">All CVCV inputs</button>
+
+
 	</div>
 
 	</div> <!-- End of advanced settings -->
@@ -207,6 +223,11 @@
 
 
 <p>The meta-initialized model can typically learn any of these syllable structure mappings from fewer than 100 examples&mdash;sometimes substantially fewer. In contrast, after the same number of examples, the outputs of the randomly initialized model are usually nowhere near the correct answers.</p>
+
+
+<p>In the class of languages that we include in our experiment, certain inputs will map to the same output across all languages; such mappings are therefore <em>absolute universals</em>, or properties that all languages possess. For example, an input of the form <em>CVCV</em> will always map to <em>.CV.CV.</em> (where <em>C</em> stands for any consonant, <em>V</em> stands for any vowel, and periods indicate word and syllable boundaries). Even though some languages allow syllables of the form <em>.CVC.</em> and <em>.V.</em>, the input <em>CVCV</em> will only ever map to <em>.CV.CV.</em>, never to <em>.CVC.V.</em> The meta-initialized model typically gets the correct output for such inputs without any training in the language, indicating that the meta-learning process has imparted these absolute universals. You can test these absolute universals by clicking "Show advanced settings" in the demo.</p>  
+
+
 
 <p>How many examples does the randomly-initialized model need before it begins performing well? The table below should give some sense of this; it contains data from one language for each of the 8 abstract categories of languages that we use in our experiments. On these languages, the randomly-initialized model typically needs a few thousand examples, compared to a few dozen for the meta-initialized model.</p>
 
@@ -1592,9 +1613,9 @@
 
 <h2>Generalization</h2>
 
-<p>The main goal of our framework is to give a model a certain set of inductive biases. While rapid learning is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
+<p>The main goal of our framework is to give a model a certain set of inductive biases. While the ability to learn from a small number of examples is one piece of evidence that a model has acquired some useful inductive biases, a more direct way to study a learner's inductive biases is through generalization: how does the learner handle novel types of examples?</p>
 
-<p>The figure below shows how meta-learning facilitates three types of generalization: generalization to a novel length, generalization to novel symbols, and generalization to novel input structures (implicational universals). In each case, we train our model on a training set which has certain types of examples withheld, then evaluate it on the withheld class of examples. Click the tabs above the figure to explore these three types of generalization.</p>
+<p>The figure below shows how meta-learning facilitates three types of generalization: generalization to a novel length, generalization to novel symbols, and generalization to novel input structures (we refer to examples of the last category as <a href="https://www.oxfordreference.com/view/10.1093/oi/authority.20110803095959399">implicational universals</a>). In each case, we train our model on a training set which has certain types of examples withheld, then evaluate it on the withheld class of examples. Click the tabs above the figure to explore these three types of generalization.</p>
 
 <div style="margin: auto;">
 <div style="margin: auto; max-width:670px;">
@@ -1992,10 +2013,17 @@
 
 <br>
 
-<p>Across all three cases, the meta-initialized model generalizes well while the randomly-initialized model generalizes poorly. These results indicate that meta-learning has successfully imparted a bias for extending observed patterns to a novel length, a bias for assuming two universal classes of symbols (namely, consonants and vowels), and a bias for associating certain mappings with certain other mappings (a.k.a. implicational universals).</p>
+<p>Across all three cases, the meta-initialized model generalizes well while the randomly-initialized model generalizes poorly. These results indicate that meta-learning has successfully imparted a bias for the length-invariance of syllable patterns, a bias for assuming two universal classes of symbols (namely, consonants and vowels), and a bias for associating certain mappings with certain other mappings (a.k.a. implicational universals).</p>
+
+<p>Linguistic universals are typically divided into two categories: absolute universals, which are properties that all languages possess, and implicational universals, which are cases where the presence of one property in a language implies the presence of another property. The previous section showed that meta-learning had instilled some absolute universals in the model, while this section shows that it has also instilled some implicational universals. Thus, meta-learning can impart both of the major categories of linguistic universals.</p> 
+
 
 <p>See the paper for more discussion of these experiments and for investigation of three other inductive biases using an alternate technique, namely ease of learning (that is, which types of languages are easiest for a model to learn?)</p>
 
+
+<h2>Absolute universals</h2>
+
+In linguistics, there are two major categories of linguistic universals: absolute universals&mdash;which are properties that all languages have&mdash;and implicational universals&mdash;which are cases where the presence of one property in a language implies the presence of another property.
 
 
 <h2>How does it work?</h2>
@@ -2003,7 +2031,7 @@
 	<p>Our method can be summarized as follows:</p>
 
 	<ol>
-		<li>Determine the set of inductive biases that you wish to impart to a model.</li>
+		<li>Determine the set of linguistic inductive biases that you wish to impart to a model.</li>
 		<li>Define a space of languages encoding those inductive biases.</li>
 		<li>Have a model meta-learn from this space of languages; this process is intended to give the model an initial parameter setting from which it can easily learn any language in the space of languages you have defined.</li>
 		<li>Analyze the model to verify that meta-learning has given it the intended inductive biases.</li>
@@ -2056,7 +2084,7 @@
 
 	<p>For the 2-parameter linear model in the demo, only very simple biases can be encoded in this way. For example, it is possible to encode a bias for the slope to be close to -3 and for the intercept to be close to -2, but it is not possible to encode a bias for these parameters to lie exactly on the perimeter of the circle in the left plot. However, standard models have many more parameters (often tens of millions of parameters, or even <a href="https://arxiv.org/pdf/2005.14165.pdf">175 billion parameters</a>), leaving room for much more sophisticated biases to be encoded.</p>
 
-	<p>In our application of meta-learning, each “task” is a language, and the goal is to find a set of initial parameter values that allow the model to quickly learn any language. We hypothesize that, if we carefully construct the space of languages used during meta-learning to encode a desired set of inductive biases, we can find an initial parameter setting that will give the model these inductive biases.</p>
+	<p>In our application of meta-learning, each “task” is a language, and the goal is to find a set of initial parameter values that allow the model to quickly learn any language. We hypothesize that, if we carefully construct the space of languages used during meta-learning to encode a desired set of inductive biases, we can impart these inductive biases in order to study how they affect generalization behavior.</p>
 
 <h2>Conclusions and future directions</h2>
 
@@ -2278,8 +2306,8 @@ function ceptoggle(cons) {
 
 function veptoggle(vow) {
 
-	for (vn = 0; vn < manual_vowel_inventory.length; vn++) {
-		first_v = vowel_dict[manual_vowel_inventory[vn]];
+	for (vn = 0; vn < vowels.length; vn++) {
+		first_v = vowel_dict[vowels[vn]];
 		document.getElementById("btnep" + first_v).style.color = "black";
 		document.getElementById("btnep" + first_v).style.backgroundColor = "white";
 	}
@@ -2309,9 +2337,31 @@ vowel_dict = {
 	"bigu" : "bigu"	
 }
 
-function random_language(full_random) {
 
-	new_lang = make_task(choice(rankings), all_input_outputs, n_train=200, n_dev=1, n_test=6);
+
+function is_cvcv(x) {
+	if (x == "CVCV") {
+		console.log(x);
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function is_cv(x) {
+	if (x == "CV") {
+		console.log(x + "IS HERE");
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function random_language(full_random, abstract_input_filter_test) {
+
+	new_lang = make_task(choice(rankings), all_input_outputs, abstract_input_filter_test, n_train=200, n_dev=0, n_test=6);
 	
 	if (full_random) {
 		training_set = new_lang[0];
@@ -2361,6 +2411,8 @@ function random_language(full_random) {
 		vow = all_vowels[v_index];
 		document.getElementById("btn" + vow).style.backgroundColor = "white";
 		document.getElementById("btn" + vow).style.color = "black";
+		document.getElementById("btnep" + vow).style.backgroundColor = "white";
+		document.getElementById("btnep" + vow).style.color = "black";
 		document.getElementById("btnep" + vow).style.display = "none";
 	}
 
@@ -2379,6 +2431,8 @@ function random_language(full_random) {
 		cons = all_consonants[c_index];
 		document.getElementById("btn" + cons).style.backgroundColor = "white";
 		document.getElementById("btn" + cons).style.color = "black";
+		document.getElementById("btnep" + cons).style.backgroundColor = "white";
+        document.getElementById("btnep" + cons).style.color = "black";
 		document.getElementById("btnep" + cons).style.display = "none";
 	}
 
@@ -2459,7 +2513,7 @@ function renew_language() {
 
 
 
-	new_lang = make_task(manual_ranking, all_input_outputs, n_train=200, n_dev=1, n_test=6, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
+	new_lang = make_task(manual_ranking, all_input_outputs, trf, n_train=200, n_dev=1, n_test=6, v_list=manual_vowel_inventory, c_list=manual_consonant_inventory);
 
 	training_set = new_lang[0];
 	dev_set = new_lang[1];
@@ -2607,9 +2661,6 @@ function trf(x) {
 	return true;
 }
 
-
-
-
 vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'O', 'U'];
 consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
 
@@ -2711,7 +2762,7 @@ function output_string(inp, outp, v_list, c_list, steps=None, change_one=False, 
 
 
 
-function make_task(ranking, all_input_outputs, n_train=10, n_dev=10, n_test=10, v_list=null, c_list=null, periods=true, input_filter_dev=trf, output_filter_dev=trf, input_filter_test=trf, output_filter_test=trf, input_filter_train=trf, output_filter_train=trf, abstract_input_filter_dev=trf, abstract_output_filter_dev=trf, abstract_input_filter_test=trf, abstract_output_filter_test=trf, abstract_input_filter_train=trf, abstract_output_filter_train=trf, replace_one_dev=false, replace_one_test=false, replace_one_train=false, replace_all_dev=false, replace_all_test=false, replace_all_train=false, artificial_io_list=null) {
+function make_task(ranking, all_input_outputs, abstract_input_filter_test, n_train=10, n_dev=10, n_test=10, v_list=null, c_list=null, periods=true, input_filter_dev=trf, output_filter_dev=trf, input_filter_test=trf, output_filter_test=trf, input_filter_train=trf, output_filter_train=trf, abstract_input_filter_dev=trf, abstract_output_filter_dev=trf, abstract_input_filter_testX=trf, abstract_output_filter_test=trf, abstract_input_filter_train=trf, abstract_output_filter_train=trf, replace_one_dev=false, replace_one_test=false, replace_one_train=false, replace_all_dev=false, replace_all_test=false, replace_all_train=false, artificial_io_list=null) {
 	if (all_input_outputs != null) {
 		io_list = all_input_outputs[ranking].slice();
 	} else {
@@ -2800,6 +2851,8 @@ function make_task(ranking, all_input_outputs, n_train=10, n_dev=10, n_test=10, 
 			
 			candidate = output_string(abstract[0],abstract[1], v_list, c_list, steps=abstract[2], change_one=replace_one_test, change_all=replace_all_test);
 
+			console.log(abstract[0]);
+			console.log(abstract_input_filter_test(abstract[0]));
 			if (!(candidate in train_dict) && !(candidate in dev_dict) && abstract_input_filter_test(abstract[0]) && abstract_output_filter_test(abstract[1].replace(/\./g, "")) && input_filter_test(candidate[0]) || output_filter_test(candidate[1].replace(/\./g, ""))) {
 				satisfied = true; 
 
@@ -2927,7 +2980,7 @@ const key2description = {
 
 rankings = ["(2, 3, 0, 1)", "(3, 2, 0, 1)", "(1, 2, 3, 0)", "(0, 2, 3, 1)", "(1, 3, 2, 0)", "(0, 3, 2, 1)", "(0, 1, 3, 2)", "(0, 1, 2, 3)"]
 
-new_lang = make_task(choice(rankings), all_input_outputs, n_train=100, n_dev=2, n_test=6);
+new_lang = make_task(choice(rankings), all_input_outputs, trf, n_train=100, n_dev=2, n_test=6);
 
 training_set = new_lang[0];
 dev_set = new_lang[1];
