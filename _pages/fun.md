@@ -13,7 +13,7 @@ redirect_from:
 	* [JHU HUB](https://hub.jhu.edu/2019/12/12/tom-mccoy-crossword-puzzlemaker/)
 	* [Washington Post](https://www.washingtonpost.com/education/2019/12/27/puzzling-over-language-computational-linguistics-researcher-crafts-crossword-johns-hopkins/#comments-wrapper)
 
-**Phonetic crossword:** This puzzle must be completed entirely in the International Phonetic Alphabet (IPA). [puzzle](http://rtmccoy.com/crosswords/changing_places_xword.pdf) [solution](http://rtmccoy.com/crosswords/changing_places_answers.pdf) 
+**Phonetic crossword:** This puzzle must be completed entirely in the International Phonetic Alphabet (IPA). [[puzzle](http://rtmccoy.com/crosswords/changing_places_xword.pdf)] [[solution](http://rtmccoy.com/crosswords/changing_places_answers.pdf)]
 
 **Phonetic Scrabble:** Antonio Martinez and I made a set of wooden scrabble tiles in the International Phonetic Alphabet (IPA) based on counts from Gretchen McCulloch. Here are some [pictures of it](https://allthingslinguistic.com/post/116416236538/these-ipa-scrabble-pictures-are-courtesy-of-tom) on Gretchen McCulloch's blog.
 
