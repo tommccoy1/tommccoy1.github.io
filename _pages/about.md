@@ -14,7 +14,7 @@ I study computational linguistics using techniques from cognitive science, machi
 
 Representative publications:
 - **R. Thomas McCoy**, Erin Grant, Paul Smolensky, Thomas L. Griffiths, and Tal Linzen. Universal linguistic inductive biases via meta-learning. *Proceedings of the 42nd Annual Conference of the Cognitive Science Society*. [<a href="https://arxiv.org/pdf/2006.16324.pdf">pdf</a>] [<a href="http://rtmccoy.com/meta-learning-linguistic-biases.html">demo</a>]
-- **R. Thomas McCoy**, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. *ACL 2019*.[<a href="https://www.aclweb.org/anthology/P19-1334.pdf">pdf</a>]  
+- **R. Thomas McCoy**, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. *ACL 2019*. [<a href="https://www.aclweb.org/anthology/P19-1334.pdf">pdf</a>]  
 - **R. Thomas McCoy**, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. *TACL*. [<a href="https://www.mitpressjournals.org/doi/pdf/10.1162/tacl_a_00304">pdf</a>] [<a href="http://rtmccoy.com/rnn_hierarchical_biases.html">website</a>]
 - **R. Thomas McCoy**, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement Tensor Product Representations. *ICLR 2019*. [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>]
 
