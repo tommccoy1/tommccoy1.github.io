@@ -55,7 +55,7 @@
 	<p>To demonstrate this framework, we use the linguistic domain of syllable structure.  For a given language, the model must learn how to map a sequence of sounds (e.g., <em>tarava</em>)  into a sequence of syllables (e.g., <em>.ta.ra.va.</em>). Each language has restrictions on what types of syllables are allowed, and sounds may need to be inserted or deleted to meet these restrictions. For example, if a language requires all syllables to end with a vowel, the input <em>kep</em> might map to <em>.ke.pa.</em>  (if the language uses insertion) or <em>.ke.</em>  (if the language uses deletion).</p>
 
 
-	<p>The demo below shows how a neural network initialized with meta-learning can learn syllable structure mappings much more quickly than a neural network with a standard random initialization.</p>
+	<p>The demo below shows how a neural network initialized with meta-learning can learn syllable structure mappings much more quickly than a neural network with a standard random initialization. This demo trains the models in your browser using randomly-generated data, so none of the results that you see are cherry-picked.</p>
 
 <div style="margin: auto; max-width: 850px;" class="demowrapper">
 
@@ -67,10 +67,7 @@
 		</span> 
 		<button type="button" class="genbtn" onclick="random_language(true, trf);" style="display: inline-block; vertical-align:top;">Random new language</button>
 		<button type="button" class="genbtn" onclick="toggleshowadv()" style="display: inline-block; vertical-align:top;"><span id="advbtntxt">Show advanced settings</span></button> 
-	</div>
-
-
-
+	</div>from
 	<div id="advancedsettings" style="border-bottom: 1px solid black">
 
 
@@ -218,7 +215,7 @@
 </div>
 
 <div style="padding-top: 15px; padding-bottom: 40px; padding-left: 50px; padding-right: 50px; font-size: 13px;">
-	<em>How to use: Click "Train on one example" to show the models a single input-output pair. Click "Random new language" or "Manually define language" to restart the demo with a new language.</em>
+	<em>How to use: Click "Train on one example" to show the models a single input-output pair (the training is done in your browser, so none of the results that you see have been pre-computed). Click "Random new language" or "Manually define language" to restart the demo with a new language.</em>
 </div>
 
 
@@ -2077,12 +2074,12 @@ In linguistics, there are two major categories of linguistic universals: absolut
 	</div>
 
 <div style="padding-top: 15px; padding-bottom: 40px; padding-left: 50px; padding-right: 50px; font-size: 13px;">
-    <em>Demonstration of meta-learning using MAML. The model is a simple linear function with 2 parameters (a slope and an intercept): the green star in the left plot shows the parameters, and the solid green line in the right plot shows the function defined by these parameters. This model is exposed to many target tasks, each a linear function defined by a purple square in the left plot. For each target task, a copy of the model is trained on 10 examples (the purple points in the right plot), yielding the parameters at the orange circle in the left plot and the function shown by the orange dotted line in the right plot. Based on how close this copy is to the target, the model's initialization is adjusted. After many iterations, the model's initialization reaches a point from which the model can learn any target task&mdash;somewhere in the middle of the circle in the left plot.</em>
+    <em>Demonstration of meta-learning using MAML. The model is a simple linear function with 2 parameters (a slope and an intercept): the green star in the left plot shows the parameters, and the solid green line in the right plot shows the function defined by these parameters. This model is exposed to many target tasks, each a linear function defined by a purple square in the left plot. All of these purple squares are drawn from the perimeter of the circle, providing some similarity across tasks that the meta-learning process can exploit. For each target task, a copy of the model is trained on 10 examples (the purple points in the right plot), yielding the parameters at the orange circle in the left plot and the function shown by the orange dotted line in the right plot. Based on how close this copy is to the target, the model's initialization is adjusted. After many iterations, the model's initialization reaches a point from which the model can learn any target task&mdash;somewhere in the middle of the circle in the left plot.</em>
 </div>
 
 	<p>If meta-learning is successful, the model's initialization will encode some set of inductive biases that are useful for learning the space of tasks that the model is being shown. In the demo, the initialization that the model converges to encodes a bias for the slope to be close to -3 and for the intercept to be close to -2.</p>
 
-	<p>For the 2-parameter linear model in the demo, only very simple biases can be encoded in this way. For example, it is possible to encode a bias for the slope to be close to -3 and for the intercept to be close to -2, but it is not possible to encode a bias for these parameters to lie exactly on the perimeter of the circle in the left plot. However, standard models have many more parameters (often tens of millions of parameters, or even <a href="https://arxiv.org/pdf/2005.14165.pdf">175 billion parameters</a>), leaving room for much more sophisticated biases to be encoded.</p>
+	<p>In this simple example, it would have been easy to set the model's parameters by hand in a way that encoded this bias. However, such hand-coding of biases is not practical with standard neural networks, which typically have far more parameters (often tens of millions of parameters, or even <a href="https://arxiv.org/pdf/2005.14165.pdf">175 billion parameters</a>) which interact with each other in difficult-to-interpret ways. In such cases where manual parameter setting is impractical, meta-learning can automatically discover parameter settings that encode the desired biases.</p>
 
 	<p>In our application of meta-learning, each “task” is a language, and the goal is to find a set of initial parameter values that allow the model to quickly learn any language. We hypothesize that, if we carefully construct the space of languages used during meta-learning to encode a desired set of inductive biases, we can impart these inductive biases in order to study how they affect generalization behavior.</p>
 
