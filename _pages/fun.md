@@ -15,7 +15,6 @@ redirect_from:
 
 **Phonetic crossword:** This puzzle must be completed entirely in the International Phonetic Alphabet (IPA). [puzzle](http://rtmccoy.com/crosswords/changing_places_xword.pdf) [solution](http://rtmccoy.com/crosswords/changing_places_answers.pdf) 
 
-**Phonetic Scrabble:** In college, Antonio Martinez and I made a set of wooden scrabble tiles in the International Phonetic Alphabet (IPA) based on counts from Gretchen McCulloch. Here are some [pictures of it](https://allthingslinguistic.com/post/116416236538/these-ipa-scrabble-pictures-are-courtesy-of-tom) on Gretchen McCulloch's blog.
-
+**Phonetic Scrabble:** Antonio Martinez and I made a set of wooden scrabble tiles in the International Phonetic Alphabet (IPA) based on counts from Gretchen McCulloch. Here are some [pictures of it](https://allthingslinguistic.com/post/116416236538/these-ipa-scrabble-pictures-are-courtesy-of-tom) on Gretchen McCulloch's blog.
 
 
