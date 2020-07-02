@@ -11,8 +11,8 @@ redirect_from:
 
 **Johns Hopkins crossword:** In 2019, I constructed [a crossword puzzle](https://thankyou.jhu.edu/) for Johns Hopkins University as part of the President's annual message of thanks to the community. Some press coverage of the crossword:
 
-	* [JHU HUB](https://hub.jhu.edu/2019/12/12/tom-mccoy-crossword-puzzlemaker/)
-	* [Washington Post](https://www.washingtonpost.com/education/2019/12/27/puzzling-over-language-computational-linguistics-researcher-crafts-crossword-johns-hopkins/#comments-wrapper)
+* [JHU HUB](https://hub.jhu.edu/2019/12/12/tom-mccoy-crossword-puzzlemaker/)
+* [Washington Post](https://www.washingtonpost.com/education/2019/12/27/puzzling-over-language-computational-linguistics-researcher-crafts-crossword-johns-hopkins/#comments-wrapper)
 
 **Phonetic crossword:** This puzzle must be completed entirely in the International Phonetic Alphabet (IPA). [[puzzle](http://rtmccoy.com/crosswords/changing_places_xword.pdf)] [[solution](http://rtmccoy.com/crosswords/changing_places_answers.pdf)]
 
