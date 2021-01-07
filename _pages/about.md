@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a Ph.D. student in the [Department of Cognitive Science](http://cogsci.jhu.edu/) at Johns Hopkins University, co-advised by [Tal Linzen](http://tallinzen.net/) and [Paul Smolensky](http://cogsci.jhu.edu/directory/paul-smolensky/). Before coming to JHU, I received a B.A. in Linguistics at Yale University, advised by [Robert Frank](https://ling.yale.edu/people/robert-frank). This summer, I am doing a research internship at Microsoft supervised by [Asli Celikyilmaz](http://asli.us/).
+I am a Ph.D. student in the [Department of Cognitive Science](http://cogsci.jhu.edu/) at Johns Hopkins University, co-advised by [Tal Linzen](http://tallinzen.net/) and [Paul Smolensky](http://cogsci.jhu.edu/directory/paul-smolensky/). Before coming to JHU, I received a B.A. in Linguistics at Yale University, advised by [Robert Frank](https://ling.yale.edu/people/robert-frank). Last summer, I did a research internship at Microsoft supervised by [Asli Celikyilmaz](http://asli.us/).
 
 I study computational linguistics using techniques from cognitive science, machine learning, and natural language processing. My research focuses on how to achieve **robust generalization** in models of language, as this remains one of the main areas where current AI systems fall short and one of the most impressive components of language processing in humans. In particular, I study which **inductive biases** and which **representations of structure** enable robust generalization, since these are two of the major components that determine how learners generalize to novel types of input.
 
