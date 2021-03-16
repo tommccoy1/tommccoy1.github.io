@@ -135,6 +135,7 @@ header {
       float:left;
       border-right:1px solid #3A7CBE;
       height:38px;
+	  margin: 100px 0;
 
       &.single {
         border:none;
@@ -368,6 +369,11 @@ footer {
 .flex_container {
   display: flex;
   justify-content: space-between;
+}
+
+
+li {
+  margin: 10px 0;
 }
 
 
