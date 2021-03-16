@@ -9,6 +9,9 @@ main:
   - title: "Other projects"
     url: /other_projects/
 
+  - title: "Blog posts"
+    url: /posts/
+
   - title: "Fun"
     url: /fun/
 

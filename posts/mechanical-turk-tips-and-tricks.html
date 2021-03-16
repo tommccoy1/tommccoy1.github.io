@@ -1,0 +1,90 @@
+<html lang="{{ site.lang | default: "en-US" }}"`>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="metaug_js/tf.css">
+        <script src="assets/js/scale.fix.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		
+		<style type="text/css">
+		.contentwrapper {
+  			max-width:800px;
+			margin:0 auto;
+  			background:white;
+		}
+
+
+		</style>
+    </head>
+
+
+<body>
+	<div class="contentwrapper">
+		<h1>Tips and tricks for running experiments on Amazon Mechanical Turk</h1>
+
+		<p>By Tom McCoy</p>
+
+		<p><em>Amazon Mechanical Turk (MTurk) is an incredibly useful tool for data collection. However, there are some non-obvious considerations to keep in mind if you want it to work well. Here is a collection of the tips that were helpful to me as I figured out how to use MTurk. </em></p>
+
+		<h3>Saving money</h3>
+
+		<ol>
+			<li><b>Launch your experiment in batches of 9.</b> When you pay your participants, Amazon charges a fee that is a percentage of whatever you paid the participants. If your batch is 10 participants or more, the fee is 40%; but if your batch is 9 participants or fewer, then the fee is only 20%. Thus, your overall cost when using smaller batches will only be about 86% of what the overall cost would be if you used larger batches.</li>
+		</ol>
+
+		<h3>Avoiding repeat participants</h3>
+
+		<p><em>Within a single batch, Amazon automatically prevents a single worker from doing your experiment twice. However, if you have multiple batches&mdash;e.g., a pilot batch before your main experiment, or multiple batches of your main experiment because you are following Point 1 above&mdash;then you need to add your own restrictions that prevent individual users from repeating your experiment.</em></p>
+
+		<ol start=2>
+			<li><b>Use qualifications.</b> When launching an experiment, you can set criteria for who may complete the experiment. One way to use this feature is to create a <em>qualification</em> which you give to everyone who has completed your experiment, and to then make anyone with that qualification ineligible to do the experiment again. Here is how this works in more detail:</li>
+				<ol type="i">
+					<li>Go to "Manage -> Qualification Types."</li>
+					<li>Click "Create New Qualification Type" to create the qualification, which you could name "Already completed experiment."</li>
+					<li>Whenever a batch of respondents has finished, go to the "Manage -> Results" tab, and then click "Review Results," which will show you the participants who completed the batch of tasks.</li>
+					<li>Under the "Worker ID" column, click a worker's ID number. This will take you to a page with info about that worker, where you can click "Assign Qualification Type" to give this worker the qualification that you just created. Assign this qualification to everyone who completed the batch.</li>
+					<li>When you create an experiment or edit an existing experiment (both under the "Create" tab), you can now add the requirement that workers cannot do the experiment if they have the qualification "Already completed experiment." To do this, scroll down to "Worker requirements" and click "Add another requirement," then select the name of your qualification, and select "has not been granted" in the drop-down menu to the right of the qualification name.</li>
+				</ol>
+			<li><b>Don't release more than one batch at once.</b> The qualification-based approach described in Point 2 does not work if you launch more than one batch at a time. Thus, if you use that approach, make sure to only launch one batch at a time. Otherwise, a single user could claim your task multiple times (one for each simultaneously-released batch) since they have not yet completed the task and therefore have not yet received the qualification. </li>
+		</ol>
+
+		<h3>Recruiting high-quality participants</h3>
+
+		<p><em>One of the biggest weaknesses of MTurk is that it can give low-quality results since you cannot monitor participants like you can with an in-person experiment. For example, a participant might be doing your experiment while they watch TV, or while they do another experiment in a different window. Here are some options to consider for improving the quality of your data.</em></p>
+
+		<ol start=4>
+			<li><b>Use qualifications for quality.</b> Point 2 above described how you can use qualifications to avoid repeat participants. You can also use them to help get high-quality workers. The qualifications for "Number of HITs Approved" and "HIT Approval Rate" can be particularly useful; these can both be specified as criteria in the "Create" page for an experiment. Unlike the custom qualifications described in Point 2, these two are pre-existing and do not need to be created by you. <a href="https://blog.mturk.com/improving-quality-with-qualifications-tips-for-api-requesters-87eff638f1d1">This blog post</a> recommends using a threshold of 5000 HITs approved and a 95% HIT approval rate.</li>
+			<li><b>Use attention checks.</b> Attention checks are trick questions that you use to check whether participants are paying attention. If a participant fails the attention check, you can use that as grounds for excluding their data. An example attention check is to give some instructions, at the end of which is the question "Did you read these instructions? Please click yes or no"; but, within the instructions, it says to click "no" instead of "yes." Thus, if people click "yes," it shows they were not paying attention. The MTurk Reddit has many more <a href="https://www.reddit.com/r/mturk/comments/8sk0az/those_sneaky_attention_checks/">examples</a> <a href="https://www.reddit.com/r/mturk/comments/ljj74n/new_type_of_attention_check/">of</a> <a href="https://www.reddit.com/r/mturk/comments/iafui4/thanks_to_this_requester_for_making_me_laugh/">attention</a> <a href="https://www.reddit.com/r/mturk/comments/gt5nu2/an_attention_check_of_an_attention_check/">checks</a>. Note that failure on an attention check can reasonably be used to exclude data (especially if you preregister this exclusion criterion) but that you probably should not use it to reject participants; see Point 12 below.</li>
+			<li><b>Add in a delay before participants can respond.</b> One potential problem you can get is that participants will click through your study rapidly without looking at the stimuli, meaning that their responses are useless. One technique for avoiding that problem is to make the response buttons unclickable for a few seconds after the stimulus appears. That way, participants are forced to wait a bit, and will perhaps feel that they might as well use that time to look at the stimulus. Just make sure to time the delay carefully so that it does not feel annoyingly long.</li>
+			<li><b>Provide a bonus for scoring well.</b> In the same place that Point 2 describes for giving a custom qualification to an individual worker, you can also give them a bonus. You can use this feature to reward participants who score well, and you can tell participants about this bonus at the start of the experiment to encourage them to make an effort. The one tricky aspect of this might be to decide what counts as scoring well; in our experiment, we set a threshold based on a <a href="https://www.socscistatistics.com/tests/binomial/default2.aspx">binomial model</a>, where we said that a participant scored well if their score would have a <em>p</em>-value less than 0.05 under a binomial model that assumes they are guessing randomly. In other words, participants received a bonus if their score was high enough for us to be reasonably confident they were not just guessing randomly.</li>
+			<li><b>If you want to filter, do it via pretesting.</b> You should always pay participants for their time, even if they perform poorly. However, to avoid paying too much of your budget to participants who are inattentive, or not trying hard, or otherwise performing at chance, you can add a pre-testing phase: a quick initial evaluation where either participants pass the pretest and move on to the main experiment (getting paid whatever the reward is for completing the experiment), or they fail the pretest and proceed no further (but still get paid a small amount that covers the small amount of time that they did invest in the experiment). MTurk only allows you to pay a uniform amount for a given experiment, so here is how to implement an experiment with multiple payment levels:</li>
+				<ol type="i">
+					<li>Have the "Reward per response" field under "Create" set to be the lowest payment that a participant could receive (e.g., the payment they get if they fail the pretest and end the experiment early).</li>
+					<li>Then, for participants who should get paid more than that, pay them the difference as a bonus. You can pay a bonus by clicking on a worker's ID under the "Manage -> Review results" screen and then clicking "Bonus worker."</li>
+					<li>In the description of your experiment, be clear about how much participants will be paid: The amount that they are automatically shown is whatever is listed as "Reward per response," so you should mention it if participants who pass the pretest will get paid more than that.</li>
+				</ol>
+			<li><b>Use Prolific Academic.</b> Prolific Academic is an alternate, MTurk-like service. I've never used it personally, but I've heard from several people that it gives higher-quality results than you get with MTurk. Think about giving it a shot if your MTurk respondents are seeming very bot-like or inattentive!</li>
+		</ol>
+
+		<h3>Treating your participants well</h3> 
+
+		<p><em>Treating your participants well is not only the right thing to do but also an important step for maintaining a positive reputation for your lab. MTurk workers talk to each other (e.g., on the <a href="https://www.reddit.com/r/mturk/">MTurk Reddit</a>, or on websites dedicated to <a href="https://turkopticon.ucsd.edu/login">giving ratings to labs that run MTurk experiments</a>). Thus, if you treat participants poorly, word will get around and people will not want to accept your experiment.</em></p>
+
+		<ol start=9>
+			<li><b>Pay a reasonable amount.</b> You should at least pay minimum wage (based on a reasonable estimate of how long your experiment takes). You should view the main strength of MTurk as convenience, not cheapness: just because you might be able to get away with low compensation doesn't mean you should.</li>
+			<li><b>Respond quickly to issues.</b> Make sure to have some way for participants to mention any problems they run into. This could, e.g., be an email address for them to contact, or an optional question within the experiment where they mention any technical issues. Then, when the experiment begins, make sure to monitor feedback that you get and to respond quickly.</li>
+			<li><b>Give enough time.</b> The "Time allocated per worker" field under "Create" determines how long participants have for completing the experiment, starting from the point when they claim the experiment. Be generous with this setting: MTurk workers often like to claim a bunch of experiments at once, then work through those experiments in succession. Therefore, they might not start your experiment for a couple hours after they claim it, meaning that the time you allocate should be at least a few hours, even if your experiment itself only takes a few minutes. Otherwise, participants might run into time pressure.</li>
+			<li><b>Pay everyone/don't block anyone.</b> MTurk gives the option to reject participants after they submit their results (which means that they don't get paid) or to block workers (meaning that they can't do any of your experiments again). I recommend <b>not</b> using either of these features: both of them are bad for the workers because being blocked or rejected sticks to a worker's record and makes them qualify for fewer experiments in the future. Thus, blocking or rejecting workers can easily hurt your lab's reputation since no one wants to do an experiment if it gives the risk of lowering their qualifications. Of course, if you have very clear evidence that someone is a bot, then it would make sense to block them; but it's very hard to be certain that someone is a bot (as opposed to, e.g., being confused by the task). Instead of using blocking/rejecting to get high quality results, I recommend using the design of your experiment to achieve that goal: Design the experiment in such a way that someone cannot reach the end if they are a bot or are inattentive, so that you can be confident that everyone who reaches the end deserves to be paid. </li>
+		</ol>
+
+		<p><em>Acknowledgments:</em> I am grateful to Jenny Culbertson, Paul Smolensky, and Géraldine Legendre for the conversations the led to most of these tips. However, the recommendations here are my own and do not necessarily reflect the views of my collaborators.</p>
+
+	</div>
+</body>
+
+
+
+</html>
+
+
