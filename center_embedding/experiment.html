@@ -1,0 +1,820 @@
+<!doctype html>
+<html>
+
+  <head>
+    <title>JHU CogSci</title>
+	<script>
+
+		// Randomly choose condition
+        var starting_small = false; //Math.random() >= 0.5;
+		var buttons_ordered = true; //Math.random() >= 0.5;
+
+
+
+	</script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jspsych.js"></script>
+    <script src="./js/jspsych-html-keyboard-response.js"></script>
+    <script src="./js/jspsych-html-button-response.js"></script>
+	<script src="./js/jspsych-html-button-response-wide.js"></script>
+	<script src="./js/jspsych-survey-text.js"></script>
+    <link href="./js/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+
+  <body>
+	  <div id="welcome"></div>
+  </body>
+    <script src="./js/welcome.js"></script>
+  <script>
+
+	// ID for the participant
+    var turkcode = (Math.floor(Math.random() * 899999) + 100000).toString();
+	turkcode = turkcode + "_QI"
+
+
+	// SETTING UP THE GRAMMAR, TRAINING SET, AND TEST SET
+
+	// Counts of training and
+	// testing items
+    var count_train_1 = 54; 
+    var count_train_2 = 36; 
+    var count_train_3 = 24;
+       
+	var count_test_good_1 = 3;
+	var count_test_good_2 = 5;
+	var count_test_good_3 = 8;
+	var count_test_good_4 = 8;
+
+	var count_test_point_1 = 3;
+	var count_test_point_2 = 5;
+	var count_test_swap_3 = 8;
+	var count_test_swap_4 = 8;
+ 
+
+	// Key: Word class
+	// Value: Word(s) in that class
+    var class2words = {
+        "V_A" : ["i"],
+        "CV_A" : ["vi"],
+        "VC_A" : ["id"],
+		"CVC_A" : ["zin"],
+		"CCV_A" : ["gri"],
+		"CCVC_A" : ["brin"],
+		"CCVCC_A" : ["djirn"],
+        "V_B" : ["o"],
+        "CV_B" : ["fo"],
+        "VC_B" : ["ot"],
+		"CVC_B" : ["som"],
+		"CCV_B" : ["klo"],
+		"CCVC_B" : ["plom"],
+		"CCVCC_B" : ["cholm"]
+    };
+
+	// Key: Word
+	// Value: Word's class
+	var word2class = {};
+	for (const key in class2words) {
+		values = class2words[key];
+		for (value_index = 0; value_index < values.length; value_index++) {
+			value = values[value_index];
+			word2class[value] = key;
+		}
+	}
+
+	// Templates for the grammatical
+	// 0-levels-of-embedding sequences
+    var agreement_pairs = [["V_A", "V_B"], ["CV_A", "CV_B"], ["VC_A", "VC_B"], ["CVC_A", "CVC_B"], ["CCV_A", "CCV_B"], ["CCVC_A", "CCVC_B"], ["CCVCC_A", "CCVCC_B"]];
+
+	// Words that can appear in the first half
+	// or last half of the sequence
+	var first_half = [];
+	var last_half = [];
+
+	for (pair_index = 0; pair_index < agreement_pairs.length; pair_index++) {
+		pair = agreement_pairs[pair_index];
+		first_class = pair[0];
+		last_class = pair[1];
+
+		first_words = class2words[first_class];
+		last_words = class2words[last_class];
+
+		for (first_word_index = 0; first_word_index < first_words.length; first_word_index++) {
+			first_half.push(first_words[first_word_index]);
+		}
+		
+		for (last_word_index = 0; last_word_index < last_words.length; last_word_index++) {
+			last_half.push(last_words[last_word_index]);
+		}
+	
+	}
+
+	// Full list of words
+	var word_list = first_half.concat(last_half);
+
+
+
+
+
+
+	// HELPFUL FUNCTIONS
+
+
+	// Count the number of times that item appears in lst
+    function count_in_list(lst, item){
+        var count = 0;
+        for (i=0; i<lst.length; i++) {
+            if (lst[i] == item) {
+                count++;
+            }
+        } 
+
+        return count;
+    }
+
+	// Returns [0,1,2,...,num-2,num-1]
+    function range(num) {
+        var to_return = [];
+
+        for (k = 0; k < num; k++) {
+            to_return.push(k);
+        }
+
+        return to_return;
+    }
+
+	// Return one randomly-selected item from arr
+    function choice(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Randomly shuffle an array
+    // https://stackoverflow.com/a/2450976/1293256
+    // @param  {Array} array The array to shuffle
+    // @return {String}      The first item in the shuffled array
+    var shuffle = function (array) {
+
+    	var currentIndex = array.length;
+       	var temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+        	// Pick a remaining element...
+        	randomIndex = Math.floor(Math.random() * currentIndex);
+        	currentIndex -= 1;
+
+       		// And swap it with the current element.
+       		temporaryValue = array[currentIndex];
+        	array[currentIndex] = array[randomIndex];
+        	array[randomIndex] = temporaryValue;
+       	}
+
+       	return array;
+    };
+
+
+	// Check if array elt_list contains
+	// two repeated items in a row
+	function two_in_a_row(elt_list) {
+		prev = [0, "", ""];
+		for (tiar = 0; tiar < elt_list.length; tiar++) {
+			if (elt_list[tiar][1] + elt_list[tiar][2] == prev[1] + prev[2]) {
+				return true;
+			}
+			prev = elt_list[tiar];
+		}
+		return false;
+	}
+
+
+
+
+
+	// GENERATING TRAINING AND TEST ITEMS
+
+
+	// Generate a grammatical sequence of length 2*half_length
+    function gen_good(half_length) {
+        // First choose the word classes that will make up the sequence
+		var class_list = [];
+
+        for (i_gg=0; i_gg<half_length; i_gg++) {
+            shuffle(agreement_pairs); 
+
+            var satisfied_gg1 = false;
+            while (satisfied_gg1 == false) {
+                candidate_pair = choice(agreement_pairs);
+				
+				// Since we're not allowing repeat elements, and each
+				// class has only one element, each class can only
+				// be used once
+                if (count_in_list(class_list, candidate_pair[0]) == 0) {
+                    satisfied_gg1 = true;
+                    class_list = [candidate_pair[0]].concat(class_list.concat([candidate_pair[1]]));
+                }
+            }
+        }
+
+		// Then choose words to replace the classes
+        var words = [];
+        for (j = 0; j < class_list.length; j++) {
+            var satisfied_gg2 = false;
+            while (satisfied_gg2 == false) {
+                candidate_syll = choice(class2words[class_list[j]]);
+                if (!(words.includes(candidate_syll))) {
+                    words.push(candidate_syll);
+                    satisfied_gg2 = true;
+                }
+            }
+        }
+        return words;
+
+    }
+
+
+	// Generate a training set
+	// no_repeats_period: whether even the 0-levels-of-embedding ones should contain no repeats
+	// shuffle_output: whether to shuffle the training set before returning it
+    function generate_training_set(count_1, count_2, count_3, count_4, list_to_avoid, no_repeats_period=false, shuffle_output=true) {
+        
+		training_set = [];
+        training_dict = {};
+ 
+        for (k = 0; k < list_to_avoid.length; k++) {
+            training_dict[list_to_avoid[k]] = 1;
+        }
+
+		// Generate the n=1 cases
+        for (internal_count_1 = 0; internal_count_1 < count_1; internal_count_1++) {
+            train_item = gen_good(1);
+			satisfied = false;
+
+			while (!satisfied) {
+
+				if (no_repeats_period && train_item in training_dict) {
+					train_item = gen_good(1);
+				} else {
+					satisfied = true;
+				}
+			}
+                
+            training_set.push(train_item);
+
+            if (no_repeats_period) {
+                training_dict[train_item] = 1;
+            }
+
+        }
+       
+		// Generate the n=2 cases 
+        for (internal_count_2 = 0; internal_count_2 < count_2; internal_count_2++) {
+            train_item = gen_good(2);
+                
+            satisfied = false;
+            while (!satisfied) {
+                train_item = gen_good(2);
+                if (!(train_item in training_dict)) {
+                    satisfied = true;
+                }
+
+            }
+
+            training_set.push(train_item);
+            training_dict[train_item] = 1;
+
+        }
+
+		// Generate the n=3 cases
+        for (internal_count_3 = 0; internal_count_3 < count_3; internal_count_3++) {
+            train_item = gen_good(3);
+                
+            satisfied = false;
+            while (!satisfied) {
+                train_item = gen_good(3);
+                if (!(train_item in training_dict)) {
+                    satisfied = true;
+                }
+
+            }
+
+            training_set.push(train_item);
+            training_dict[train_item] = 1;
+
+        }
+
+		// Generate the n=4 cases
+        for (internal_count_4 = 0; internal_count_4 < count_4; internal_count_4++) {
+            train_item = gen_good(4);
+                
+            satisfied = false;
+            while (!satisfied) {
+                train_item = gen_good(4);
+                if (!(train_item in training_dict)) {
+                    satisfied = true;
+                }
+
+            }
+            training_set.push(train_item);
+            training_dict[train_item] = 1;
+
+        }
+
+
+        if (shuffle_output) {
+            shuffle(training_set);
+        }
+
+        return training_set;
+
+
+    }
+
+
+	// Generate a set of ungrammatical sequences
+	// via a point mutations
+    function generate_point(nds_count_1, nds_count_2, nds_count_3, nds_count_4, no_repeats_period=false) {
+        point_dict = {};
+
+		// The sequences that will be modified
+        to_modify = generate_training_set(nds_count_1, nds_count_2, nds_count_3, nds_count_4, [], no_repeats_period=no_repeats_period);
+
+		// The sequences that we will return
+        to_return_nds = [];
+
+		// Modifying the elements in to_modify
+        for (i_nds = 0; i_nds < to_modify.length; i_nds++) {
+            elt = to_modify[i_nds];
+  
+            satisfied = false;
+
+            while (!satisfied) {
+				
+				// For n=1 or n=2, we must choose the outermost pair
+				// For n=3, we can choose the outermost or 
+				//   second-outermost pair
+				// Not implemented for n > 3
+                if ((elt.length == 2) || (elt.length == 4)) {
+                    position = 0;
+                } else if (elt.length == 6) {
+                    position = choice([0,1]);
+                } else {
+                    14/0;
+                }
+
+                to_replace = elt[position];
+   
+				found_replacement = false;
+
+				while (!found_replacement) {
+					if (first_half.includes(to_replace)) {
+						replacement = choice(first_half);
+					} else {
+						replacement = choice(last_half);
+					}
+
+					// Since each class only contains one element,
+					// as long as the new one is different from the
+					// old one, the sequence is guaranteed to be
+					// ungrammatical
+					if (replacement != to_replace) {
+						found_replacement = true;
+					}
+				}
+ 
+                new_word = replacement; 
+                new_elt = elt.slice();
+                new_elt[position] = new_word;
+                if (!elt.includes(new_word) && !(new_elt in point_dict)) {
+                    satisfied = true;
+                }
+            }
+
+
+            elt[position] = new_word;
+
+            point_dict[elt] = 1;
+            to_return_nds.push(elt);
+        }
+
+        return to_return_nds;
+        
+    }
+
+	// Generate a set of ungrammatical sequences via swaps
+    function generate_swap(nds_count_1, nds_count_2, nds_count_3, nds_count_4) {
+        swap_dict = {};
+
+		// Grammatical elements to modify
+        to_modify = generate_training_set(nds_count_1, nds_count_2, nds_count_3, nds_count_4, []);
+
+		// Ungrammatical elements to return
+        to_return_nds = [];
+
+		// Modify the grammatical elements
+        for (i_nds = 0; i_nds < to_modify.length; i_nds++) {
+            elt = to_modify[i_nds];
+
+            satisfied = false;
+
+            while (!satisfied) {
+
+				// Choose the positions to swap
+                if ((elt.length == 2)) {
+                    14/0;
+                } else if (elt.length == 4) {
+					position1 = 0;
+					position2 = 1;
+				} else if (elt.length == 6) {
+                    position1 = 0;
+                    position2 = 1;
+                } else {
+                    position1 = choice([0,1,2]);
+
+                    if (position1 == 0) {
+                        remainder = [1,2];
+                    }
+                    if (position1 == 1) {
+                        remainder = [0,2];
+                    }
+                    if (position1 == 2) {
+                        remainder = [0,1];
+                    }
+
+                    position2 = choice(remainder);
+                }
+                   
+				// Trick for forcing a deep copy of the string
+				elt1 = (' ' + elt[position1]).slice(1); 
+                elt2 = (' ' + elt[position2]).slice(1);
+                    
+				// Swap the chosen elements
+                elt[position1] = elt2;
+                elt[position2] = elt1;
+
+				// Make sure the new sequence is ungrammatical
+				// and not already created
+                if ((word2class[elt1] != word2class[elt2]) && !(elt in swap_dict)) {
+                    satisfied = true;
+                } else {
+                    elt = gen_good(elt.length / 2);         
+                }   
+
+            }
+
+            swap_dict[elt] = 1;
+            to_return_nds.push(elt);
+        }
+
+        return to_return_nds;
+    }
+
+	// Create the training and test sets
+
+    var test_set_good = generate_training_set(count_test_good_1, count_test_good_2, count_test_good_3, count_test_good_4, [], no_repeats_period=true);
+
+    var test_set_point = generate_point(count_test_point_1, count_test_point_2, 0, 0);
+    var test_set_swap = generate_swap(0, 0, count_test_swap_3, count_test_swap_4);
+
+	// Combine the subcomponents of the test
+	// set that were generated above
+	// Each element in test_set is a length-3 array:
+	// [grammatical?, test_category, sequence]
+    var test_set = [];
+
+    for (v = 0; v < test_set_good.length; v++) {
+        elt = test_set_good[v];
+        test_set.push(["y", "good" + elt.length].concat(elt));
+    }
+
+    for (v = 0; v < test_set_point.length; v++) {
+        elt = test_set_point[v];
+        test_set.push(["n", "point" + elt.length].concat(elt));
+    }
+
+    for (v = 0; v < test_set_swap.length; v++) {
+        elt = test_set_swap[v];
+        test_set.push(["n", "swap" + elt.length].concat(elt));
+    }
+
+
+	// Generate the training set
+    var train_set = generate_training_set(count_train_1, count_train_2, count_train_3, 0, test_set_good);
+	shuffle(train_set);
+
+	// Ensure that the training set never has the same item
+	// twice in a row
+	var count_train_shuffles = 0;
+	while (two_in_a_row(train_set)) {
+		shuffle(train_set);
+		count_train_shuffles++;
+
+		// Control for the possibility that some training sets might
+		// be impossible to make have no repeats in a row - so fix
+		// by generating a new training set
+		if (count_train_shuffles > 1000) {
+			train_set = generate_training_set(count_train_1, count_train_2, count_train_3, 0, test_set_good);
+			count_train_shuffles = 0;
+		}
+
+	}	
+
+
+	var train_indices = [range(train_set.length)];
+	var train_blocks = [train_set];
+
+    shuffle(test_set);
+	var test_indices = [jsPsych.randomization.repeat(range(test_set.length), 1)];  
+	var test_blocks = [test_set];
+
+
+
+
+	// DEFINING TIMELINE ELEMENTS
+
+	// Welcome screen
+    var welcome_screen = {
+        type: "html-keyboard-response",
+        stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+
+
+	// Instructions about training	
+	var instructions_train = {
+        type: "html-button-response",
+        stimulus: "This experiment has two parts. In the first part, a plus sign will appear in the center of the screen followed by a sentence in an alien language, presented one word at a time. As each word appears, you will be asked to repeat back that word by clicking a button. In the second part, you will be tested on what you have seen in the first part. If you score at least 75% on the test portion, you will be paid a bonus of $1.00, to give a total payment of $5.00. Otherwise, your total payment will be $4.00. You can keep track of your progress by checking the bar at the top of the screen. To prove that you are paying attention, please click the 'no' button below instead of the 'yes' button." + "<br><br>Have you read and understood these instructions?",
+		choices: ["Yes", "No"]
+    };
+
+
+	// Instructions about testing
+    var instructions_test = {
+        type: "html-button-response",
+        stimulus: "All of the sequences of words that you have seen " +
+                  "were sentences from an alien language. We are now going to show " +
+                  "you some more sequences of words and will ask you whether each " +
+                  "of these new sequences could also be a sentence in that alien language. " +
+				  "If you score at least 75% on this section, you will receive an additional bonus of $1.00, to give a total payment of $5.00. Otherwise, your total payment will be $4.00. " +
+                  "Press the button below to begin.",
+		choices: ["Ready to proceed"]
+    };
+
+	// Error message
+    var error_message = {
+        type: "html-keyboard-response",
+        stimulus: "<p style='color:red; font-size:100px'>INCORRECT</p><p style='color:red; font-size:32px'>This sentence will now restart from the beginning</p>",
+        trial_duration: 1000,
+    }
+
+
+	// Fixation cross
+    var fixation = {
+        type: 'html-keyboard-response',
+        stimulus: '<p style="color: white;">Please click the button corresponding to the word shown below.</p><br>' + '<div style="font-size:60px;">+</div><br><div style="width:200px;height:190px;"></div>',
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 1000,
+    }
+
+
+	// Clickable test screen
+    function create_test_screen_clickable(answer, example_type, sequence) {
+        var test_screen = {
+            type: 'html-button-response',
+            stimulus: 'Is the sequence below a possible sentence in the alien language?<br>(Buttons will be clickable after a brief delay)<br><br><p style="font-size: 24px; font-family:\'Lucida Console\', monospace">' + sequence + '</p>',
+			button_html: ['<button class="jspsych-btn">%choice%</button>', '<button class="jspsych-btn">%choice%</button>'],  
+            choices: ['yes', 'no'],
+            data: {correct_response: answer, test_part: example_type },
+            on_finish: function(data){
+				data.correct = data.button_pressed == data.correct_response;
+            },
+        }
+        return test_screen;
+    }
+
+	// Unclickable test screen
+    function create_test_screen_unclickable(answer, example_type, sequence, delay) {
+        var test_screen = {
+            type: 'html-button-response',
+            stimulus: 'Is the sequence below a possible sentence in the alien language?<br>(Buttons will be clickable after a brief delay)<br><br><p style="font-size: 24px; font-family:\'Lucida Console\', monospace">' + sequence + '</p>',
+			button_html: ['<button class="jspsych-btn" disabled>%choice%</button>', '<button class="jspsych-btn" disabled>%choice%</button>'],  
+            choices: ['yes', 'no'],
+			trial_duration: delay,
+        }
+        return test_screen;
+    }
+
+	// The choices on the buttons
+    var choice_list = [];
+
+    for (j = 0; j < 14; j++) {
+        choice_list.push("<p style='width: 35px;'>" + word_list[j] + "</p>");
+    }
+
+
+
+    var finish_this_word = true;
+
+	// Single word in a training sequence
+    function single_word(this_word, prev_word) {
+		var word_screen = {
+    	        type: 'html-button-response-wide',
+        	    stimulus: '<p>Please click the button corresponding to the word shown below.</p><br><div style="font-size:40px; font-family:\'Lucida Console\', monospace">' + this_word + "</div><br>",
+            	choices: choice_list,
+               	button_html: ['<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">i</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">vi</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">id</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">zin</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">gri</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">brin</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">djirn</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">o</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">fo</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">ot</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">som</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">klo</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">plom</button>', '<button class="jspsych-btn" style="width: 80px; height: 80px; margin: auto;">cholm</button>'],
+        };
+
+
+        var word_finished_if_node = {
+            timeline: [word_screen],
+            conditional_function: function(){
+                if (prev_word == "NONE") {
+                    finish_this_word = true;
+                }
+                return finish_this_word;
+            }
+
+        }
+
+        return word_finished_if_node;
+    }
+
+	// Error message for pushing the wrong
+	// button during training
+    function var_error_message(this_syll) {
+
+        var error_if_node = {
+            timeline: [error_message],
+            conditional_function: function(){
+                var data = jsPsych.data.get().last(1).values();
+                var to_return = false;
+
+                if(data[0].button_pressed != word_list.indexOf(this_syll) && finish_this_word) {
+                    to_return = true;
+                    finish_this_word = false;
+                }
+
+                return to_return;
+            }
+        }
+
+        return error_if_node;
+
+    }
+
+	// Create a full training sentence
+    function train_sentence(words) {
+        finish_this_word = true;
+        sentence_timeline = []
+        sentence_timeline.push(fixation);
+        for (i = 0; i < words.length; i++) {
+            if (i == 0) {
+                prev_word = "NONE";
+            } else {
+                prev_word = words[i-1];
+            }
+
+            sentence_timeline.push(single_word(words[i], prev_word));
+            finish_this_word = true;
+            sentence_timeline.push(var_error_message(words[i]));
+            finish_this_word = true;
+        }
+
+        var loop_node = {
+            timeline: sentence_timeline,
+            loop_function: function() {
+                return (finish_this_word == false);
+            }
+        }
+
+        return loop_node;
+    }
+
+	yn_dict = { 'y' : 0,
+				'n' : 1}
+
+	// One test item
+    function test_sentence(test_words) {
+        var words = test_words.slice(2);
+
+        sentence_timeline = []
+
+		if (words.length == 2) {
+			delay = 1000;
+		} else if (words.length == 4) {
+			delay = 2000;
+		} else {
+			delay = 3000;
+		}
+
+
+		sentence_timeline.push(create_test_screen_unclickable(test_words[0], test_words[1], words.join("&nbsp;&nbsp;&nbsp;"), delay));
+        sentence_timeline.push(create_test_screen_clickable(yn_dict[test_words[0]], test_words[1], words.join("&nbsp;&nbsp;&nbsp;")));
+
+        eval_step = {
+            timeline: sentence_timeline,
+        }
+
+        return eval_step;
+    }
+
+	// Free-response question
+	var survey_trial = {
+  		type: 'survey-text',
+  		questions: [
+   			{prompt: "OPTIONAL: If you would like, please describe how you decided which sequences were possible sentences in the alien language.", rows: 5}, 
+  		],
+	};
+
+	// Debriefing screen
+    var debrief_block = {
+        type: "html-keyboard-response",
+        choices: jsPsych.NO_KEYS,
+        stimulus: function() {
+            var trials = jsPsych.data.get().filter([{test_part: 'good2'}, {test_part: 'good4'}, {test_part: 'good6'}, {test_part: 'point2'}, {test_part: 'point4'}, {test_part: 'swap6'}, ]);
+            var correct_trials = trials.filter({correct: true});
+            var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+            endExperiment( jsPsych.data.get().csv());
+
+			if (accuracy < 75) {
+        	    return "<p>You responded correctly on "+accuracy+"% of the trials.</p>" +
+                    "The code that you should enter on the Mechanical Turk website is:" +
+                    "<br><br><p style='font-size:100px'>" + turkcode + "_B</p><br><br>" +
+                    "<p>You will be paid $4.00 for the experiment. Thank you!</p>";
+			} else {
+                return "<p>Well done! You responded correctly on "+accuracy+"% of the trials.</p>" +
+                    "The code that you should enter on the Mechanical Turk website is:" +
+                    "<br><br><p style='font-size:100px'>" + turkcode + "_C</p><br><br>" +
+                    "<p>You will be paid $4.00 for the experiment, plus a bonus of $1.00 paid to your Mechanical Turk account, for a total of $5.00. Thank you!</p>";
+			}
+
+        }
+    };
+
+
+
+
+	// SETTING UP THE TIMELINE
+
+    var timeline = [];
+
+    timeline.push(welcome_screen);
+	timeline.push(instructions_train);
+
+    for (q = 0; q < train_blocks.length; q++) {
+
+        train_block = train_blocks[q];
+        train_indices_block = train_indices[q];
+
+        for (j = 0; j < train_block.length; j++) {
+            timeline.push(train_sentence(train_block[train_indices_block[j]]));
+        }
+
+        timeline.push(instructions_test);
+
+        test_block = test_blocks[q];
+        test_indices_block = test_indices[q];
+
+        for (j = 0; j < test_block.length; j++) {
+            timeline.push(test_sentence(test_block[test_indices_block[j]]));
+        }
+
+    }
+
+	timeline.push(survey_trial);	
+    timeline.push(debrief_block);
+
+
+
+
+	// RUN THE EXPERIMENT
+
+
+    /* start by running the "welcome" */
+    welcome.run();
+
+
+    /* function to start the jsPsych experiment */
+    function startExperiment(){
+	// record the turkcode in the jsPsych data
+      jsPsych.data.addProperties({
+        turkcode: turkcode
+      });
+
+        jsPsych.init({
+            timeline: timeline,
+            experiment_width: 720,
+            show_progress_bar: true,
+            on_finish: function() {
+				jsPsych.setProgressBar(1.00);
+                endExperiment( jsPsych.data.get().csv());
+        }
+        })
+
+    }
+
+    /* save and finish */
+    function endExperiment(dataset) {
+      $.post('submit',{"content": dataset}); // uncomment to post data
+    }
+
+
+  </script>
+</html>
