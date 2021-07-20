@@ -7,7 +7,29 @@ redirect_from:
 
 {% include base_path %}
 
+# 2021
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Jennifer Culbertson, Paul Smolensky, and Géraldine Legendre. Infinite use of finite means? Evaluating the generalization of center embedding learned from an artificial grammar. <em>Proceedings of the 43rd Annual Conference of the Cognitive Science Society</em>. [<a href="https://psyarxiv.com/r8ct2">pdf</a>]
+</p>
+
+
+
 # 2020
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Michael Lepori and <b>R. Thomas McCoy</b>. Picking BERT's Brain: Probing for Linguistic Dependencies in Contextualized Embeddings Using Representational Similarity Analysis. <em>Proceedings of the 28th International Conference on Computational Linguistics (COLING)</em>. [<a href="https://aclanthology.org/2020.coling-main.325/">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Junghyun Min, and Tal Linzen. BERTs of a feather do not generalize together: Large variability in generalization across models with similar test set performance. <em>Proceedings of the Third BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP</em>. [<a href="https://aclanthology.org/2020.blackboxnlp-1.21.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Paul Soulos, <b>R. Thomas McCoy</b>, Tal Linzen, and Paul Smolensky. Discovering the compositional structure of vector representations with Role Learning Networks. In <em>Proceedings of the Third BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP</em>. [<a href="https://aclanthology.org/2020.blackboxnlp-1.23.pdf">pdf</a>]
+</p>
+
 
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Erin Grant, Paul Smolensky, Thomas L. Griffiths, and Tal Linzen. Universal linguistic inductive biases via meta-learning. <em>Proceedings of the 42nd Annual Conference of the Cognitive Science Society</em>. [<a href="https://arxiv.org/pdf/2006.16324.pdf">pdf</a>] [<a href="http://rtmccoy.com/meta-learning-linguistic-biases.html">demo</a>]
@@ -27,14 +49,6 @@ Junghyun Min, <b>R. Thomas McCoy</b>, Dipanjan Das, Emily Pitler, and Tal Linzen
 </p>
 
 # 2019
-
-<p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Junghyun Min, and Tal Linzen. BERTs of a feather do not generalize together: Large variability in generalization across models with similar test set performance. arXiv preprint. [<a href="https://arxiv.org/abs/1911.02969">arXiv</a>] [<a href="https://arxiv.org/pdf/1911.02969.pdf">pdf</a>]
-</p>
-
-<p style="margin-left: 40px; text-indent: -40px;">
-Paul Soulos, <b>R. Thomas McCoy</b>, Tal Linzen, and Paul Smolensky. Discovering the compositional structure of vector representations with Role Learning Networks. In <em>NeurIPS 2019 Workshop on Context and Compositionality in biological and artificial neural systems</em>. [<a href="https://context-composition.github.io/camera_ready_papers/soulos_neurips_camera_ready.pdf">pdf</a>]
-</p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. In <em>Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://www.aclweb.org/anthology/P19-1334/">ACL anthology</a>] [<a href="https://www.aclweb.org/anthology/P19-1334.pdf">pdf</a>]
