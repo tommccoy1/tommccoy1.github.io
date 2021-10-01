@@ -10,6 +10,10 @@ redirect_from:
 # 2021
 
 <p style="margin-left: 40px; text-indent: -40px;">
+Paul Soulos, Sudha Rao, Caitlin Smith, Eric Rosen, Asli Celikyilmaz, <b>R. Thomas McCoy</b>, Yichen Jiang, Coleman Haley, Roland Fernandez, Hamid Palangi, Jianfeng Gao, and Paul Smolensky. Structural Biases for Improving Transformers on Translation into Morphologically Rich Languages. <em>Proceedings of the 4th Workshop on Technologies for MT of Low Resource Languages</em>.
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Jennifer Culbertson, Paul Smolensky, and Géraldine Legendre. Infinite use of finite means? Evaluating the generalization of center embedding learned from an artificial grammar. <em>Proceedings of the 43rd Annual Conference of the Cognitive Science Society</em>. [<a href="https://psyarxiv.com/r8ct2">pdf</a>]
 </p>
 
