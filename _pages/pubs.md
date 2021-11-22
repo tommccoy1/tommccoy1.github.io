@@ -10,6 +10,11 @@ redirect_from:
 # 2021
 
 <p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Paul Smolensky, Tal Linzen, Jianfeng Gao, and Asli Celikyilmaz. How much do language models copy from their training data? Evaluating linguistic novelty in text generation using RAVEN. <em>arXiv preprint arXiv 2111.09509</em>. [<a href="https://arxiv.org/pdf/2111.09509.pdf">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
 Paul Soulos, Sudha Rao, Caitlin Smith, Eric Rosen, Asli Celikyilmaz, <b>R. Thomas McCoy</b>, Yichen Jiang, Coleman Haley, Roland Fernandez, Hamid Palangi, Jianfeng Gao, and Paul Smolensky. Structural Biases for Improving Transformers on Translation into Morphologically Rich Languages. <em>Proceedings of the 4th Workshop on Technologies for MT of Low Resource Languages</em>.
 </p>
 
