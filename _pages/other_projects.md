@@ -17,6 +17,10 @@ redirect_from:
 
 **North American Computational Linguistics Open Competition (NACLO):** NACLO is a contest that introduces high school students to computational linguistics via puzzles. I have contributed the following puzzles:
 
+* [Made You Look!](https://www.nacloweb.org/resources/problems/2021/N2021-D.pdf). Eye tracking and predictive processing.
+* [A Stress Test](https://www.nacloweb.org/resources/problems/2021/N2021-Q.pdf). Parameter-based stress assignment. Written with Ryan Chi.
+* [Junk Mail: Letters We Don't Need](https://www.nacloweb.org/resources/problems/2021/N2021-B.pdf). Orthography.
+* [The Tortoise and the Rabbit](https://www.nacloweb.org/resources/problems/2021/N2021-A.pdf). Malagasy syntax.
 * [Password Confusion](https://www.nacloweb.org/resources/problems/2020/N2020-G.pdf). About the poverty of the stimulus.
 	* Based on one of my [papers](https://www.mitpressjournals.org/doi/full/10.1162/tacl_a_00304) with Bob Frank and Tal Linzen.
 * [Cut to the Chase](https://www.nacloweb.org/resources/problems/2020/N2020-Q.pdf). Applying Unification Grammar to Maasai. Written with Lori Levin.

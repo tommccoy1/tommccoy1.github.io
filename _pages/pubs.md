@@ -7,6 +7,11 @@ redirect_from:
 
 {% include base_path %}
 
+# 2022
+<p style="margin-left: 40px; text-indent: -40px;">
+Paul Smolensky, <b>R. Thomas McCoy</b>, Roland Fernandez, Matthew Goldrick, and Jianfeng Gao. Neurocompositional computing: From the Central Paradox of Cognition to a new generation of AI systems. To appear in <em>AI Magazine</em>.
+</p>
+
 # 2021
 
 <p style="margin-left: 40px; text-indent: -40px;">
