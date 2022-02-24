@@ -15,5 +15,8 @@ main:
   - title: "Fun"
     url: /fun/
 
+  - title: "Conversation topics"
+    url: /topics/
+
   - title: "Contact"
     url: /contact/
