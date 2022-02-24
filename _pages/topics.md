@@ -7,7 +7,7 @@ redirect_from:
 
 {% include base_path %}
 
-Do you have a meeting scheduled with me but don't know what to talk about? Here are some topics that I never get tired of!
+Do you have a meeting scheduled with me but don't know what to talk about? Here are some topics that I'm always interested in discussing:
 
 
 - What can linguistics and natural language processing contribute to each other?
