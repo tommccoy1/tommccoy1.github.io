@@ -21,6 +21,7 @@ Do you have a meeting scheduled with me but don't know what to talk about? Here 
 - What types of insights can we gain from the paradigm of artificial language learning?
 - Is out-of-distribution generalization a meaningful concept? What about compositionality?
 - How should we measure progress in AI/NLP?
+- In language acquisition, how impoverished is the stimulus?
 - To what extent should AI models be human-like (including making the same mistakes as humans do)?
 - How can we tell what inductive biases a learner has (whether a human or a machine)?
 - Why do we need a field of cognitive science (instead of just individual disciplines of psychology, neuroscience, linguistics, etc.)?
