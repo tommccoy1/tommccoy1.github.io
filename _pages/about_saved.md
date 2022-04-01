@@ -12,6 +12,8 @@ I am a Ph.D. student in the [Department of Cognitive Science](http://cogsci.jhu.
 
 I study computational linguistics using techniques from cognitive science, machine learning, and natural language processing. My research focuses on how to achieve **robust generalization** in models of language, as this remains one of the main areas where current AI systems fall short and one of the most impressive components of language processing in humans. In particular, I study which **inductive biases** and which **representations of structure** enable robust generalization, since these are two of the major components that determine how learners generalize to novel types of input.
 
+**Conversation topics:** Do you have a meeting scheduled with me but don't know what to talk about? See [this page](https://rtmccoy.com/topics/) for some topics that are often on my mind.
+
 **Representative papers:**
 - <b>R. Thomas McCoy</b>, Paul Smolensky, Tal Linzen, Jianfeng Gao, and Asli Celikyilmaz. How much do language models copy from their training data? Evaluating linguistic novelty in text generation using RAVEN. <em>arXiv preprint arXiv 2111.09509</em>. [<a href="https://arxiv.org/pdf/2111.09509.pdf">pdf</a>]
 - **R. Thomas McCoy**, Jennifer Culbertson, Paul Smolensky, and Géraldine Legendre. Infinite use of finite means? Evaluating the generalization of center embedding learned from an artificial grammar. <em>Proceedings of the 43rd Annual Conference of the Cognitive Science Society</em>. [<a href="https://psyarxiv.com/r8ct2">pdf</a>] 
