@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Home"
 title_separator          : "-"
 name                     : &name "Tom McCoy"
-description              : &description "PhD student in Cognitive Science at Johns Hopkins University"
+description              : &description "Postdoc at Princeton University"
 url                      : https://tommccoy1.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "tommccoy1.github.io"
@@ -80,7 +80,7 @@ analytics:
 author:
   name             : "R. Thomas McCoy"
   avatar           : "mccoyheadshot.jpg"
-  bio              : "PhD student in Cognitive Science at Johns Hopkins University"
+  bio              : "Postdoc at Princeton University"
   location         : 
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en"
