@@ -7,12 +7,11 @@ redirect_from:
 
 {% include base_path %}
 
-**Email:** [tom.mccoy@jhu.edu](mailto:tom.mccoy@jhu.edu)
+**Email:** [tom.mccoy@princeton.edu](mailto:tom.mccoy@princeton.edu)
 
 **Mailing Address:**
 
-141 Krieger Hall  
-Cognitive Science Department  
-Johns Hopkins University  
-3400 N. Charles Street  
-Baltimore, MD 21218  
+Department of Psychology 
+Peretsman Scully Hall
+Princeton University  
+Princeton, NJ 08540 
