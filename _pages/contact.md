@@ -11,7 +11,10 @@ redirect_from:
 
 **Mailing Address:**
 
-Department of Psychology 
+Department of Psychology
+ 
 Peretsman Scully Hall
+
 Princeton University  
+
 Princeton, NJ 08540 
