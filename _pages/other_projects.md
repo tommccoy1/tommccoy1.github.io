@@ -21,6 +21,7 @@ redirect_from:
 	* Received the [solver's choice award](https://ioling.org/problems/solvers_choice) at the 2022 International Linguistics Olympiad.
 * [Stopping for a Spell](https://www.nacloweb.org/resources/problems/2022/N2022-L.pdf). Finite-state transducers for grapheme-to-phoneme conversion.
 * [Out of Order](https://www.nacloweb.org/resources/problems/2022/N2022-G.pdf). Filler-role representations.
+	* Based on one of my [papers](https://openreview.net/pdf?id=BJx0sjC5FX) with Tal Linzen, Ewan Dunbar, and Paul Smolensky.
 * [Who Saw the Bear?](https://www.nacloweb.org/resources/problems/2022/N2022-B.pdf). Turkish syntax and morphology.
 * [Made You Look!](https://www.nacloweb.org/resources/problems/2021/N2021-D.pdf). Eye tracking and predictive processing.
 * [A Stress Test](https://www.nacloweb.org/resources/problems/2021/N2021-Q.pdf). Parameter-based stress assignment. Written with Ryan Chi.
