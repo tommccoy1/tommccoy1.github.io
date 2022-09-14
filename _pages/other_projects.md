@@ -17,6 +17,11 @@ redirect_from:
 
 **North American Computational Linguistics Open Competition (NACLO):** NACLO is a contest that introduces high school students to computational linguistics via puzzles. I have contributed the following puzzles:
 
+* [Arabana Kinship](https://ioling.org/booklets/iol-2022-indiv-prob.us.pdf). Arabana kinship system (problem for the International Linguistics Olympiad, not NACLO).
+	* Received the [solver's choice award](https://ioling.org/problems/solvers_choice) at the 2022 International Linguistics Olympiad.
+* [Stopping for a Spell](https://www.nacloweb.org/resources/problems/2022/N2022-L.pdf). Finite-state transducers for grapheme-to-phoneme conversion.
+* [Out of Order](https://www.nacloweb.org/resources/problems/2022/N2022-G.pdf). Filler-role representations.
+* [Who Saw the Bear?](https://www.nacloweb.org/resources/problems/2022/N2022-B.pdf). Turkish syntax and morphology.
 * [Made You Look!](https://www.nacloweb.org/resources/problems/2021/N2021-D.pdf). Eye tracking and predictive processing.
 * [A Stress Test](https://www.nacloweb.org/resources/problems/2021/N2021-Q.pdf). Parameter-based stress assignment. Written with Ryan Chi.
 * [Junk Mail: Letters We Don't Need](https://www.nacloweb.org/resources/problems/2021/N2021-B.pdf). Orthography.
