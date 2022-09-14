@@ -12,6 +12,9 @@ main:
   - title: "Blog posts"
     url: /posts/
 
+  - title: "Conversation topics"
+    url: /topics/
+
   - title: "Fun"
     url: /fun/
 
