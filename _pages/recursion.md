@@ -19,7 +19,6 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 **Wikipedia's "List of lists of lists":** [https://en.wikipedia.org/wiki/List_of_lists_of_lists](https://en.wikipedia.org/wiki/List_of_lists_of_lists)
 
 **Recursion in geography:**
-
 * *Countries within countries:* San Marino and Vatican City are both entirely surrounded by Italy. Lesotho is entirely surrounded by South Africa.
 * *Dahala Khagrabari:* Until 2015, there was a territory of India inside a territory of Bangladesh inside a territory of India inside a territory of Bangladesh. The innermost territory was called [Dahala Khagrabari](https://en.wikipedia.org/wiki/Dahala_Khagrabari).
 
@@ -31,6 +30,13 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 <img src="../../images/isle_royale.jpeg" alt="Isle Royale" width="400"/>
 Isle Royale, an island within Lake Superior that contains several lakes of its own. Image via [Wikipedia](https://en.wikipedia.org/wiki/Isle_Royale_National_Park).
 
+
+**Siphonaptera.** Augustus De Morgan (a logician known for De Morgan's laws) wrote the following poem:
+
+Great fleas have little fleas upon their backs to bite 'em,  
+And little fleas have lesser fleas, and so *ad infinitum*.  
+And the great fleas themselves, in turn, have greater fleas to go on;  
+While these again have greater still, and greater still, and so on.  
 
 
 
