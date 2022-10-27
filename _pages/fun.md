@@ -7,6 +7,8 @@ redirect_from:
 
 {% include base_path %}
 
+**Recursion:** [This page](https://rtmccoy.com/fun/recursion.html) lists my favorite examples of recursion.
+
 **Talk about crosswords and linguistics:** In October 2020, I gave a talk for the National Museum of Language called "Language Squared: The Linguistics of Crosswords." You can view the full talk [here](https://www.youtube.com/watch?v=r5Lhir9eKyY) and can view highlights [here](https://www.youtube.com/watch?v=UwbO8HMrOq4).
 
 **Published crosswords:** As a hobby, I construct crossword puzzles. I have published 35 puzzles in the *New York Times* (solution grids to all the puzzles are [here](https://www.xwordinfo.com/Thumbs?author=Tom+McCoy), but spoiler alert in case you want to solve them! And [here](https://www.xwordinfo.com/WordsByCon?author=Tom+McCoy) are the words that I debuted in the *New York Times*). I have also published crosswords in the *New Yorker*, the *Los Angeles Times*, the *Chronicle of Higher Education*, and *Buzzfeed*.
