@@ -9,7 +9,7 @@ body {
   padding:50px 0;
   margin:0;
   font:14px/1.5 Verdana, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color:#555;
+  color:black;
   font-weight:300;
   background:white;
 }
@@ -213,8 +213,8 @@ h3, h4, h5, h6 {
 
 blockquote {
   padding:0px 0px 1px 40px;
-  font-style:italic;
-  color:#222;
+  font-style:normal;
+  color:black;
 }
 
 img {
