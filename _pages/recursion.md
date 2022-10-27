@@ -16,4 +16,7 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 *Image via [Pinterest](https://www.pinterest.com/pin/533958099560328563/).*
 
 
+**Wikipedia's "List of lists of lists":** [https://en.wikipedia.org/wiki/List_of_lists_of_lists](https://en.wikipedia.org/wiki/List_of_lists_of_lists)
+
+
 
