@@ -7,5 +7,5 @@ redirect_from:
 
 {% include base_path %}
 
-**Recursion** is amazing.
+This page lists my favorite examples of recursion, loosely defined as a situation where something of category X contains another element of category X. For discussion of the definition of recursion, see this page.
 
