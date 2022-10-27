@@ -12,7 +12,7 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 
 **Cookies & Creme flavored Oreos:** These now-discontinued Oreos contained little bits of Oreo inside their frosting.
 
-![package of Cookies & Creme flavored Oreos](oreo_cookies_creme.png "Cookies & Creme flavored Oreos")
+<img src="oreo_cookies_creme.png" alt="Package of Cookies & Creme flavored Oreos" width="200"/>
 
 
 
