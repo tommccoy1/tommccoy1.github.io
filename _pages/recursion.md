@@ -12,7 +12,7 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 
 **Cookies & Creme flavored Oreos:** These now-discontinued Oreos contained little bits of Oreo inside their frosting.
 
-<img src="../oreo_cookies_creme.png" alt="Package of Cookies & Creme flavored Oreos" width="200"/>
+<img src="../../images/oreo_cookies_creme.png" alt="Package of Cookies & Creme flavored Oreos" width="200"/>
 *Image via [Pinterest](https://www.pinterest.com/pin/533958099560328563/).*
 
 
@@ -20,7 +20,9 @@ This page lists my favorite examples of recursion. I take *recursion* to mean "h
 
 **Recursion in geography:**
 
-*Lake within a lake*: 
+*Countries within countries:* San Marino and Vatican City are both entirely surrounded by Italy. Lesotho is entirely surrounded by South Africa.
+*Dahala Khagrabari:* Until 2015, there was a territory of India inside a territory of Bangladesh inside a territory of India inside a territory of Bangladesh. The innermost territory was called [Dahala Khagrabari](https://en.wikipedia.org/wiki/Dahala_Khagrabari).
+*Recursive islands and lakes:* 
 
 
 
