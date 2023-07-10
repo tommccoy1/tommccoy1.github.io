@@ -13,6 +13,7 @@ Do you have a meeting scheduled with me but don't know what to talk about? Here 
 - What can linguistics and natural language processing contribute to each other?
 - How can we use neural networks as cognitive or psycholinguistic models?
 - How impressed should we be by current AI? What are AI's most important achievements and most serious shortcomings?
+- What factors explain the impressive performance of large language models (LLMs)?
 - Which aspects of language are innate?
 - How far can AI advance based on scale alone (larger models, more data, longer training, etc.)?
 - For improving models' performance, to what extent should we focus on their training data vs. their architectural structure?
