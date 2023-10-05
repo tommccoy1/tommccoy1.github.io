@@ -1,0 +1,10 @@
+
+var examples = {};
+
+examples[0] = {index:"1", shift:"1", inp:"ibm", correct:"hal", gpt35:"abc", gpt4:"han", prompt:"Basic", full_prompt:"This is the complete prompt. Continuing continuing. I'm making the prompt long so that we can investigate whether it wraps onto a new line. This will be important to figure out.", probability:"high", task:"decoding", decoded4:"NOT APPLICABLE", decoded35:"NOT APPLICABLE"};
+examples[1] = {index:"2", shift:"1", inp:"dog", correct:"hal", gpt35:"NOT AVAILABLE", gpt4:"two", prompt:"Chain of thought", full_prompt:"This is the complete prompt", probability:"high", task:"encoding", decoded4:"Here you go!", decoded35:"Here you go!"};
+examples[2] = {index:"3", shift:"1", inp:"log", correct:"hal", gpt35:"NOT AVAILABLE", gpt4:"ten", prompt:"Step by step", full_prompt:"This is the complete prompt. I'm now going to extend it.", probability:"high", task:"encoding", decoded4:"Here you go!", decoded35:"Here you go!"};
+examples[3] = {index:"1", shift:"3", inp:"ibm", correct:"hal", gpt35:"abc", gpt4:"han", prompt:"Basic", full_prompt:"This is the complete prompt", probability:"low", task:"decoding", decoded4:"NOT APPLICABLE", decoded35:"NOT APPLICABLE"};
+examples[4] = {index:"2", shift:"3", inp:"dog", correct:"hal", gpt35:"abc", gpt4:"two", prompt:"Basic", full_prompt:"This is the complete prompt", probability:"low", task:"encoding", decoded4:"Here you go!", decoded35:"Here you go!"};
+examples[5] = {index:"3", shift:"3", inp:"log", correct:"hal", gpt35:"abc", gpt4:"hal", prompt:"Basic", full_prompt:"This is the complete prompt", probability:"medium", task:"encoding", decoded4:"Here you go!", decoded35:"Here you go!"};
+

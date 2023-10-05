@@ -1,0 +1,529 @@
+<html lang="{{ site.lang | default: "en-US" }}">
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="embers.css">
+        <script src="assets/js/scale.fix.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" type="text/css" href="google_chart.css">
+
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+	</head>
+	<body>
+        <div class="contentwrapper">
+        <section>
+        <h1 style="text-align:center;">Shift Cipher Examples from <em>Embers of Autoregression</em></h1>
+
+        <p style="text-align:center"><a href="https://rtmccoy.com/">Tom McCoy</a>, <a href="https://ysymyth.github.io/">Shunyu Yao</a>, <a href="https://danfriedman0.github.io/">Dan Friedman</a>, <a href="https://matthardy.org/">Matt Hardy</a>, <a href="https://cocosci.princeton.edu/tom/index.php">Tom Griffiths</a></p>
+
+        <p><em>This page provides some data from the paper <a href="https://arxiv.org/abs/2309.13638">Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve</a>. The complete datasets used in the paper are available on the project's<a href="https://github.com/tommccoy1/embers-of-autoregression">GitHub page</a>.</em></p>
+
+
+        <h2>Introduction</h2>
+
+        <p>This page provides an easily-searchable repository of the shift cipher data used in our paper <a href="https://arxiv.org/abs/2309.13638">Embers of Autoregression</a>. As a quick summary of that work, here is the paper's abstract:</p>
+
+        <p style="margin-left: 40pt;">
+            The widespread adoption of large language models (LLMs) makes it important to recognize their strengths and limitations. We argue that in order to develop a holistic understanding of these systems we need to consider the problem that they were trained to solve: next-word prediction over Internet text. By recognizing the pressures that this task exerts we can make predictions about the strategies that LLMs will adopt, allowing us to reason about when they will succeed or fail. This approach - which we call the teleological approach - leads us to identify three factors that we hypothesize will influence LLM accuracy: the probability of the task to be performed, the probability of the target output, and the probability of the provided input. We predict that LLMs will achieve higher accuracy when these probabilities are high than when they are low - even in deterministic settings where probability should not matter. To test our predictions, we evaluate two LLMs (GPT-3.5 and GPT-4) on eleven tasks, and we find robust evidence that LLMs are influenced by probability in the ways that we have hypothesized. In many cases, the experiments reveal surprising failure modes. For instance, GPT-4's accuracy at decoding a simple cipher is 51% when the output is a high-probability word sequence but only 13% when it is low-probability. These results show that AI practitioners should be careful about using LLMs in low-probability situations. More broadly, we conclude that we should not evaluate LLMs as if they are humans but should instead treat them as a distinct type of system - one that has been shaped by its own particular set of pressures.
+        </p>
+
+        <p>Some of the paper's main demonstrations involve shift ciphers&mdash;simple codes in which each letter is shifted a certain number of letters forward in the alphabet. For example, with a shift of 1, "Hello world!" would become "Ifmmp xpmse!" This page provides all of the shift cipher stimuli that we used in our work, along with predictions from GPT-3.5 and GPT-4.</p>
+
+        <br>
+        <h2>How to use this page</h2>
+        <p>The shift cipher examples are displayed at the bottom of the page. You can use the options in the blue box below to customize which examples are shown. Here are some examples of how you can use these options to observe some of the paper's main findings:</p>
+        <ol>
+            <li><b>Task frequency effects:</b> There are 25 possible shifts since there are 26 letters in the alphabet. However, not all shifts are used equally often. We found that, in Internet text, the most common shifts are 13, 3, and 1. A shift of 13 is common because this cipher (which is sometimes called <em>rot-13</em>) is used in many online forums as a way to share information without spoilers. A shift of 3 is common because Julius Caesar famously used this cipher; therefore, many texts that describe shift ciphers mention Caesar's usage and include examples that use the specific convention he adopted of shifting by 3. Finally, a shift of 1 is common because it is the simplest shift cipher and is therefore a natural choice for illustrating the concept of a shift cipher. We found that these three most common shifts are the only ones on which GPT-4 had a non-negligible accuracy. To compare performance across shifts, you can select to have "All shift levels" displayed and then pick a single sentence (under "Additional options"). In many cases, you will see that GPT-4 gets the right answer for a shift of 1, 3, or 13, but not for other shifts. <button onclick="document.getElementById('shift_all').checked = true; document.getElementById('ex_12').checked = true; document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; write_examples();">Click here to try it out!</button></li>
+            <li><b>Output probability effects:</b> When decoding text that is written in a shift cipher, GPT-4 performs better when the correct answer is a high-probability sentence than when it is low-probability. To observe this effect, you can choose a shift of 13 and then, under "additional options", choose one specific sentence (e.g., "35"), and then "show all examples regardless of sentence probability". <button onclick="document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; document.getElementById('shift_13').checked = true; document.getElementById('ex_35').checked = true; document.getElementById('prob_all').checked = true; write_examples();">Click here to try it out!</button> </li>
+        <li><b>Input probability effects:</b> When encoding with a shift cipher, GPT-4 performs better when the input is a high-probability sentence than when it is low-probability. To observe this effect, you can choose a shift of 13 and then, under "additional options", choose "encoding", choose one specific sentence (e.g., "19"), and then "show all examples regardless of sentence probability". <button onclick="document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; document.getElementById('shift_13').checked = true; document.getElementById('ex_19').checked = true; document.getElementById('prob_all').checked = true; document.getElementById('task_encoding').checked = true; write_examples();">Click here to try it out!</button> </li>
+        <li><b>Output regularization:</b> When the correct answer is an implausible sentence but is similar to another sentence that is much more plausible, GPT-4 often produces the incorrect plausible sentence rather than the correct implausible one (an effect consistent with the hypothesis that GPT-4 favors high-probability outputs). To see examples, select a shift of 13 and, under "additional options", select "Show only targeted low-probability examples." <button onclick="document.getElementById('shift_all').checked = true; document.getElementById('ex_all').checked = true; document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; document.getElementById('shift_13').checked = true; document.getElementById('prob_adv').checked = true; write_examples();">Click here to try it out!</button> </li>
+        <li><b>Producing well-known sayings:</b> For the shifts on which GPT-4 performs poorly, the incorrect answer that it produces is sometimes a well-known saying or quotation (as we would expect under the hypothesis that it favors sentences that are frequent). For instance, in many cases it produces some version of "To be or not to be"; to observe such cases, you can select "All shift levels" and then enter "To be or" in the text box that shows only examples where GPT-4's response shows a particular string, under "additional options". <button onclick="document.getElementById('shift_all').checked = true; document.getElementById('ex_all').checked = true; document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; document.getElementById('shift_all').checked = true; document.getElementById('gpt4filter').value = 'To be or'; write_examples();">Click here to try it out!</button>. Alternatively, you can browse all outputs for one of the shift levels that GPT-4 does poorly on, such as 10 or 22.</li>
+        <li><b>Effects of chain-of-thought prompting:</b> We found that GPT-4 performed better with step-by-step prompting or chain-of-thought prompting than with basic prompting, but its performance was still far from perfect. To compare different prompting strategies on a single stimulus, you can select one specific shift level such as "7" and click "Complete GPT-4 output" to show the full chain-of-thought that it produces, and then under "additional options" select "All prompting styles" and one specific sentence, such as "56". <button onclick="document.getElementById('shift_all').checked = true; document.getElementById('ex_all').checked = true; document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = '';document.getElementById('gpt4un_btn').checked = true; document.getElementById('promptstyle_btn').checked = true; document.getElementById('shift_7').checked = true; document.getElementById('ex_56').checked = true; document.getElementById('prompt_all').checked = true; write_examples();">Click here to try it out!</button> </li>
+
+            <li><b>Unfaithfulness to the chain of thought:</b> When GPT-4 uses chain of thought prompting, the final answer that it produces often does not match the answer that would result from its chain of thought. The button in the previous point shows an example of this.</li>
+            <li><b>Mentioning ciphers:</b> In many cases, GPT-4's output includes words relating to ciphers even though the correct answer does not. To observe examples of this, you can select "All shift levels" and then, under "additional options", enter "cipher" in the text box. <button onclick="document.getElementById('shift_all').checked = true; document.getElementById('ex_all').checked = true; document.getElementById('fullprompt_btn').checked = false; document.getElementById('shift_btn').checked = true; document.getElementById('promptstyle_btn').checked = false; document.getElementById('input_btn').checked = true; document.getElementById('prob_btn').checked = false; document.getElementById('gpt35_btn').checked = false; document.getElementById('gpt4_btn').checked = true; document.getElementById('gpt35un_btn').checked = false; document.getElementById('gpt4un_btn').checked = false; document.getElementById('gpt35dec_btn').checked = false; document.getElementById('gpt4dec_btn').checked = false; document.getElementById('task_decoding').checked = true; document.getElementById('prompt_basic').checked = true; document.getElementById('prob_high').checked = true; document.getElementById('gpt4correct_all').checked = true; document.getElementById('gpt35correct_all').checked = true; document.getElementById('gpt4filter').value = ''; document.getElementById('gpt35filter').value = ''; document.getElementById('shift_all').checked = true; document.getElementById('gpt4filter').value = 'cipher'; write_examples();">Click here to try it out!</button></li>
+
+        </ol>
+
+        <div id="columns_p1_question" style="background-color:lightblue; padding: 15px;">
+        <b>Customize what information is displayed:</b>
+
+        
+        <div>
+            <span><input type="checkbox" id="shift_btn" onclick="write_examples()" checked=true>Shift&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="checkbox" id="fullprompt_btn" onclick="write_examples()">Complete prompt&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="promptstyle_btn" onclick="write_examples()">Prompt style&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="input_btn" onclick="write_examples()" checked=true>Input&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="prob_btn" onclick="write_examples()">Sentence probability&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="correct_btn" onclick="write_examples()" checked=true>Correct&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="gpt35_btn" onclick="write_examples()">GPT-3.5 output&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="gpt4_btn" onclick="write_examples()" checked=true>GPT-4 output&nbsp;&nbsp;&nbsp;</span><br>
+        </div>
+        <br>
+        
+        <b>Customize which shift is displayed:</b>
+
+        
+        <div>
+            <span><input type="radio" id="shift_all" name="shift_choice" value="all" onclick="write_examples()">All shift levels&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_1" name="shift_choice" value="1" onclick="write_examples()">1&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_2" name="shift_choice" value="2" onclick="write_examples()">2&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_3" name="shift_choice" value="3" onclick="write_examples()">3&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_4" name="shift_choice" value="4" onclick="write_examples()">4&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_5" name="shift_choice" value="5" onclick="write_examples()">5&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_6" name="shift_choice" value="6" onclick="write_examples()">6&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_7" name="shift_choice" value="7" onclick="write_examples()">7&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_8" name="shift_choice" value="8" onclick="write_examples()">8&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_9" name="shift_choice" value="9" onclick="write_examples()">9&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_10" name="shift_choice" value="10" onclick="write_examples()" checked=true>10&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_11" name="shift_choice" value="11" onclick="write_examples()">11&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_12" name="shift_choice" value="12" onclick="write_examples()">12&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_13" name="shift_choice" value="13" onclick="write_examples()">13&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_14" name="shift_choice" value="14" onclick="write_examples()">14&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_15" name="shift_choice" value="15" onclick="write_examples()">15&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_16" name="shift_choice" value="16" onclick="write_examples()">16&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_17" name="shift_choice" value="17" onclick="write_examples()">17&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_18" name="shift_choice" value="18" onclick="write_examples()">18&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_19" name="shift_choice" value="19" onclick="write_examples()">19&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_20" name="shift_choice" value="20" onclick="write_examples()">20&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_21" name="shift_choice" value="21" onclick="write_examples()">21&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_22" name="shift_choice" value="22" onclick="write_examples()">22&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_23" name="shift_choice" value="23" onclick="write_examples()">23&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_24" name="shift_choice" value="24" onclick="write_examples()">24&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="shift_25" name="shift_choice" value="25" onclick="write_examples()">25&nbsp;&nbsp;&nbsp; </span>
+        </div>
+        <br>
+
+        <span><input type="checkbox" id="show_advanced" onclick="toggle_advanced()"><b>Check this box to show additional options</b></span>
+        <div id="advanced_options" style="display: none;">
+        <b>Additional types of information that can be displayed:</b> The decoded outputs are for cases where the task being performed is encoding (i.e., the correct answer is written in a cipher); the decoded output then shows what the models output would say if it were decoded. The complete outputs show the full text that the models produced; for basic prompting, this is usually similar to the outputs that are generally shown, but for chain-of-thought prompting the complete outputs include the chain of thought while the basic outputs show only the final response.
+
+        
+        <div>
+            <span><input type="checkbox" id="gpt35dec_btn" onclick="write_examples()">Decoded GPT-3.5 output&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="gpt4dec_btn" onclick="write_examples()">Decoded GPT-4 output&nbsp;&nbsp;&nbsp;</span><br>
+            <span><input type="checkbox" id="gpt35un_btn" onclick="write_examples()">Complete GPT-3.5 output&nbsp;&nbsp;&nbsp;</span>
+            <span><input type="checkbox" id="gpt4un_btn" onclick="write_examples()">Complete GPT-4 output&nbsp;&nbsp;&nbsp;</span><br>
+        </div>
+        <br>
+ 
+
+        <b>Customize whether encoding or decoding examples are displayed:</b> Encoding is when the LLM is given an English sentence and must apply a shift cipher to it; decoding is when it is given an encoded message and must convert it to English.
+        <div>
+            <span><input type="radio" id="task_encoding" name="task_choice" value="encoding" onclick="write_examples()">Encoding&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="task_decoding" name="task_choice" value="decoding" onclick="write_examples()" checked=true>Decoding&nbsp;&nbsp;&nbsp; </span>
+        </div>
+        <br>
+
+        <b>Customize which prompting style is displayed:</b>
+        <div>
+            <span><input type="radio" id="prompt_all" name="prompt_choice" value="all" onclick="write_examples()">All prompting styles&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="prompt_basic" name="prompt_choice" value="Basic" onclick="write_examples()" checked=true>Basic prompting&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="prompt_step" name="prompt_choice" value="Step by step" onclick="write_examples()">Step-by-step prompting&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="prompt_chain" name="prompt_choice" value="Chain of thought" onclick="write_examples()">Chain-of-thought prompting&nbsp;&nbsp;&nbsp; </span>
+        </div>
+        <br>
+        <b>Customize which sentences are displayed:</b> Each number is an arbitrary index corresponding to one of the one hundred sentences in our corpus.
+        <div>
+            <span><input type="radio" id="ex_all" name="example_choice" value="all" onclick="write_examples()" checked=true>All sentences&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_1" name="example_choice" value="1" onclick="write_examples()">1&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_2" name="example_choice" value="2" onclick="write_examples()">2&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_3" name="example_choice" value="3" onclick="write_examples()">3&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_4" name="example_choice" value="4" onclick="write_examples()">4&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_5" name="example_choice" value="5" onclick="write_examples()">5&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_6" name="example_choice" value="6" onclick="write_examples()">6&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_7" name="example_choice" value="7" onclick="write_examples()">7&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_8" name="example_choice" value="8" onclick="write_examples()">8&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_9" name="example_choice" value="9" onclick="write_examples()">9&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_10" name="example_choice" value="10" onclick="write_examples()">10&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_11" name="example_choice" value="11" onclick="write_examples()">11&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_12" name="example_choice" value="12" onclick="write_examples()">12&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_13" name="example_choice" value="13" onclick="write_examples()">13&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_14" name="example_choice" value="14" onclick="write_examples()">14&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_15" name="example_choice" value="15" onclick="write_examples()">15&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_16" name="example_choice" value="16" onclick="write_examples()">16&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_17" name="example_choice" value="17" onclick="write_examples()">17&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_18" name="example_choice" value="18" onclick="write_examples()">18&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_19" name="example_choice" value="19" onclick="write_examples()">19&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_20" name="example_choice" value="20" onclick="write_examples()">20&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_21" name="example_choice" value="21" onclick="write_examples()">21&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_22" name="example_choice" value="22" onclick="write_examples()">22&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_23" name="example_choice" value="23" onclick="write_examples()">23&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_24" name="example_choice" value="24" onclick="write_examples()">24&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_25" name="example_choice" value="25" onclick="write_examples()">25&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_26" name="example_choice" value="26" onclick="write_examples()">26&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_27" name="example_choice" value="27" onclick="write_examples()">27&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_28" name="example_choice" value="28" onclick="write_examples()">28&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_29" name="example_choice" value="29" onclick="write_examples()">29&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_30" name="example_choice" value="30" onclick="write_examples()">30&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_31" name="example_choice" value="31" onclick="write_examples()">31&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_32" name="example_choice" value="32" onclick="write_examples()">32&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_33" name="example_choice" value="33" onclick="write_examples()">33&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_34" name="example_choice" value="34" onclick="write_examples()">34&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_35" name="example_choice" value="35" onclick="write_examples()">35&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_36" name="example_choice" value="36" onclick="write_examples()">36&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_37" name="example_choice" value="37" onclick="write_examples()">37&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_38" name="example_choice" value="38" onclick="write_examples()">38&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_39" name="example_choice" value="39" onclick="write_examples()">39&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_40" name="example_choice" value="40" onclick="write_examples()">40&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_41" name="example_choice" value="41" onclick="write_examples()">41&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_42" name="example_choice" value="42" onclick="write_examples()">42&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_43" name="example_choice" value="43" onclick="write_examples()">43&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_44" name="example_choice" value="44" onclick="write_examples()">44&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_45" name="example_choice" value="45" onclick="write_examples()">45&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_46" name="example_choice" value="46" onclick="write_examples()">46&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_47" name="example_choice" value="47" onclick="write_examples()">47&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_48" name="example_choice" value="48" onclick="write_examples()">48&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_49" name="example_choice" value="49" onclick="write_examples()">49&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_50" name="example_choice" value="50" onclick="write_examples()">50&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_51" name="example_choice" value="51" onclick="write_examples()">51&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_52" name="example_choice" value="52" onclick="write_examples()">52&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_53" name="example_choice" value="53" onclick="write_examples()">53&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_54" name="example_choice" value="54" onclick="write_examples()">54&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_55" name="example_choice" value="55" onclick="write_examples()">55&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_56" name="example_choice" value="56" onclick="write_examples()">56&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_57" name="example_choice" value="57" onclick="write_examples()">57&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_58" name="example_choice" value="58" onclick="write_examples()">58&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_59" name="example_choice" value="59" onclick="write_examples()">59&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_60" name="example_choice" value="60" onclick="write_examples()">60&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_61" name="example_choice" value="61" onclick="write_examples()">61&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_62" name="example_choice" value="62" onclick="write_examples()">62&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_63" name="example_choice" value="63" onclick="write_examples()">63&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_64" name="example_choice" value="64" onclick="write_examples()">64&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_65" name="example_choice" value="65" onclick="write_examples()">65&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_66" name="example_choice" value="66" onclick="write_examples()">66&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_67" name="example_choice" value="67" onclick="write_examples()">67&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_68" name="example_choice" value="68" onclick="write_examples()">68&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_69" name="example_choice" value="69" onclick="write_examples()">69&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_70" name="example_choice" value="70" onclick="write_examples()">70&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_71" name="example_choice" value="71" onclick="write_examples()">71&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_72" name="example_choice" value="72" onclick="write_examples()">72&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_73" name="example_choice" value="73" onclick="write_examples()">73&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_74" name="example_choice" value="74" onclick="write_examples()">74&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_75" name="example_choice" value="75" onclick="write_examples()">75&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_76" name="example_choice" value="76" onclick="write_examples()">76&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_77" name="example_choice" value="77" onclick="write_examples()">77&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_78" name="example_choice" value="78" onclick="write_examples()">78&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_79" name="example_choice" value="79" onclick="write_examples()">79&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_80" name="example_choice" value="80" onclick="write_examples()">80&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_81" name="example_choice" value="81" onclick="write_examples()">81&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_82" name="example_choice" value="82" onclick="write_examples()">82&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_83" name="example_choice" value="83" onclick="write_examples()">83&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_84" name="example_choice" value="84" onclick="write_examples()">84&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_85" name="example_choice" value="85" onclick="write_examples()">85&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_86" name="example_choice" value="86" onclick="write_examples()">86&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_87" name="example_choice" value="87" onclick="write_examples()">87&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_88" name="example_choice" value="88" onclick="write_examples()">88&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_89" name="example_choice" value="89" onclick="write_examples()">89&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_90" name="example_choice" value="90" onclick="write_examples()">90&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_91" name="example_choice" value="91" onclick="write_examples()">91&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_92" name="example_choice" value="92" onclick="write_examples()">92&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_93" name="example_choice" value="93" onclick="write_examples()">93&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_94" name="example_choice" value="94" onclick="write_examples()">94&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_95" name="example_choice" value="95" onclick="write_examples()">95&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_96" name="example_choice" value="96" onclick="write_examples()">96&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_97" name="example_choice" value="97" onclick="write_examples()">97&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_98" name="example_choice" value="98" onclick="write_examples()">98&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_99" name="example_choice" value="99" onclick="write_examples()">99&nbsp;&nbsp;&nbsp; </span>
+            <span><input type="radio" id="ex_100" name="example_choice" value="100" onclick="write_examples()">100&nbsp;&nbsp;&nbsp; </span>
+        </div>
+
+        <br>
+        <b>Filter based on sentence probability:</b>
+        <div>
+            <div><input type="radio" id="prob_all" name="prob_choice" value="all" onclick="write_examples()">Show all examples regardless of sentence probability&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="prob_high" name="prob_choice" value="high" onclick="write_examples()" checked=true>Show only high-probability examples&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="prob_medium" name="prob_choice" value="medium" onclick="write_examples()">Show only medium-probability examples&nbsp;&nbsp;&nbsp; </div> 
+            <div><input type="radio" id="prob_low" name="prob_choice" value="low" onclick="write_examples()">Show only low-probability examples&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="prob_adv" name="prob_choice" value="adversarial" onclick="write_examples()">Show only targeted low-probability examples&nbsp;&nbsp;&nbsp; </div>
+
+        </div>
+
+        <br>
+        <b>Filter based on whether GPT-3.5 gets the correct answer:</b>
+        <div>
+            <div><input type="radio" id="gpt35correct_all" name="gpt35_choice" value="all" onclick="write_examples()" checked=true>Show all examples regardless of whether GPT-3.5 is correct&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="gpt35correct_correct" name="gpt35_choice" value="correct" onclick="write_examples()">Show only examples that GPT-3.5 gets right&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="gpt35correct_incorrect" name="gpt35_choice" value="incorrect" onclick="write_examples()">Show only examples that GPT-3.5 gets wrong&nbsp;&nbsp;&nbsp; </div>
+
+        </div>
+
+
+        <br>
+        <b>Filter based on whether GPT-4 gets the correct answer:</b>
+        <div>
+            <div><input type="radio" id="gpt4correct_all" name="gpt4_choice" value="all" onclick="write_examples()" checked=true>Show all examples regardless of whether GPT-4 is correct&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="gpt4correct_correct" name="gpt4_choice" value="correct" onclick="write_examples()">Show only examples that GPT-4 gets right&nbsp;&nbsp;&nbsp; </div>
+            <div><input type="radio" id="gpt4correct_incorrect" name="gpt4_choice" value="incorrect" onclick="write_examples()">Show only examples that GPT-4 gets wrong&nbsp;&nbsp;&nbsp; </div>
+
+        </div>
+
+        <br>
+        <b>Show only examples where GPT-3.5's output contains a specific string:</b>
+        <div>
+            <form action="/action_page.php">
+                <label for="fname">Enter text:</label>
+                <input type="text" id="gpt35filter" name="gpt35filter" oninput="write_examples()">
+            </form> 
+        </div>
+
+
+        <b>Show only examples where GPT-4's output contains a specific string:</b>
+        <div>
+            <form action="/action_page.php">
+                <label for="fname">Enter text:</label>
+                <input type="text" id="gpt4filter" name="gpt4filter" oninput="write_examples()">
+            </form> 
+        </div>
+
+        </div>
+
+        </div>
+
+        <br><br>
+        <h2>Examples</h2>
+        <p><em>Warning: We have not manually reviewed all model outputs, so some of the text that is displayed may contain objectionable content.</em></p>
+        <div id="consistent_label"><b>Correct answer for all examples below:</b></div>
+        <div id="consistent_correct" style="font-family: monospace; font-size: 14;"><br><br></div>
+        <div id="shift_examples"></div>
+
+
+
+
+
+        </div>
+        </section>
+
+
+
+
+
+    </body>
+    <script type="text/javascript" src="all_shift_examples_js.txt"></script>
+    <script type="text/javascript">
+
+
+        function toggle_advanced() {
+            if (document.getElementById("show_advanced").checked) {
+                document.getElementById("advanced_options").style = "display: block;"
+            } else {
+                document.getElementById("advanced_options").style = "display: none;"
+            }
+        }
+
+        function write_examples() {
+            example_list = "";
+            for (example_index=1; example_index<10101; example_index++) {
+                var show_example = true;
+
+                var gpt35_text = document.getElementById("gpt35filter").value;
+                if (gpt35_text != "") {
+                    if (!(examples[example_index].gpt35.includes(gpt35_text))) {
+                        show_example = false;
+                    }
+                }
+
+
+                var gpt4_text = document.getElementById("gpt4filter").value;
+                if (gpt4_text != "") {
+                    if (!(examples[example_index].gpt4.includes(gpt4_text))) {
+                        show_example = false;
+                    }
+                }
+
+                var shift_choice = document.querySelector('input[name="shift_choice"]:checked').value;
+                if (shift_choice != "all") {
+                    if (shift_choice != examples[example_index].shift) {
+                        show_example = false;
+                    }
+                }
+
+                var task_choice = document.querySelector('input[name="task_choice"]:checked').value;
+                if (task_choice != examples[example_index].task) {
+                    show_example = false;
+                }
+
+
+                var example_choice = document.querySelector('input[name="example_choice"]:checked').value;
+                if (example_choice != "all") {
+                    if (example_choice != examples[example_index].index) {
+                        show_example = false;
+                    } else if (examples[example_index].task == task_choice){
+                        if (task_choice == "decoding" & !document.getElementById("prob_all").checked) {
+                            document.getElementById("consistent_correct").innerHTML = examples[example_index].correct + "<br><br>";
+                            document.getElementById("consistent_label").style.display = "block";
+                            document.getElementById("consistent_correct").style.display = "block"; 
+                        } else {
+                            document.getElementById("consistent_correct").innerHTML = "";
+                            document.getElementById("consistent_correct").style.display = "none";    
+                            document.getElementById("consistent_label").style.display = "none";
+                        }
+                    }
+                } else {
+                    document.getElementById("consistent_correct").innerHTML = "";
+                    document.getElementById("consistent_label").style.display = "none";
+                    document.getElementById("consistent_correct").style.display = "none"; 
+                }
+
+                var prob_choice = document.querySelector('input[name="prob_choice"]:checked').value;
+                if (prob_choice != "all") {
+                    if (prob_choice != examples[example_index].probability) {
+                        show_example = false;
+                    }
+                } else {
+                    if (examples[example_index].probability == "adversarial") {
+                        show_example = false;
+                    }
+                }
+
+
+                
+                var prompt_choice = document.querySelector('input[name="prompt_choice"]:checked').value;
+                if (prompt_choice != "all") {
+                    if (prompt_choice != examples[example_index].prompt) {
+                        show_example = false;
+                    }
+                }
+
+                var gpt4correct_choice = document.querySelector('input[name="gpt4_choice"]:checked').value;
+                
+                if (gpt4correct_choice != "all") {
+                    if (gpt4correct_choice == "correct") {
+                        if (examples[example_index].gpt4 != examples[example_index].correct) {
+                            show_example = false;
+                        }
+                    }
+                    
+                    if (gpt4correct_choice == "incorrect") {
+                        if (examples[example_index].gpt4 == examples[example_index].correct) {
+                            show_example = false;
+                        }
+                    }
+                }
+
+
+                var gpt35correct_choice = document.querySelector('input[name="gpt35_choice"]:checked').value;
+                
+                if (gpt35correct_choice != "all") {
+                    if (gpt35correct_choice == "correct") {
+                        if (examples[example_index].gpt35 != examples[example_index].correct) {
+                            show_example = false;
+                        }
+                    }
+                    
+                    if (gpt35correct_choice == "incorrect") {
+                        if (examples[example_index].gpt35 == examples[example_index].correct) {
+                            show_example = false;
+                        }
+                    }
+                }
+
+
+                        
+
+                if (show_example) {
+                    example_list = example_list + "<table>";
+                    if (document.getElementById("shift_btn").checked) {
+                        shift_line = "<tr><td>Shift:</td><td>" + examples[example_index].shift + "</td></tr>";
+                        example_list = example_list + shift_line;
+                    }
+
+
+                    if (document.getElementById("promptstyle_btn").checked) {
+                        promptstyle_line =  "<tr><td>Prompt style:</td><td style='font-family: monospace; font-size: 14;'>" + examples[example_index].prompt + "</td></tr>";
+                        example_list = example_list + promptstyle_line;
+                    }
+
+
+                    if (document.getElementById("fullprompt_btn").checked) {
+                        prompt_line =  "<tr><td>Prompt:</td><td style='font-family: monospace; font-size: 14;'>" + examples[example_index].full_prompt + "</td></tr>";
+                        example_list = example_list + prompt_line;
+                    }
+
+
+                    if (document.getElementById("input_btn").checked) {
+                        inp_line =  "<tr><td>Input:</td><td style='font-family: monospace; font-size: 14;'>" + examples[example_index].inp + "</td></tr>";
+                        example_list = example_list + inp_line;
+                    }
+
+
+
+                    if (document.getElementById("prob_btn").checked) {
+                        prob_line =  "<tr><td>Probability:</td><td>" + examples[example_index].probability + "</td></tr>";
+                        example_list = example_list + prob_line;
+                    }
+
+                    if (document.getElementById("correct_btn").checked) {
+                        correct_line =  "<tr><td>Correct:&nbsp;</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].correct + "</td></tr>";
+                        example_list = example_list + correct_line;
+                    }
+
+                    if (document.getElementById("gpt35_btn").checked) {
+                        pred35_line =  "<tr><td>GPT-3.5:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].gpt35 + "</td></tr>";
+                        example_list = example_list + pred35_line;
+                    }
+
+                    if (document.getElementById("gpt35dec_btn").checked) {
+                        pred35dec_line =  "<tr><td>Decoded<br>GPT-3.5:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].decoded35 + "</td></tr>";
+                        example_list = example_list + pred35dec_line;
+                    }
+
+                    if (document.getElementById("gpt35un_btn").checked) {
+                        pred35dec_line =  "<tr><td>Complete<br>GPT-3.5:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].orig_gpt35 + "</td></tr>";
+                        example_list = example_list + pred35dec_line;
+                    }
+
+
+
+                    if (document.getElementById("gpt4_btn").checked) {
+                        pred_line =  "<tr><td>GPT-4:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].gpt4 + "</td></tr>";
+                        example_list = example_list + pred_line;
+                    }
+
+
+                    if (document.getElementById("gpt4dec_btn").checked) {
+                        pred4dec_line =  "<tr><td>Decoded<br>GPT-4:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].decoded4 + "</td></tr>";
+                        example_list = example_list + pred4dec_line;
+                    }
+
+                    if (document.getElementById("gpt4un_btn").checked) {
+                        pred35dec_line =  "<tr><td>Complete<br>GPT-4:</td><td  style='font-family: monospace; font-size: 14;'>" + examples[example_index].orig_gpt4 + "</td></tr>";
+                        example_list = example_list + pred35dec_line;
+                    }
+
+
+
+
+
+                    example_list = example_list + "</table>";
+                }
+            }
+            document.getElementById("shift_examples").innerHTML = example_list;
+        }
+
+        write_examples();
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+</html>
+
+
+
+
+
+
+
