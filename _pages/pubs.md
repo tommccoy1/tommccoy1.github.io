@@ -7,6 +7,11 @@ redirect_from:
 
 {% include base_path %}
 
+# 2023
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve. <em>arXiv preprint arXiv 2309.13638</em>. [<a href="https://arxiv.org/pdf/2309.13638.pdf">pdf</a>]
+</p>
+
 # 2022
 <p style="margin-left: 40px; text-indent: -40px;">
 Paul Smolensky, <b>R. Thomas McCoy</b>, Roland Fernandez, Matthew Goldrick, and Jianfeng Gao. Neurocompositional computing: From the Central Paradox of Cognition to a new generation of AI systems. To appear in <em>AI Magazine</em>.
