@@ -7,6 +7,8 @@ redirect_from:
 
 {% include base_path %}
 
+[Exploring the shift cipher data from our paper "Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve"](https://rtmccoy.com/embers_shift_ciphers.html)
+
 [Tips and tricks for running experiments on Amazon Mechanical Turk](http://rtmccoy.com/posts/mechanical-turk-tips-and-tricks.html)
 
 [Summary and demo for our paper "Universal linguistic inductive biases via meta-learning"](http://rtmccoy.com/meta-learning-linguistic-biases.html)
