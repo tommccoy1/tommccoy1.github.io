@@ -12,7 +12,7 @@ I am a postdoctoral researcher in the [Department of Computer Science](https://w
 
 I study computational linguistics using techniques from cognitive science, machine learning, and natural language processing. My research focuses on how to achieve **robust generalization** in models of language, as this remains one of the main areas where current AI systems fall short and one of the most impressive components of language processing in humans. In particular, I study which **inductive biases** and which **representations of structure** enable robust generalization, since these are two of the major components that determine how learners generalize to novel types of input.
 
-For a more detailed overview of my research interests, you can read [this summary for a linguistics/cognitive science audience](https://rtmccoy.com/topics/files/mccoy_ling_research_statement_10sept2023.pdf) or [this summary for a computer science audience](mccoy_nlp_research_statement_10sept2023.pdf). 
+For a more detailed overview of my research interests, you can read [this summary for a linguistics/cognitive science audience](https://rtmccoy.com/files/mccoy_ling_research_statement_10sept2023.pdf) or [this summary for a computer science audience](https://rtmccoy.com/files/mccoy_nlp_research_statement_10sept2023.pdf). 
 
 **Prospective PhD students:** I will be accepting PhD students for Fall 2024, through either the Yale Linguistics Department or the Yale Computer Science Department.
 
