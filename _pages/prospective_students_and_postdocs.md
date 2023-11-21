@@ -1,5 +1,4 @@
 ---
-layout: archive
 permalink: /prospective_students_and_postdocs/
 author_profile: true
 ---
