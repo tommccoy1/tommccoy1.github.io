@@ -11,6 +11,8 @@ carousels:
     - image: /images/povstim_questions.png 
 ---
 
+## CHINCHILLA 
+
 I am a postdoctoral researcher in the [Department of Computer Science](https://www.cs.princeton.edu/) at Princeton University, advised by [Tom Griffiths](https://cocosci.princeton.edu/tom/index.php). Starting in January 2024, I will be an Assistant Professor in the [Department of Linguistics](https://ling.yale.edu/) at Yale University. Before coming to Princeton, I received a Ph.D. in Cognitive Science at Johns Hopkins University, co-advised by [Tal Linzen](http://tallinzen.net/) and [Paul Smolensky](http://cogsci.jhu.edu/directory/paul-smolensky/), and before that I received a B.A. in Linguistics at Yale University, advised by [Robert Frank](https://ling.yale.edu/people/robert-frank).
 
 ## Research
