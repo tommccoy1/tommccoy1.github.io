@@ -12,17 +12,40 @@ redirect_from:
 <b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve. <em>arXiv preprint arXiv 2309.13638</em>. [<a href="https://arxiv.org/pdf/2309.13638.pdf">pdf</a>]
 </p>
 
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Paul Smolensky, Tal Linzen, Jianfeng Gao, and Asli Celikyilmaz. How much do language models copy from their training data? Evaluating linguistic novelty in text generation using RAVEN. <em>Transactions of the Association for Computational Linguistics</em>. [<a href="https://aclanthology.org/2023.tacl-1.38.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Modeling rapid language learning by distilling Bayesian priors into artificial neural networks. <em>arXiv preprint arXiv 2305.14701</em>. [<a href="https://arxiv.org/pdf/2305.14701.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Aditya Yedetore, Tal Linzen, Robert Frank, and <b>R. Thomas McCoy</b>. How poor is the stimulus? Evaluating hierarchical generalization in neural networks trained on child-directed speech In <em>Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics</em>. [<a href="https://aclanthology.org/2023.acl-long.521.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Thomas L. Griffiths, Sreejan Kumar, and <b>R. Thomas McCoy</b>. On the hazards of relating representations and inductive biases. <em>Behavioral and Brain Sciences</em> (response to "The best game in town: The reemergence of the language-of-thought hypothesis across the cognitive sciences"). [<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/on-the-hazards-of-relating-representations-and-inductive-biases/05A247FA8325343E035E73EC92DE88D1">BBS link</a>]
+</p>
+
+
 # 2022
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>. Implicit compositional structure in the vector representations of artificial neural networks. Johns Hopkins University PhD dissertation. [<a href="https://jscholarship.library.jhu.edu/server/api/core/bitstreams/3cb3efd5-f7f8-4e54-a74e-db0802d72f9b/content">pdf</a>] 
+</p>
+
 <p style="margin-left: 40px; text-indent: -40px;">
 Paul Smolensky, <b>R. Thomas McCoy</b>, Roland Fernandez, Matthew Goldrick, and Jianfeng Gao. Neurocompositional computing: From the Central Paradox of Cognition to a new generation of AI systems. <em>AI Magazine</em>. [<a href="https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/18599">AI Magazine link</a>] 
 </p>
 
-# 2021
-
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Paul Smolensky, Tal Linzen, Jianfeng Gao, and Asli Celikyilmaz. How much do language models copy from their training data? Evaluating linguistic novelty in text generation using RAVEN. <em>arXiv preprint arXiv 2111.09509</em>. [<a href="https://arxiv.org/pdf/2111.09509.pdf">pdf</a>]
+Paul Smolensky, <b>R. Thomas McCoy</b>, Roland Fernandez, Matthew Goldrick, and Jianfeng Gao. Neurocompositional computing in human and machine intelligence: A tutorial. <em>Microsoft technical report</em>. [<a href="https://www.microsoft.com/en-us/research/uploads/prod/2022/04/Neurocompositional_computing__tutorial.pdf">odf</a>] 
 </p>
 
+
+
+# 2021
 
 <p style="margin-left: 40px; text-indent: -40px;">
 Paul Soulos, Sudha Rao, Caitlin Smith, Eric Rosen, Asli Celikyilmaz, <b>R. Thomas McCoy</b>, Yichen Jiang, Coleman Haley, Roland Fernandez, Hamid Palangi, Jianfeng Gao, and Paul Smolensky. Structural Biases for Improving Transformers on Translation into Morphologically Rich Languages. <em>Proceedings of the 4th Workshop on Technologies for MT of Low Resource Languages</em>.
