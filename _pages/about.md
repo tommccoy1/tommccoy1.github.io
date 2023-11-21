@@ -20,7 +20,7 @@ For a longer overview of my research, click [here](https://rtmccoy.com/research/
 
 I will be considering PhD applications and postdoc applications for Fall 2024, through either the Yale Linguistics Department or the Yale Computer Science Department. See [here](https://rtmccoy.com/prospective_students_and_postdocs/) for more information.
 
-### Conversation topics
+## Conversation topics
 
  Do you have a meeting scheduled with me but don't know what to talk about? See [this page](https://rtmccoy.com/topics/) for some topics that are often on my mind.
 
