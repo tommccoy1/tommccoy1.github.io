@@ -16,7 +16,6 @@ I study computational linguistics using techniques from cognitive science, machi
 
 For a longer overview of my research, click [here](https://rtmccoy.com/research/). If you want an even more detailed discussion, you can read [this summary for a linguistics/cognitive science audience](https://rtmccoy.com/files/mccoy_ling_research_statement_10sept2023.pdf) or [this summary for a computer science audience](https://rtmccoy.com/files/mccoy_nlp_research_statement_10sept2023.pdf), or check out [my publications](https://rtmccoy.com/pubs/).
 
-{% include carousel.html %}
 
 ## Prospective PhD students, postdocs, and undergraduate researchers
 
