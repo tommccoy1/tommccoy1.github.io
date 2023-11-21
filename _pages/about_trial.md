@@ -9,9 +9,11 @@ carousels:
   - images: 
     - image: /images/poverty_of_the_stimulus_slide.png
     - image: /images/povstim_questions.png 
+  - captions:
+    - caption: "Caption 1."
+    - caption: "Caption 2. *Bold*. And a [link](https://ling.yale.edu/)"
 ---
 
-## CHINCHILLA 
 
 I am a postdoctoral researcher in the [Department of Computer Science](https://www.cs.princeton.edu/) at Princeton University, advised by [Tom Griffiths](https://cocosci.princeton.edu/tom/index.php). Starting in January 2024, I will be an Assistant Professor in the [Department of Linguistics](https://ling.yale.edu/) at Yale University. Before coming to Princeton, I received a Ph.D. in Cognitive Science at Johns Hopkins University, co-advised by [Tal Linzen](http://tallinzen.net/) and [Paul Smolensky](http://cogsci.jhu.edu/directory/paul-smolensky/), and before that I received a B.A. in Linguistics at Yale University, advised by [Robert Frank](https://ling.yale.edu/people/robert-frank).
 
@@ -22,8 +24,8 @@ I study computational linguistics using techniques from cognitive science, machi
 For a longer overview of my research, click [here](https://rtmccoy.com/research/). If you want an even more detailed discussion, you can read [this summary for a linguistics/cognitive science audience](https://rtmccoy.com/files/mccoy_ling_research_statement_10sept2023.pdf) or [this summary for a computer science audience](https://rtmccoy.com/files/mccoy_nlp_research_statement_10sept2023.pdf), or check out [my publications](https://rtmccoy.com/pubs/).
 
 
-{% include carousel.html height="50" unit="%" duration="7" number="1" %}
 
+{% include carousel.html %}
 
 ## Prospective PhD students, postdocs, and undergraduate researchers
 
