@@ -1,0 +1,85 @@
+<html lang="{{ site.lang | default: "en-US" }}">
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="embers.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+
+	</head>
+	<body>
+        <div class="contentwrapper">
+        <section>
+        <img src="naclo_blue.png" style="display: block; margin-left: auto; margin-right: auto; width: 800px;">
+
+        <br>
+
+        <h1 style="text-align:center;">Exercises in Verifying Solvability</h1>
+        <br>
+
+        <p>Below are three exercises that give you practice in verifying that a NACLO problem is solvable (i.e., ensuring that there is one and only one solution). Please try each of them and send your answers to Tom (<a href="mailto:tom.mccoy@princeton.edu">tom.mccoy@princeton.edu</a>). Some of these exercises are based on real NACLO problems, but the issues that the problems have were not present in those actual problems (that is, you should not judge the authors of those problems for the mistakes illustrated here, since the authors did not make the mistakes&mdash;we have added mistakes here for the purpose of these exercises). Nonetheless, all of the mistakes illustrated here belong to general categories that have been observed in actual submitted problems.</p>
+
+        <p>All of these exercises are structured similarly: We have provided the problem and the intended solution, but there is too little information to uniquely identify the intended solution, meaning that there is also at least one alternative solution. It is your job to figure out what these unintended alternative solutions are.</p>
+
+        <h2>Exercise 4: Vietnamese</h2>
+
+        <p>Below is a problem about Vietnamese along with its intended solution. But be warned: the problem cannot be solved in its current form because there are multiple potential solutions! However, you can make it solvable by removing 3 Vietnamese phrases (and the corresponding English translations). Which 3 phrases can you remove to make this happen? There are multiple possible answers. [Note: You do not need to send answers to the problem&mdash;you only need to say which 3 phrases could be removed to make the problem solvable.]</p>
+
+        <p><em>Problem:</em> On the left are 14 phrases in Vietnamese. On the right are the English translations but in scrambled order. Match the Vietnamese and English words.</p>
+
+
+        <img src="vietnamese_problem.png" style="display: block; margin-left: auto; margin-right: auto; width: 700px;">
+        <br>
+
+        <p><em>Intended solution:</em></p>
+
+         <img src="vietnamese_solution.png" style="display: block; margin-left: auto; margin-right: auto; width: 650px;">
+        <br>
+        <br>
+
+        <h2>Exercise 5: Visible speech</h2>
+
+        <p>Below is a problem about Visible Speech, an alternative way of writing English invented by Alexander Melville Bell (the father of Alexander Graham Bell). But in addition to the intended solution, there is also an alternative solution! Briefly describe the alternative analysis of the data, and state what answer this alternative analysis would produce for the question. Note: the symbols used in Visible Speech have a systematic structure; if solvers notice this systematic structure, that would be enough to eliminate the alternative solution. However, for purposes of this exercise, please ignore the systematic structure of the symbols&mdash;treat it as though they are all random symbols.</p>
+
+
+        <p><em>Problem:</em> Below are some words written in the standard English alphabet and in Visible Speech. Fill in the blank in the table.</em></p>
+        <img src="visible_speech_problem.png" style="display: block; margin-left: auto; margin-right: auto; width: 300px;">
+        <br>
+        <p><em>Intended solution:</em> The writing system is phonetic. For example, <em>cogs</em> and <em>kits</em> start with the same symbol because they start with the same sound, even though they are written with different letters in standard English. Similarly, they end with different symbols because <em>cogs</em> ends with a <em>z</em> sound while <em>kits</em> ends with an <em>s</em> sound. Based on this, we would write <em>cans</em> as follows:</p>
+        <img src="visible_speech_solution.png" style="display: block; margin-left: auto; margin-right: auto; width: 150px;">
+
+        <br>
+        <br>
+
+        <h2>Exercise 6: Catalan</h2>
+
+        <p>Below is a problem about Catalan, a language in the Romance family, along with its intended solution. But be warned: the problem does not have enough information to be solved (there are multiple possible solutions). Propose a single new example of an English sentence with its Catalan translation that could be added in order to ensure that both of the questions can be answered unambiguously. [Note: solving this problem might be easy for people who know Spanish or another Romance language, but for the purpose of this exercise, you should assume that solvers will have no knowledge of languages other than English].</p>
+
+        <p><em>Problem:</em> Below are some sentences in English along with their translations into Catalan. Fill in the missing cells.</p>
+
+        <img src="catalan_problem.png" style="display: block; margin-left: auto; margin-right: auto; width: 600px;">
+        <br>
+
+        <p><em>Intended solution:</em> We can see that <em>el</em> means <em>the</em> when applied to a singular noun, and <em>els</em> means <em>the</em> applied to a plural noun. Also, a verb ends with <em>-a</em> if it is singular or <em>-en</em> if it is plural, with <em>-av</em> added before the singular/plural ending if the verb is past tense; overall, then, the verb endings are <em>-a</em> for present singular, <em>-en</em> for present plural, <em>-ava</em> for past singular, and <em>-aven</em> for past plural. Applying these rules gives us:</p> 
+
+        <p>(a): El cavall aconsallava els gats.</p>
+        <p>(b): El gos visita el cavall.</p>
+
+
+        </section>
+
+
+
+
+
+    </body>
+
+</html>
+
+
+
+
+
+
+
