@@ -7,11 +7,10 @@ redirect_from:
 
 {% include base_path %}
 
-**Email:** [tom.mccoy@princeton.edu](mailto:tom.mccoy@princeton.edu)
+**Email:** [tom.mccoy@yale.edu](mailto:tom.mccoy@yale.edu)
 
 **Mailing Address:**
 
-Department of Psychology  
-Peretsman Scully Hall  
-Princeton University    
-Princeton, NJ 08540  
+Department of Linguistics, Dow Hall 
+370 Temple St.
+New Haven, CT 06511
