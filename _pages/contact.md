@@ -11,6 +11,9 @@ redirect_from:
 
 **Mailing Address:**
 
-Department of Linguistics, Dow Hall 
-370 Temple St.
+Department of Linguistics, Dow Hall    
+370 Temple St.   
 New Haven, CT 06511
+
+**Office:** Room 302, Dow Hall
+
