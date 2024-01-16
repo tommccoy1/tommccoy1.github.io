@@ -9,8 +9,7 @@ redirect_from:
 
 **Email:** [tom.mccoy@yale.edu](mailto:tom.mccoy@yale.edu)
 
-**Mailing Address:**
-
+**Mailing Address:**   
 Department of Linguistics, Dow Hall    
 370 Temple St.   
 New Haven, CT 06511
