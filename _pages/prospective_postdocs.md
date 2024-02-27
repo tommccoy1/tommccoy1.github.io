@@ -19,5 +19,8 @@ author_profile: true
 
 **Process to apply:** For full consideration, applications should be submitted on or before March 25, 2024, but applications may still be considered on a rolling basis after that date. Applicants should supply three things: (i) An up-to-date CV; (ii) exactly two writing samples (e.g., two papers that you have written); and (iii) a one-to-two paragraph summary of the applicant’s research interests. The research summary can be informal (e.g., it could just be a bulleted list) - the goal is simply to provide a sense of what topics or questions the applicant might want to work on during a postdoc. Please send these materials via email to [tom.mccoy@yale.edu](mailto:tom.mccoy@yale.edu); the subject line of the email should contain the phrase “Postdoc application” and your name (e.g., “Postdoc application: Alex Smith”).
 
+Selected applicants may be asked to also provide two letters of recommendation, but these do should not be submitted with the initial application.
+
+
 **Contact:** If you have any questions not answered here, contact [tom.mccoy@yale.edu](mailto:tom.mccoy@yale.edu).
 
