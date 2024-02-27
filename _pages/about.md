@@ -33,3 +33,4 @@ I will be considering PhD applications and postdoc applications for Fall 2024, t
 - **R. Thomas McCoy**, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement Tensor Product Representations. *ICLR 2019*. [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>]
 
 
+
