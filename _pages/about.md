@@ -17,7 +17,13 @@ For a longer overview of my research, click [here](https://rtmccoy.com/research/
 
 ## Prospective PhD students, postdocs, and undergraduate researchers
 
-I will be considering PhD applications and postdoc applications for Fall 2024, through either the Yale Linguistics Department or the Yale Computer Science Department. See [here](https://rtmccoy.com/prospective_students_and_postdocs/) for more information.
+I am currently considering postdoc applications for Fall 2024. See [here](https://rtmccoy.com/prospective_postdocs/) for more information.
+
+For PhD students, Yale's current application deadline has now passed. I will be considering PhD applications again next year; applications will likely be due in December 2024, for students who would start in Fall 2025. 
+
+I am not accepting Master's students at this time.
+
+If you are a current Yale undergraduate interested in research, feel free to email me to check if there are any research opportunities available. Unfortunately, I am unable to host undergraduate research assistants who are not current Yale students.
 
 ## Conversation topics
 
