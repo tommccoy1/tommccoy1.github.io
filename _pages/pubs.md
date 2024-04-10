@@ -7,7 +7,13 @@ redirect_from:
 
 {% include base_path %}
 
+<em>This page is only updated sporadically. For a fully up-to-date list, see <a href="https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en">my Google Scholar page</a>.</em>
+
 # 2023
+<p style="margin-left: 40px; text-indent: -40px;">
+Thomas L. Griffiths, Jian-Qiao Zhu, Erin Grant, and <b>R. Thomas McCoy</b>. Bayes in the Age of Intelligent Machines. <em>arXiv preprint arXiv 2311.10206</em>. [<a href="https://arxiv.org/pdf/2311.10206.pdf">pdf</a>]
+</p>
+
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve. <em>arXiv preprint arXiv 2309.13638</em>. [<a href="https://arxiv.org/pdf/2309.13638.pdf">pdf</a>]
 </p>
