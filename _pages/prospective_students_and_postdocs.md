@@ -15,7 +15,7 @@ I would be most excited to work with applicants who are interested in both lingu
 
 If you are applying to the CS Department, note that my name does not appear on the list of potential advisors in the application form. Do not be alarmed by that&mdash;just make sure to mention my name in your statement of purpose. If you do so, I will be guaranteed to see your application. The reason that my name does not show up on the list is because the list only includes faculty whose home department is CS, whereas my home department is Linguistics, but I am nonetheless able to advise students through CS.
 
-**Prospective postdocs:** I will be hiring a postdoc to start in the Fall of 2025. If you are interested in doing a postdoc with me, please email me. 
+**Prospective postdocs:** I will be hiring a postdoc to start in the Fall of 2025. For more information, please see [https://rtmccoy.com/prospective_postdocs/](https://rtmccoy.com/prospective_postdocs/).
 
 **Prospective undergraduate researchers:** If you are interested in conducting a research project with me, please email me. Note that I may not be able to work with undergraduates at institutions other than Yale.
 
