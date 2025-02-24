@@ -23,3 +23,7 @@ redirect_from:
 **Phonetic Scrabble:** Antonio Martinez and I made a set of wooden scrabble tiles in the International Phonetic Alphabet (IPA) based on counts from Gretchen McCulloch. Here are some [pictures of it](https://allthingslinguistic.com/post/116416236538/these-ipa-scrabble-pictures-are-courtesy-of-tom) on Gretchen McCulloch's blog.
 
 
+**Miscellaneous fun facts:**
+- Al Roker once described me as "sick and diabolical" (at 58:40 in [this video](https://www.youtube.com/watch?v=-NZ3cTM9WqU&t=566s)).
+- There is a restaurant in Fitchburg, Wisconsin, that sounds like my name. It's called Atomic Koi.
+
