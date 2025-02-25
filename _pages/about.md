@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am an Assistant Professor in the [Department of Linguistics](https://ling.yale.edu/) at Yale University. I am also affiliated with the [Department of Computer Science](https://cpsc.yale.edu/) and the [Wu Tsai Institute](https://wti.yale.edu/). I study computational linguistics using techniques from cognitive science, machine learning, and natural language processing. 
+I am an Assistant Professor in the [Department of Linguistics](https://ling.yale.edu/) at Yale University. I am also affiliated with the [Department of Computer Science](https://cpsc.yale.edu/) and the [Wu Tsai Institute](https://wti.yale.edu/). I study computational linguistics using techniques from cognitive science and artificial intelligence. 
 
 My research focuses on the computational principles that underlie human language. I am particularly interested in language learning and linguistic representations. On the side of learning, I investigate how people can acquire language from so little data and how we can replicate this ability in machines. On the side of representations, I investigate what types of machines can represent the structure of language and how they do it. Much of my research involves neural network language models, with an emphasis on connecting such systems to linguistics.
 
