@@ -22,13 +22,13 @@ For a longer overview of my research, click [here](https://rtmccoy.com/research/
 
 ## Prospective PhD students, postdocs, and undergraduate researchers
 
-I am currently considering postdoc applications for Fall 2025. See [here](https://rtmccoy.com/prospective_postdocs/) for more information.
+I am currently considering postdoc applications for Fall 2026. See [here](https://rtmccoy.com/prospective_postdocs/) for more information.
 
-I will also be considering PhD applicants for Fall 2025. See [here](https://rtmccoy.com/prospective_students_and_postdocs) for more information.
+I will also be considering PhD applicants for Fall 2026. See [here](https://rtmccoy.com/prospective_students_and_postdocs) for more information.
 
 I am not accepting Master's students at this time.
 
-If you are a current Yale undergraduate interested in research, feel free to email me to check if there are any research opportunities available. Unfortunately, I am unable to host undergraduate research assistants who are not current Yale students.
+If you are a current Yale undergraduate interested in research, feel free to email me to check if there are any research opportunities available. Unfortunately, I am unable to host undergraduate research assistants who are not current Yale students, and I am unable to host high school students as research assistants.
 
 ## Representative papers
 

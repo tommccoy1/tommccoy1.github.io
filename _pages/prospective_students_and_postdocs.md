@@ -5,7 +5,7 @@ author_profile: true
 
 Thank you for your interest in working with me!
 
-**Prospective PhD students:** I, along with my colleagues, will be considering applications for PhD students who would start in the Fall 2025 semester. I can advise PhD students through either the [Yale Linguistics Department](https://ling.yale.edu/academics/graduate/graduate-admissions) or the [Yale Computer Science Department](https://cpsc.yale.edu/academics/graduate-program/yale-computer-science-phd-program-admissions-faq). For either program, you should apply through the centralized [Yale PhD admissions website](https://gsas.yale.edu/admissions/phdmasters-application-process). 
+**Prospective PhD students:** I, along with my colleagues, will be considering applications for PhD students who would start in the Fall 2026 semester. I can advise PhD students through either the [Yale Linguistics Department](https://ling.yale.edu/academics/graduate/graduate-admissions) or the [Yale Computer Science Department](https://cpsc.yale.edu/academics/graduate-program/yale-computer-science-phd-program-admissions-faq). For either program, you should apply through the centralized [Yale PhD admissions website](https://gsas.yale.edu/admissions/phdmasters-application-process). 
 
 For both departments, admissions decisions are made by the department as a whole, not by individual faculty. If you are interested in working with me, please list me as a potential advisor on your application; if you do so, I will be guaranteed to see and read your application. There is no need to send me your application or CV separately from the official application process. There is also no need to email me to express your interest, unless you have a question that is not answered here; emailing me will not affect your chances of acceptance.
 
@@ -15,7 +15,7 @@ I would be most excited to work with applicants who are interested in both lingu
 
 If you are applying to the CS Department, note that my name does not appear on the list of potential advisors in the application form. Do not be alarmed by that&mdash;just make sure to mention my name in your statement of purpose. If you do so, I will be guaranteed to see your application. The reason that my name does not show up on the list is because the list only includes faculty whose home department is CS, whereas my home department is Linguistics, but I am nonetheless able to advise students through CS.
 
-**Prospective postdocs:** I will be hiring a postdoc to start in the Fall of 2025 (the exact date is flexible). For more information, please see [https://rtmccoy.com/prospective_postdocs/](https://rtmccoy.com/prospective_postdocs/).
+**Prospective postdocs:** I will be hiring a postdoc to start in the Fall of 2026 (the exact date is flexible). For more information, please see [https://rtmccoy.com/prospective_postdocs/](https://rtmccoy.com/prospective_postdocs/).
 
 **Prospective undergraduate researchers:** If you are interested in conducting a research project with me, please email me. Note that I may not be able to work with undergraduates at institutions other than Yale.
 
