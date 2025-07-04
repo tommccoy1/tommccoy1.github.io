@@ -9,22 +9,95 @@ redirect_from:
 
 <em>This page is only updated sporadically. For a fully up-to-date list, see <a href="https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en">my Google Scholar page</a>.</em>
 
+
+# 2025
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Modeling rapid language learning by distilling Bayesian priors into artificial neural networks. <em>Nature Communications</em>. [<a href="https://www.nature.com/articles/s41467-025-59957-y">paper</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Tong Zheng, Lichang Chen, Simeng Han, <b>R. Thomas McCoy</b>, and Heng Huang. Learning to Reason via Mixture-of-Thought for Logical Reasoning. <em>arXiv preprint arXiv 2505.15817</em>. [<a href="https://arxiv.org/pdf/2505.15817">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Simeng Han, Stephen Xia, Grant Zhang, Howard Dai, Chen Liu, Lichang Chen, Hoang Huy Nguyen, Hongyuan Mei, Jiayuan Mao, and <b>R. Thomas McCoy</b>. Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models. <em>arXiv preprint arXiv 2505.10844</em>. [<a href="https://arxiv.org/pdf/2505.10844">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Nathan A. Chi, Teodor Malchev, Riley Kong, Ryan A. Chi, Lucas Huang, Ethan A. Chi, <b>R. Thomas McCoy</b>, and Dragomir Radev. ModeLing: A novel dataset for testing linguistic reasoning in language models. <em>Proceedings of the Eighth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2025)</em>. [<a href="https://aclanthology.org/2025.loresmt-1.10.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Liyi Zhang, Veniamin Veselovsky, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Identifying and Mitigating the Influence of the Prior Distribution in Large Language Models. <em>arXiv preprint arXiv 2504.12585</em>. [<a href="https://arxiv.org/pdf/2504.12585">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Max Gupta, Sunayana Rane, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Convolutional Neural Networks Can (Meta-)Learn the Same-Different Relation.  <em>Proceedings of the 47th Annual Meeting of the Cognitive Science Society</em>. [<a href="https://arxiv.org/pdf/2503.23212">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Ioana Marinescu, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Neural Networks Can Capture Human Concept Learning Without Assuming Symbolic Representations. <em>OSF preprint</em>. [<a href="https://osf.io/preprints/psyarxiv/3qjfg_v1">OSF link</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Alexander Ku, Declan Campbell, Xuechunzi Bai, Jiayi Geng, Ryan Liu, Raja Marjieh, <b>R. Thomas McCoy</b>, Andrew Nam, Ilia Sucholutsky, Veniamin Veselovsky, Liyi Zhang, Jian-Qiao Zhu, and Thomas L. Griffiths. Using the tools of cognitive science to understand large language models at different levels of analysis. <em>arXiv preprint arXiv 2503.13401</em>. [<a href="https://arxiv.org/pdf/2503.13401">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Gianluca Bencomo, Max Gupta, Ioana Marinescu, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Teasing Apart Architecture and Initial Weights as Sources of Inductive Bias in Neural Networks. <em>Proceedings of the 47th Annual Meeting of the Cognitive Science Society</em>. [<a href="https://arxiv.org/pdf/2502.20237">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Zhenghao Zhou, Robert Frank, <b>R. Thomas McCoy</b>. Is In-Context Learning a Type of Error-Driven Learning? Evidence from the Inverse Frequency Effect in Structural Priming. <em>NAACL</em>. [<a href="https://aclanthology.org/2025.naacl-long.586.pdf">pdf</a>]
+</p>
+
+
+# 2024
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Leroy Z. Wang, <b>R. Thomas McCoy</b>, and Shane Steinert-Threlkeld. Minimization of Boolean Complexity in In-Context Concept Learning. <em>arXiv preprint arXiv 2412.02823</em>. [<a href="https://arxiv.org/pdf/2412.02823">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of autoregression show how large language models are shaped by the problem they are trained to solve. <em>Proceedings of the National Academy of Sciences</em>. [<a href="https://www.pnas.org/doi/pdf/10.1073/pnas.2322420121">pdf</a>]
+</p>
+
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Mathew D. Hardy, and Thomas L. Griffiths. When a language model is optimized for reasoning, does it still show embers of autoregression? An analysis of OpenAI o1. <em>arXiv preprint arXiv 2410.01792</em>. [<a href="https://arxiv.org/pdf/2410.01792">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Thomas L. Griffiths, Jian-Qiao Zhu, Erin Grant, and <b>R. Thomas McCoy</b>. Bayes in the Age of Intelligent Machines. <em>Current Directions in Psychological Science</em>. [<a href="https://journals.sagepub.com/doi/pdf/10.1177/09637214241262329?casa_token=BkkOwaVJKPAAAAAA:Ddb7oMAFas6_UWvqx9b9wngYgzlfMwKztxqCb8x2f01rUKzJ29GGhNejxPVmB4xtDcu-fkSWLjNMLg">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Akshara Prabhakar, Thomas L. Griffiths, and <b>R. Thomas McCoy</b>. Deciphering the factors influencing the efficacy of chain-of-thought: Probability, memorization, and noisy reasoning. <em>Findings of EMNLP.</em> [<a href="https://aclanthology.org/2024.findings-emnlp.212.pdf">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Ioana Marinescu, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Distilling symbolic priors for concept learning into neural networks. <em>Proceedings of the 46th Annual Meeting of the Cognitive Science Society.</em> [<a href="https://escholarship.org/uc/item/2rz450nc">CogSci link</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Meta-learning as a bridge between neural networks and symbolic Bayesian models. <em>Behavioral and Brain Sciences</em> (response to "Meta-learned models of cognition"). [<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/metalearning-as-a-bridge-between-neural-networks-and-symbolic-bayesian-models/185DB00366FD4F9B218E36F32886242F">BBS link</a>]
+</p>
+
+
 # 2023
-<p style="margin-left: 40px; text-indent: -40px;">
-Thomas L. Griffiths, Jian-Qiao Zhu, Erin Grant, and <b>R. Thomas McCoy</b>. Bayes in the Age of Intelligent Machines. <em>arXiv preprint arXiv 2311.10206</em>. [<a href="https://arxiv.org/pdf/2311.10206.pdf">pdf</a>]
-</p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve. <em>arXiv preprint arXiv 2309.13638</em>. [<a href="https://arxiv.org/pdf/2309.13638.pdf">pdf</a>]
+Liyi Zhang, <b>R. Thomas McCoy</b>, Theodore R Sumers, Jian-Qiao Zhu, Thomas L. Griffiths. Deep de finetti: Recovering topic distributions from large language models. <em>arXiv preprint arXiv 2312.14226</em>. [<a href="https://arxiv.org/pdf/2312.14226">pdf</a>]
 </p>
-
 
 <p style="margin-left: 40px; text-indent: -40px;">
 <b>R. Thomas McCoy</b>, Paul Smolensky, Tal Linzen, Jianfeng Gao, and Asli Celikyilmaz. How much do language models copy from their training data? Evaluating linguistic novelty in text generation using RAVEN. <em>Transactions of the Association for Computational Linguistics</em>. [<a href="https://aclanthology.org/2023.tacl-1.38.pdf">pdf</a>]
-</p>
-
-<p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Modeling rapid language learning by distilling Bayesian priors into artificial neural networks. <em>arXiv preprint arXiv 2305.14701</em>. [<a href="https://arxiv.org/pdf/2305.14701.pdf">pdf</a>]
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
