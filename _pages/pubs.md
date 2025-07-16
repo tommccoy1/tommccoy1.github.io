@@ -7,7 +7,7 @@ redirect_from:
 
 {% include base_path %}
 
-<em>This page is only updated sporadically. For a fully up-to-date list, see <a href="https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en">my Google Scholar page</a>.</em>
+<em>This page is only updated sporadically. For a fully up-to-date list of publications, see <a href="https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en">my Google Scholar page</a>. For a description of my research interests, see <a href="https://rtmccoy.com/research/">this page</a>.</em>
 
 
 # 2025
