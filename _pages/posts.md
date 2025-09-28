@@ -7,6 +7,9 @@ redirect_from:
 
 {% include base_path %}
 
+
+[Theory of mind as a central skill for researchers](http://rtmccoy.com/posts/theory_of_mind.html)
+
 [Exploring the shift cipher data from our paper "Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve"](https://rtmccoy.com/embers_shift_ciphers.html)
 
 [Tips and tricks for running experiments on Amazon Mechanical Turk](http://rtmccoy.com/posts/mechanical-turk-tips-and-tricks.html)
