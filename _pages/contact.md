@@ -10,9 +10,9 @@ redirect_from:
 **Email:** [tom.mccoy@yale.edu](mailto:tom.mccoy@yale.edu)
 
 **Mailing Address:**   
-Department of Linguistics, Dow Hall    
-370 Temple St.   
+Department of Linguistics
+37 Hillhouse Avenue
 New Haven, CT 06511
 
-**Office:** Room 302, Dow Hall
+**Office:** Room 208, 37 Hillhouse
 
