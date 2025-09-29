@@ -27,6 +27,7 @@ body {
 @media (max-width: 800px) {
     .contentwrapper {
       box-shadow: none;
+      border-radius: none;
     }
 }
 
