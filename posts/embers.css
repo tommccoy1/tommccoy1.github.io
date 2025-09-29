@@ -27,6 +27,7 @@ body {
 .contentwrapper (max-width: 600px) {
   margin:0 auto;
   background:white;
+  box-shadow: none;
 }
 
 ol + li {
