@@ -18,14 +18,6 @@ redirect_from:
 
 
 <p style="margin-left: 40px; text-indent: -40px;">
-Tong Zheng, Lichang Chen, Simeng Han, <b>R. Thomas McCoy</b>, and Heng Huang. Learning to Reason via Mixture-of-Thought for Logical Reasoning. <em>arXiv preprint arXiv 2505.15817</em>. [<a href="https://arxiv.org/pdf/2505.15817">pdf</a>]
-</p>
-
-<p style="margin-left: 40px; text-indent: -40px;">
-Simeng Han, Stephen Xia, Grant Zhang, Howard Dai, Chen Liu, Lichang Chen, Hoang Huy Nguyen, Hongyuan Mei, Jiayuan Mao, and <b>R. Thomas McCoy</b>. Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models. <em>arXiv preprint arXiv 2505.10844</em>. [<a href="https://arxiv.org/pdf/2505.10844">pdf</a>]
-</p>
-
-<p style="margin-left: 40px; text-indent: -40px;">
 Nathan A. Chi, Teodor Malchev, Riley Kong, Ryan A. Chi, Lucas Huang, Ethan A. Chi, <b>R. Thomas McCoy</b>, and Dragomir Radev. ModeLing: A novel dataset for testing linguistic reasoning in language models. <em>Proceedings of the Eighth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2025)</em>. [<a href="https://aclanthology.org/2025.loresmt-1.10.pdf">pdf</a>]
 </p>
 
