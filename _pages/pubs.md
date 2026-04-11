@@ -78,7 +78,7 @@ Ioana Marinescu, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Distilling sym
 </p>
 
 <p style="margin-left: 40px; text-indent: -40px;">
-<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Meta-learning as a bridge between neural networks and symbolic Bayesian models. <em>Behavioral and Brain Sciences</em> (response to "Meta-learned models of cognition"). [<a href="https://tommccoy1.github.io/files/metalearned_models_bbs_commentary_mccoy_griffiths.pdf">PDF</a>] [<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/metalearning-as-a-bridge-between-neural-networks-and-symbolic-bayesian-models/185DB00366FD4F9B218E36F32886242F">BBS link</a>[]]
+<b>R. Thomas McCoy</b> and Thomas L. Griffiths. Meta-learning as a bridge between neural networks and symbolic Bayesian models. <em>Behavioral and Brain Sciences</em> (response to "Meta-learned models of cognition"). [<a href="https://tommccoy1.github.io/files/metalearned_models_bbs_commentary_mccoy_griffiths.pdf">PDF</a>] [<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/metalearning-as-a-bridge-between-neural-networks-and-symbolic-bayesian-models/185DB00366FD4F9B218E36F32886242F">BBS link</a>]
 </p>
 
 
