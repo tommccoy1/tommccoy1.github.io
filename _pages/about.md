@@ -32,12 +32,12 @@ If you are a current Yale undergraduate interested in research, feel free to ema
 
 ## Representative papers
 
+- **R. Thomas McCoy**, Paul Soulos, Tal Linzen, and Paul Smolensky. The Emergent Symbolic Structure of Artificial Neural Networks. *arXiv*. [<a href="https://arxiv.org/pdf/2608.29530">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>]
 - <b>R. Thomas McCoy</b> and Thomas L. Griffiths. Modeling rapid language learning by distilling Bayesian priors into artificial neural networks. <em>Nature Communications</em>. [<a href="https://www.nature.com/articles/s41467-025-59957-y">paper</a>]
 - <b>R. Thomas McCoy</b>, Shunyu Yao, Dan Friedman, Matthew Hardy, and Thomas L. Griffiths. Embers of Autoregression: Understanding Large Language Models Through the Problem They are Trained to Solve. <em>Proceedings of the National Academy of Sciences</em>. [<a href="https://www.pnas.org/doi/pdf/10.1073/pnas.2322420121">pdf</a>] [<a href="https://rtmccoy.com/embers_shift_ciphers.html">demo</a>]
 - **R. Thomas McCoy**, Jennifer Culbertson, Paul Smolensky, and Géraldine Legendre. Infinite use of finite means? Evaluating the generalization of center embedding learned from an artificial grammar. <em>Proceedings of the 43rd Annual Conference of the Cognitive Science Society</em>. [<a href="https://psyarxiv.com/r8ct2">pdf</a>] 
 - **R. Thomas McCoy**, Ellie Pavlick, and Tal Linzen. Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference. *ACL 2019*. [<a href="https://www.aclweb.org/anthology/P19-1334.pdf">pdf</a>]  
 - **R. Thomas McCoy**, Robert Frank, and Tal Linzen. Does syntax need to grow on trees? Sources of hierarchical inductive bias in sequence-to-sequence networks. *TACL*. [<a href="https://www.mitpressjournals.org/doi/pdf/10.1162/tacl_a_00304">pdf</a>] [<a href="http://rtmccoy.com/rnn_hierarchical_biases.html">website</a>]
-- **R. Thomas McCoy**, Tal Linzen, Ewan Dunbar, and Paul Smolensky. RNNs implicitly implement Tensor Product Representations. *ICLR 2019*. [<a href="https://openreview.net/pdf?id=BJx0sjC5FX">pdf</a>] [<a href="https://tommccoy1.github.io/tpdn/tpr_demo.html">demo</a>]
 
 
 

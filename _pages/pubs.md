@@ -10,6 +10,55 @@ redirect_from:
 <em>This page is only updated sporadically. For a fully up-to-date list of publications, see <a href="https://scholar.google.com/citations?user=xSavR6cAAAAJ&hl=en">my Google Scholar page</a>. For a description of my research interests, see <a href="https://rtmccoy.com/research/">this page</a>.</em>
 
 
+
+# 2026
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Abigail L. Tenenbaum, Zhang Enyan, and Zhenghao Herbert Zhou. Reconciling symbols and neural networks: Evidence for a quasi-symbolic view. <em>Current Opinion in Behavioral Sciences</em>. [<a href="https://www.sciencedirect.com/science/article/pii/S2352154626000525">paper</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>, Paul Soulos, Tal Linzen, and Paul Smolensky. The Emergent Symbolic Structure of Artificial Neural Networks. *arXiv*. [<a href="https://arxiv.org/pdf/2608.29530">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Zhang Enyan and <b>R. Thomas McCoy</b>. A Unifying Perspective on Language Model Representations: From Filler-Role Structure to Mechanistic Interpretability. *NeurIPS*. [<a href="https://arxiv.org/pdf/2608.29034">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Deja Davis and <b>R. Thomas McCoy</b>. Evaluating the Usage of African-American Vernacular English in Large Language Models. *International Conference on Human-Computer Interaction*. [<a href="https://link.springer.com/chapter/10.1007/978-3-032-29903-1_15">paper</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Claire Hobbs and <b>R. Thomas McCoy</b>. Collocational bootstrapping: A hypothesis about the learning of subject-verb agreement in humans and neural networks. *Conference on Computational Natural Language Learning (CoNLL)*. [<a href="https://aclanthology.org/2026.conll-main.7.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Zhenghao Herbert Zhou, William Dai, Maya Viswanathan, Simon Charlow, <b>R. Thomas McCoy</b>, and Robert Frank. What exactly do children receive in language acquisition? a case study on CHILDES with automated detection of filler-gap dependencies. *Conference on Computational Natural Language Learning (CoNLL)*. [<a href="https://aclanthology.org/2026.conll-main.42.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;"> 
+Zhenghao Herbert Zhou, <b>R. Thomas McCoy</b>, and Robert Frank. Causal Interventions on Continuous Variables: A Case Study on Verb Bias in Steering Vectors for In-Context Learning. *EMNLP*. [<a href="https://arxiv.org/pdf/2605.29971">pdf</a>]
+</p>
+
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Ioana Marinescu, <b>R. Thomas McCoy</b>, and Thomas L. Griffiths. Neural Networks Can Capture Human Concept Learning when Trained with Symbolic Priors. Accepted to *Psychological Review*. [<a href="https://osf.io/preprints/psyarxiv/3qjfg_v1">preprint</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Xiaomeng Zhu, <b>R. Thomas McCoy</b>, and Robert Frank. The Structural Sources of Verb Meanings Revisited: Large Language Models Display Syntactic Bootstrapping. *Open Mind*. [<a href="https://watermark02.silverchair.com/opmi.a.391.pdf">pdf</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+Thomas L. Griffiths, Brenden M. Lake, <b>R. Thomas McCoy</b>, Ellie Pavlick, and Taylor W. Webb. Whither symbols in the era of advanced neural networks? *Trends in Cognitive Sciences*. [<a href="https://www.cell.com/trends/cognitive-sciences/fulltext/S1364-6613(26)00028-8">paper</a>]
+</p>
+
+<p style="margin-left: 40px; text-indent: -40px;">
+<b>R. Thomas McCoy</b>. Not-so-strange love: Language models and generative linguistic theories are more compatible than they appear. Commentary on “How
+Linguistics Learned to Stop Worrying and Love the Language Models”. *Behavioral and Brain Sciences*.[<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/notsostrange-love-language-models-and-generative-linguistic-theories-are-more-compatible-than-they-appear/3A7C39974303EBA354E8403456074C79">paper</a>]
+</p>
+
 # 2025
 
 <p style="margin-left: 40px; text-indent: -40px;">
