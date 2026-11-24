@@ -22,7 +22,7 @@ redirect_from:
 
 * [Not Quite Right](https://naclo.org/resources/problems/2025/N2025-F.pdf). Statistical biases of large language models (LLMs).
     * Based on one of my [papers](https://www.pnas.org/doi/10.1073/pnas.2322420121) with Shunyu Yao, Dan Friedman, Mathew Hardy, and Tom Griffiths.
-    * Reprinted in [Scientific America](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
+    * Reprinted in [Scientific American](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
 
 * [Going By the Numbers](https://naclo.org/resources/problems/2025/N2025-K.pdf). Neural network probing classifiers.
 
