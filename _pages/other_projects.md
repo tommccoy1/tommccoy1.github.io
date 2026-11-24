@@ -17,6 +17,23 @@ redirect_from:
 
 **North American Computational Linguistics Open Competition (NACLO):** NACLO is a contest that introduces high school students to computational linguistics via puzzles. I have contributed the following puzzles:
 
+* [Game: Set Match](https://naclo.org/resources/problems/2026/N2026-B.pdf). Adjective semantics.
+    * Reprinted in [Scientific American](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
+
+* [Not Quite Right](https://naclo.org/resources/problems/2025/N2025-F.pdf). Statistical biases of large language models (LLMs).
+    * Based on one of my [papers](https://www.pnas.org/doi/10.1073/pnas.2322420121) with Shunyu Yao, Dan Friedman, Mathew Hardy, and Tom Griffiths.
+    * Reprinted in [Scientific America](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
+
+* [Going By the Numbers](https://naclo.org/resources/problems/2025/N2025-K.pdf). Neural network probing classifiers.
+
+* [Generally Speaking](https://naclo.org/resources/problems/2024/NACLO2024ROUND1_booklet.pdf). Out-of-distribution generalization.
+
+* [A Trip Down Memory Lane](https://naclo.org/resources/problems/2024/NACLO2024ROUND2_booklet.pdf). Interpreting hidden states in recurrent neural networks.
+
+* [Vloxes](https://naclo.org/resources/problems/2023/N2023-C.pdf). Distributional learning of adjective meaning.
+
+* [Wordnet Battleship](https://naclo.org/resources/problems/2023/N2023-K.pdf). Lexical relationships and wordnets. Written with Aleka Blackwell.
+
 * [Arabana Kinship](https://ioling.org/booklets/iol-2022-indiv-prob.us.pdf). Arabana kinship system (problem for the International Linguistics Olympiad, not NACLO).
 	* Received the [solver's choice award](https://ioling.org/problems/solvers_choice) at the 2022 International Linguistics Olympiad.
 * [Stopping for a Spell](https://www.nacloweb.org/resources/problems/2022/N2022-L.pdf). Finite-state transducers for grapheme-to-phoneme conversion.
@@ -41,9 +58,11 @@ redirect_from:
 * [A Little Tshiluba](https://www.nacloweb.org/resources/problems/2017/N2017-A.pdf). Tshiluba noun classes. 
 	* This puzzle was added to the [PuzzLing Machines](https://arxiv.org/abs/2004.13161) dataset, which uses Linguistics Olympiad puzzles as a challenging evaluation for computational models of language.
 * [LOLWUT](https://www.nacloweb.org/resources/problems/2017/N2017-C.pdf). Applying regular expressions to Internet laughter. Written with Jordan Ho and Patrick Littell.
+    * Reprinted in *The Language Lover's Puzzle Book* by Alex Bellos.
 * [Nothing but Net(works)](https://www.nacloweb.org/resources/problems/2017/N2017-H.pdf). Neural networks.
 * [That's an Order](https://www.nacloweb.org/resources/problems/2016/N2016-D.pdf). Cebuano logic puzzle. Written with Dorottya Demszky and Yiwei Luo.
 * [Kings, Queens, and Counts](https://www.nacloweb.org/resources/problems/2016/N2016-K.pdf). Word embeddings.
 * [Easy-Peasy-Malagasy](https://www.nacloweb.org/resources/problems/2015/N2015-L.pdf). Malagasy number system.
+    * Reprinted in *The Language Lover's Puzzle Book* by Alex Bellos.
 * [Lexicondensed](https://www.nacloweb.org/resources/problems/2014/N2014-J.pdf). Rewrite rules.
 
