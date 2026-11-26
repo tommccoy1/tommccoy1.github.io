@@ -24,6 +24,20 @@ body {
 }
 
 
+ol.paired > li > ol {
+  display: inline-block;   /* lets "a." sit on the same line as "1." */
+  vertical-align: top;
+  margin: 0;               /* drops the 20px bottom margin from the "ol" rule */
+  padding: 0 0 10px 1.5em; /* left: gap between "1." and "a."; bottom: keeps the gap between "1." and "2." */
+}
+
+ol.paired > li > ol > li {
+  margin: 0;               /* overrides "li { margin: 10px 0 }" */
+}
+
+ol.paired > li > ol > li + li {
+  margin-top: 4px;         /* space between "a." and "b." (was 10px) */
+}
 header, section, footer {
   display:block;
 }
