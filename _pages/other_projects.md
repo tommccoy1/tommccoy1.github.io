@@ -21,7 +21,7 @@ redirect_from:
     * Reprinted in [Scientific American](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
 
 * [Not Quite Right](https://naclo.org/resources/problems/2025/N2025-F.pdf). Statistical biases of large language models (LLMs).
-    * Based on one of my [papers](https://www.pnas.org/doi/10.1073/pnas.2322420121) with Shunyu Yao, Dan Friedman, Mathew Hardy, and Tom Griffiths.
+    * Based on [one of my papers](https://www.pnas.org/doi/10.1073/pnas.2322420121) with Shunyu Yao, Dan Friedman, Mathew Hardy, and Tom Griffiths.
     * Reprinted in [Scientific American](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
 
 * [Going By the Numbers](https://naclo.org/resources/problems/2025/N2025-K.pdf). Neural network probing classifiers.
@@ -38,18 +38,18 @@ redirect_from:
 	* Received the [solver's choice award](https://ioling.org/problems/solvers_choice) at the 2022 International Linguistics Olympiad.
 * [Stopping for a Spell](https://www.nacloweb.org/resources/problems/2022/N2022-L.pdf). Finite-state transducers for grapheme-to-phoneme conversion.
 * [Out of Order](https://www.nacloweb.org/resources/problems/2022/N2022-G.pdf). Filler-role representations.
-	* Based on one of my [papers](https://openreview.net/pdf?id=BJx0sjC5FX) with Tal Linzen, Ewan Dunbar, and Paul Smolensky.
+	* Based on [one of my papers](https://openreview.net/pdf?id=BJx0sjC5FX) with Tal Linzen, Ewan Dunbar, and Paul Smolensky.
 * [Who Saw the Bear?](https://www.nacloweb.org/resources/problems/2022/N2022-B.pdf). Turkish syntax and morphology.
 * [Made You Look!](https://www.nacloweb.org/resources/problems/2021/N2021-D.pdf). Eye tracking and predictive processing.
 * [A Stress Test](https://www.nacloweb.org/resources/problems/2021/N2021-Q.pdf). Parameter-based stress assignment. Written with Ryan Chi.
 * [Junk Mail: Letters We Don't Need](https://www.nacloweb.org/resources/problems/2021/N2021-B.pdf). Orthography.
 * [The Tortoise and the Rabbit](https://www.nacloweb.org/resources/problems/2021/N2021-A.pdf). Malagasy syntax.
 * [Password Confusion](https://www.nacloweb.org/resources/problems/2020/N2020-G.pdf). About the poverty of the stimulus.
-	* Based on one of my [papers](https://www.mitpressjournals.org/doi/full/10.1162/tacl_a_00304) with Bob Frank and Tal Linzen.
+	* Based on [one of my papers](https://www.mitpressjournals.org/doi/full/10.1162/tacl_a_00304) with Bob Frank and Tal Linzen.
 * [Cut to the Chase](https://www.nacloweb.org/resources/problems/2020/N2020-Q.pdf). Applying Unification Grammar to Maasai. Written with Lori Levin.
 * [Break it Down!](https://www.nacloweb.org/resources/problems/2019/N2019-G.pdf). Morphological ambiguity. Written with Sonia Reilly.
 * [Infer a Surprise](https://www.nacloweb.org/resources/problems/2019/N2019-O.pdf). Natural Language Inference.
-	* Based on one of my [papers](https://arxiv.org/pdf/1902.01007) with Ellie Pavlick and Tal Linzen.
+	* Based on [one of my papers](https://arxiv.org/pdf/1902.01007) with Ellie Pavlick and Tal Linzen.
 * [A Match Made in Vietname](https://www.nacloweb.org/resources/problems/2018/N2018-F.pdf). Compounds in Vietnamese.
 * [By the Same Token](https://www.nacloweb.org/resources/problems/2018/N2018-G.pdf). The type-token distinction, plus some Shilha morphology.
 * [Sri Lankan Names](https://www.nacloweb.org/resources/problems/2018/N2018-K.pdf). Named entity recognition in Sinhala. Written with Ali Sharman.

@@ -37,3 +37,8 @@
 @import "vendor/font-awesome/font-awesome";
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
+
+.page__content p.list-intro { margin-bottom: 0.3em; }
+.page__content p.list-intro + ul { margin-top: 0; }
+
+

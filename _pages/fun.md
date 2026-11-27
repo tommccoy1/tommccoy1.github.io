@@ -10,6 +10,7 @@ redirect_from:
 **Recursion:** [This page](https://rtmccoy.com/fun/recursion.html) lists my favorite examples of recursion.
 
 **Linguistic curiosities:** Here are some lists of English words and phrases that have interesting properties.
+{: .list-intro}
 * [Minimal pairs for stress](https://rtmccoy.com/fun/stress_minimal_pairs.html): Pairs of English words that are pronounced the same as each other except for where they are stressed (e.g., *desert* vs. *dessert*).
 * [Duality Quality](https://rtmccoy.com/fun/spelling_changes.html): Pairs of English words whose spellings differ by only one letter but which have different numbers of syllables from each other (e.g., *duality* and *quality*).
 * [Reversible phrases](https://rtmccoy.com/fun/reversible_phrases): Familiar two-word English phrases that become other familiar phrases when the order of the two words is swapped (e.g., *chocolate milk* and *milk chocolate*).
@@ -20,7 +21,7 @@ redirect_from:
 **Published crosswords:** As a hobby, I construct crossword puzzles. I have published 35 puzzles in the *New York Times* (solution grids to all the puzzles are [here](https://www.xwordinfo.com/Thumbs?author=Tom+McCoy), but spoiler alert in case you want to solve them! And [here](https://www.xwordinfo.com/WordsByCon?author=Tom+McCoy) are the words that I debuted in the *New York Times*). I have also published crosswords in the *New Yorker*, the *Los Angeles Times*, the *Chronicle of Higher Education*, and *Buzzfeed*.
 
 **Johns Hopkins crossword:** In 2019, I constructed [a crossword puzzle](https://thankyou.jhu.edu/2019/) for Johns Hopkins University as part of the President's annual message of thanks to the community. Some press coverage of the crossword:
-
+{: .list-intro}
 * [JHU HUB](https://hub.jhu.edu/2019/12/12/tom-mccoy-crossword-puzzlemaker/)
 * [Washington Post](https://www.washingtonpost.com/education/2019/12/27/puzzling-over-language-computational-linguistics-researcher-crafts-crossword-johns-hopkins/#comments-wrapper) (behind a paywall)
 
