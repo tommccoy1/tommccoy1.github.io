@@ -9,7 +9,11 @@ redirect_from:
 
 **Recursion:** [This page](https://rtmccoy.com/fun/recursion.html) lists my favorite examples of recursion.
 
-**Minimal pairs for stress:** [This page](https://rtmccoy.com/fun/stress_minimal_pairs.html) lists pairs of English words that are pronounced the same as each other except for where they are stressed (e.g., *desert* vs. *dessert*).
+**Linguistic curiosities:** Here are some lists of English words and phrases that have interesting properties.
+* [Minimal pairs for stress](https://rtmccoy.com/fun/stress_minimal_pairs.html): Pairs of English words that are pronounced the same as each other except for where they are stressed (e.g., *desert* vs. *dessert*).
+* [Duality Quality](https://rtmccoy.com/fun/spelling_changes.html): Pairs of English words whose spellings differ by only one letter but which have different numbers of syllables from each other (e.g., *duality* and *quality*).
+* [Reversible phrases](https://rtmccoy.com/fun/reversible_phrases): Familiar two-word English phrases that become other familiar phrases when the order of the two words is swapped (e.g., *chocolate milk* and *milk chocolate*).
+
 
 **Talk about crosswords and linguistics:** In October 2020, I gave a talk for the National Museum of Language called "Language Squared: The Linguistics of Crosswords." You can view the full talk [here](https://www.youtube.com/watch?v=r5Lhir9eKyY) and can view highlights [here](https://www.youtube.com/watch?v=UwbO8HMrOq4).
 
