@@ -9,14 +9,14 @@ redirect_from:
 
 
 **Yale Grammatical Diversity Project:** A project that explores the syntactic diversity of North American varieties of English. I have contributed webpages about two syntactic phenomena to this project:
-
+{: .list-intro}
 * [*All the further*](https://ygdp.yale.edu/phenomena/all-the-further). Example: *Our car broke down, and Croton was all the further we got.*
 * [Subject contact relatives](https://ygdp.yale.edu/phenomena/subject-contact-relatives). Example: *There was a farmer had a dog.*
 
 **CogSci Demos:** A webpage of demos, developed with Suhas Arehalli, Hongru Zhu, and Tal Linzen, for teaching concepts important to computational cognitive science: [https://cogscidemos.github.io/](https://cogscidemos.github.io/)
 
 **North American Computational Linguistics Open Competition (NACLO):** NACLO is a contest that introduces high school students to computational linguistics via puzzles. I have contributed the following puzzles:
-
+{: .list-intro}
 * [Game: Set Match](https://naclo.org/resources/problems/2026/N2026-B.pdf). Adjective semantics.
     * Reprinted in [Scientific American](https://www.scientificamerican.com/article/try-these-language-puzzles-north-americas-biggest-linguistics-competition/).
 
